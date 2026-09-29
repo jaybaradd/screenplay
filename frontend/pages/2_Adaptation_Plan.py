@@ -18,7 +18,7 @@ if not brief or not plan:
 st.subheader("Frozen cultural brief")
 st.caption(f"{brief['payload']['culture']} · {brief['payload']['locality']} · {brief['payload']['setting']} · {brief['payload']['period']}")
 st.write(brief["payload"]["research_summary"])
-st.dataframe(brief["payload"]["claims"], use_container_width=True)
+st.dataframe(brief["payload"]["claims"], width='stretch')
 for constraint in brief["payload"]["negative_constraints"]:
     st.warning(constraint)
 

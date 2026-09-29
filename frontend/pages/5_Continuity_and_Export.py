@@ -36,7 +36,7 @@ if adapted:
                 "source_blocks": ", ".join(item[:8] for item in block["source_block_ids"]),
                 "layers": ", ".join(block["adaptation_layer_ids"]), "confidence": block["confidence"],
             })
-    st.dataframe(rows, use_container_width=True)
+    st.dataframe(rows, width='stretch')
 
 st.subheader("Download output package")
 if adapted:

@@ -43,7 +43,7 @@ if assets:
                 st.caption(f"{asset['canonical_id'][:8]} · {asset['status']} · attempt {asset['attempt']}")
                 if asset["path"]:
                     try:
-                        st.image(client.asset_bytes(asset["id"]), use_container_width=True)
+                        st.image(client.asset_bytes(asset["id"]), width='stretch')
                     except APIError:
                         st.warning("Image file unavailable")
                 verification = latest_verification.get(asset["id"])

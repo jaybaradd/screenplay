@@ -23,10 +23,10 @@ payload = revision["payload"]
 
 tabs = st.tabs(["Scenes", "Characters", "Production", "State", "Story contract", "Issues"])
 with tabs[0]:
-    edited_scenes = st.data_editor(payload["scenes"], use_container_width=True, num_rows="fixed", key=f"scenes-{revision['id']}")
+    edited_scenes = st.data_editor(payload["scenes"], width='stretch', num_rows="fixed", key=f"scenes-{revision['id']}")
     run_action("Save scene edits", lambda: client.patch(project["id"], "extraction", "/scenes", edited_scenes, revision["sha256"]), key="save-scenes")
 with tabs[1]:
-    edited_characters = st.data_editor(payload["characters"], use_container_width=True, num_rows="fixed", key=f"characters-{revision['id']}")
+    edited_characters = st.data_editor(payload["characters"], width='stretch', num_rows="fixed", key=f"characters-{revision['id']}")
     run_action("Save character edits", lambda: client.patch(project["id"], "extraction", "/characters", edited_characters, revision["sha256"]), key="save-characters")
     if len(payload["characters"]) > 1:
         labels = {f"{item['name']} · {item['id'][:8]}": item["id"] for item in payload["characters"]}
@@ -34,10 +34,10 @@ with tabs[1]:
         duplicates = st.multiselect("Aliases / duplicate records to merge", [label for label in labels if label != primary_label])
         run_action("Merge selected records", lambda: client.merge(project["id"], "character", labels[primary_label], [labels[item] for item in duplicates]), key="merge", disabled=not duplicates)
 with tabs[2]:
-    edited_elements = st.data_editor(payload["production_elements"], use_container_width=True, num_rows="fixed", key=f"elements-{revision['id']}")
+    edited_elements = st.data_editor(payload["production_elements"], width='stretch', num_rows="fixed", key=f"elements-{revision['id']}")
     run_action("Save production edits", lambda: client.patch(project["id"], "extraction", "/production_elements", edited_elements, revision["sha256"]), key="save-production")
 with tabs[3]:
-    st.dataframe(payload["state_transitions"], use_container_width=True)
+    st.dataframe(payload["state_transitions"], width='stretch')
 with tabs[4]:
     st.json(payload["story_contract"])
     if payload.get("extraction_warnings"):
