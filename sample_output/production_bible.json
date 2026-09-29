@@ -1,0 +1,35 @@
+[
+  {
+    "aliases": [],
+    "description": "",
+    "id": "ae6ec863-9d48-5fd4-9e19-05c04b36001f",
+    "kind": "location",
+    "name": "Family House",
+    "owner_character_id": null,
+    "scene_ids": [
+      "bdee878d-e691-557c-a505-2a9e15899e99"
+    ]
+  },
+  {
+    "aliases": [],
+    "description": "",
+    "id": "6ecfc561-5dd7-5f53-922e-d739812562de",
+    "kind": "location",
+    "name": "Market Road",
+    "owner_character_id": null,
+    "scene_ids": [
+      "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+    ]
+  },
+  {
+    "aliases": [],
+    "description": "",
+    "id": "ec0e393f-1bf5-56c7-92d3-b0cc1b5d9195",
+    "kind": "location",
+    "name": "Small Shop",
+    "owner_character_id": null,
+    "scene_ids": [
+      "398cefff-0716-501b-8bff-28f8e8fc64f6"
+    ]
+  }
+]

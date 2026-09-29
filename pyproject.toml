@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mewari-screenplay-studio"
+version = "0.1.0"
+description = "Durable human-in-the-loop cultural screenplay adaptation MVP"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "streamlit>=1.42,<2",
+  "httpx>=0.28,<1",
+  "pydantic>=2.10,<3",
+  "python-dotenv>=1.0,<2",
+  "langgraph>=1.0,<2",
+  "langgraph-checkpoint-sqlite>=3.0,<4",
+  "google-genai>=1.0,<2",
+  "weasyprint>=62,<70",
+  "pillow>=11,<13",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3,<10", "pytest-cov>=6,<8"]
+observability = ["langfuse>=3.0,<4"]
+
+[tool.setuptools.packages.find]
+include = ["backend*", "frontend*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

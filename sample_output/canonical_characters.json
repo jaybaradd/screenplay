@@ -1,0 +1,50 @@
+[
+  {
+    "age_range": null,
+    "aliases": [],
+    "dialect_register": null,
+    "emotional_state": "Unspecified",
+    "id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+    "name": "Amar",
+    "personality": [],
+    "relationships": [],
+    "role": "Extracted speaker",
+    "scene_entrances": [
+      "bdee878d-e691-557c-a505-2a9e15899e99",
+      "69f34aa5-80fe-54a9-8fb9-d79aa9556091",
+      "398cefff-0716-501b-8bff-28f8e8fc64f6"
+    ],
+    "scene_exits": []
+  },
+  {
+    "age_range": null,
+    "aliases": [],
+    "dialect_register": null,
+    "emotional_state": "Unspecified",
+    "id": "f6518184-95e8-5d30-a144-2fd7817437b7",
+    "name": "Meera",
+    "personality": [],
+    "relationships": [],
+    "role": "Extracted speaker",
+    "scene_entrances": [
+      "bdee878d-e691-557c-a505-2a9e15899e99",
+      "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+    ],
+    "scene_exits": []
+  },
+  {
+    "age_range": null,
+    "aliases": [],
+    "dialect_register": null,
+    "emotional_state": "Unspecified",
+    "id": "4f3641a4-f006-5176-b03d-14c3abee98b7",
+    "name": "Shopkeeper",
+    "personality": [],
+    "relationships": [],
+    "role": "Extracted speaker",
+    "scene_entrances": [
+      "398cefff-0716-501b-8bff-28f8e8fc64f6"
+    ],
+    "scene_exits": []
+  }
+]

@@ -1,0 +1,235 @@
+{
+  "deeper_change_requests": [],
+  "layers": [
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [],
+          "affected_scene_ids": [],
+          "cultural_claim_ids": [
+            "mock-claim"
+          ],
+          "do_not_change": [
+            "Core story logic"
+          ],
+          "id": "mock-verbal-decision",
+          "negative_constraints": [
+            "Do not invent culture-specific detail"
+          ],
+          "preserved_invariants": [
+            "Scene order",
+            "Relationships",
+            "Emotional arc"
+          ],
+          "proposed_changes": [
+            "No factual cultural change is applied in mock mode."
+          ],
+          "risks": [
+            "Mock output is not culturally validated"
+          ],
+          "source_observations": [
+            "Source records require human review."
+          ],
+          "uncertainty": [
+            "Live grounding unavailable"
+          ]
+        }
+      ],
+      "layer": "verbal",
+      "objective": "Review verbal adaptations without changing story invariants."
+    },
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [],
+          "affected_scene_ids": [],
+          "cultural_claim_ids": [
+            "mock-claim"
+          ],
+          "do_not_change": [
+            "Core story logic"
+          ],
+          "id": "mock-non_verbal-decision",
+          "negative_constraints": [
+            "Do not invent culture-specific detail"
+          ],
+          "preserved_invariants": [
+            "Scene order",
+            "Relationships",
+            "Emotional arc"
+          ],
+          "proposed_changes": [
+            "No factual cultural change is applied in mock mode."
+          ],
+          "risks": [
+            "Mock output is not culturally validated"
+          ],
+          "source_observations": [
+            "Source records require human review."
+          ],
+          "uncertainty": [
+            "Live grounding unavailable"
+          ]
+        }
+      ],
+      "layer": "non_verbal",
+      "objective": "Review non verbal adaptations without changing story invariants."
+    },
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [],
+          "affected_scene_ids": [],
+          "cultural_claim_ids": [
+            "mock-claim"
+          ],
+          "do_not_change": [
+            "Core story logic"
+          ],
+          "id": "mock-characters-decision",
+          "negative_constraints": [
+            "Do not invent culture-specific detail"
+          ],
+          "preserved_invariants": [
+            "Scene order",
+            "Relationships",
+            "Emotional arc"
+          ],
+          "proposed_changes": [
+            "No factual cultural change is applied in mock mode."
+          ],
+          "risks": [
+            "Mock output is not culturally validated"
+          ],
+          "source_observations": [
+            "Source records require human review."
+          ],
+          "uncertainty": [
+            "Live grounding unavailable"
+          ]
+        }
+      ],
+      "layer": "characters",
+      "objective": "Review characters adaptations without changing story invariants."
+    },
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [],
+          "affected_scene_ids": [],
+          "cultural_claim_ids": [
+            "mock-claim"
+          ],
+          "do_not_change": [
+            "Core story logic"
+          ],
+          "id": "mock-visual_world-decision",
+          "negative_constraints": [
+            "Do not invent culture-specific detail"
+          ],
+          "preserved_invariants": [
+            "Scene order",
+            "Relationships",
+            "Emotional arc"
+          ],
+          "proposed_changes": [
+            "No factual cultural change is applied in mock mode."
+          ],
+          "risks": [
+            "Mock output is not culturally validated"
+          ],
+          "source_observations": [
+            "Source records require human review."
+          ],
+          "uncertainty": [
+            "Live grounding unavailable"
+          ]
+        }
+      ],
+      "layer": "visual_world",
+      "objective": "Review visual world adaptations without changing story invariants."
+    },
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [],
+          "affected_scene_ids": [],
+          "cultural_claim_ids": [
+            "mock-claim"
+          ],
+          "do_not_change": [
+            "Core story logic"
+          ],
+          "id": "mock-story_world-decision",
+          "negative_constraints": [
+            "Do not invent culture-specific detail"
+          ],
+          "preserved_invariants": [
+            "Scene order",
+            "Relationships",
+            "Emotional arc"
+          ],
+          "proposed_changes": [
+            "No factual cultural change is applied in mock mode."
+          ],
+          "risks": [
+            "Mock output is not culturally validated"
+          ],
+          "source_observations": [
+            "Source records require human review."
+          ],
+          "uncertainty": [
+            "Live grounding unavailable"
+          ]
+        }
+      ],
+      "layer": "story_world",
+      "objective": "Review story world adaptations without changing story invariants."
+    },
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [],
+          "affected_scene_ids": [],
+          "cultural_claim_ids": [
+            "mock-claim"
+          ],
+          "do_not_change": [
+            "Core story logic"
+          ],
+          "id": "mock-cultural_precision-decision",
+          "negative_constraints": [
+            "Do not invent culture-specific detail"
+          ],
+          "preserved_invariants": [
+            "Scene order",
+            "Relationships",
+            "Emotional arc"
+          ],
+          "proposed_changes": [
+            "No factual cultural change is applied in mock mode."
+          ],
+          "risks": [
+            "Mock output is not culturally validated"
+          ],
+          "source_observations": [
+            "Source records require human review."
+          ],
+          "uncertainty": [
+            "Live grounding unavailable"
+          ]
+        }
+      ],
+      "layer": "cultural_precision",
+      "objective": "Review cultural precision adaptations without changing story invariants."
+    }
+  ],
+  "story_preservation_notes": [
+    "Preserve scene order, causal events, relationships and emotional arc."
+  ],
+  "synthesis": [
+    "Apply only source-backed changes approved in the six layer plans.",
+    "StoryContract invariants override decorative cultural additions.",
+    "Uncertain language remains restrained and visibly marked."
+  ]
+}

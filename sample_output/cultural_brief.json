@@ -1,0 +1,31 @@
+{
+  "claims": [
+    {
+      "claim": "No cultural factual claim is asserted in mock mode.",
+      "confidence": "low",
+      "id": "mock-claim",
+      "layers": [
+        "cultural_precision"
+      ],
+      "prohibited_extrapolations": [
+        "Do not treat mock content as cultural evidence."
+      ],
+      "scope": "Workflow demonstration only",
+      "source_url": "mock://no-live-grounding",
+      "time_period": "Not applicable",
+      "uncertainty": "Configure live Gemini grounding before presenting cultural output."
+    }
+  ],
+  "culture": "Maidani Mewari",
+  "locality": "Rajsamand plains",
+  "negative_constraints": [
+    "Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery.",
+    "Do not invent Mewari dialogue or infer caste, religion or class."
+  ],
+  "open_questions": [
+    "Live cultural grounding has not run."
+  ],
+  "period": "Contemporary 2020-2026",
+  "research_summary": "Mock mode validates engineering flow, not cultural accuracy.",
+  "setting": "rural"
+}

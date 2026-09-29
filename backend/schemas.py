@@ -1,0 +1,326 @@
+from __future__ import annotations
+
+from datetime import datetime, timezone
+from enum import StrEnum
+from typing import Any, Literal
+
+from pydantic import BaseModel, ConfigDict, Field
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+class StrictModel(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+
+class BlockType(StrEnum):
+    action = "action"
+    dialogue = "dialogue"
+    transition = "transition"
+
+
+class ContentBlock(StrictModel):
+    id: str
+    type: BlockType
+    text: str
+    speaker_id: str | None = None
+    speaker_label: str | None = None
+    source_start: int = 0
+    source_end: int = 0
+
+
+class SceneRecord(StrictModel):
+    id: str
+    number: int
+    heading: str
+    int_ext: str = "UNKNOWN"
+    location_id: str | None = None
+    location: str = "Unknown"
+    sub_location: str | None = None
+    time: str | None = None
+    day_or_date: str | None = None
+    weather: str | None = None
+    mood: str | None = None
+    summary: str
+    dramatic_purpose: str
+    blocks: list[ContentBlock] = Field(default_factory=list)
+    character_ids: list[str] = Field(default_factory=list)
+    production_element_ids: list[str] = Field(default_factory=list)
+
+
+class Relationship(StrictModel):
+    target_character_id: str
+    label: str
+    notes: str | None = None
+
+
+class CharacterRecord(StrictModel):
+    id: str
+    name: str
+    aliases: list[str] = Field(default_factory=list)
+    age_range: str | None = None
+    role: str | None = None
+    relationships: list[Relationship] = Field(default_factory=list)
+    personality: list[str] = Field(default_factory=list)
+    dialect_register: str | None = None
+    emotional_state: str | None = None
+    scene_entrances: list[str] = Field(default_factory=list)
+    scene_exits: list[str] = Field(default_factory=list)
+
+
+class ProductionElement(StrictModel):
+    id: str
+    kind: Literal[
+        "location", "set", "costume", "grooming", "jewellery", "prop", "food",
+        "vehicle", "animal", "extra", "ritual", "gesture", "sound"
+    ]
+    name: str
+    aliases: list[str] = Field(default_factory=list)
+    description: str = ""
+    scene_ids: list[str] = Field(default_factory=list)
+    owner_character_id: str | None = None
+
+
+class StateSnapshot(StrictModel):
+    character_id: str
+    scene_id: str
+    costume_id: str | None = None
+    carries: list[str] = Field(default_factory=list)
+    knows: list[str] = Field(default_factory=list)
+    injuries: list[str] = Field(default_factory=list)
+    relationship_state: dict[str, str] = Field(default_factory=dict)
+    emotion: str | None = None
+
+
+class StateTransition(StrictModel):
+    character_id: str
+    scene_id: str
+    before: StateSnapshot
+    events: list[str] = Field(default_factory=list)
+    after: StateSnapshot
+
+
+class StoryContract(StrictModel):
+    central_dramatic_purpose: str
+    relationship_invariants: list[str] = Field(default_factory=list)
+    scene_purposes: dict[str, str] = Field(default_factory=dict)
+    plot_invariants: list[str] = Field(default_factory=list)
+    emotional_arc: list[str] = Field(default_factory=list)
+    prohibited_changes: list[str] = Field(default_factory=list)
+
+
+class SourceScreenplay(StrictModel):
+    title: str
+    detected_language: str
+    original_text: str
+    scenes: list[SceneRecord]
+    characters: list[CharacterRecord]
+    production_elements: list[ProductionElement]
+    state_transitions: list[StateTransition] = Field(default_factory=list)
+    story_contract: StoryContract
+    extraction_warnings: list[str] = Field(default_factory=list)
+
+
+class CulturalClaim(StrictModel):
+    id: str
+    claim: str
+    scope: str
+    time_period: str
+    source_url: str
+    confidence: Literal["high", "medium", "low"]
+    layers: list[str]
+    uncertainty: str | None = None
+    prohibited_extrapolations: list[str] = Field(default_factory=list)
+
+
+class CulturalBrief(StrictModel):
+    culture: str
+    locality: str
+    setting: str
+    period: str
+    claims: list[CulturalClaim]
+    negative_constraints: list[str]
+    open_questions: list[str]
+    research_summary: str
+
+
+class LayerDecision(StrictModel):
+    id: str
+    source_observations: list[str]
+    proposed_changes: list[str]
+    affected_scene_ids: list[str]
+    affected_character_ids: list[str]
+    preserved_invariants: list[str]
+    cultural_claim_ids: list[str]
+    uncertainty: list[str]
+    risks: list[str]
+    do_not_change: list[str]
+    negative_constraints: list[str]
+
+
+class LayerPlan(StrictModel):
+    layer: Literal["verbal", "non_verbal", "characters", "visual_world", "story_world", "cultural_precision"]
+    objective: str
+    decisions: list[LayerDecision]
+
+
+class AdaptationPlan(StrictModel):
+    layers: list[LayerPlan]
+    synthesis: list[str]
+    deeper_change_requests: list[str]
+    story_preservation_notes: list[str]
+
+
+class AdaptedBlock(StrictModel):
+    id: str
+    source_block_ids: list[str]
+    type: BlockType
+    speaker_id: str | None = None
+    adapted_text: str
+    adaptation_layer_ids: list[str]
+    cultural_claim_ids: list[str]
+    explanation: str
+    confidence: Literal["high", "medium", "low"]
+    changed_dimensions: list[str]
+
+
+class AdaptedScene(StrictModel):
+    id: str
+    source_scene_id: str
+    heading: str
+    summary: str
+    blocks: list[AdaptedBlock]
+
+
+class AdaptedScreenplay(StrictModel):
+    title: str
+    output_script: str
+    scenes: list[AdaptedScene]
+    preservation_summary: str
+
+
+class ContinuityIssue(StrictModel):
+    id: str
+    severity: Literal["blocking", "warning", "info"]
+    code: str
+    entity_id: str | None = None
+    expected: str | None = None
+    actual: str | None = None
+    affected_scene_ids: list[str]
+    message: str
+    suggested_resolution: str | None = None
+
+
+class AppearanceSpec(StrictModel):
+    id: str
+    character_id: str
+    costume_id: str | None = None
+    scene_ids: list[str]
+    identity_description: str
+    costume_description: str
+    grooming_description: str
+    prompt: str
+
+
+class SceneVisualSpec(StrictModel):
+    id: str
+    scene_id: str
+    appearance_ids: list[str]
+    location_id: str | None = None
+    prop_ids: list[str]
+    prompt: str
+    negative_prompt: str
+
+
+class VisualManifest(StrictModel):
+    appearances: list[AppearanceSpec]
+    scenes: list[SceneVisualSpec]
+
+
+class VisualVerificationIssue(StrictModel):
+    severity: Literal["blocking", "warning"]
+    dimension: Literal["face", "apparent_age", "body", "grooming", "costume", "prop", "location", "composition", "other"]
+    expected: str
+    observed: str
+    message: str
+
+
+class VisualVerification(StrictModel):
+    asset_id: str
+    dependency_hash: str
+    passed: bool
+    issues: list[VisualVerificationIssue] = Field(default_factory=list)
+    summary: str
+
+
+class CorrectionPatch(StrictModel):
+    target_kind: Literal["adapted_block", "scene", "character", "plan_decision", "visual_prompt"]
+    target_id: str
+    precondition_hash: str
+    operation: Literal["replace_text", "replace_field"]
+    field: str
+    new_value: Any
+    explanation: str
+    affected_dependencies: list[str]
+
+
+class ProjectCreate(StrictModel):
+    title: str = "Untitled screenplay"
+    source_text: str = Field(min_length=100, max_length=40_000)
+    culture: str = "Maidani Mewari"
+    locality: str
+    setting: Literal["rural", "urban"]
+    period: str = "Contemporary 2020-2026"
+    output_script: Literal["Devanagari"] = "Devanagari"
+
+
+class ApprovalRequest(StrictModel):
+    revision_id: str | None = None
+    override_reason: str | None = None
+
+
+class CorrectionRequest(StrictModel):
+    target_block_id: str
+    instruction: str = Field(min_length=3, max_length=2000)
+    expected_hash: str
+
+
+class MergeRequest(StrictModel):
+    record_kind: Literal["character", "production_element"]
+    primary_id: str
+    duplicate_ids: list[str]
+
+
+class RecordPatch(StrictModel):
+    document_kind: str
+    field_path: str
+    value: Any
+    expected_hash: str | None = None
+
+
+class AssetStatus(StrEnum):
+    pending = "pending"
+    generated = "generated"
+    approved = "approved"
+    failed = "failed"
+    invalidated = "invalidated"
+
+
+class ProjectView(StrictModel):
+    id: str
+    title: str
+    culture: str
+    locality: str
+    setting: str
+    period: str
+    output_script: str
+    stage: str
+    status: str
+    created_at: str
+    updated_at: str
+    revisions: dict[str, dict[str, Any]] = Field(default_factory=dict)
+    assets: list[dict[str, Any]] = Field(default_factory=list)
+    approvals: list[dict[str, Any]] = Field(default_factory=list)
+    interrupt: dict[str, Any] | None = None

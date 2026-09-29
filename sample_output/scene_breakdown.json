@@ -1,0 +1,269 @@
+{
+  "characters": [
+    {
+      "age_range": null,
+      "aliases": [],
+      "dialect_register": null,
+      "emotional_state": "Unspecified",
+      "id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+      "name": "Amar",
+      "personality": [],
+      "relationships": [],
+      "role": "Extracted speaker",
+      "scene_entrances": [
+        "bdee878d-e691-557c-a505-2a9e15899e99",
+        "69f34aa5-80fe-54a9-8fb9-d79aa9556091",
+        "398cefff-0716-501b-8bff-28f8e8fc64f6"
+      ],
+      "scene_exits": []
+    },
+    {
+      "age_range": null,
+      "aliases": [],
+      "dialect_register": null,
+      "emotional_state": "Unspecified",
+      "id": "f6518184-95e8-5d30-a144-2fd7817437b7",
+      "name": "Meera",
+      "personality": [],
+      "relationships": [],
+      "role": "Extracted speaker",
+      "scene_entrances": [
+        "bdee878d-e691-557c-a505-2a9e15899e99",
+        "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+      ],
+      "scene_exits": []
+    },
+    {
+      "age_range": null,
+      "aliases": [],
+      "dialect_register": null,
+      "emotional_state": "Unspecified",
+      "id": "4f3641a4-f006-5176-b03d-14c3abee98b7",
+      "name": "Shopkeeper",
+      "personality": [],
+      "relationships": [],
+      "role": "Extracted speaker",
+      "scene_entrances": [
+        "398cefff-0716-501b-8bff-28f8e8fc64f6"
+      ],
+      "scene_exits": []
+    }
+  ],
+  "detected_language": "Undetermined (mock mode)",
+  "extraction_warnings": [
+    "Mock extraction is deterministic and must be reviewed before approval."
+  ],
+  "original_text": "INT. FAMILY HOUSE - MORNING\n\nAMAR\nI promised I would deliver the letter before noon.\n\nAmar folds the letter and puts it inside his cloth bag. His younger sister Meera watches him from the doorway.\n\nMEERA\nYou have been saying that since sunrise.\n\nEXT. MARKET ROAD - AFTERNOON\n\nAmar walks through the crowded road with the cloth bag over his shoulder. Meera catches up with him.\n\nMEERA\nThe bus has already left. Tell me what is really in that letter.\n\nAMAR\nIt is an apology. Father wrote it, but he could not bring himself to send it.\n\nINT. SMALL SHOP - EVENING\n\nSHOPKEEPER\nYou came a long way for a piece of paper.\n\nAmar removes the letter from his cloth bag and places it on the counter.\n\nAMAR\nThe paper is small. What it needs to repair is not.\n\n",
+  "production_elements": [
+    {
+      "aliases": [],
+      "description": "",
+      "id": "ae6ec863-9d48-5fd4-9e19-05c04b36001f",
+      "kind": "location",
+      "name": "Family House",
+      "owner_character_id": null,
+      "scene_ids": [
+        "bdee878d-e691-557c-a505-2a9e15899e99"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "",
+      "id": "6ecfc561-5dd7-5f53-922e-d739812562de",
+      "kind": "location",
+      "name": "Market Road",
+      "owner_character_id": null,
+      "scene_ids": [
+        "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "",
+      "id": "ec0e393f-1bf5-56c7-92d3-b0cc1b5d9195",
+      "kind": "location",
+      "name": "Small Shop",
+      "owner_character_id": null,
+      "scene_ids": [
+        "398cefff-0716-501b-8bff-28f8e8fc64f6"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "blocks": [
+        {
+          "id": "d87466ea-1cd6-5b9f-bdcf-623fe6715e5b",
+          "source_end": 50,
+          "source_start": 0,
+          "speaker_id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+          "speaker_label": "Amar",
+          "text": "I promised I would deliver the letter before noon.",
+          "type": "dialogue"
+        },
+        {
+          "id": "e0028dcc-5f1e-541b-97f4-670ee89f064a",
+          "source_end": 166,
+          "source_start": 56,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Amar folds the letter and puts it inside his cloth bag. His younger sister Meera watches him from the doorway.",
+          "type": "action"
+        },
+        {
+          "id": "b6a91da4-8a54-5452-8cfb-88ff2360c24c",
+          "source_end": 207,
+          "source_start": 167,
+          "speaker_id": "f6518184-95e8-5d30-a144-2fd7817437b7",
+          "speaker_label": "Meera",
+          "text": "You have been saying that since sunrise.",
+          "type": "dialogue"
+        }
+      ],
+      "character_ids": [
+        "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+        "f6518184-95e8-5d30-a144-2fd7817437b7"
+      ],
+      "day_or_date": null,
+      "dramatic_purpose": "Preserve the source scene's causal and emotional function.",
+      "heading": "INT. FAMILY HOUSE - MORNING",
+      "id": "bdee878d-e691-557c-a505-2a9e15899e99",
+      "int_ext": "INT",
+      "location": "Family House",
+      "location_id": "ae6ec863-9d48-5fd4-9e19-05c04b36001f",
+      "mood": null,
+      "number": 1,
+      "production_element_ids": [
+        "ae6ec863-9d48-5fd4-9e19-05c04b36001f"
+      ],
+      "sub_location": null,
+      "summary": "I promised I would deliver the letter before noon. Amar folds the letter and puts it inside his cloth bag. His younger sister Meera watches him from the doorway.",
+      "time": "MORNING",
+      "weather": null
+    },
+    {
+      "blocks": [
+        {
+          "id": "42009394-681f-5922-b9c1-e206e79a59d6",
+          "source_end": 346,
+          "source_start": 246,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Amar walks through the crowded road with the cloth bag over his shoulder. Meera catches up with him.",
+          "type": "action"
+        },
+        {
+          "id": "09755153-e923-50bc-a808-07c75e25b486",
+          "source_end": 411,
+          "source_start": 347,
+          "speaker_id": "f6518184-95e8-5d30-a144-2fd7817437b7",
+          "speaker_label": "Meera",
+          "text": "The bus has already left. Tell me what is really in that letter.",
+          "type": "dialogue"
+        },
+        {
+          "id": "744d9803-b0d8-5822-b713-01089efa2363",
+          "source_end": 495,
+          "source_start": 418,
+          "speaker_id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+          "speaker_label": "Amar",
+          "text": "It is an apology. Father wrote it, but he could not bring himself to send it.",
+          "type": "dialogue"
+        }
+      ],
+      "character_ids": [
+        "f6518184-95e8-5d30-a144-2fd7817437b7",
+        "183ed81e-5d12-53c2-a9c0-7977d7b2043d"
+      ],
+      "day_or_date": null,
+      "dramatic_purpose": "Preserve the source scene's causal and emotional function.",
+      "heading": "EXT. MARKET ROAD - AFTERNOON",
+      "id": "69f34aa5-80fe-54a9-8fb9-d79aa9556091",
+      "int_ext": "EXT",
+      "location": "Market Road",
+      "location_id": "6ecfc561-5dd7-5f53-922e-d739812562de",
+      "mood": null,
+      "number": 2,
+      "production_element_ids": [
+        "6ecfc561-5dd7-5f53-922e-d739812562de"
+      ],
+      "sub_location": null,
+      "summary": "Amar walks through the crowded road with the cloth bag over his shoulder. Meera catches up with him. The bus has already left. Tell me what is really in that letter.",
+      "time": "AFTERNOON",
+      "weather": null
+    },
+    {
+      "blocks": [
+        {
+          "id": "5e6f17bb-4494-5c75-89ae-c2a7c1a26196",
+          "source_end": 575,
+          "source_start": 534,
+          "speaker_id": "4f3641a4-f006-5176-b03d-14c3abee98b7",
+          "speaker_label": "Shopkeeper",
+          "text": "You came a long way for a piece of paper.",
+          "type": "dialogue"
+        },
+        {
+          "id": "5d073ac2-5ba1-52f2-9888-d1d1ed31f9cc",
+          "source_end": 659,
+          "source_start": 587,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Amar removes the letter from his cloth bag and places it on the counter.",
+          "type": "action"
+        },
+        {
+          "id": "5b517c31-cb0c-50c0-a7ea-e6fec66fa171",
+          "source_end": 711,
+          "source_start": 660,
+          "speaker_id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+          "speaker_label": "Amar",
+          "text": "The paper is small. What it needs to repair is not.",
+          "type": "dialogue"
+        }
+      ],
+      "character_ids": [
+        "4f3641a4-f006-5176-b03d-14c3abee98b7",
+        "183ed81e-5d12-53c2-a9c0-7977d7b2043d"
+      ],
+      "day_or_date": null,
+      "dramatic_purpose": "Preserve the source scene's causal and emotional function.",
+      "heading": "INT. SMALL SHOP - EVENING",
+      "id": "398cefff-0716-501b-8bff-28f8e8fc64f6",
+      "int_ext": "INT",
+      "location": "Small Shop",
+      "location_id": "ec0e393f-1bf5-56c7-92d3-b0cc1b5d9195",
+      "mood": null,
+      "number": 3,
+      "production_element_ids": [
+        "ec0e393f-1bf5-56c7-92d3-b0cc1b5d9195"
+      ],
+      "sub_location": null,
+      "summary": "You came a long way for a piece of paper. Amar removes the letter from his cloth bag and places it on the counter.",
+      "time": "EVENING",
+      "weather": null
+    }
+  ],
+  "state_transitions": [],
+  "story_contract": {
+    "central_dramatic_purpose": "Preserve the source conflict and its resolution.",
+    "emotional_arc": [
+      "Preserve each character's source emotional progression."
+    ],
+    "plot_invariants": [
+      "Preserve scene order and causal events."
+    ],
+    "prohibited_changes": [
+      "No new identity, faith, caste, occupation or motivation assumptions."
+    ],
+    "relationship_invariants": [
+      "Do not change established relationships without explicit approval."
+    ],
+    "scene_purposes": {
+      "398cefff-0716-501b-8bff-28f8e8fc64f6": "Preserve the source scene's causal and emotional function.",
+      "69f34aa5-80fe-54a9-8fb9-d79aa9556091": "Preserve the source scene's causal and emotional function.",
+      "bdee878d-e691-557c-a505-2a9e15899e99": "Preserve the source scene's causal and emotional function."
+    }
+  },
+  "title": "The Letter — Engineering Sample"
+}

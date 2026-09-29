@@ -1,0 +1,81 @@
+{
+  "appearances": [
+    {
+      "character_id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+      "costume_description": "Approved contemporary locality-appropriate everyday costume; preserve across scenes unless the story records a change.",
+      "costume_id": null,
+      "grooming_description": "Source-consistent grooming without inferred identity markers.",
+      "id": "a84a4670-de52-5bfe-8875-05cc55406b17",
+      "identity_description": "Amar; source-consistent apparent age; Extracted speaker",
+      "prompt": "Two-panel cinematic character reference sheet for Amar: close portrait and full-body costume view. Contemporary Rajsamand plains, rural; natural documentary realism. Identity: source-consistent age, face, body and grooming. Avoid: Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery., Do not invent Mewari dialogue or infer caste, religion or class.",
+      "scene_ids": [
+        "bdee878d-e691-557c-a505-2a9e15899e99",
+        "69f34aa5-80fe-54a9-8fb9-d79aa9556091",
+        "398cefff-0716-501b-8bff-28f8e8fc64f6"
+      ]
+    },
+    {
+      "character_id": "f6518184-95e8-5d30-a144-2fd7817437b7",
+      "costume_description": "Approved contemporary locality-appropriate everyday costume; preserve across scenes unless the story records a change.",
+      "costume_id": null,
+      "grooming_description": "Source-consistent grooming without inferred identity markers.",
+      "id": "5b005a57-d287-5a97-b006-9cdb967287ee",
+      "identity_description": "Meera; source-consistent apparent age; Extracted speaker",
+      "prompt": "Two-panel cinematic character reference sheet for Meera: close portrait and full-body costume view. Contemporary Rajsamand plains, rural; natural documentary realism. Identity: source-consistent age, face, body and grooming. Avoid: Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery., Do not invent Mewari dialogue or infer caste, religion or class.",
+      "scene_ids": [
+        "bdee878d-e691-557c-a505-2a9e15899e99",
+        "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+      ]
+    },
+    {
+      "character_id": "4f3641a4-f006-5176-b03d-14c3abee98b7",
+      "costume_description": "Approved contemporary locality-appropriate everyday costume; preserve across scenes unless the story records a change.",
+      "costume_id": null,
+      "grooming_description": "Source-consistent grooming without inferred identity markers.",
+      "id": "bfba0d09-2211-5a53-89df-e3e291c87fba",
+      "identity_description": "Shopkeeper; source-consistent apparent age; Extracted speaker",
+      "prompt": "Two-panel cinematic character reference sheet for Shopkeeper: close portrait and full-body costume view. Contemporary Rajsamand plains, rural; natural documentary realism. Identity: source-consistent age, face, body and grooming. Avoid: Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery., Do not invent Mewari dialogue or infer caste, religion or class.",
+      "scene_ids": [
+        "398cefff-0716-501b-8bff-28f8e8fc64f6"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "appearance_ids": [
+        "a84a4670-de52-5bfe-8875-05cc55406b17",
+        "5b005a57-d287-5a97-b006-9cdb967287ee"
+      ],
+      "id": "af1669a5-df32-56b9-9fcb-af6c8bcb1121",
+      "location_id": "ae6ec863-9d48-5fd4-9e19-05c04b36001f",
+      "negative_prompt": "Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery.; Do not invent Mewari dialogue or infer caste, religion or class.",
+      "prompt": "Cinematic keyframe for scene 1: I promised I would deliver the letter before noon. Amar folds the letter and puts it inside his cloth bag. His younger sister Meera watches him from the doorway.. Location: Family House; time: MORNING; mood: source-consistent. Use supplied approved character references exactly; preserve costumes and visible props.",
+      "prop_ids": [],
+      "scene_id": "bdee878d-e691-557c-a505-2a9e15899e99"
+    },
+    {
+      "appearance_ids": [
+        "5b005a57-d287-5a97-b006-9cdb967287ee",
+        "a84a4670-de52-5bfe-8875-05cc55406b17"
+      ],
+      "id": "6e8b6656-f052-5366-8e25-a392205600f1",
+      "location_id": "6ecfc561-5dd7-5f53-922e-d739812562de",
+      "negative_prompt": "Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery.; Do not invent Mewari dialogue or infer caste, religion or class.",
+      "prompt": "Cinematic keyframe for scene 2: Amar walks through the crowded road with the cloth bag over his shoulder. Meera catches up with him. The bus has already left. Tell me what is really in that letter.. Location: Market Road; time: AFTERNOON; mood: source-consistent. Use supplied approved character references exactly; preserve costumes and visible props.",
+      "prop_ids": [],
+      "scene_id": "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+    },
+    {
+      "appearance_ids": [
+        "bfba0d09-2211-5a53-89df-e3e291c87fba",
+        "a84a4670-de52-5bfe-8875-05cc55406b17"
+      ],
+      "id": "ce2f5abf-2eb4-5cf2-81eb-c4c6454f7079",
+      "location_id": "ec0e393f-1bf5-56c7-92d3-b0cc1b5d9195",
+      "negative_prompt": "Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery.; Do not invent Mewari dialogue or infer caste, religion or class.",
+      "prompt": "Cinematic keyframe for scene 3: You came a long way for a piece of paper. Amar removes the letter from his cloth bag and places it on the counter.. Location: Small Shop; time: EVENING; mood: source-consistent. Use supplied approved character references exactly; preserve costumes and visible props.",
+      "prop_ids": [],
+      "scene_id": "398cefff-0716-501b-8bff-28f8e8fc64f6"
+    }
+  ]
+}
