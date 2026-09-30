@@ -283,6 +283,25 @@ class Repository:
                 (AssetStatus.invalidated, utc_now(), project_id, *canonical_ids),
             )
 
+    def reactivate_asset(self, asset_id: str, status: AssetStatus | str) -> dict[str, Any]:
+        """Make one retained version active and invalidate only its sibling versions."""
+        asset = self.get_asset(asset_id)
+        now = utc_now()
+        with self.connect() as connection:
+            connection.execute(
+                """UPDATE assets SET status=?, updated_at=?
+                WHERE project_id=? AND kind=? AND canonical_id=? AND id<>? AND status<>?""",
+                (
+                    AssetStatus.invalidated, now, asset["project_id"], asset["kind"],
+                    asset["canonical_id"], asset_id, AssetStatus.invalidated,
+                ),
+            )
+            connection.execute(
+                "UPDATE assets SET status=?, updated_at=? WHERE id=?",
+                (str(status), now, asset_id),
+            )
+        return self.get_asset(asset_id)
+
     def get_cached_model_run(self, cache_key: str) -> dict[str, Any] | None:
         with self.connect() as connection:
             row = connection.execute(

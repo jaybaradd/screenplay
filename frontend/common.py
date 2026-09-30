@@ -8,7 +8,8 @@ from frontend.client import APIError, client
 STAGES = [
     "created", "extracting", "extraction_review", "researching_culture", "plan_review",
     "adapting", "screenplay_review", "building_visual_manifest", "visual_review",
-    "preparing_character_assets", "character_images_review", "preparing_scene_assets", "visuals_ready",
+    "preparing_character_assets", "character_images_review", "preparing_scene_assets",
+    "scene_images_review", "visuals_ready",
 ]
 
 

@@ -9,7 +9,8 @@ from fastapi.responses import FileResponse
 
 from backend.config import settings
 from backend.schemas import (
-    ApprovalRequest, AssetStatus, CorrectionRequest, MergeRequest, ProjectCreate, RecordPatch,
+    ApprovalRequest, AssetCorrectionRequest, AssetPromptRevisionRequest, AssetStatus, CorrectionRequest,
+    MergeRequest, ProjectCreate, RecordPatch, SceneVisualApprovalRequest,
 )
 from backend.services import ExportService, ProjectService
 from backend.storage import Repository
@@ -35,6 +36,16 @@ app.add_middleware(
 def view(project_id: str) -> dict[str, Any]:
     project = repository.get_project(project_id)
     project["revisions"] = repository.list_latest_revisions(project_id)
+    assets = repository.list_assets(project_id)
+    # Recover image files that were atomically written before a verifier/parser
+    # failure prevented the database path from being committed.
+    for asset in assets:
+        if asset["status"] == AssetStatus.failed and not asset["path"]:
+            candidate = settings.asset_dir / project_id / f"{asset['id']}.png"
+            if candidate.exists():
+                repository.update_asset(
+                    asset["id"], AssetStatus.failed, path=str(candidate), error=asset["error"],
+                )
     project["assets"] = repository.list_assets(project_id)
     project["approvals"] = repository.list_approvals(project_id)
     return project
@@ -161,7 +172,10 @@ def approve(project_id: str, gate: str, request: ApprovalRequest, idempotency_ke
             if blocking and not request.override_reason:
                 raise ValueError("Resolve blocking cultural/verbal-plan issues or record an override reason")
         if gate == "character_images":
-            sheets = [asset for asset in repository.list_assets(project_id) if asset["kind"] == "character_sheet"]
+            sheets = [
+                asset for asset in repository.list_assets(project_id)
+                if asset["kind"] == "character_sheet" and asset["status"] != AssetStatus.invalidated
+            ]
             if not sheets or any(asset["status"] != AssetStatus.approved for asset in sheets):
                 raise ValueError("Generate and approve every character sheet first")
         revision_id = request.revision_id
@@ -169,6 +183,10 @@ def approve(project_id: str, gate: str, request: ApprovalRequest, idempotency_ke
             kind = {"extraction": "extraction", "plan": "adaptation_plan", "screenplay": "adapted_screenplay", "visuals": "visual_manifest"}.get(gate)
             current = repository.latest_revision(project_id, kind) if kind else None
             revision_id = current["id"] if current else None
+        if gate == "visuals":
+            if not revision_id:
+                raise ValueError("A visual manifest revision is required")
+            workflow.validate_visual_manifest_revision(project_id, revision_id)
         repository.approve(project_id, gate, revision_id, request.override_reason)
         workflow.resume(project_id, {"action": "approve", "revision_id": revision_id, "override_reason": request.override_reason})
         repository.save_idempotent(scope, idempotency_key, {"approved": True})
@@ -195,6 +213,51 @@ def correct(project_id: str, request: CorrectionRequest, idempotency_key: str | 
 @app.post("/v1/projects/{project_id}/visuals/specs")
 def visual_specs(project_id: str) -> dict[str, Any]:
     return guard(lambda: repository.latest_revision(project_id, "visual_manifest") or {})
+
+
+@app.post("/v1/projects/{project_id}/visuals/regenerate")
+def regenerate_visual_specs(project_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
+    scope = f"regenerate-visual-manifest:{project_id}"
+    cached = repository.get_idempotent(scope, idempotency_key)
+    if cached:
+        return repository.get_revision(cached["revision_id"])
+
+    def action():
+        revision = workflow.regenerate_visual_manifest(project_id)
+        repository.save_idempotent(scope, idempotency_key, {"revision_id": revision["id"]})
+        return revision
+
+    return guard(action)
+
+
+@app.post("/v1/projects/{project_id}/visuals/continuity/start")
+def start_visual_continuity(project_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
+    scope = f"start-visual-continuity:{project_id}"
+    cached = repository.get_idempotent(scope, idempotency_key)
+    if cached:
+        return view(project_id)
+
+    def action():
+        project_service.start_visual_continuity(project_id)
+        repository.save_idempotent(scope, idempotency_key, {"started": True})
+        return view(project_id)
+
+    return guard(action)
+
+
+@app.post("/v1/projects/{project_id}/visuals/scenes/{scene_id}/compile")
+def compile_scene(project_id: str, scene_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
+    scope = f"compile-scene:{project_id}:{scene_id}"
+    cached = repository.get_idempotent(scope, idempotency_key)
+    if cached:
+        return repository.get_asset(cached["asset_id"])
+
+    def action():
+        result = project_service.compile_scene_asset(project_id, scene_id)
+        repository.save_idempotent(scope, idempotency_key, {"asset_id": result["id"]})
+        return result
+
+    return guard(action)
 
 
 @app.post("/v1/assets/{asset_id}/generate")
@@ -224,6 +287,58 @@ def retry_asset(asset_id: str, idempotency_key: str | None = Header(default=None
     return guard(action)
 
 
+@app.post("/v1/assets/{asset_id}/correct")
+def correct_asset(
+    asset_id: str, request: AssetCorrectionRequest, idempotency_key: str | None = Header(default=None),
+) -> dict[str, Any]:
+    scope = f"correct-asset:{asset_id}"
+    cached = repository.get_idempotent(scope, idempotency_key)
+    if cached:
+        return repository.get_asset(cached["asset_id"])
+
+    def action():
+        result = project_service.correct_asset(asset_id, request)
+        repository.save_idempotent(scope, idempotency_key, {"asset_id": result["id"]})
+        return result
+
+    return guard(action)
+
+
+@app.post("/v1/assets/{asset_id}/revise-prompt")
+def revise_asset_prompt(
+    asset_id: str, request: AssetPromptRevisionRequest,
+    idempotency_key: str | None = Header(default=None),
+) -> dict[str, Any]:
+    scope = f"revise-asset-prompt:{asset_id}"
+    cached = repository.get_idempotent(scope, idempotency_key)
+    if cached:
+        return repository.get_asset(cached["asset_id"])
+
+    def action():
+        result = project_service.revise_asset_prompt(
+            asset_id, request.prompt, request.expected_dependency_hash,
+        )
+        repository.save_idempotent(scope, idempotency_key, {"asset_id": result["id"]})
+        return result
+
+    return guard(action)
+
+
+@app.post("/v1/assets/{asset_id}/restore")
+def restore_asset_version(asset_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
+    scope = f"restore-asset-version:{asset_id}"
+    cached = repository.get_idempotent(scope, idempotency_key)
+    if cached:
+        return repository.get_asset(asset_id)
+
+    def action():
+        result = project_service.restore_asset_version(asset_id)
+        repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id})
+        return result
+
+    return guard(action)
+
+
 @app.post("/v1/assets/{asset_id}/approve")
 def approve_asset(asset_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"approve-asset:{asset_id}"
@@ -235,6 +350,24 @@ def approve_asset(asset_id: str, idempotency_key: str | None = Header(default=No
         result = project_service.approve_asset(asset_id)
         repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id})
         return result
+    return guard(action)
+
+
+@app.post("/v1/assets/{asset_id}/approve-scene")
+def approve_scene_asset(
+    asset_id: str, request: SceneVisualApprovalRequest,
+    idempotency_key: str | None = Header(default=None),
+) -> dict[str, Any]:
+    scope = f"approve-scene:{asset_id}"
+    cached = repository.get_idempotent(scope, idempotency_key)
+    if cached:
+        return repository.get_asset(asset_id)
+
+    def action():
+        result = project_service.approve_scene_asset(asset_id, request)
+        repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id})
+        return result
+
     return guard(action)
 
 

@@ -16,11 +16,12 @@ from backend.observability import observer
 from backend.prompts import (
     CULTURAL_NORMALIZE_PROMPT, CULTURAL_RESEARCH_PROMPT, EXTRACTION_PROMPT,
     adaptation_prompt, adaptation_repair_prompt, dialect_audit_prompt, layer_prompt, synthesis_prompt,
+    visual_manifest_prompt, VISUAL_STYLE_LOCK,
 )
 from backend.providers import AIService, MockProvider, stable_id
 from backend.schemas import (
     AdaptationPlan, AdaptedScene, AdaptedScreenplay, AppearanceSpec, CulturalBrief,
-    DialectAudit, LayerPlan, SceneRecord, SceneVisualSpec, SourceScreenplay, VisualManifest,
+    DialectAudit, LayerPlan, SceneRecord, SceneVisualSpec, SetVisualSpec, SourceScreenplay, VisualManifest,
 )
 from backend.storage import Repository, content_hash
 
@@ -516,42 +517,230 @@ class Workflow:
         if existing:
             revision = existing
         else:
-            source = SourceScreenplay.model_validate(self.repository.get_revision(state["extraction_revision"])["payload"])
-            brief = CulturalBrief.model_validate(self.repository.get_revision(state["cultural_revision"])["payload"])
-            appearances: list[AppearanceSpec] = []
-            for character in source.characters:
-                scene_ids = [scene.id for scene in source.scenes if character.id in scene.character_ids]
-                appearances.append(AppearanceSpec(
-                    id=stable_id(project_id, "appearance", character.id), character_id=character.id,
-                    scene_ids=scene_ids,
-                    identity_description=f"{character.name}; {character.age_range or 'source-consistent apparent age'}; {character.role or 'source role'}",
-                    costume_description="Approved contemporary locality-appropriate everyday costume; preserve across scenes unless the story records a change.",
-                    grooming_description="Source-consistent grooming without inferred identity markers.",
-                    prompt=(
-                        f"Two-panel cinematic character reference sheet for {character.name}: close portrait and full-body costume view. "
-                        f"Contemporary {brief.locality}, {brief.setting}; natural documentary realism. "
-                        f"Identity: source-consistent age, face, body and grooming. Avoid: {', '.join(brief.negative_constraints)}"
-                    ),
-                ))
-            scene_specs: list[SceneVisualSpec] = []
-            for scene in source.scenes:
-                appearance_ids = [stable_id(project_id, "appearance", character_id) for character_id in scene.character_ids]
-                prop_ids = [element_id for element_id in scene.production_element_ids if element_id != scene.location_id]
-                scene_specs.append(SceneVisualSpec(
-                    id=stable_id(project_id, "scene_visual", scene.id), scene_id=scene.id,
-                    appearance_ids=appearance_ids, location_id=scene.location_id, prop_ids=prop_ids,
-                    prompt=(
-                        f"Cinematic keyframe for scene {scene.number}: {scene.summary}. Location: {scene.location}; "
-                        f"time: {scene.time or 'source-consistent'}; mood: {scene.mood or 'source-consistent'}. "
-                        "Use supplied approved character references exactly; preserve costumes and visible props."
-                    ),
-                    negative_prompt="; ".join(brief.negative_constraints),
-                ))
-            manifest = VisualManifest(appearances=appearances, scenes=scene_specs)
-            revision = self.repository.create_revision(project_id, "visual_manifest", manifest)
+            revision = self._build_visual_manifest(project_id)
         payload = {"gate": "visuals", "message": "Approve canonical appearance and scene prompts before image generation.", "visual_revision": revision["id"]}
         self.repository.set_stage(project_id, "visual_review", interrupt=payload)
         return {"visual_revision": revision["id"], "stage": "visual_review"}
+
+    def regenerate_visual_manifest(self, project_id: str) -> dict[str, Any]:
+        project = self.repository.get_project(project_id)
+        if project["stage"] != "visual_review":
+            raise ValueError("Visual prompts can be regenerated only at the visual review gate")
+        revision = self._build_visual_manifest(project_id)
+        self.repository.set_stage(project_id, "visual_review", interrupt={
+            "gate": "visuals", "message": "Review regenerated canonical appearance and scene prompts.",
+            "visual_revision": revision["id"],
+        })
+        return revision
+
+    def _build_visual_manifest(self, project_id: str) -> dict[str, Any]:
+        source_revision = self.repository.latest_revision(project_id, "extraction")
+        adapted_revision = self.repository.latest_revision(project_id, "adapted_screenplay")
+        plan_revision = self.repository.latest_revision(project_id, "adaptation_plan")
+        brief_revision = self.repository.latest_revision(project_id, "cultural_brief")
+        if not all((source_revision, adapted_revision, plan_revision, brief_revision)):
+            raise ValueError("Extraction, cultural brief, adaptation plan and adapted screenplay are required")
+        source = SourceScreenplay.model_validate(source_revision["payload"])
+        adapted = AdaptedScreenplay.model_validate(adapted_revision["payload"])
+        plan = AdaptationPlan.model_validate(plan_revision["payload"])
+        brief = CulturalBrief.model_validate(brief_revision["payload"])
+
+        appearance_scaffold, scene_scaffold = self._visual_scaffolds(project_id, source)
+        visible_character_ids = [item["character_id"] for item in appearance_scaffold]
+
+        relevant_plan = plan.model_dump(mode="json")
+        relevant_plan["layers"] = [
+            layer.model_dump(mode="json") for layer in plan.layers
+            if layer.layer in {"non_verbal", "characters", "visual_world", "story_world", "cultural_precision"}
+        ]
+        visual_brief = brief.model_dump(mode="json")
+        visual_brief.pop("dialect_guide", None)
+        visual_brief["claims"] = [
+            claim.model_dump(mode="json") for claim in brief.claims
+            if any(layer in {"non_verbal", "characters", "visual_world", "story_world", "cultural_precision"} for layer in claim.layers)
+        ]
+        source_payload = {
+            "characters": [
+                character.model_dump(mode="json") for character in source.characters
+                if character.id in visible_character_ids
+            ],
+            "scenes": [scene.model_dump(mode="json") for scene in source.scenes],
+            "production_elements": [element.model_dump(mode="json") for element in source.production_elements],
+            "state_transitions": [transition.model_dump(mode="json") for transition in source.state_transitions],
+        }
+        current = self.repository.latest_revision(project_id, "visual_manifest")
+        operation = f"build-visual-manifest-v{(current['version'] + 1) if current else 1}"
+        if isinstance(self.ai.provider, MockProvider):
+            appearances = []
+            character_by_id = {character.id: character for character in source.characters}
+            for scaffold in appearance_scaffold:
+                character = character_by_id[scaffold["character_id"]]
+                identity = f"{character.name}, {character.age_range or 'source-consistent age'}, {character.role or 'source role'}"
+                costume = "Mock-only source-consistent everyday workwear; requires live visual planning."
+                grooming = "Mock-only source-consistent grooming; requires live visual planning."
+                appearances.append(AppearanceSpec(
+                    **scaffold, identity_description=identity, costume_description=costume,
+                    grooming_description=grooming,
+                    prompt=(
+                        f"Two-panel neutral production character reference with a close portrait and full-body view. "
+                        f"Identity: {identity}. Costume: {costume}. Grooming: {grooming}. "
+                        "Plain background, consistent proportions, natural posture, no caption, no decorative cultural invention."
+                    ),
+                ))
+            scenes = [SceneVisualSpec(
+                **scaffold, prompt=(
+                    f"Mock cinematic keyframe for scene {index + 1}, preserving the supplied canonical appearance, location "
+                    "and prop identifiers. Use a single readable dramatic moment, natural lighting and source-consistent "
+                    "composition. This placeholder validates workflow structure only and requires live visual planning."
+                ),
+                negative_prompt="No unsupported cultural detail.",
+            ) for index, scaffold in enumerate(scene_scaffold)]
+            manifest = VisualManifest(appearances=appearances, scenes=scenes)
+        else:
+            manifest = self.ai.cached_structured(
+                project_id, operation,
+                visual_manifest_prompt(
+                    source_payload, adapted.model_dump(mode="json"), relevant_plan, visual_brief,
+                    appearance_scaffold, scene_scaffold,
+                ),
+                VisualManifest,
+            )
+        for appearance in manifest.appearances:
+            if VISUAL_STYLE_LOCK.lower() not in appearance.prompt.lower():
+                appearance.prompt = VISUAL_STYLE_LOCK + "\n" + appearance.prompt.lstrip()
+            required_lines = (
+                f"Canonical identity: {appearance.identity_description}",
+                f"Approved costume: {appearance.costume_description}",
+                f"Approved grooming: {appearance.grooming_description}",
+            )
+            missing_lines = [line for line in required_lines if line.split(": ", 1)[1].lower() not in appearance.prompt.lower()]
+            if missing_lines:
+                appearance.prompt = appearance.prompt.rstrip() + "\n" + "\n".join(missing_lines)
+        for scene in manifest.scenes:
+            if VISUAL_STYLE_LOCK.lower() not in scene.prompt.lower():
+                scene.prompt = VISUAL_STYLE_LOCK + "\n" + scene.prompt.lstrip()
+            style_negative = "No illustration, cartoon, animation, anime, comic, painting, vector art or 3D-rendered look."
+            if style_negative.lower() not in scene.negative_prompt.lower():
+                scene.negative_prompt = scene.negative_prompt.rstrip(" ;") + "; " + style_negative
+        scaffold_by_scene = {item["scene_id"]: item for item in scene_scaffold}
+        for scene in manifest.scenes:
+            scaffold = scaffold_by_scene[scene.scene_id]
+            # Exact set identity is deterministic application data, never a model decision.
+            scene.set_id = scaffold["set_id"]
+            scene.sub_location = scaffold["sub_location"]
+        set_rows: dict[str, dict[str, Any]] = {}
+        for scaffold in scene_scaffold:
+            row = set_rows.setdefault(scaffold["set_id"], {
+                "id": scaffold["set_id"], "location_id": scaffold["location_id"],
+                "name": scaffold["sub_location"], "scene_ids": [],
+            })
+            row["scene_ids"].append(scaffold["scene_id"])
+        manifest.sets = [SetVisualSpec.model_validate(item) for item in set_rows.values()]
+        self._validate_visual_manifest(manifest, appearance_scaffold, scene_scaffold)
+        return self.repository.create_revision(
+            project_id, "visual_manifest", manifest, current["id"] if current else None,
+        )
+
+    def validate_visual_manifest_revision(self, project_id: str, revision_id: str) -> None:
+        revision = self.repository.get_revision(revision_id)
+        if revision["project_id"] != project_id or revision["kind"] != "visual_manifest":
+            raise ValueError("The selected revision is not this project's visual manifest")
+        source_revision = self.repository.latest_revision(project_id, "extraction")
+        if not source_revision:
+            raise ValueError("Extraction is required before visual approval")
+        source = SourceScreenplay.model_validate(source_revision["payload"])
+        appearance_scaffold, scene_scaffold = self._visual_scaffolds(project_id, source)
+        manifest = VisualManifest.model_validate(revision["payload"])
+        scaffold_by_scene = {item["scene_id"]: item for item in scene_scaffold}
+        for scene in manifest.scenes:
+            scaffold = scaffold_by_scene[scene.scene_id]
+            scene.set_id = scene.set_id or scaffold["set_id"]
+            scene.sub_location = scene.sub_location or scaffold["sub_location"]
+        self._validate_visual_manifest(manifest, appearance_scaffold, scene_scaffold)
+
+    @staticmethod
+    def _visual_scaffolds(
+        project_id: str, source: SourceScreenplay,
+    ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        visible_character_ids = list(dict.fromkeys(
+            character_id for scene in source.scenes for character_id in scene.character_ids
+        ))
+        appearance_scaffold = [{
+            "id": stable_id(project_id, "appearance", character_id),
+            "character_id": character_id,
+            "scene_ids": [scene.id for scene in source.scenes if character_id in scene.character_ids],
+        } for character_id in visible_character_ids]
+        scene_scaffold = []
+        for scene in source.scenes:
+            sub_location = (scene.sub_location or scene.location or "Unknown set").strip()
+            parent_key = scene.location_id or scene.location or "unknown-location"
+            scene_scaffold.append({
+                "id": stable_id(project_id, "scene_visual", scene.id),
+                "scene_id": scene.id,
+                "appearance_ids": [
+                    stable_id(project_id, "appearance", character_id) for character_id in scene.character_ids
+                ],
+                "location_id": scene.location_id,
+                "set_id": stable_id(project_id, "set", f"{parent_key}:{sub_location.casefold()}"),
+                "sub_location": sub_location,
+                "prop_ids": [element_id for element_id in scene.production_element_ids if element_id != scene.location_id],
+            })
+        return appearance_scaffold, scene_scaffold
+
+    @staticmethod
+    def _validate_visual_manifest(
+        manifest: VisualManifest, appearance_scaffold: list[dict[str, Any]], scene_scaffold: list[dict[str, Any]],
+    ) -> None:
+        expected_appearances = [
+            (item["id"], item["character_id"], item["scene_ids"]) for item in appearance_scaffold
+        ]
+        actual_appearances = [(item.id, item.character_id, item.scene_ids) for item in manifest.appearances]
+        if actual_appearances != expected_appearances:
+            raise ValueError("Visual manifest changed, omitted or reordered canonical appearance IDs")
+        expected_scenes = [(
+            item["id"], item["scene_id"], item["appearance_ids"], item["location_id"],
+            item["set_id"], item["sub_location"], item["prop_ids"],
+        ) for item in scene_scaffold]
+        actual_scenes = [(
+            item.id, item.scene_id, item.appearance_ids, item.location_id,
+            item.set_id, item.sub_location, item.prop_ids,
+        ) for item in manifest.scenes]
+        if actual_scenes != expected_scenes:
+            raise ValueError("Visual manifest changed, omitted or reordered canonical scene dependencies")
+        placeholder_fragments = {
+            "approved contemporary locality-appropriate everyday costume",
+            "source-consistent grooming without inferred identity markers",
+            "source-consistent age, face, body and grooming",
+        }
+        for appearance in manifest.appearances:
+            combined = " ".join((
+                appearance.identity_description, appearance.costume_description,
+                appearance.grooming_description, appearance.prompt,
+            )).lower()
+            if any(fragment in combined for fragment in placeholder_fragments):
+                raise ValueError(f"Appearance {appearance.id} still contains a generic visual placeholder")
+            if min(
+                len(appearance.identity_description), len(appearance.costume_description),
+                len(appearance.grooming_description),
+            ) < 30 or len(appearance.prompt) < 180:
+                raise ValueError(f"Appearance {appearance.id} is not production-specific enough")
+            prompt_lower = appearance.prompt.lower()
+            for label, description in (
+                ("identity", appearance.identity_description),
+                ("costume", appearance.costume_description),
+                ("grooming", appearance.grooming_description),
+            ):
+                if description.lower() not in prompt_lower:
+                    raise ValueError(f"Appearance {appearance.id} prompt does not include its {label} description")
+        if len({item.prompt for item in manifest.appearances}) != len(manifest.appearances):
+            raise ValueError("Character appearance prompts must be distinct")
+        for scene in manifest.scenes:
+            if len(scene.prompt) < 180:
+                raise ValueError(f"Scene prompt {scene.id} is not production-specific enough")
+            negative_lower = scene.negative_prompt.lower()
+            linguistic_fragments = ("dative", "future suffix", "copula", "pronoun", "नूं", "छै", "छो")
+            if any(fragment in negative_lower for fragment in linguistic_fragments):
+                raise ValueError(f"Scene prompt {scene.id} contains dialogue-only constraints")
 
     def review_visuals(self, state: GraphState) -> GraphState:
         decision = interrupt({"gate": "visuals", "project_id": state["project_id"]})
@@ -582,14 +771,16 @@ class Workflow:
     def prepare_scene_assets(self, state: GraphState) -> GraphState:
         project_id = state["project_id"]
         manifest = VisualManifest.model_validate(self.repository.get_revision(state["visual_revision"])["payload"])
-        for scene in manifest.scenes:
+        # Scene visuals are now compiled just in time.  Only Scene 1 exists until
+        # its approved continuity snapshot unlocks the next scene.
+        for scene in manifest.scenes[:1]:
             self.repository.upsert_asset(
                 project_id, "scene_keyframe", scene.id,
                 f"{scene.prompt}\nNegative constraints: {scene.negative_prompt}",
                 content_hash(scene.model_dump(mode="json")), scene_id=scene.scene_id,
             )
-        self.repository.set_stage(project_id, "visuals_ready", status="ready")
-        return {"stage": "visuals_ready"}
+        self.repository.set_stage(project_id, "scene_images_review", status="active")
+        return {"stage": "scene_images_review"}
 
     def _normalize_ids(self, project_id: str, document: SourceScreenplay) -> SourceScreenplay:
         scene_map = {scene.id: stable_id(project_id, "scene", str(index)) for index, scene in enumerate(document.scenes, 1)}

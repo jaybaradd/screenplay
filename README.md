@@ -9,7 +9,7 @@ input → extraction → canonicalization → continuity → approval
       → grounded cultural brief → six-layer plan → approval
       → scene adaptation → surgical corrections → approval
       → visual manifest → approval → character sheets → approval
-      → scene keyframes → export
+      → generate scene → approve continuity snapshot → compile next scene → export
 ```
 
 ## What is implemented
@@ -23,8 +23,13 @@ input → extraction → canonicalization → continuity → approval
 - Six independent adaptation layers: verbal, non-verbal, characters, visual world, story world and cultural precision.
 - Lossless one-to-one source-block mapping with automatic scene repair and a post-adaptation dialect audit.
 - Side-by-side screenplay review and hash-guarded surgical block corrections.
-- One character/costume sheet per appearance and one keyframe per scene.
-- Single-asset generation/retry and reference-image reuse for keyframes.
+- Editable, versioned visual manifests with in-place model regeneration before image spending.
+- One character/costume sheet per appearance and one incrementally approved keyframe per scene.
+- Canonical set IDs distinguish a parent location from exact sub-locations, so a farmhouse dining room and veranda cannot silently overwrite one another.
+- Just-in-time scene prompts reuse the approved same-set image, immutable character/costume sheets and immediate prior-scene state with labelled reference priority.
+- Editable visual-continuity snapshots record geometry, fixed elements, materials, adjacency, movable elements, costumes and props; corrections invalidate only affected downstream work.
+- Automated visual verification is advisory at the human gate: a reviewer can accept a false negative with a required audit reason, directly version a scene prompt, or restore a retained image without another generation call.
+- Single-asset generation/correction/retry without rebuilding unrelated assets.
 - Optional Langfuse observations plus an always-present local AI-usage log.
 - ZIP export with screenplay PDFs/text, structured data, reports and images.
 - Bundled Noto Sans Devanagari font (SIL Open Font License) for shaped PDF output.
@@ -72,7 +77,7 @@ Then open `http://localhost:8501`.
 make test
 ```
 
-The tests cover continuity and extraction-metadata failures, lossless block mapping, immutable revisions, idempotency, every LangGraph approval gate, process restart/resume, surgical-edit isolation, per-asset retry and export generation.
+The tests cover continuity and extraction-metadata failures, lossless block mapping, immutable revisions, idempotency, every LangGraph approval gate, process restart/resume, surgical-edit isolation, canonical sub-location sets, sequential scene unlocking, labelled visual references, per-asset retry and export generation.
 
 Generate the deterministic, credential-free submission sample with:
 

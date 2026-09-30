@@ -6,7 +6,7 @@ import time
 import uuid
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, TypeVar
+from typing import Any, TypeAlias, TypeVar
 
 from PIL import Image, ImageDraw
 from pydantic import BaseModel
@@ -24,6 +24,7 @@ from backend.storage import Repository, content_hash
 
 
 T = TypeVar("T", bound=BaseModel)
+ImageReference: TypeAlias = tuple[str, Path]
 
 _GEMINI_JSON_SCHEMA_KEYS = {
     "$id", "$defs", "$ref", "$anchor", "type", "format", "title", "description", "enum",
@@ -57,6 +58,48 @@ def gemini_json_schema(model: type[BaseModel]) -> dict[str, Any]:
     return clean(model.model_json_schema())
 
 
+def parse_structured_response(response: Any, schema: type[T]) -> T:
+    """Parse all structured-response shapes returned by google-genai.
+
+    Depending on SDK/model behavior, ``parsed`` may be a model, a plain dict,
+    or absent while JSON is present only in a candidate part.  ``response.text``
+    may legitimately be ``None`` for an empty/safety-truncated response.
+    """
+    parsed = getattr(response, "parsed", None)
+    if isinstance(parsed, schema):
+        return parsed
+    if parsed is not None:
+        return schema.model_validate(parsed)
+
+    candidates: list[str] = []
+    response_text = getattr(response, "text", None)
+    if isinstance(response_text, str) and response_text.strip():
+        candidates.append(response_text)
+    finish_reasons: list[str] = []
+    for candidate in getattr(response, "candidates", None) or []:
+        finish_reason = getattr(candidate, "finish_reason", None)
+        if finish_reason is not None:
+            finish_reasons.append(str(finish_reason))
+        content = getattr(candidate, "content", None)
+        for part in getattr(content, "parts", None) or []:
+            part_text = getattr(part, "text", None)
+            if isinstance(part_text, str) and part_text.strip():
+                candidates.append(part_text)
+    last_error: Exception | None = None
+    for candidate_text in candidates:
+        cleaned = candidate_text.strip()
+        if cleaned.startswith("```"):
+            cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", cleaned, flags=re.IGNORECASE | re.DOTALL)
+        try:
+            return schema.model_validate_json(cleaned)
+        except Exception as error:
+            last_error = error
+    diagnostic = f" finish_reasons={finish_reasons}" if finish_reasons else ""
+    if last_error:
+        raise RuntimeError(f"Gemini returned malformed structured JSON:{diagnostic} {last_error}") from last_error
+    raise RuntimeError(f"Gemini returned no structured text or parsed payload.{diagnostic}")
+
+
 def stable_id(project_id: str, kind: str, key: str) -> str:
     return str(uuid.uuid5(uuid.UUID(project_id), f"{kind}:{key.strip().lower()}"))
 
@@ -73,12 +116,12 @@ class Provider(ABC):
     def grounded_research(self, prompt: str) -> str: ...
 
     @abstractmethod
-    def generate_image(self, prompt: str, output: Path, references: list[Path] | None = None) -> None: ...
+    def generate_image(self, prompt: str, output: Path, references: list[ImageReference] | None = None) -> None: ...
 
     @abstractmethod
     def verify_image(
         self, asset_id: str, dependency_hash: str, prompt: str, image: Path,
-        references: list[Path] | None = None,
+        references: list[ImageReference] | None = None,
     ) -> VisualVerification: ...
 
 
@@ -106,9 +149,7 @@ class GeminiProvider(Provider):
                         response_json_schema=gemini_json_schema(schema),
                     ),
                 )
-                if isinstance(response.parsed, schema):
-                    return response.parsed
-                return schema.model_validate_json(response.text)
+                return parse_structured_response(response, schema)
             except Exception as error:
                 last_error = error
                 if attempt < 2:
@@ -134,11 +175,12 @@ class GeminiProvider(Provider):
                     sources.append(f"- {title or 'Source'}: {uri}")
         return f"{response.text or ''}\n\nSOURCES\n" + "\n".join(dict.fromkeys(sources))
 
-    def generate_image(self, prompt: str, output: Path, references: list[Path] | None = None) -> None:
+    def generate_image(self, prompt: str, output: Path, references: list[ImageReference] | None = None) -> None:
         from google.genai import types
 
         contents: list[Any] = [prompt]
-        for path in references or []:
+        for label, path in references or []:
+            contents.append(f"REFERENCE IMAGE — {label}")
             contents.append(types.Part.from_bytes(data=path.read_bytes(), mime_type="image/png"))
         response = self.client.models.generate_content(model=self.image_model, contents=contents)
         for part in response.parts or []:
@@ -149,28 +191,44 @@ class GeminiProvider(Provider):
 
     def verify_image(
         self, asset_id: str, dependency_hash: str, prompt: str, image: Path,
-        references: list[Path] | None = None,
+        references: list[ImageReference] | None = None,
     ) -> VisualVerification:
         from google.genai import types
 
         contents: list[Any] = [
-            "Verify this generated production image against the approved specification and any supplied canonical "
-            "character references. Check face, apparent age, body, grooming, costume, props, location and composition. "
-            "Return blocking issues for identity, costume, prop or location contradictions. Do not infer cultural facts "
+            "Verify this generated production image against the approved specification and every labelled canonical "
+            "reference. Check face, apparent age, body, grooming, costume, props, location, set geometry, spatial layout, composition "
+            "and visual style. Treat illustration, cartoon, animation, anime, comic, painting, vector-art or obvious 3D-rendered "
+            "output as a blocking visual_style failure whenever the specification requires photorealistic live action. "
+            "When references are supplied, enforce their overall medium and realism while preserving the target identity. "
+            "Return blocking issues for identity, costume, prop, location or required-style contradictions. Do not infer cultural facts "
             f"outside the specification. asset_id={asset_id}; dependency_hash={dependency_hash}; specification={prompt}",
             types.Part.from_bytes(data=image.read_bytes(), mime_type="image/png"),
         ]
-        for path in references or []:
+        for label, path in references or []:
+            contents.append(f"REFERENCE IMAGE — {label}")
             contents.append(types.Part.from_bytes(data=path.read_bytes(), mime_type="image/png"))
-        response = self.client.models.generate_content(
-            model=self.text_model,
-            contents=contents,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_json_schema=gemini_json_schema(VisualVerification),
-            ),
-        )
-        result = response.parsed if isinstance(response.parsed, VisualVerification) else VisualVerification.model_validate_json(response.text)
+        last_error: Exception | None = None
+        result: VisualVerification | None = None
+        for attempt in range(3):
+            try:
+                response = self.client.models.generate_content(
+                    model=self.text_model,
+                    contents=contents,
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json",
+                        response_json_schema=gemini_json_schema(VisualVerification),
+                        temperature=0,
+                    ),
+                )
+                result = parse_structured_response(response, VisualVerification)
+                break
+            except Exception as error:
+                last_error = error
+                if attempt < 2:
+                    time.sleep(1.5 * (attempt + 1))
+        if result is None:
+            raise RuntimeError(f"Gemini visual verification failed after 3 attempts: {last_error}") from last_error
         if result.asset_id != asset_id or result.dependency_hash != dependency_hash:
             raise ValueError("Visual verifier returned mismatched asset identity")
         return result
@@ -201,7 +259,7 @@ class MockProvider(Provider):
             "and must not be presented as verified cultural evidence. Configure GEMINI_API_KEY and AI_MODE=live for grounding."
         )
 
-    def generate_image(self, prompt: str, output: Path, references: list[Path] | None = None) -> None:
+    def generate_image(self, prompt: str, output: Path, references: list[ImageReference] | None = None) -> None:
         digest = content_hash(prompt)
         colour = tuple(int(digest[index:index + 2], 16) for index in (0, 2, 4))
         image = Image.new("RGB", (1024, 1024), colour)
@@ -214,7 +272,7 @@ class MockProvider(Provider):
 
     def verify_image(
         self, asset_id: str, dependency_hash: str, prompt: str, image: Path,
-        references: list[Path] | None = None,
+        references: list[ImageReference] | None = None,
     ) -> VisualVerification:
         return VisualVerification(
             asset_id=asset_id, dependency_hash=dependency_hash, passed=True, issues=[],
@@ -423,13 +481,16 @@ class AIService:
 
     def cached_visual_verification(
         self, project_id: str, asset_id: str, dependency_hash: str, prompt: str,
-        image: Path, references: list[Path] | None = None,
+        image: Path, references: list[ImageReference] | None = None,
     ) -> VisualVerification:
         image_hash = hashlib.sha256(image.read_bytes()).hexdigest()
         prompt_hash = content_hash(f"{PROMPT_VERSION}:verify-visual:{prompt}")
         input_hash = content_hash({
             "asset_id": asset_id, "dependency_hash": dependency_hash, "image_hash": image_hash,
-            "reference_hashes": [hashlib.sha256(path.read_bytes()).hexdigest() for path in references or []],
+            "references": [
+                {"label": label, "hash": hashlib.sha256(path.read_bytes()).hexdigest()}
+                for label, path in references or []
+            ],
         })
         operation = f"verify-visual-{asset_id}"
         cache_key = content_hash(f"{project_id}:{self.provider.name}:{self.provider.text_model}:{operation}:{prompt_hash}:{input_hash}")

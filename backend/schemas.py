@@ -271,19 +271,67 @@ class SceneVisualSpec(StrictModel):
     scene_id: str
     appearance_ids: list[str]
     location_id: str | None = None
+    # A location is the broader property/building; a set is the exact shootable
+    # sub-location.  The optional default keeps older saved manifests readable.
+    set_id: str | None = None
+    sub_location: str | None = None
     prop_ids: list[str]
     prompt: str
     negative_prompt: str
 
 
+class SetVisualSpec(StrictModel):
+    id: str
+    location_id: str | None = None
+    name: str
+    scene_ids: list[str]
+
+
 class VisualManifest(StrictModel):
     appearances: list[AppearanceSpec]
     scenes: list[SceneVisualSpec]
+    sets: list[SetVisualSpec] = Field(default_factory=list)
+
+
+class SetContinuitySnapshot(StrictModel):
+    set_id: str
+    location_id: str | None = None
+    name: str
+    reference_asset_id: str
+    source_scene_id: str
+    geometry_notes: str = ""
+    fixed_elements: list[str] = Field(default_factory=list)
+    materials: list[str] = Field(default_factory=list)
+    palette: list[str] = Field(default_factory=list)
+    adjacency_notes: list[str] = Field(default_factory=list)
+    mutable_elements: list[str] = Field(default_factory=list)
+    approved_at: str
+
+
+class SceneContinuitySnapshot(StrictModel):
+    scene_id: str
+    scene_number: int
+    set_id: str
+    asset_id: str
+    appearance_ids: list[str]
+    costume_ids: list[str] = Field(default_factory=list)
+    prop_ids: list[str] = Field(default_factory=list)
+    character_state_notes: list[str] = Field(default_factory=list)
+    prop_state_notes: list[str] = Field(default_factory=list)
+    approved_at: str
+
+
+class VisualContinuityLedger(StrictModel):
+    sets: list[SetContinuitySnapshot] = Field(default_factory=list)
+    scenes: list[SceneContinuitySnapshot] = Field(default_factory=list)
 
 
 class VisualVerificationIssue(StrictModel):
     severity: Literal["blocking", "warning"]
-    dimension: Literal["face", "apparent_age", "body", "grooming", "costume", "prop", "location", "composition", "other"]
+    dimension: Literal[
+        "face", "apparent_age", "body", "grooming", "costume", "prop", "location",
+        "composition", "visual_style", "set_geometry", "spatial_layout", "continuity", "other",
+    ]
     expected: str
     observed: str
     message: str
@@ -323,10 +371,36 @@ class ApprovalRequest(StrictModel):
     override_reason: str | None = None
 
 
+class SceneVisualApprovalRequest(StrictModel):
+    geometry_notes: str = ""
+    fixed_elements: list[str] = Field(default_factory=list)
+    materials: list[str] = Field(default_factory=list)
+    palette: list[str] = Field(default_factory=list)
+    adjacency_notes: list[str] = Field(default_factory=list)
+    mutable_elements: list[str] = Field(default_factory=list)
+    character_state_notes: list[str] = Field(default_factory=list)
+    prop_state_notes: list[str] = Field(default_factory=list)
+    promote_as_set_reference: bool = False
+    override_verification: bool = False
+    override_reason: str | None = Field(default=None, max_length=1000)
+    override_reference_gate: bool = False
+    reference_override_reason: str | None = Field(default=None, max_length=1000)
+
+
+class AssetPromptRevisionRequest(StrictModel):
+    prompt: str = Field(min_length=30, max_length=20_000)
+    expected_dependency_hash: str
+
+
 class CorrectionRequest(StrictModel):
     target_block_id: str
     instruction: str = Field(min_length=3, max_length=2000)
     expected_hash: str
+
+
+class AssetCorrectionRequest(StrictModel):
+    instruction: str = Field(min_length=3, max_length=2000)
+    style_reference_asset_id: str | None = None
 
 
 class MergeRequest(StrictModel):

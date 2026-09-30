@@ -54,10 +54,32 @@ class Client:
         return self.request("POST", f"/v1/projects/{project_id}/merges", json_data={"record_kind": record_kind, "primary_id": primary_id, "duplicate_ids": duplicate_ids}, idempotent=True)
     def correct(self, project_id: str, block_id: str, instruction: str, expected_hash: str):
         return self.request("POST", f"/v1/projects/{project_id}/corrections", json_data={"target_block_id": block_id, "instruction": instruction, "expected_hash": expected_hash}, idempotent=True)
+    def regenerate_visuals(self, project_id: str):
+        return self.request("POST", f"/v1/projects/{project_id}/visuals/regenerate", idempotent=True)
+    def start_visual_continuity(self, project_id: str):
+        return self.request("POST", f"/v1/projects/{project_id}/visuals/continuity/start", idempotent=True)
+    def compile_scene(self, project_id: str, scene_id: str):
+        return self.request("POST", f"/v1/projects/{project_id}/visuals/scenes/{scene_id}/compile", idempotent=True)
     def generate_asset(self, asset_id: str, retry: bool = False):
         endpoint = "retry" if retry else "generate"
         return self.request("POST", f"/v1/assets/{asset_id}/{endpoint}", idempotent=True)
+    def correct_asset(self, asset_id: str, instruction: str, style_reference_asset_id: str | None = None):
+        return self.request(
+            "POST", f"/v1/assets/{asset_id}/correct",
+            json_data={"instruction": instruction, "style_reference_asset_id": style_reference_asset_id},
+            idempotent=True,
+        )
+    def revise_asset_prompt(self, asset_id: str, prompt: str, expected_dependency_hash: str):
+        return self.request(
+            "POST", f"/v1/assets/{asset_id}/revise-prompt",
+            json_data={"prompt": prompt, "expected_dependency_hash": expected_dependency_hash},
+            idempotent=True,
+        )
+    def restore_asset(self, asset_id: str):
+        return self.request("POST", f"/v1/assets/{asset_id}/restore", idempotent=True)
     def approve_asset(self, asset_id: str): return self.request("POST", f"/v1/assets/{asset_id}/approve", idempotent=True)
+    def approve_scene_asset(self, asset_id: str, payload: dict[str, Any]):
+        return self.request("POST", f"/v1/assets/{asset_id}/approve-scene", json_data=payload, idempotent=True)
     def asset_bytes(self, asset_id: str): return self.request("GET", f"/v1/assets/{asset_id}/content")
     def export(self, project_id: str): return self.request("GET", f"/v1/projects/{project_id}/export")
 

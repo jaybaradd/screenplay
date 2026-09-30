@@ -6,6 +6,12 @@ from typing import Any
 
 PROMPT_VERSION = "2026-09-30.v2"
 
+VISUAL_STYLE_LOCK = (
+    "Photorealistic live-action Indian film production reference, real human skin texture and anatomy, "
+    "natural camera optics, physically plausible fabric and lighting, restrained documentary realism. "
+    "Not an illustration, drawing, painting, animation, anime, comic, vector art, 3D render or game character."
+)
+
 PRESERVATION_RULES = """
 PRESERVE THE STORY:
 - Keep the central dramatic purpose, causal plot logic, character relationships and emotional arc recognizable.
@@ -171,6 +177,56 @@ APPROVED CULTURAL BRIEF AND DIALECT GUIDE:
 
 ADAPTED SCREENPLAY:
 {json.dumps(adapted, ensure_ascii=False)}
+"""
+
+
+def visual_manifest_prompt(
+    source: dict[str, Any], adapted: dict[str, Any], plan: dict[str, Any], brief: dict[str, Any],
+    appearance_scaffold: list[dict[str, Any]], scene_scaffold: list[dict[str, Any]],
+) -> str:
+    return f"""Create a production-ready VisualManifest for a contemporary Maidani Mewari screenplay adaptation.
+
+This is visual production planning, not dialogue generation. Use only visually relevant cultural evidence and negative
+constraints. Do not copy linguistic grammar, vocabulary, or script constraints into image prompts.
+
+CHARACTER/APPEARANCE REQUIREMENTS:
+- Return exactly one AppearanceSpec for every appearance scaffold, preserving every supplied id, character_id and scene_ids.
+- Make identity_description specific: apparent age, face shape, complexion without colourism, physique, posture, expression,
+  occupational wear and stable identity anchors. Do not infer caste, religion, or wealth beyond approved evidence.
+- Make costume_description character-, occupation-, weather- and class-context specific: garment pieces, practical drape,
+  fabric, colour, wear, footwear, jewellery/accessories and continuity. Avoid decorative festival styling unless required.
+- Make grooming_description specific and stable: hair, facial hair where relevant, grooming and practical weather effects.
+- The final prompt must explicitly include the identity, costume and grooming descriptions and request a two-panel sheet:
+  neutral close portrait plus full-body wardrobe reference, plain production-reference background, no written labels.
+- Prompts must be meaningfully different between characters; changing only a name is invalid.
+- Every prompt must preserve this exact project-wide style: {VISUAL_STYLE_LOCK}
+
+SCENE REQUIREMENTS:
+- Return exactly one SceneVisualSpec for every scene scaffold and preserve supplied ids, scene_id, appearance_ids,
+  location_id and prop_ids.
+- Build prompts from the ADAPTED scene, approved visual/story/non-verbal plan, current appearances, location, props,
+  action, composition, time, weather, lighting, mood and atmosphere.
+- Describe one precise cinematic moment. Do not put dialogue, captions, subtitles or screenplay text inside the image.
+- negative_prompt must contain visual constraints only.
+- Every scene must use the same photorealistic live-action visual language as the character sheets.
+
+APPEARANCE SCAFFOLD:
+{json.dumps(appearance_scaffold, ensure_ascii=False)}
+
+SCENE SCAFFOLD:
+{json.dumps(scene_scaffold, ensure_ascii=False)}
+
+SOURCE CANONICAL RECORDS:
+{json.dumps(source, ensure_ascii=False)}
+
+APPROVED ADAPTED SCREENPLAY:
+{json.dumps(adapted, ensure_ascii=False)}
+
+APPROVED RELEVANT PLAN:
+{json.dumps(plan, ensure_ascii=False)}
+
+APPROVED VISUAL CULTURAL EVIDENCE:
+{json.dumps(brief, ensure_ascii=False)}
 """
 
 
