@@ -10,7 +10,7 @@ import backend.providers as providers_module
 import backend.services as services_module
 import backend.workflow as workflow_module
 from backend.config import Settings
-from backend.schemas import ProjectCreate
+from backend.schemas import ProjectCreate, SceneVisualApprovalRequest
 from backend.services import ExportService, ProjectService
 from backend.storage import Repository
 from backend.workflow import Workflow
@@ -34,13 +34,14 @@ def main() -> None:
         project = repository.create_project(ProjectCreate(
             title="The Letter — Engineering Sample",
             source_text=FIXTURE.read_text(encoding="utf-8"),
-            locality="Rajsamand plains",
-            setting="rural",
+            culture_id="maidani_mewari", locality="Rajsamand plains", setting="rural",
+            period="contemporary_2020_2026", output_script="devanagari",
         ))
         project_id = project["id"]
 
         workflow.start(project_id)
-        workflow.resume(project_id, {"action": "approve"})
+        repaired_extraction = service.repair_continuity(project_id)
+        workflow.resume(project_id, {"action": "approve", "revision_id": repaired_extraction["id"]})
         workflow.resume(project_id, {"action": "approve"})
         workflow.resume(project_id, {"action": "approve"})
         workflow.resume(project_id, {"action": "approve"})
@@ -51,9 +52,18 @@ def main() -> None:
                 service.approve_asset(asset["id"])
 
         workflow.resume(project_id, {"action": "approve"})
-        for asset in repository.list_assets(project_id):
-            if asset["kind"] == "scene_keyframe":
-                service.generate_asset(asset["id"])
+        extraction = repository.latest_revision(project_id, "extraction")["payload"]
+        for scene in extraction["scenes"]:
+            asset = next(
+                item for item in repository.list_assets(project_id)
+                if item["kind"] == "scene_keyframe" and item["scene_id"] == scene["id"]
+                and item["status"] != "invalidated"
+            )
+            generated = service.generate_asset(asset["id"])
+            service.approve_scene_asset(generated["id"], SceneVisualApprovalRequest(
+                geometry_notes="Mock sample geometry; replace through live visual review.",
+                promote_as_set_reference=True,
+            ))
 
         archive = ExportService(repository).build(project_id)
         if OUTPUT.exists():

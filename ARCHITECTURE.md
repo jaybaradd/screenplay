@@ -10,6 +10,9 @@ FastAPI ─────────────── app.sqlite
     │                      revisions, approvals, assets,
     │                      issues, idempotency, model runs
     ▼
+Culture profile snapshot + approved cultural brief
+    │
+    ▼
 LangGraph ───────────── checkpoints.sqlite
     │                      one thread_id per project
     ▼
@@ -46,9 +49,22 @@ Each bracketed step is a LangGraph `interrupt()`. Resumption uses the same proje
 - Surgical corrections require a target hash and prove all non-target block hashes are unchanged.
 - Visual dependencies are invalidated only when a correction changes an action/production dependency.
 
-## Cultural safety boundary
+## Continuity ledger
 
-The repository's pre-existing culture-pack research is intentionally excluded from runtime. In live mode, one Google Search-grounded research result is normalized into a source-linked `CulturalBrief`, reviewed, and frozen. Every later prompt receives only the approved brief subset and explicit negative constraints. Mock mode makes no cultural claims and exists solely to demonstrate the engineering workflow.
+The model extracts evidence-linked continuity events, not authoritative full snapshots. Application code walks scenes in order
+and deterministically applies first observations, acquisitions, transfers, derived props, learned facts, costume changes,
+injuries and recoveries. Knowledge carries forward unless an explicit supported event removes it. A continuity-only repair
+creates a new extraction revision without rewriting source scenes, characters, dialogue blocks or the StoryContract.
+
+## Cultural profile and safety boundary
+
+Culture-specific boundaries are declarative, versioned profiles rather than Python branches or prompt literals. A project
+snapshots its selected profile and hash, then one grounded research result is normalized into a source-linked `CulturalBrief`,
+reviewed and frozen. A context compiler supplies only the approved claims, policies and language evidence needed by each node.
+Raw research is excluded unless promoted into reviewed, cited profile evidence. Mock mode makes no cultural claims.
+
+Model caches, observations and visual dependencies include project isolation plus the profile/brief identity. A fictional
+test profile verifies that production-culture language and visual constraints cannot leak into another profile.
 
 ## Production migration
 

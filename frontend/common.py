@@ -89,7 +89,7 @@ def require_project() -> dict:
         st.stop()
     st.sidebar.markdown(f"**{project['title']}**")
     st.sidebar.markdown(f"<span class='stage'>{project['stage'].replace('_',' ')}</span>", unsafe_allow_html=True)
-    st.sidebar.caption(f"{project['culture']} · {project['locality']} · {project['setting']}")
+    st.sidebar.caption(f"{project['culture_display_name']} · {project['locality']} · {project['setting']}")
     return project
 
 

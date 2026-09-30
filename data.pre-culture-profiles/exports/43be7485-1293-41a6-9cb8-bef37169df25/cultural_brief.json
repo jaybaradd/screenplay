@@ -1,0 +1,409 @@
+{
+  "claims": [
+    {
+      "claim": "The culture is situated strictly in the Rajsamand Plains (eastern and central agrarian tehsils like Railmagra, Amet, Rajsamand/Kankroli, and Kuraj in the Banas basin), excluding western Aravalli uplands of Kumbhalgarh and Khamnore which transition to Pahari Mewari and Bhil tracts.",
+      "confidence": "high",
+      "id": "claim_geo_scope",
+      "layers": [
+        "story_world",
+        "visual_world"
+      ],
+      "prohibited_extrapolations": [
+        "Do not stage scenes in sand dunes or desert topography.",
+        "Do not portray western Aravalli tribal hill customs as typical of the agrarian plains core."
+      ],
+      "scope": "Rajsamand Plains",
+      "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFORkbXvZhR-1VCGdUEc8CYSAScYDrEc7B7KFqzyotx2ydcO9ymqDHgtfTtmWASIVbTV3LMwSu5H-FZEufj1C1hiY08GTRG97X5bEj3KmpAPfQkt3UqobmgrXSudIbaqGb9VTI=",
+      "time_period": "Contemporary (2020–2026)",
+      "uncertainty": "Dialectal features transition into Pahari Mewari with more pronounced /s/ to /h/ weakening towards western foothill tehsils like Khamnore and Nathdwara."
+    },
+    {
+      "claim": "The material baseline is an agrarian-industrial economy characterized by irrigated cash crops (wheat, mustard, maize), intensive marble gangsaw and quarry extraction, zinc-lead mining (Sindesar Khurd / Rajpura Dariba), and circular labor migration to Gujarat and Maharashtra.",
+      "confidence": "high",
+      "id": "claim_economic_baseline",
+      "layers": [
+        "story_world",
+        "visual_world",
+        "characters"
+      ],
+      "prohibited_extrapolations": [
+        "Do not depict a purely feudal or exclusively pastoral subsistence economy.",
+        "Do not use camel caravans or desert trade motifs."
+      ],
+      "scope": "Rajsamand Plains",
+      "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9-pYLyQwjafZBXfDOPIt7IEfhs7f3kuIGs69KdgTtD_CJpgorpVHby7uLX6FcAjUjOM1yZbd92ztxy5hQVkbxEa2IrlwayfAk1IHOatVxQTgFEnLZYyFTVQcJTwdYaSbabCV_Gikfx7d9G5q5C62gjwMBWuMtFsAetHnWmyLvsBKi3fbj1jvrOBl60g==",
+      "time_period": "Contemporary (2020–2026)",
+      "uncertainty": null
+    },
+    {
+      "claim": "Domestic structures in 2020–2026 are overwhelmingly pakka reinforced concrete or brick, painted pale mint, turquoise, or chalk white, uniquely incorporating cheap discarded unpolished marble cutting-slabs into flooring, steps, and lintels due to nearby quarries.",
+      "confidence": "high",
+      "id": "claim_built_environment",
+      "layers": [
+        "visual_world"
+      ],
+      "prohibited_extrapolations": [
+        "Do not feature generic Rajasthani royal palaces or ornamental havelis as typical rural village homes.",
+        "Do not present mud thatch huts as the predominant contemporary dwelling form."
+      ],
+      "scope": "Rural Rajsamand Plains",
+      "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4QLcTdMe471Gt_i-A14r0dckuoi4D6-n0sFCgkyELj-3AcdJHZbgb_IxQaBvHdTGdA9cQKNrV8zqVA3Y383oJzvKe_YDcnuih5PlHzQyoErHKjCIJfFvLQ7w8sIN98HkEMeluH4iSGz1QXeIJjgCKOvFsDyHPsgF8bdmX5g7rE_cTOje_2BEW2fMBOH3obg==",
+      "time_period": "Contemporary (2020–2026)",
+      "uncertainty": null
+    },
+    {
+      "claim": "The terrain consists of flat to undulating semi-arid plains broken by isolated granite knolls, hedged with Vilayati Kikar and Euphorbia (Thor), with blinding white dried marble slurry discharge pits fringing quarry-adjacent towns like Kelwa and Kuraj.",
+      "confidence": "high",
+      "id": "claim_landscape_markers",
+      "layers": [
+        "visual_world"
+      ],
+      "prohibited_extrapolations": [
+        "Do not depict golden sand dunes, oasis imagery, or Thar desert flora."
+      ],
+      "scope": "Rajsamand Plains",
+      "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4QLcTdMe471Gt_i-A14r0dckuoi4D6-n0sFCgkyELj-3AcdJHZbgb_IxQaBvHdTGdA9cQKNrV8zqVA3Y383oJzvKe_YDcnuih5PlHzQyoErHKjCIJfFvLQ7w8sIN98HkEMeluH4iSGz1QXeIJjgCKOvFsDyHPsgF8bdmX5g7rE_cTOje_2BEW2fMBOH3obg==",
+      "time_period": "Contemporary (2020–2026)",
+      "uncertainty": null
+    },
+    {
+      "claim": "Older men wear white cotton dhoti, kurta/shirt, red/saffron/pink turban or potiya, and silver murki earrings; younger men wear jeans, trousers, and sneakers. Older women wear ghagra, kanchli, and odhna with silver kariya and lac bangles, while younger women frequently wear synthetic georgette sarees.",
+      "confidence": "high",
+      "id": "claim_attire_patterns",
+      "layers": [
+        "visual_world",
+        "characters"
+      ],
+      "prohibited_extrapolations": [
+        "Do not dress everyday rural peasants in elaborate tourist-folk or royal wedding costumes.",
+        "Do not omit contemporary youth Western clothing."
+      ],
+      "scope": "Rajsamand Plains",
+      "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4QLcTdMe471Gt_i-A14r0dckuoi4D6-n0sFCgkyELj-3AcdJHZbgb_IxQaBvHdTGdA9cQKNrV8zqVA3Y383oJzvKe_YDcnuih5PlHzQyoErHKjCIJfFvLQ7w8sIN98HkEMeluH4iSGz1QXeIJjgCKOvFsDyHPsgF8bdmX5g7rE_cTOje_2BEW2fMBOH3obg==",
+      "time_period": "Contemporary (2020–2026)",
+      "uncertainty": null
+    },
+    {
+      "claim": "The practice of ghunghat (laj) is context-dependent: women draw the odhna past the chin in the village basti before male affines and elders, but push it back to the hairline in agricultural fields, MGNREGA sites, healthcare centers, and administrative offices to work and use phones.",
+      "confidence": "high",
+      "id": "claim_ghunghat_practice",
+      "layers": [
+        "non_verbal",
+        "cultural_precision"
+      ],
+      "prohibited_extrapolations": [
+        "Do not portray women as permanently veiled in fields or public workplaces."
+      ],
+      "scope": "Rural Rajsamand Plains",
+      "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFORkbXvZhR-1VCGdUEc8CYSAScYDrEc7B7KFqzyotx2ydcO9ymqDHgtfTtmWASIVbTV3LMwSu5H-FZEufj1C1hiY08GTRG97X5bEj3KmpAPfQkt3UqobmgrXSudIbaqGb9VTI=",
+      "time_period": "Contemporary (2020–2026)",
+      "uncertainty": null
+    },
+    {
+      "claim": "Social gatherings occur on the otlo (raised masonry porch) or dhalyo (verandah); charpai seating respects seniority, with younger kin standing or sitting at the payti (foot-rail). Elderly villagers maintain subtle spatial plinth segregation, whereas youth intermingle freely in market/school contexts.",
+      "confidence": "high",
+      "id": "claim_spatial_seating",
+      "layers": [
+        "non_verbal",
+        "story_world"
+      ],
+      "prohibited_extrapolations": [
+        "Do not depict uninhibited equal seating on cots regardless of age hierarchy."
+      ],
+      "scope": "Rural Rajsamand Plains",
+      "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFORkbXvZhR-1VCGdUEc8CYSAScYDrEc7B7KFqzyotx2ydcO9ymqDHgtfTtmWASIVbTV3LMwSu5H-FZEufj1C1hiY08GTRG97X5bEj3KmpAPfQkt3UqobmgrXSudIbaqGb9VTI=",
+      "time_period": "Contemporary (2020–2026)",
+      "uncertainty": null
+    },
+    {
+      "claim": "Public disagreement at village chabutras is mediated by indirectness, proverb-citation, and non-committal murmurs (हूँ-हूँ / होवे-होवे); married women avoid speaking names of husbands and senior in-laws, employing teknonymy or third-person remote pronouns (वे).",
+      "confidence": "high",
+      "id": "claim_verbal_indirectness",
+      "layers": [
+        "verbal",
+        "cultural_precision"
+      ],
+      "prohibited_extrapolations": [
+        "Do not depict traditional daughters-in-law directly addressing husbands or senior in-laws by personal name."
+      ],
+      "scope": "Maidani Mewari speakers",
+      "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSJr2QEwnKVQSNj-9mnoYeHZ7iLb0IqyQuEtxEa_uAogheAuWbuptRZ4PNCI9mHQZ3ZHL_Ml_whHmA35vkCaV1KLiQYn2XleJ7zCzi3KPr5dXfpDmWqz7s8GmSPDMtZf3fMNRURtHSg4VWnuQ7juk5kObD7r_jidoJMqMyKIkuUOlV17DM__R3-BPG0ShwGq019M7OVOc=",
+      "time_period": "Contemporary (2020–2026)",
+      "uncertainty": null
+    },
+    {
+      "claim": "Key communal religious observances include Sheetla Saptami/Basoda (eating cold pre-cooked food without lighting hearths), Jaljhulani Ekadashi pilgrimages to Charbhuja at Garhbor, and night-long Devnarayan and Ramdevra bhajan jagrans.",
+      "confidence": "high",
+      "id": "claim_ritual_calendar",
+      "layers": [
+        "story_world",
+        "cultural_precision"
+      ],
+      "prohibited_extrapolations": [
+        "Do not depict Gavari as an internal domestic ritual of plains peasants; Gavari is strictly performed by Bhil tribal troupes.",
+        "Do not depict lit hearth fires during Sheetla Saptami / Basoda."
+      ],
+      "scope": "Rajsamand Plains",
+      "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFORkbXvZhR-1VCGdUEc8CYSAScYDrEc7B7KFqzyotx2ydcO9ymqDHgtfTtmWASIVbTV3LMwSu5H-FZEufj1C1hiY08GTRG97X5bEj3KmpAPfQkt3UqobmgrXSudIbaqGb9VTI=",
+      "time_period": "Contemporary (2020–2026)",
+      "uncertainty": null
+    },
+    {
+      "claim": "Contemporary village routine is structured around visits to e-Mitra digital kiosks for agrarian schemes, queuing at dairy cooperative points with milk cans (charki) for fat testing, managing deep tubewells (500–800 ft) and solar pumps (PM-KUSUM), and youth preparing for competitive exams (REET, CET).",
+      "confidence": "high",
+      "id": "claim_institutional_interfaces",
+      "layers": [
+        "story_world",
+        "characters"
+      ],
+      "prohibited_extrapolations": [
+        "Do not depict water collection solely via ancient stepwells without deep tubewells and Jal Jeevan piped taps."
+      ],
+      "scope": "Rajsamand Plains",
+      "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9-pYLyQwjafZBXfDOPIt7IEfhs7f3kuIGs69KdgTtD_CJpgorpVHby7uLX6FcAjUjOM1yZbd92ztxy5hQVkbxEa2IrlwayfAk1IHOatVxQTgFEnLZYyFTVQcJTwdYaSbabCV_Gikfx7d9G5q5C62gjwMBWuMtFsAetHnWmyLvsBKi3fbj1jvrOBl60g==",
+      "time_period": "Contemporary (2020–2026)",
+      "uncertainty": null
+    }
+  ],
+  "culture": "Maidani Mewari",
+  "dialect_guide": {
+    "code_switching_rules": [
+      "Administrative, digital, and mechanical concepts seamlessly attach Mewari case clitics directly to Hindi/English loanwords (e.g., 'मोबाइल मांय' mobail may, 'साइट माथे' sait mathe).",
+      "Youth discussing competitive exams, coaching classes, or technical topics switch to Hindi syntax while preserving Mewari tonal contour and phonology."
+    ],
+    "features": [
+      {
+        "category": "pronoun",
+        "confidence": "high",
+        "devanagari_form": "म्हूं",
+        "id": "feat_pron_1sg_nom",
+        "meaning_or_function": "First-person singular nominative pronoun ('I')",
+        "prohibited_uses": [
+          "Do not use Hindi 'मैं' (main)."
+        ],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSJr2QEwnKVQSNj-9mnoYeHZ7iLb0IqyQuEtxEa_uAogheAuWbuptRZ4PNCI9mHQZ3ZHL_Ml_whHmA35vkCaV1KLiQYn2XleJ7zCzi3KPr5dXfpDmWqz7s8GmSPDMtZf3fMNRURtHSg4VWnuQ7juk5kObD7r_jidoJMqMyKIkuUOlV17DM__R3-BPG0ShwGq019M7OVOc=",
+        "speaker_constraints": [],
+        "transliteration": "mhū̃",
+        "usage_context": "Used across general dialogue by speaker referring to self."
+      },
+      {
+        "category": "pronoun",
+        "confidence": "high",
+        "devanagari_form": "आपां",
+        "id": "feat_pron_1pl_inc",
+        "meaning_or_function": "First-person plural inclusive pronoun ('we, including listener')",
+        "prohibited_uses": [
+          "Do not use when excluding the listener (use म्हे instead)."
+        ],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLKVJUd2z_OO3F34eM6zbB70macA-3yyihF89IjElrDAmQ9e15tzfvC0gxV3sasMPe0s5syUq0kfSw5caTAPED7GknLDPsOb6m8r7-ki7GDAYWHRfj9MrebJvpcx6LvBMTIFNzy9a4_4rfSYuzk5iz-yvXQKAoj0N1Dlj9zNUWGfAiUZYc5YVHGdSmKbnDqvgCS3xXvubOjpv7bK4=",
+        "speaker_constraints": [],
+        "transliteration": "āpā̃",
+        "usage_context": "Used when the speaker includes the listener in the group action."
+      },
+      {
+        "category": "pronoun",
+        "confidence": "high",
+        "devanagari_form": "म्हे",
+        "id": "feat_pron_1pl_exc",
+        "meaning_or_function": "First-person plural exclusive pronoun ('we, excluding listener')",
+        "prohibited_uses": [
+          "Do not use when addressee is included in the collective group."
+        ],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLKVJUd2z_OO3F34eM6zbB70macA-3yyihF89IjElrDAmQ9e15tzfvC0gxV3sasMPe0s5syUq0kfSw5caTAPED7GknLDPsOb6m8r7-ki7GDAYWHRfj9MrebJvpcx6LvBMTIFNzy9a4_4rfSYuzk5iz-yvXQKAoj0N1Dlj9zNUWGfAiUZYc5YVHGdSmKbnDqvgCS3xXvubOjpv7bK4=",
+        "speaker_constraints": [],
+        "transliteration": "mhe",
+        "usage_context": "Used when referring to speaker's party to the exclusion of the addressee."
+      },
+      {
+        "category": "grammar",
+        "confidence": "high",
+        "devanagari_form": "रो / री / रा",
+        "id": "feat_postp_genitive",
+        "meaning_or_function": "Genitive postposition inflecting for agreement with following noun ('of')",
+        "prohibited_uses": [
+          "Do not replace with Hindi 'का / की / के' (kā/kī/ke) in authentic dialogue."
+        ],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSJr2QEwnKVQSNj-9mnoYeHZ7iLb0IqyQuEtxEa_uAogheAuWbuptRZ4PNCI9mHQZ3ZHL_Ml_whHmA35vkCaV1KLiQYn2XleJ7zCzi3KPr5dXfpDmWqz7s8GmSPDMtZf3fMNRURtHSg4VWnuQ7juk5kObD7r_jidoJMqMyKIkuUOlV17DM__R3-BPG0ShwGq019M7OVOc=",
+        "speaker_constraints": [],
+        "transliteration": "ro / rī / rā",
+        "usage_context": "Universal marker of possession in Maidani Mewari."
+      },
+      {
+        "category": "grammar",
+        "confidence": "high",
+        "devanagari_form": "ने",
+        "id": "feat_postp_dative",
+        "meaning_or_function": "Dative/accusative postposition marker ('to / for / object marker')",
+        "prohibited_uses": [
+          "Do not substitute Western Marwari dative 'नूं' (nū̃) or Hindi 'को' (ko)."
+        ],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSJr2QEwnKVQSNj-9mnoYeHZ7iLb0IqyQuEtxEa_uAogheAuWbuptRZ4PNCI9mHQZ3ZHL_Ml_whHmA35vkCaV1KLiQYn2XleJ7zCzi3KPr5dXfpDmWqz7s8GmSPDMtZf3fMNRURtHSg4VWnuQ7juk5kObD7r_jidoJMqMyKIkuUOlV17DM__R3-BPG0ShwGq019M7OVOc=",
+        "speaker_constraints": [],
+        "transliteration": "-ne",
+        "usage_context": "Marks indirect and direct objects (e.g., छोरा ने)."
+      },
+      {
+        "category": "grammar",
+        "confidence": "high",
+        "devanagari_form": "है / हे",
+        "id": "feat_copula_present",
+        "meaning_or_function": "Present tense copula/auxiliary based on the /h/ root",
+        "prohibited_uses": [
+          "Strictly do not use Dhundhari/Hadoti copula 'छै' (chhai)."
+        ],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLKVJUd2z_OO3F34eM6zbB70macA-3yyihF89IjElrDAmQ9e15tzfvC0gxV3sasMPe0s5syUq0kfSw5caTAPED7GknLDPsOb6m8r7-ki7GDAYWHRfj9MrebJvpcx6LvBMTIFNzy9a4_4rfSYuzk5iz-yvXQKAoj0N1Dlj9zNUWGfAiUZYc5YVHGdSmKbnDqvgCS3xXvubOjpv7bK4=",
+        "speaker_constraints": [],
+        "transliteration": "hai / he",
+        "usage_context": "Used in present stative and auxiliary constructions."
+      },
+      {
+        "category": "grammar",
+        "confidence": "high",
+        "devanagari_form": "हो / ही / हा / हीं",
+        "id": "feat_copula_past",
+        "meaning_or_function": "Past tense copula/auxiliary inflecting for gender and number ('was / were')",
+        "prohibited_uses": [
+          "Strictly do not use Eastern Rajasthani 'छो' (chho) or Vagdi past forms ending in '-lo'."
+        ],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLKVJUd2z_OO3F34eM6zbB70macA-3yyihF89IjElrDAmQ9e15tzfvC0gxV3sasMPe0s5syUq0kfSw5caTAPED7GknLDPsOb6m8r7-ki7GDAYWHRfj9MrebJvpcx6LvBMTIFNzy9a4_4rfSYuzk5iz-yvXQKAoj0N1Dlj9zNUWGfAiUZYc5YVHGdSmKbnDqvgCS3xXvubOjpv7bK4=",
+        "speaker_constraints": [],
+        "transliteration": "ho / hī / hā / hī̃",
+        "usage_context": "Used for past state and imperfective constructions."
+      },
+      {
+        "category": "grammar",
+        "confidence": "high",
+        "devanagari_form": "-ला",
+        "id": "feat_fut_suffix",
+        "meaning_or_function": "Future tense inflexion suffix (e.g., करूला, करला, जावला)",
+        "prohibited_uses": [
+          "Do not use Marwari future tense marker '-सी' (-sī, e.g., karsī)."
+        ],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSJr2QEwnKVQSNj-9mnoYeHZ7iLb0IqyQuEtxEa_uAogheAuWbuptRZ4PNCI9mHQZ3ZHL_Ml_whHmA35vkCaV1KLiQYn2XleJ7zCzi3KPr5dXfpDmWqz7s8GmSPDMtZf3fMNRURtHSg4VWnuQ7juk5kObD7r_jidoJMqMyKIkuUOlV17DM__R3-BPG0ShwGq019M7OVOc=",
+        "speaker_constraints": [],
+        "transliteration": "-lā",
+        "usage_context": "Affixed to verb roots to denote future actions."
+      },
+      {
+        "category": "grammar",
+        "confidence": "high",
+        "devanagari_form": "व्हणो",
+        "id": "feat_inceptive_verb",
+        "meaning_or_function": "Glottal glide verb meaning 'to happen / to become' (forms: व्है, व्हियो, नी व्है)",
+        "prohibited_uses": [],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLKVJUd2z_OO3F34eM6zbB70macA-3yyihF89IjElrDAmQ9e15tzfvC0gxV3sasMPe0s5syUq0kfSw5caTAPED7GknLDPsOb6m8r7-ki7GDAYWHRfj9MrebJvpcx6LvBMTIFNzy9a4_4rfSYuzk5iz-yvXQKAoj0N1Dlj9zNUWGfAiUZYc5YVHGdSmKbnDqvgCS3xXvubOjpv7bK4=",
+        "speaker_constraints": [],
+        "transliteration": "vhṇo",
+        "usage_context": "Used where Hindi uses होना (होता है, हुआ)."
+      },
+      {
+        "category": "particle",
+        "confidence": "high",
+        "devanagari_form": "नी",
+        "id": "feat_neg_particle",
+        "meaning_or_function": "Pre-verbal negative particle ('not')",
+        "prohibited_uses": [
+          "Do not replace with Hindi 'नहीं' (nahīn) in vernacular dialogue."
+        ],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSJr2QEwnKVQSNj-9mnoYeHZ7iLb0IqyQuEtxEa_uAogheAuWbuptRZ4PNCI9mHQZ3ZHL_Ml_whHmA35vkCaV1KLiQYn2XleJ7zCzi3KPr5dXfpDmWqz7s8GmSPDMtZf3fMNRURtHSg4VWnuQ7juk5kObD7r_jidoJMqMyKIkuUOlV17DM__R3-BPG0ShwGq019M7OVOc=",
+        "speaker_constraints": [],
+        "transliteration": "nī",
+        "usage_context": "Placed directly prior to the verb stem (e.g., वो नी आयो)."
+      },
+      {
+        "category": "honorific",
+        "confidence": "high",
+        "devanagari_form": "सा",
+        "id": "feat_honorific_particle",
+        "meaning_or_function": "Universal honorific enclitic particle conveying politeness",
+        "prohibited_uses": [],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSJr2QEwnKVQSNj-9mnoYeHZ7iLb0IqyQuEtxEa_uAogheAuWbuptRZ4PNCI9mHQZ3ZHL_Ml_whHmA35vkCaV1KLiQYn2XleJ7zCzi3KPr5dXfpDmWqz7s8GmSPDMtZf3fMNRURtHSg4VWnuQ7juk5kObD7r_jidoJMqMyKIkuUOlV17DM__R3-BPG0ShwGq019M7OVOc=",
+        "speaker_constraints": [],
+        "transliteration": "sā",
+        "usage_context": "Suffixed to greetings (राम-राम सा), names, kinship titles, and verb endings."
+      },
+      {
+        "category": "idiom",
+        "confidence": "high",
+        "devanagari_form": "काळजे ठंडक पडणी",
+        "id": "feat_idiom_kalje_thando",
+        "meaning_or_function": "Deep emotional catharsis or relief following extreme tension or anxiety",
+        "prohibited_uses": [],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFPbj3mMewGdx5VZNi03Z1Tv4dZRwwx4MJY-KNQQblB4OhbsLdYG8HM6yzwUqDs9dJsLtfH7AIF4-WFP5QTz_kbvH2kB6mInxM-e6vH-3xyjoShTuR7MIWaoZG5FWveXLzB8AxEJDRme65DA6HfaiutDwnDAfThJMlhZnBdbm_dU8k1aGNlc-ZvGccZ_JAX",
+        "speaker_constraints": [],
+        "transliteration": "kāḷje ṭhaṇḍak paṛṇī",
+        "usage_context": "Uttered when an acute crisis, legal trouble, or family danger resolves."
+      },
+      {
+        "category": "idiom",
+        "confidence": "high",
+        "devanagari_form": "हाक पाड़णी",
+        "id": "feat_idiom_hak_parni",
+        "meaning_or_function": "To yell or shout out loudly to someone across a field or pasture",
+        "prohibited_uses": [],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFPbj3mMewGdx5VZNi03Z1Tv4dZRwwx4MJY-KNQQblB4OhbsLdYG8HM6yzwUqDs9dJsLtfH7AIF4-WFP5QTz_kbvH2kB6mInxM-e6vH-3xyjoShTuR7MIWaoZG5FWveXLzB8AxEJDRme65DA6HfaiutDwnDAfThJMlhZnBdbm_dU8k1aGNlc-ZvGccZ_JAX",
+        "speaker_constraints": [],
+        "transliteration": "hāk pāṛṇī",
+        "usage_context": "Used in agrarian settings when communicating over agricultural parcels or grazing commons."
+      },
+      {
+        "category": "kinship",
+        "confidence": "high",
+        "devanagari_form": "बिंदणी",
+        "id": "feat_kinship_bindani",
+        "meaning_or_function": "Daughter-in-law of a family or village community",
+        "prohibited_uses": [],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF06OVis_MwK30qylR10HcsU3OMse6sOF38a3vcSQK-jeJjK50Mf2b_4P3ztzZMg3XyztYlCnRggS078ZDK1xUN2MlGCk_3YdfpECggWHQoaxCcUerPg6bjJyCqaUbp54qwyJWdEy5sFkUMj0tsN13f9EOiHxF1jJ65IE_2r9WUHkrTptDe706ro7yuaznZHQgUSX3fMwS0S_7aYQ==",
+        "speaker_constraints": [
+          "Senior village members, in-laws"
+        ],
+        "transliteration": "bindṇī",
+        "usage_context": "Used by elders to address or refer to married women brought into the village lineage."
+      },
+      {
+        "category": "rhythm",
+        "confidence": "high",
+        "devanagari_form": "ळ",
+        "id": "feat_phonology_retroflex_l",
+        "meaning_or_function": "Retroflex lateral approximant consonant phoneme",
+        "prohibited_uses": [
+          "Do not flatten to standard Hindi dental /l/."
+        ],
+        "source_url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSJr2QEwnKVQSNj-9mnoYeHZ7iLb0IqyQuEtxEa_uAogheAuWbuptRZ4PNCI9mHQZ3ZHL_Ml_whHmA35vkCaV1KLiQYn2XleJ7zCzi3KPr5dXfpDmWqz7s8GmSPDMtZf3fMNRURtHSg4VWnuQ7juk5kObD7r_jidoJMqMyKIkuUOlV17DM__R3-BPG0ShwGq019M7OVOc=",
+        "speaker_constraints": [],
+        "transliteration": "ɭ",
+        "usage_context": "Consistently pronounced in words like काळो (kāḷo) and पाणी (pāṇī)."
+      }
+    ],
+    "negative_constraints": [
+      "Never use Eastern Rajasthani copula छै (chhai) or छो (chho).",
+      "Never use Marwari dative नूं (-nū̃) or future tense suffix -सी (-sī).",
+      "Never substitute Vagdi past tense forms ending in -lo.",
+      "Never invent pseudo-archaic courtly Dingal verse for ordinary peasant interactions."
+    ],
+    "register_rules": [
+      "Upper-caste Rajputs retain courtly forms like 'हुकुम' (hukum) and 'खम्मा घणी' (khamma ghani).",
+      "Peasant castes (Dangis, Jats, Gujjars, Gadris) use agrarian greetings like 'राम-राम सा' (Ram-Ram sa) or deity invocations 'जय श्री देवनारायण' (Jai Shri Devnarayan).",
+      "Subaltern youth (Meghwals, Bhils) avoid feudal subservient titles like 'अन्नदाता' (annadata), opting for 'नमस्ते' (namaste), 'जय भीम' (jai bhim), or neutral 'राम-राम सा'."
+    ],
+    "target_variety": "Maidani Mewari",
+    "writing_script": "Devanagari"
+  },
+  "locality": "Rajsamand Plains, Rajasthan (Railmagra, Amet, rural Rajsamand/Kankroli hinterlands, and Kuraj)",
+  "negative_constraints": [
+    "Strictly prohibit desert sand dunes, camel caravans, and Thar desert topography; Rajsamand plains are rocky, tubewell-irrigated agricultural basins and marble extraction belts.",
+    "Prohibit opulent palace, royal haveli, and Bollywood royal wedding aesthetic cliches unless explicitly mandated by script requirements.",
+    "Prohibit depicting the sacred folk dance-drama Gavari (गवरी) as an internal domestic peasant ritual; Gavari is enacted exclusively by visiting Bhil troupes.",
+    "Do not use Marwari dative 'नूं' (-nū̃) or future suffix '-सी' (-sī).",
+    "Do not use Dhundhari/Hadoti copulas 'छै' (chhai) or 'छो' (chho).",
+    "Do not represent women as universally veiled in working agricultural fields, administrative e-Mitra kiosks, or hospitals."
+  ],
+  "open_questions": [
+    "Degree of infiltration of eastern genitive postposition 'को/की/का' in boundary villages between Railmagra and Bhilwara district.",
+    "Exact threshold of phonetic s-softening (transition to /h/) across speaker generations along the western transition corridor towards Nathdwara.",
+    "Rate of lexical obsolescence among youth born after 2005 regarding traditional agricultural implements versus modern Hindi mechanized terms."
+  ],
+  "period": "Contemporary (2020–2026)",
+  "research_summary": "This cultural brief establishes the authentic linguistic, material, and social fabric of the Maidani Mewari cultural sphere in the Rajsamand Plains of Rajasthan for the contemporary period (2020–2026). Grounded strictly in empirical dialectology and regional field data, the profile details the agrarian-industrial reality of the Banas River basin, highlighting marble cutting clusters, tubewell cash-cropping, and digital e-Mitra interfaces while explicitly rejecting Bollywood desert, royal haveli, and camel tropes. Linguistically, it provides verified Devanagari pronominal and auxiliary markers diagnostic of Plains Mewari—retaining /s/ and the /h/-based copula while strictly excluding Eastern Rajasthani 'छै' and Western Marwari 'नूं/-सी'.",
+  "setting": "Agrarian-industrial rural plains in the Banas River basin"
+}

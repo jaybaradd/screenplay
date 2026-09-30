@@ -7,6 +7,7 @@
       "layers": [
         "cultural_precision"
       ],
+      "origin": "mock",
       "prohibited_extrapolations": [
         "Do not treat mock content as cultural evidence."
       ],
@@ -16,16 +17,64 @@
       "uncertainty": "Configure live Gemini grounding before presenting cultural output."
     }
   ],
-  "culture": "Maidani Mewari",
-  "locality": "Rajsamand plains",
-  "negative_constraints": [
-    "Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery.",
-    "Do not invent Mewari dialogue or infer caste, religion or class."
+  "constraints": [
+    {
+      "id": "mm-language-boundary",
+      "kind": "language_boundary",
+      "layers": [
+        "verbal",
+        "cultural_precision"
+      ],
+      "origin": "profile_policy",
+      "source_claim_ids": [],
+      "text": "Do not substitute Marwari, generic Rajasthani or standard Hindi for Maidani Mewari; do not invent regional-sounding forms."
+    },
+    {
+      "id": "mm-visual-cliche-boundary",
+      "kind": "visual_boundary",
+      "layers": [
+        "visual_world",
+        "story_world",
+        "cultural_precision"
+      ],
+      "origin": "profile_policy",
+      "source_claim_ids": [],
+      "text": "Do not default to palaces, camels, sand dunes, weddings or tourist-folk imagery unless the screenplay and approved evidence require them."
+    },
+    {
+      "id": "mm-identity-boundary",
+      "kind": "identity_boundary",
+      "layers": [
+        "characters",
+        "non_verbal",
+        "story_world",
+        "cultural_precision"
+      ],
+      "origin": "profile_policy",
+      "source_claim_ids": [],
+      "text": "Do not infer caste, religion, wealth, occupation, values or universal personality traits from regional identity."
+    }
   ],
+  "culture": "Maidani Mewari",
+  "culture_id": "maidani_mewari",
+  "language_guide": {
+    "code_switching_rules": [],
+    "features": [],
+    "negative_constraints": [
+      "Mock mode cannot supply culturally verified dialogue."
+    ],
+    "register_rules": [],
+    "target_variety": "Maidani Mewari",
+    "writing_script": "devanagari"
+  },
+  "locality": "Rajsamand plains",
   "open_questions": [
     "Live cultural grounding has not run."
   ],
-  "period": "Contemporary 2020-2026",
+  "output_script": "devanagari",
+  "period": "contemporary_2020_2026",
+  "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+  "profile_version": "1.0.0",
   "research_summary": "Mock mode validates engineering flow, not cultural accuracy.",
   "setting": "rural"
 }

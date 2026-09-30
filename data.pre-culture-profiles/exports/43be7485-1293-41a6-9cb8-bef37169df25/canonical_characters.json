@@ -1,0 +1,206 @@
+[
+  {
+    "age_range": "34",
+    "aliases": [
+      "Mara",
+      "The owner"
+    ],
+    "dialect_register": "Measured, direct, restrained contemporary speech",
+    "emotional_state": "Shifting from paralyzed mourning and defensive anger to sober clarity and cautious renewal",
+    "id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "name": "Mara Vale",
+    "personality": [
+      "Guarded",
+      "Proud",
+      "Pragmatic",
+      "Sharp-witted",
+      "Grieving"
+    ],
+    "relationships": [
+      {
+        "label": "Widow of Adrian",
+        "notes": "Adrian died one year ago; she preserved his memory until uncovering his financial dishonesty.",
+        "target_character_id": "bbe63388-245b-5d5d-bfa4-9e740a27f355"
+      },
+      {
+        "label": "Employer and confidante",
+        "notes": "Dev looks out for her wellbeing while trying to keep the farm solvent.",
+        "target_character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b"
+      },
+      {
+        "label": "Debtor / Adversary turned mutual negotiator",
+        "notes": "Initially hostile, they come to a begrudging mutual respect and agreement.",
+        "target_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+      },
+      {
+        "label": "Employer of part-time accountant",
+        "notes": "Relies on Ina for accurate financial auditing.",
+        "target_character_id": "12942f85-a994-554b-a7d0-e22280ef26ca"
+      }
+    ],
+    "role": "Farm owner and widow of Adrian",
+    "scene_entrances": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "2a7f6293-f941-51fa-94be-2af199d08126",
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "435fda02-8511-558a-afab-0bb5e04281f2",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ],
+    "scene_exits": [
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "age_range": "63",
+    "aliases": [
+      "Dev"
+    ],
+    "dialect_register": "Colloquial, understated, dry rural phrasing",
+    "emotional_state": "Protective, quietly reassuring, wryly observant",
+    "id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+    "name": "Dev Holt",
+    "personality": [
+      "Pragmatic",
+      "Loyal",
+      "Dry-humored",
+      "Observant",
+      "Patient"
+    ],
+    "relationships": [
+      {
+        "label": "Protective caretaker and surrogate elder",
+        "notes": "Steers Mara gently through reality without disrespecting her grief.",
+        "target_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+      },
+      {
+        "label": "Wary gatekeeper",
+        "notes": "Guards the farm perimeter, acts as pragmatic buffer.",
+        "target_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+      }
+    ],
+    "role": "Farm caretaker",
+    "scene_entrances": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "2a7f6293-f941-51fa-94be-2af199d08126",
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "435fda02-8511-558a-afab-0bb5e04281f2",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ],
+    "scene_exits": [
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "age_range": "39",
+    "aliases": [
+      "Viktor",
+      "The man from the notice"
+    ],
+    "dialect_register": "Crisp, urgent, commercial plainspoken English",
+    "emotional_state": "Stressed and impatient under payroll deadline, shifting to respectful and intrigued",
+    "id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+    "name": "Viktor Dane",
+    "personality": [
+      "Determined",
+      "No-nonsense",
+      "Responsible to his crew",
+      "Direct",
+      "Observant"
+    ],
+    "relationships": [
+      {
+        "label": "Creditor turned respectful business partner",
+        "notes": "Presses for twelve thousand in haulage debt to pay his drivers; respects her strength.",
+        "target_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+      },
+      {
+        "label": "Deceased debtor",
+        "notes": "Extended deadlines to Adrian before discovering Adrian's evasiveness.",
+        "target_character_id": "bbe63388-245b-5d5d-bfa4-9e740a27f355"
+      },
+      {
+        "label": "Interlocutor",
+        "notes": "Respects the house rules while remaining firm on debt collection.",
+        "target_character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b"
+      }
+    ],
+    "role": "Owner of Dane Transport",
+    "scene_entrances": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "2a7f6293-f941-51fa-94be-2af199d08126",
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "435fda02-8511-558a-afab-0bb5e04281f2",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ],
+    "scene_exits": [
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "age_range": "26",
+    "aliases": [
+      "Ina"
+    ],
+    "dialect_register": "Professional, data-focused, precise",
+    "emotional_state": "Focused, efficient, mildly amused by the interpersonal tension",
+    "id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+    "name": "Ina Reed",
+    "personality": [
+      "Competent",
+      "Analytical",
+      "Objective",
+      "Quietly amused"
+    ],
+    "relationships": [
+      {
+        "label": "Accountant to client",
+        "notes": "Quick to provide financial reality without taking sides.",
+        "target_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+      },
+      {
+        "label": "Colleague",
+        "notes": "Responds immediately to Dev's emergency phone call.",
+        "target_character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b"
+      }
+    ],
+    "role": "Part-time accountant",
+    "scene_entrances": [
+      "435fda02-8511-558a-afab-0bb5e04281f2",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ],
+    "scene_exits": [
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "age_range": "Deceased",
+    "aliases": [
+      "Adrian",
+      "Mr. Vale"
+    ],
+    "dialect_register": "Not stated in source",
+    "emotional_state": "Deceased",
+    "id": "bbe63388-245b-5d5d-bfa4-9e740a27f355",
+    "name": "Adrian Vale",
+    "personality": [
+      "Evasive",
+      "Secrecy-prone",
+      "Charming or deflective in life"
+    ],
+    "relationships": [
+      {
+        "label": "Late husband",
+        "notes": "Died one year prior; concealed debts and diverted farm funds.",
+        "target_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+      },
+      {
+        "label": "Former client",
+        "notes": "Owed Viktor twelve thousand for haulage and offered a broken tractor.",
+        "target_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+      }
+    ],
+    "role": "Late husband of Mara (deceased)",
+    "scene_entrances": [],
+    "scene_exits": []
+  }
+]

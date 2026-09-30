@@ -1,0 +1,434 @@
+[
+  {
+    "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+    "dependency_hash": "b7b42bacf66f504ab37fcc0e44f5dc2d8e3c0de2823d560c677301fd99a1a58c",
+    "issues": [
+      {
+        "dimension": "costume",
+        "expected": "Charcoal odhna resting neatly over the head at the hairline in both reference views.",
+        "message": "Head covering is missing in the full-body panel.",
+        "observed": "The full-body reference on the right shows an uncovered head without the odhna draped over it.",
+        "severity": "blocking"
+      },
+      {
+        "dimension": "costume",
+        "expected": "Minimal plain black glass bangles worn strictly on the left wrist.",
+        "message": "Bangles appear on both wrists rather than only the left.",
+        "observed": "Bangles are visible on both the left and right wrists in the full-body view.",
+        "severity": "warning"
+      }
+    ],
+    "passed": false,
+    "summary": "Reference sheet mostly adheres to identity and costume specifications, but fails due to the omission of the head covering in the full-body reference panel."
+  },
+  {
+    "asset_id": "9cb5399c-a45b-5af4-bda8-6a4660e59338",
+    "dependency_hash": "7dabe33e7b206cdafcc49d7fdd6625110d332e523d6536ec1b0d486320851ffa",
+    "issues": [],
+    "passed": true,
+    "summary": "The character reference sheet precisely follows the specifications, matching identity, apparel, grooming, and two-panel composition requirements."
+  },
+  {
+    "asset_id": "b6b8d379-4d44-5452-8296-9fba8f5c0e9d",
+    "dependency_hash": "7cc0d888933c9f10a94819bf623fe59f6168a6799563d5eca1d69290c7931979",
+    "issues": [],
+    "passed": true,
+    "summary": "Both panels adhere to the reference specifications, displaying the requested portrait, full-body pose, wardrobe, prop, and grooming."
+  },
+  {
+    "asset_id": "d0e91598-5ccc-56c8-80b9-b4a3994e95ce",
+    "dependency_hash": "673d9a6f3ac07892d8f2825a8e7dbd8199f7c0f15a4df7e57529bf9e05ea3125",
+    "issues": [],
+    "passed": true,
+    "summary": "The generated asset fully conforms to the character specification, accurately depicting the requested two-panel layout, facial features, costume details, accessories, and grooming."
+  },
+  {
+    "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+    "dependency_hash": "b7b42bacf66f504ab37fcc0e44f5dc2d8e3c0de2823d560c677301fd99a1a58c",
+    "issues": [],
+    "passed": true,
+    "summary": "The asset fully aligns with specifications, depicting the two-panel reference sheet with accurate identity, costume, prop, and composition requirements."
+  },
+  {
+    "asset_id": "2f0f7488-1817-5f6b-9a61-2b5937800aa9",
+    "dependency_hash": "ab484e45eea4e833d7b82c80810cbc1c1c996dba62e68e98a02d1690c8580bcf",
+    "issues": [],
+    "passed": true,
+    "summary": "The generated asset successfully transitions the character from the previous illustrated version to photorealistic live action while maintaining full continuity in costume, grooming, composition, and identity."
+  },
+  {
+    "asset_id": "12a82022-ffba-5a66-8f87-1a83e614f7fe",
+    "dependency_hash": "f5eb0b63f6918319ccf53ff538e08f30638691671ddd73739d6bf18f9b980700",
+    "issues": [],
+    "passed": true,
+    "summary": "The generated image closely aligns with the specification and character references. All subjects, props, lighting, and environmental details match the required setup."
+  },
+  {
+    "asset_id": "0649d65d-b656-5274-ac0d-0f492bbb2a2b",
+    "dependency_hash": "01574501fcd17252d1539abb809337ef29e7544fbef4b3fb70f076ee44417622",
+    "issues": [
+      {
+        "dimension": "prop",
+        "expected": "Viktor Dane holding a thick brown envelope outside in the yard.",
+        "message": "Viktor Dane is missing the specified thick brown envelope prop.",
+        "observed": "Viktor Dane is standing outside with empty hands and no envelope.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "The visual corrections for the wall portrait, water damage, and smaller pickup truck were successfully applied, but Viktor Dane is missing the required envelope prop."
+  },
+  {
+    "asset_id": "0649d65d-b656-5274-ac0d-0f492bbb2a2b",
+    "dependency_hash": "01574501fcd17252d1539abb809337ef29e7544fbef4b3fb70f076ee44417622",
+    "issues": [],
+    "passed": true,
+    "summary": "All user-directed surgical corrections have been implemented accurately. The portrait has been mounted to the wall, water seepage damage appears on the interior surfaces, and the vehicle outside is rendered as a smaller pickup truck while maintaining complete character and stylistic consistency."
+  },
+  {
+    "asset_id": "0649d65d-b656-5274-ac0d-0f492bbb2a2b",
+    "dependency_hash": "01574501fcd17252d1539abb809337ef29e7544fbef4b3fb70f076ee44417622",
+    "issues": [],
+    "passed": true,
+    "summary": "The image successfully implements all requested changes, moving the framed portrait to the wall, adding water damage markings across the plaster, and replacing the vehicle with a smaller pickup truck while maintaining visual fidelity to the character references and base scene."
+  },
+  {
+    "asset_id": "f0d2153d-2426-51a3-a87c-f96c3f4f0640",
+    "dependency_hash": "4799474b5a3500dd7d035fa64a2d08085385dce6577a2476a5712e7279177452",
+    "issues": [
+      {
+        "dimension": "prop",
+        "expected": "Viktor Dane pressing a dry brown manila envelope against his chest.",
+        "message": "The envelope placement is held lower near the waist rather than pressed against the chest.",
+        "observed": "Viktor Dane holds the manila envelope lower at his hip and side.",
+        "severity": "warning"
+      },
+      {
+        "dimension": "costume",
+        "expected": "Dev Holt wearing footwear if classified as outdoors per negative constraint.",
+        "message": "Dev Holt is barefoot on the veranda, matching his canonical reference but bordering the negative constraint against outdoor barefoot Dev.",
+        "observed": "Dev Holt is barefoot on the sheltered stone veranda threshold.",
+        "severity": "warning"
+      }
+    ],
+    "passed": true,
+    "summary": "The generated shot closely adheres to the specifications and character references, successfully portraying the tense rain standoff with minor posing discrepancies."
+  },
+  {
+    "asset_id": "7f8640b8-bc82-579e-8f46-2d03d2adc4bc",
+    "dependency_hash": "3888fe8493f7c79519fbe10f1e19f6c2f74e5da4069eef4ed58d2079caaa0c2b",
+    "issues": [
+      {
+        "dimension": "composition",
+        "expected": "Viktor Dane positioned visible outside through the right window.",
+        "message": "The surgical visual instruction requested moving the person from the left window to the right window.",
+        "observed": "Viktor Dane remains visible through the left window, while the truck is in the right window.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "The image successfully incorporated the door and environmental textures, but failed to move the character outside into the right window as explicitly directed."
+  },
+  {
+    "asset_id": "ccf84d92-ab00-5d25-95ee-a8f6865f4981",
+    "dependency_hash": "714f7d54d9433b5a66e7f667556b5a9448134f9f849baa4ab77e903f1025d838",
+    "issues": [],
+    "passed": true,
+    "summary": "The generated image successfully incorporates all user surgical corrections, featuring one door, one window with the delivery man and pickup truck visible outside, the framed portrait on the wall, and appropriate water damage texture while accurately matching character references."
+  },
+  {
+    "asset_id": "e035c877-6317-5bbf-99b1-ca4b59e544ff",
+    "dependency_hash": "e891157a1c9c14abe73c10f8146ce470989bfe950a292396ba1e0b07c5fe49bb",
+    "issues": [
+      {
+        "dimension": "composition",
+        "expected": "Viktor standing under the shelter/shade away from the rain.",
+        "message": "User-directed surgical correction to place Viktor under the sheltered shade was not implemented.",
+        "observed": "Viktor remains positioned outside the overhang in the mud and open rain.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "Verification failed due to omission of the requested correction placing Viktor sheltered under the veranda roof."
+  },
+  {
+    "asset_id": "3488fe01-0bee-557a-89d4-0ede12a47699",
+    "dependency_hash": "4e74c7259999c75bf716a09488d107fa3438e05673fce8dedd7391833eca8603",
+    "issues": [
+      {
+        "dimension": "composition",
+        "expected": "A single instance of Viktor Dane positioned under the veranda roof on the raised stone platform.",
+        "message": "The character Viktor Dane appears twice in the same frame.",
+        "observed": "Viktor Dane is duplicated, appearing both on the ground in the rain on the left and on the veranda platform on the right.",
+        "severity": "blocking"
+      },
+      {
+        "dimension": "location",
+        "expected": "Viktor Dane repositioned entirely under the sheltered veranda overhang and off the muddy ground.",
+        "message": "The requested surgical correction to place Viktor under the roof was implemented as a duplicate figure rather than repositioning the character.",
+        "observed": "The original figure of Viktor Dane remains standing outside in the rain and mud off the veranda.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "Validation failed due to character duplication and failure to relocate Viktor Dane under the sheltered veranda."
+  },
+  {
+    "asset_id": "df335aa1-487c-526f-8059-d75fcd500a78",
+    "dependency_hash": "7ff17b77c0167d20b09185c551c5855c83833fa7d0d98f9a66fc33ec271f8c7a",
+    "issues": [
+      {
+        "dimension": "composition",
+        "expected": "Single Viktor Dane positioned under the veranda roof with the duplicate outside figure removed, facing Dev and Mara.",
+        "message": "The required surgical visual correction to remove the duplicate Viktor was not applied.",
+        "observed": "Duplicate Viktor Dane figures appear simultaneously in the scene, with one standing outside in the mud and another on the veranda.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "Generation rejected due to failure to remove duplicate Viktor and place him solely under the veranda roof."
+  },
+  {
+    "asset_id": "bb0db6fb-fc8f-52ce-a56f-42f84dbd1475",
+    "dependency_hash": "7afc3910753e0a66120370005c20c5d43774dff442451301d63c60cfbd4f3538",
+    "issues": [
+      {
+        "dimension": "costume",
+        "expected": "Viktor standing in grey stockinged feet with his boots removed and set aside on the veranda floor.",
+        "message": "Viktor's footwear requirement was not applied correctly, placing the socks on Dev instead of Viktor.",
+        "observed": "Viktor is wearing laced boots while an extra pair sits beside him; Dev is erroneously depicted wearing grey socks.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "The duplicate Viktor outside was successfully removed, but Viktor remains wearing boots while Dev is shown in stockinged feet."
+  },
+  {
+    "asset_id": "facd7d0f-7f58-5993-92eb-a8f44c3a3b47",
+    "dependency_hash": "b581d13f64d7b8036c803a907d0cfaab450d4e59503b3fcf859187659a50f398",
+    "issues": [
+      {
+        "dimension": "body",
+        "expected": "Dev's torso turned fully toward Viktor.",
+        "message": "Torso alignment is slightly front-facing rather than fully angled toward Viktor.",
+        "observed": "Dev's torso remains largely oriented toward the camera, though his head is turned toward Viktor.",
+        "severity": "warning"
+      }
+    ],
+    "passed": true,
+    "summary": "The image successfully resolves previous defects, depicting Dev barefoot, Viktor in stockinged feet with boots set aside, and both characters correctly positioned under the veranda."
+  },
+  {
+    "asset_id": "ac1b2db7-0953-5968-956c-58f76e29db85",
+    "dependency_hash": "df98f46430f7a1eb77d4e99560cf9a010842b3b2a55f5b0cea8e62299a3cb45a",
+    "issues": [
+      {
+        "dimension": "prop",
+        "expected": "Viktor's heavy boots removed and placed aside on the veranda floor near him.",
+        "message": "Viktor's set-aside boots are missing from the scene.",
+        "observed": "Viktor is in socks, but his removed boots are completely absent from the veranda.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "Dev's posture and repositioning closer to the wall accurately address the surgical prompt, but Viktor's boots have been omitted from the veranda floor."
+  },
+  {
+    "asset_id": "c7554f18-99b9-5f1b-8757-59bf3370b73d",
+    "dependency_hash": "83e1b7c0355f5e67ff0ef2c312a0ffa1d83f4f5decf8022b542bed6fb679a358",
+    "issues": [],
+    "passed": true,
+    "summary": "The image successfully fulfills the base specification and the requested visual correction. Viktor's removed boots are present on the veranda floor beside his stockinged feet, Dev is barefoot and oriented toward Viktor, and all characters adhere to their respective reference designs within a photorealistic, restrained live-action aesthetic."
+  },
+  {
+    "asset_id": "8d5f8b7d-df0a-5c42-abf3-be2089976e90",
+    "dependency_hash": "381b5667033181292bb2dd998862d632dda25f4e92e407bf8c9dc2bc83eae89a",
+    "issues": [
+      {
+        "dimension": "face",
+        "expected": "Viktor Dane's facial features and grooming matching canonical character reference.",
+        "message": "Viktor's likeness shows moderate drift from reference, though user instruction to keep this specific figure was strictly followed.",
+        "observed": "Viktor's facial features and hair deviate slightly from canonical reference due to retaining the specified rightmost figure.",
+        "severity": "warning"
+      }
+    ],
+    "passed": true,
+    "summary": "The duplicate figure near the door was successfully removed as requested. The composition, staging, and required elements adhere to instructions."
+  },
+  {
+    "asset_id": "210f5435-41bf-568c-b670-8da0f08de519",
+    "dependency_hash": "b61864ac9a2345923609b14a690cb6556f80ec32a188c0f9780862dcb5b3226d",
+    "issues": [],
+    "passed": true,
+    "summary": "The generated image accurately follows the specification and character references across composition, costumes, props, and lighting."
+  },
+  {
+    "asset_id": "c81f89b6-8f0c-5b46-9d6d-da6047f41d5b",
+    "dependency_hash": "d551cb28fcdc57aba5a660e8bc5682a7daf846be157010a0377d74af1ceceecc",
+    "issues": [
+      {
+        "dimension": "visual_style",
+        "expected": "Photorealistic live-action cinematography consistent with character reference photos.",
+        "message": "Image exhibits an illustrative, painted aesthetic rather than photorealism.",
+        "observed": "Stylized digital painting and illustrated rendering across character surfaces, background, and lighting.",
+        "severity": "blocking"
+      },
+      {
+        "dimension": "face",
+        "expected": "Viktor Dane matching canonical reference: an older man with grey hair, weathered features, and grey stubble.",
+        "message": "Viktor Dane does not match reference age, facial structure, or hair color.",
+        "observed": "A much younger man with full black facial hair and distinct facial structure.",
+        "severity": "blocking"
+      },
+      {
+        "dimension": "costume",
+        "expected": "Mara Vale wearing a grey sari draped over the head as established in reference imagery.",
+        "message": "Mara Vale's costume styling deviates from the canonical reference.",
+        "observed": "Sari is worn without the head covering (pallu over head).",
+        "severity": "warning"
+      }
+    ],
+    "passed": false,
+    "summary": "Generation failed primarily due to an illustrative visual style and significant character mismatch for Viktor Dane."
+  },
+  {
+    "asset_id": "9d3f7812-d982-56a2-aea4-8449115bbfb7",
+    "dependency_hash": "4c5e49dfe0483c19aa3a6512bef340c42237e0ee2a23b17987a3a9098f994db1",
+    "issues": [
+      {
+        "dimension": "set_geometry",
+        "expected": "Preserve approved dining room architecture with the double wooden door and vertical window sharing the rear wall alongside the memorial portrait.",
+        "message": "Room architecture and fixed wall elements contradict the canonical set reference.",
+        "observed": "The double wooden door is moved to the right wall, the window is on the left, the memorial portrait is missing, and an unestablished kitchen opening is present.",
+        "severity": "blocking"
+      },
+      {
+        "dimension": "composition",
+        "expected": "Mara's and Viktor's fingers making accidental contact while pinned to the handwritten delivery paper.",
+        "message": "Key narrative action of accidental finger contact is not depicted.",
+        "observed": "Both characters have hands on the table/paper, but their hands are separated by several inches with no physical contact.",
+        "severity": "blocking"
+      },
+      {
+        "dimension": "spatial_layout",
+        "expected": "Dev Holt positioned in the background near the kitchen door.",
+        "message": "Background character blocking deviates from the scene specification.",
+        "observed": "Dev Holt stands on the far left adjacent to the window rather than the kitchen doorway.",
+        "severity": "warning"
+      }
+    ],
+    "passed": false,
+    "summary": "The image captures the required photographic tone and character identities, but violates canonical set geometry and misses the focal blocking requirement of hand contact."
+  },
+  {
+    "asset_id": "a729eda1-8883-5fec-94a4-f5bb2ca7187b",
+    "dependency_hash": "edd62118adf8d684543f3d5d3c5e0b73a9ce789ea114f491b16c81b519fd2bed",
+    "issues": [
+      {
+        "dimension": "composition",
+        "expected": "Mara and Viktor's fingers make accidental contact while resting on the handwritten delivery log.",
+        "message": "The mandated accidental finger contact between Mara and Viktor is not depicted.",
+        "observed": "Both characters have hands resting on the log with visible space between their fingers, failing to touch.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "The image maintains correct continuity and character identities but fails the primary correction requirement for finger contact between the characters."
+  },
+  {
+    "asset_id": "a021c180-4eee-5b00-ad0e-01547c4637b7",
+    "dependency_hash": "f95c9098175a30249144fbcdabcb876e6e24f65fafa428f289eec1a458fe6425",
+    "issues": [
+      {
+        "dimension": "composition",
+        "expected": "Viktor's finger should be touching Mara's hand or fingers on the paper to depict accidental contact.",
+        "message": "The key interaction and explicit surgical visual correction requiring the characters' fingers/hands to touch was not implemented.",
+        "observed": "Viktor's index finger points toward the paper with visible space between his finger and Mara's hand, making no physical contact.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "The image maintains excellent photographic realism, set continuity, and character accuracy, but fails the primary blocking requirement and user correction: Viktor and Mara's fingers are not touching."
+  },
+  {
+    "asset_id": "2cb2fa40-2274-5e41-89d0-ddaed1e30527",
+    "dependency_hash": "374900ec2dd06c680561d7488a1b0e294002a429e3c90e89b837c4dad1b0c5f8",
+    "issues": [
+      {
+        "dimension": "composition",
+        "expected": "Viktor's finger must directly touch Mara's hand/palm on the document as specified in the surgical visual correction.",
+        "message": "The mandatory surgical correction requiring Viktor's finger to touch Mara's hand/palm was not executed.",
+        "observed": "Viktor's pointing index finger rests on the paper with a noticeable gap, failing to make physical contact with Mara's hand or palm.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "Verification failed due to lack of physical touch between Viktor's finger and Mara's hand on the delivery document, directly violating the required surgical visual correction."
+  },
+  {
+    "asset_id": "d896b2cd-7528-5165-8ab0-63f0f0eb04b5",
+    "dependency_hash": "6604bdd19c0a6d8814264bbeeef2c69d6b82ea41c0522dd20191b9e42b30e2ca",
+    "issues": [
+      {
+        "dimension": "composition",
+        "expected": "Viktor's finger physically touching Mara's hand or palm on the delivery log paper.",
+        "message": "Mandatory surgical visual correction was not executed: Viktor's finger fails to make physical contact with Mara's hand/palm.",
+        "observed": "Viktor's index finger points directly at the paper with a noticeable gap between his finger and Mara's hand; no physical contact occurs.",
+        "severity": "blocking"
+      }
+    ],
+    "passed": false,
+    "summary": "Verification failed due to lack of physical contact between Viktor's finger and Mara's hand/palm on the document, violating the highest priority surgical correction."
+  },
+  {
+    "asset_id": "42f14717-689f-5c2c-a117-2d56ce435d81",
+    "dependency_hash": "e219f126a488477823c07c412a86255c0abbc41fa72e0226334c1d6baa9499e2",
+    "issues": [
+      {
+        "dimension": "costume",
+        "expected": "Mara Vale wearing a dark charcoal odhna over her head at the hairline and a matte black high-neck cotton blouse.",
+        "message": "Mara Vale is missing her required odhna head covering and her blouse color and neckline do not match the canonical costume.",
+        "observed": "Mara Vale lacks any odhna/head covering, and wears a medium-grey scoop-neck blouse matching her saree instead of a high-neck black blouse.",
+        "severity": "blocking"
+      },
+      {
+        "dimension": "costume",
+        "expected": "Dev Holt wearing a faded dusty saffron-pink cotton potiya cloth wrapped around his head.",
+        "message": "Dev Holt's potiya color deviates from the canonical costume reference.",
+        "observed": "Dev Holt is wearing an off-white/pale cream headwrap lacking the saffron-pink hue.",
+        "severity": "blocking"
+      },
+      {
+        "dimension": "grooming",
+        "expected": "Dev Holt having a trimmed, dense grey-and-white mustache and a short grizzled beard.",
+        "message": "Dev Holt is missing his canonical short grizzled beard.",
+        "observed": "Dev Holt features a prominent bushy walrus mustache with an essentially clean-shaven chin and jawline.",
+        "severity": "warning"
+      }
+    ],
+    "passed": false,
+    "summary": "The image captures the required composition and atmosphere, but fails on costume continuity due to Mara Vale missing her odhna and wearing the wrong blouse, alongside color and facial hair discrepancies for Dev Holt."
+  },
+  {
+    "asset_id": "ef8982de-95fc-55f9-a356-5f060665a239",
+    "dependency_hash": "5ae8c00b459885828d36008ea11f9f6c3e61d5b5c4d17d310c390cbcac1465ea",
+    "issues": [],
+    "passed": true,
+    "summary": "The image successfully executes the requested surgical corrections. Mara Vale's costume, hairstyle, and odhna drape over the hairline now precisely match her reference sheet, while Dev Holt's facial identity, grizzled beard, moustache, and dusty saffron-pink potiya have been faithfully restored. All other characters, props, set geometry, and atmospheric lighting remain consistent."
+  },
+  {
+    "asset_id": "285f6727-971d-5a87-be75-f2b565da535a",
+    "dependency_hash": "1b92f4f64790c8df2bcaa889d1cf5eee9116e321a716d681f52ea50097708008",
+    "issues": [
+      {
+        "dimension": "spatial_layout",
+        "expected": "Viktor Dane stands near the driver's door of the truck.",
+        "message": "Character staging varies slightly from the designated vehicle position.",
+        "observed": "Viktor Dane is positioned further back near the opening of the shed rather than beside the driver's cab door.",
+        "severity": "warning"
+      }
+    ],
+    "passed": true,
+    "summary": "The image adheres closely to all character identities, costumes, props, atmospheric lighting, and photorealistic live-action cinematic specifications."
+  }
+]

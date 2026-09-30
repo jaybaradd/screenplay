@@ -1,0 +1,180 @@
+{
+  "appearances": [
+    {
+      "character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "costume_description": "A muted charcoal-grey synthetic-georgette saree with simple dark selvedge and no metallic zari embroidery, paired with a matching matte black high-neck cotton blouse, worn in a practical agrarian drape. A dark charcoal odhna rests neatly over her head at the hairline. A small brass cabinet key hangs securely from a thin black cord at her waistline. Minimal plain black glass bangles on her left wrist, without bridal lac or gold adornments.",
+      "costume_id": null,
+      "grooming_description": "Glossy dark brown hair parted down the center and pulled back into a compact, neat low bun at the nape of the neck. Clean natural skin with matte finish, lightly weathered by outdoor sun. No bindi or ceremonial vermilion, reflecting strict one-year bereavement decorum.",
+      "id": "470c2fcc-aa16-5b41-8542-ef751c43e33c",
+      "identity_description": "Mara Vale, a 34-year-old South Asian woman from the Rajsamand agrarian plains. She has an oval face, defined cheekbones, an amber-brown complexion, sharp observant dark eyes, and a slender yet firm, upright posture. Her expression is guarded and proud, marked by restrained grief and resolute focus.",
+      "prompt": "Two-panel character reference sheet: On the left, a neutral eye-level close portrait; on the right, a full-body standing wardrobe reference. Subject is Mara Vale, a 34-year-old South Asian woman with an oval face, amber-brown complexion, sharp dark eyes, and a guarded, proud expression. Dressed in a muted charcoal-grey synthetic-georgette saree without metallic borders, high-neck matte black blouse, matching charcoal odhna resting at the hairline, and a small brass key on a cord at her waist. Hair neatly secured in a low bun at the nape. Studio lighting, flat plain neutral grey production-reference background, no text, no labels, no watermark.\nCanonical identity: Mara Vale, a 34-year-old South Asian woman from the Rajsamand agrarian plains. She has an oval face, defined cheekbones, an amber-brown complexion, sharp observant dark eyes, and a slender yet firm, upright posture. Her expression is guarded and proud, marked by restrained grief and resolute focus.\nApproved costume: A muted charcoal-grey synthetic-georgette saree with simple dark selvedge and no metallic zari embroidery, paired with a matching matte black high-neck cotton blouse, worn in a practical agrarian drape. A dark charcoal odhna rests neatly over her head at the hairline. A small brass cabinet key hangs securely from a thin black cord at her waistline. Minimal plain black glass bangles on her left wrist, without bridal lac or gold adornments.\nApproved grooming: Glossy dark brown hair parted down the center and pulled back into a compact, neat low bun at the nape of the neck. Clean natural skin with matte finish, lightly weathered by outdoor sun. No bindi or ceremonial vermilion, reflecting strict one-year bereavement decorum.",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "2a7f6293-f941-51fa-94be-2af199d08126",
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+      "costume_description": "A coarse off-white handspun khadi cotton dhoti draped traditionally to mid-calf, paired with a long-sleeved light fawn collared cotton kurta with chest pocket. A faded dusty saffron-pink cotton potiya cloth is loosely wrapped around his head. A pair of small circular silver murki hoops in his earlobes. Wears sturdy dark brown open-toe leather sandals outdoors, barefoot indoors.",
+      "costume_id": null,
+      "grooming_description": "Close-cropped silver-white hair visible beneath the cloth wrap, with a trimmed, dense grey-and-white mustache and short grizzled beard. Sun-tanned hands with prominent veins and working calluses.",
+      "id": "594021fc-b31d-5dad-ae7c-d6d52e6933e6",
+      "identity_description": "Dev Holt, a 63-year-old South Asian senior agrarian caretaker. He has a weathered, sun-etched face with pronounced laugh lines around deep-set brown eyes, a strong square jaw, a lean, resilient physique, and an authoritative yet respectful elder posture. His demeanor exudes quiet patience and dry rural pragmatism.",
+      "prompt": "Two-panel character reference sheet: On the left, a neutral eye-level close portrait; on the right, a full-body standing wardrobe reference. Subject is Dev Holt, a 63-year-old South Asian rural caretaker with a weather-lined face, lean wiry build, deep-set dark eyes, and a steady, patient expression. Dressed in an off-white handspun khadi dhoti, light fawn collared kurta, loosely tied faded saffron-pink potiya headwrap, and tiny silver hoop earrings. Studio lighting, flat plain neutral grey production-reference background, no text, no labels, no watermark.\nCanonical identity: Dev Holt, a 63-year-old South Asian senior agrarian caretaker. He has a weathered, sun-etched face with pronounced laugh lines around deep-set brown eyes, a strong square jaw, a lean, resilient physique, and an authoritative yet respectful elder posture. His demeanor exudes quiet patience and dry rural pragmatism.\nApproved costume: A coarse off-white handspun khadi cotton dhoti draped traditionally to mid-calf, paired with a long-sleeved light fawn collared cotton kurta with chest pocket. A faded dusty saffron-pink cotton potiya cloth is loosely wrapped around his head. A pair of small circular silver murki hoops in his earlobes. Wears sturdy dark brown open-toe leather sandals outdoors, barefoot indoors.\nApproved grooming: Close-cropped silver-white hair visible beneath the cloth wrap, with a trimmed, dense grey-and-white mustache and short grizzled beard. Sun-tanned hands with prominent veins and working calluses.",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "2a7f6293-f941-51fa-94be-2af199d08126",
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "costume_description": "Durable dark navy denim jeans with light dust wear along the cuffs, paired with a charcoal-grey water-resistant utility jacket over a slate-grey button-up work shirt. Holds a thick heavy-duty brown manila document envelope. Outdoors, he wears dark mud-spattered pull-on work boots; indoors, he stands respectfully in dark grey cotton socks.",
+      "costume_id": null,
+      "grooming_description": "Short, utilitarian black hair slightly dampened by rain and combed back neatly. Clean-edged heavy black stubble along the jawline. Practical, well-kept appearance of a working logistics owner.",
+      "id": "947e9408-7f5b-561d-b8a3-69f03a11e94d",
+      "identity_description": "Viktor Dane, a 39-year-old South Asian transport company proprietor. He has a broad, sturdy frame with squared shoulders, a warm wheatish complexion, a square jawline, and an intense, direct gaze. His expression is urgent and determined yet fundamentally honorable, carrying the stress of transport logistics deadlines.",
+      "prompt": "Two-panel character reference sheet: On the left, a neutral eye-level close portrait; on the right, a full-body standing wardrobe reference. Subject is Viktor Dane, a 39-year-old South Asian commercial transport operator with broad shoulders, square jaw, wheatish complexion, and an alert, determined gaze. Dressed in a charcoal-grey utility jacket, slate-grey collared shirt, dark navy work jeans, and dark cotton socks while carrying a sealed brown manila folder. Short damp black hair, neatly trimmed dense stubble. Studio lighting, flat plain neutral grey production-reference background, no text, no labels, no watermark.\nCanonical identity: Viktor Dane, a 39-year-old South Asian transport company proprietor. He has a broad, sturdy frame with squared shoulders, a warm wheatish complexion, a square jawline, and an intense, direct gaze. His expression is urgent and determined yet fundamentally honorable, carrying the stress of transport logistics deadlines.\nApproved costume: Durable dark navy denim jeans with light dust wear along the cuffs, paired with a charcoal-grey water-resistant utility jacket over a slate-grey button-up work shirt. Holds a thick heavy-duty brown manila document envelope. Outdoors, he wears dark mud-spattered pull-on work boots; indoors, he stands respectfully in dark grey cotton socks.\nApproved grooming: Short, utilitarian black hair slightly dampened by rain and combed back neatly. Clean-edged heavy black stubble along the jawline. Practical, well-kept appearance of a working logistics owner.",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "2a7f6293-f941-51fa-94be-2af199d08126",
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "character_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+      "costume_description": "A crisp petrol-blue cotton kurti with geometric border print over black fitted churidar leggings, layered under a water-resistant olive-green commuter jacket damp at the shoulders. She carries a sturdy olive canvas laptop briefcase and wears flat rubber-soled rainy season slip-on sandals. No traditional veil or head covering.",
+      "costume_id": null,
+      "grooming_description": "Shoulder-length black hair pulled back into a practical high ponytail secured with a black elastic band, with faint rain droplets clinging to the stray tendrils near her temples. Clean, unadorned skin with small silver stud earrings.",
+      "id": "7457779a-97f1-51fc-a6c7-80ccdd9e45d5",
+      "identity_description": "Ina Reed, a 26-year-old South Asian part-time accountant. She has a round face, warm medium-brown complexion, sharp perceptive dark eyes behind slim round metal-rimmed spectacles, and an energetic, self-assured posture. Her expression is analytical, composed, and subtly amused by interpersonal dynamics.",
+      "prompt": "Two-panel character reference sheet: On the left, a neutral eye-level close portrait; on the right, a full-body standing wardrobe reference. Subject is Ina Reed, a 26-year-old South Asian female accountant with round features, warm medium-brown skin, slim wireframe spectacles, and an analytical, confident expression. Dressed in a petrol-blue printed cotton kurti, black churidar, water-resistant olive commuter jacket, and carrying an olive canvas laptop case. High neat ponytail, small silver ear studs. Studio lighting, flat plain neutral grey production-reference background, no text, no labels, no watermark.\nCanonical identity: Ina Reed, a 26-year-old South Asian part-time accountant. She has a round face, warm medium-brown complexion, sharp perceptive dark eyes behind slim round metal-rimmed spectacles, and an energetic, self-assured posture. Her expression is analytical, composed, and subtly amused by interpersonal dynamics.\nApproved costume: A crisp petrol-blue cotton kurti with geometric border print over black fitted churidar leggings, layered under a water-resistant olive-green commuter jacket damp at the shoulders. She carries a sturdy olive canvas laptop briefcase and wears flat rubber-soled rainy season slip-on sandals. No traditional veil or head covering.\nApproved grooming: Shoulder-length black hair pulled back into a practical high ponytail secured with a black elastic band, with faint rain droplets clinging to the stray tendrils near her temples. Clean, unadorned skin with small silver stud earrings.",
+      "scene_ids": [
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "appearance_ids": [
+        "470c2fcc-aa16-5b41-8542-ef751c43e33c",
+        "594021fc-b31d-5dad-ae7c-d6d52e6933e6",
+        "947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      ],
+      "id": "3932a9dd-478e-5e2d-b6e0-f13a86b055bf",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "negative_prompt": "text, captions, subtitles, logos, desert sand dunes, camels, royal havelis, palace arches, bright festive colors, garish makeup, full face covering veil, modern weapons, high key lighting",
+      "prompt": "Cinematic wide interior shot of a pakka rural farmhouse dining room in the Rajsamand plains on a dim rainy morning. Natural diffused grey daylight filters through two tall rectangular windows streaked with rainwater. On the unpolished grey-veined local marble tile floor, a long solid sheesham wood dining table has been stripped down to a single lonely place setting. Mara Vale, dressed in a somber charcoal saree with an odhna framing her hairline, sits rigid at the head of the table, staring somberly ahead beside a ribbed stainless steel glass of cold milk-tea. At the opposite end of the table rests a framed portrait of her late husband Adrian draped with a dried marigold garland. Dev Holt, an elderly caretaker in an off-white dhoti and faded potiya headwrap, stands reverently beside her, gently placing a leaning tower of unopened creditor notices on the tabletop without blocking the portrait. Visible through the wet window panes in the soft-focus farmyard outside, Viktor Dane steps out of a mud-streaked delivery truck holding a thick brown envelope. Moody, quiet, melancholic atmosphere.",
+      "prop_ids": [
+        "ffffb2bf-2e0d-5200-93ae-7960f5467780",
+        "0d2920b7-8a4b-5767-b539-3f9a8257467b",
+        "cf322cfa-4bf8-5df5-a62a-7f87ac222ad8",
+        "51ab01b5-7f97-5386-94d1-b4f688e21df2",
+        "6ac85806-b80f-5a7e-81ec-20ac867382a8",
+        "777bb3ea-ad7d-5da6-96fb-9ce7c93cb38a",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "581cf502-d757-52f3-9d2e-eb0af3cc4f2f",
+        "f770cc8b-bf86-5b4d-80ff-4f6903fd50f8",
+        "2febad54-8cc0-5de6-bbcc-2a3edb41428a"
+      ],
+      "scene_id": "a895348d-658b-5721-a20c-92fd6b5fca78"
+    },
+    {
+      "appearance_ids": [
+        "947e9408-7f5b-561d-b8a3-69f03a11e94d",
+        "594021fc-b31d-5dad-ae7c-d6d52e6933e6",
+        "470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      ],
+      "id": "8c5e4514-db46-53e9-a215-3af473e04017",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "negative_prompt": "text, subtitles, watermark, desert, sand, camels, ornate carved sandstone, royal costumes, smiling, exaggerated cartoonish faces, barefoot Dev outdoors, full face veil",
+      "prompt": "Medium eye-level shot on the sheltered outdoor masonry veranda (dhalyo) of the farmhouse under pouring late-morning rain. Rain sheets off the corrugated tin roof edge onto the mud-splattered yard. Dev Holt stands firmly planted across the threshold on the rough-cut Kota stone doorstep, hands clasped loosely in front of his abdomen, barring entry with quiet, dignified authority. Outside under the narrow overhang, Viktor Dane stands with rain-dampened utility jacket, pressing a dry brown manila envelope against his chest; on the veranda step beside him, his heavy wet boots have been respectfully removed and set aside, leaving him in grey stockinged feet. Just inside the shadowed doorway, behind Dev's shoulder, Mara Vale emerges into the frame with an unyielding, severe gaze, her dark odhna drawn to her browline. Tense, confrontational threshold standoff.",
+      "prop_ids": [
+        "f611a95f-c12e-5a58-ae28-3677d7a6a143",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "ea24d914-6bea-54b2-bdbf-5fb5c9211dea",
+        "14c05018-08a6-51d8-aa4e-83ad0ccacefc",
+        "bba5d3a4-fbf2-5783-8d3d-f4a169e75225",
+        "581cf502-d757-52f3-9d2e-eb0af3cc4f2f"
+      ],
+      "scene_id": "2a7f6293-f941-51fa-94be-2af199d08126"
+    },
+    {
+      "appearance_ids": [
+        "947e9408-7f5b-561d-b8a3-69f03a11e94d",
+        "470c2fcc-aa16-5b41-8542-ef751c43e33c",
+        "594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      ],
+      "id": "8ea772bc-aded-52ea-b647-a1d88ef422cb",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "negative_prompt": "text, dialogue, words, gunfire, smoke, muzzle flash, modern assault rifles, violent aggression, romantic melodrama, desert landscape, bright sunlight, full ghunghat",
+      "prompt": "Cinematic medium-close shot over the long wooden dining table inside the dim farmhouse at midday. On the table, an open vintage sheesham wood presentation case rests open, revealing a dusty, unloaded antique single-shot target pistol lying inert on faded velvet. Beside it lie a traditional red cloth bahi-khata ledger with excised pages and commercial transport invoices. In the center of the frame, Mara Vale and Viktor Dane are frozen in electrifying proximity: Mara's right hand and Viktor's hand are pinned firmly down onto the handwritten delivery log paper, their fingers making accidental contact as both freeze and lock eyes in sudden mutual shock. In the background near the kitchen door, Dev Holt stands arrested in motion holding an aluminium tea kettle and metal tray with trembling tea cups. Dramatic moody side-lighting from rainy windows, heavy psychological tension.",
+      "prop_ids": [
+        "ffffb2bf-2e0d-5200-93ae-7960f5467780",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "3ee3071f-d96a-56e4-8868-abc01d980393",
+        "e39c7c11-485e-5a69-aa5b-8d78cb33fc78",
+        "cddf362e-5afe-5402-a867-8106e89e7190",
+        "639e86e3-404e-5ea9-87b6-6ecda837ded1",
+        "3423f101-f690-578e-96ac-7e0ba7340da7",
+        "87b714df-5864-5ac7-a67b-9b667c17fc0c",
+        "581cf502-d757-52f3-9d2e-eb0af3cc4f2f"
+      ],
+      "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+    },
+    {
+      "appearance_ids": [
+        "594021fc-b31d-5dad-ae7c-d6d52e6933e6",
+        "470c2fcc-aa16-5b41-8542-ef751c43e33c",
+        "947e9408-7f5b-561d-b8a3-69f03a11e94d",
+        "7457779a-97f1-51fc-a6c7-80ccdd9e45d5"
+      ],
+      "id": "2de16301-8d48-5729-9e7b-9f8131e07ff5",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "negative_prompt": "text, readable screen fonts, watermark, labels, daytime bright office, fluorescent ceiling lights, opulent furniture, guns, desert, camels, bridal wear",
+      "prompt": "Atmospheric medium shot inside the small, cluttered farm office during a power cut in early afternoon. A single bright battery-powered LED camping lantern sits in the middle of a worn wooden desk, casting upward shadows and warm illumination across the characters' faces. Steel almirahs stacked with green register files and tubewell maintenance logs line the pale mint walls. Young accountant Ina Reed, in an olive rain commuter jacket over a blue kurti with spectacles, leans over an open laptop screen and handheld calculator, pointing with a pen at a spreadsheet row. Mara Vale sits back in an office chair, her shoulders dropped as her fierce defensive armor dissolves into stunned realization upon discovering the unrecorded account withdrawal. Viktor Dane leans forward on his elbows from an opposite wooden chair, staring at the screen with newfound respect. Dev Holt watches quietly from the corner. Intimate, focused forensic accounting atmosphere.",
+      "prop_ids": [
+        "9a2846b6-e322-5e15-ba70-78bdc5d3b1d9",
+        "f1ff139d-5934-5163-8380-d896fb059b3f",
+        "e20acf0f-cc5a-564c-8de1-46f15af37854",
+        "01e34e9a-0700-5c7b-8b96-712a0add7954",
+        "3423f101-f690-578e-96ac-7e0ba7340da7",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "87b714df-5864-5ac7-a67b-9b667c17fc0c",
+        "6aeeb34c-2e16-57b1-aa9c-266dfedab1d7"
+      ],
+      "scene_id": "435fda02-8511-558a-afab-0bb5e04281f2"
+    },
+    {
+      "appearance_ids": [
+        "7457779a-97f1-51fc-a6c7-80ccdd9e45d5",
+        "470c2fcc-aa16-5b41-8542-ef751c43e33c",
+        "947e9408-7f5b-561d-b8a3-69f03a11e94d",
+        "594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      ],
+      "id": "01106672-adab-561a-8bfd-537b264a33eb",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "negative_prompt": "text, captions, signature details, watermarks, desert dunes, camels, palace architecture, heavy weeping, romantic embrace, weapon, high contrast night",
+      "prompt": "Cinematic wide exterior shot outside the open corrugated iron machinery shed in late afternoon. The downpour has ceased; rain drips steadily from the metal eaves into glistening puddles on the dark loam soil, while a pale gold strip of clearing post-storm sky illuminates the distant wheat fields and granite knolls. On the flat metal bonnet of Viktor's mud-streaked delivery truck, the signed white payment agreement paper rests alongside a brown folder. Mara Vale stands beside the truck with a subtle, composed smile, handing the small brass cabinet key into Dev Holt's open palm. Dev stands holding an aluminium tea tray with small cutting-chai glass tumblers, looking quietly pleased. Viktor Dane stands near the driver's door holding a steaming glass of dark tea, looking back toward the open farmhouse door with begrudging warmth. Ina Reed takes a photo of the contract with her smartphone in the background. Clean, crisp, transitional atmosphere.",
+      "prop_ids": [
+        "b9569242-8452-52b2-a44e-2bba88853425",
+        "777bb3ea-ad7d-5da6-96fb-9ce7c93cb38a",
+        "ea35cc20-7db1-59f4-994e-415c6cedf196",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "3ee3071f-d96a-56e4-8868-abc01d980393",
+        "cddf362e-5afe-5402-a867-8106e89e7190",
+        "3423f101-f690-578e-96ac-7e0ba7340da7",
+        "f770cc8b-bf86-5b4d-80ff-4f6903fd50f8"
+      ],
+      "scene_id": "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    }
+  ]
+}

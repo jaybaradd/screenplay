@@ -41,7 +41,7 @@ for source_scene, adapted_scene in zip(source_scenes, adapted_scenes):
 st.subheader("Surgical correction")
 selected_label = st.selectbox("Target exactly one block", list(block_options))
 selected = block_options[selected_label]
-instruction = st.text_area("Replacement instruction", placeholder="In mock mode, enter the exact replacement text. In live mode, describe the desired correction.")
+instruction = st.text_area("Replacement instruction")
 run_action(
     "Apply only this correction",
     lambda: client.correct(project["id"], selected["id"], instruction, canonical_hash(selected)),
@@ -52,14 +52,18 @@ run_action(
 verification = project["revisions"].get("adaptation_verification", {}).get("payload", [])
 for issue in verification:
     st.error(issue["message"])
-dialect_audit = project["revisions"].get("dialect_audit", {}).get("payload")
-if dialect_audit:
-    with st.expander("Maidani Mewari dialogue audit", expanded=not dialect_audit.get("passed", False)):
-        (st.success if dialect_audit.get("passed") else st.error)(dialect_audit.get("summary", "Dialect audit completed."))
-        for scene_audit in dialect_audit.get("scenes", []):
+language_audit = project["revisions"].get("language_audit", {}).get("payload")
+if language_audit:
+    with st.expander(
+        f"{project['culture_display_name']} dialogue audit", expanded=not language_audit.get("passed", False),
+    ):
+        (st.success if language_audit.get("passed") else st.error)(
+            language_audit.get("summary", "Language audit completed.")
+        )
+        for scene_audit in language_audit.get("scenes", []):
             st.write(
                 f"Scene {scene_audit['scene_id'][:8]} · "
-                f"supported {len(scene_audit['supported_mewari_block_ids'])}/"
+                f"supported {len(scene_audit['supported_target_variety_block_ids'])}/"
                 f"{len(scene_audit['dialogue_block_ids'])} dialogue blocks"
             )
             if scene_audit.get("notes"):

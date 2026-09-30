@@ -11,17 +11,20 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import Command, interrupt
 
 from backend.config import settings
+from backend.cultures.context import CultureContextCompiler
+from backend.cultures.models import CultureProfileSnapshot, TargetSelection
 from backend.continuity import check_continuity
+from backend.state_ledger import build_state_ledger
 from backend.observability import observer
 from backend.prompts import (
-    CULTURAL_NORMALIZE_PROMPT, CULTURAL_RESEARCH_PROMPT, EXTRACTION_PROMPT,
-    adaptation_prompt, adaptation_repair_prompt, dialect_audit_prompt, layer_prompt, synthesis_prompt,
+    EXTRACTION_PROMPT, adaptation_prompt, adaptation_repair_prompt, cultural_normalize_prompt,
+    cultural_research_prompt, language_audit_prompt, layer_prompt, synthesis_prompt,
     visual_manifest_prompt, VISUAL_STYLE_LOCK,
 )
 from backend.providers import AIService, MockProvider, stable_id
 from backend.schemas import (
-    AdaptationPlan, AdaptedScene, AdaptedScreenplay, AppearanceSpec, CulturalBrief,
-    DialectAudit, LayerPlan, SceneRecord, SceneVisualSpec, SetVisualSpec, SourceScreenplay, VisualManifest,
+    AdaptationPlan, AdaptedScene, AdaptedScreenplay, AppearanceSpec, CulturalBrief, CulturalClaim, CulturalConstraint,
+    LanguageAudit, LanguageFeature, LayerPlan, SceneRecord, SceneVisualSpec, SetVisualSpec, SourceScreenplay, VisualManifest,
 )
 from backend.storage import Repository, content_hash
 
@@ -102,6 +105,60 @@ class Workflow:
     def config(self, project_id: str) -> dict[str, Any]:
         return {"configurable": {"thread_id": project_id}}
 
+    def _culture_compiler(
+        self, project_id: str, brief_revision: dict[str, Any] | None = None,
+    ) -> CultureContextCompiler:
+        project = self.repository.get_project(project_id)
+        snapshot_revision = self.repository.latest_revision(project_id, "culture_profile_snapshot")
+        if not snapshot_revision:
+            raise ValueError("Project has no immutable culture profile snapshot")
+        snapshot = CultureProfileSnapshot.model_validate(snapshot_revision["payload"])
+        if snapshot.profile_hash != project["profile_hash"]:
+            raise ValueError("Project culture profile hash does not match its immutable snapshot")
+        selection = TargetSelection(
+            culture_id=project["culture_id"], locality=project["locality"], setting=project["setting"],
+            period=project["period"], output_script=project["output_script"],
+        )
+        return CultureContextCompiler(
+            snapshot, selection, brief_revision["payload"] if brief_revision else None,
+            brief_revision_id=brief_revision["id"] if brief_revision else None,
+            brief_hash=brief_revision["sha256"] if brief_revision else None,
+        )
+
+    @staticmethod
+    def _bind_brief_identity(brief: CulturalBrief, context) -> CulturalBrief:
+        brief.culture_id = context.culture_id
+        brief.profile_version = context.profile_version
+        brief.profile_hash = context.profile_hash
+        brief.culture = context.display_name
+        brief.locality = context.locality
+        brief.setting = context.setting
+        brief.period = context.period
+        brief.output_script = context.output_script
+        claims = {item.id: item for item in brief.claims}
+        for item in context.reviewed_evidence.claims:
+            reviewed = item.model_dump(mode="json")
+            reviewed["layers"] = reviewed.pop("permitted_layers")
+            claim = CulturalClaim.model_validate({**reviewed, "origin": "reviewed_profile_evidence"})
+            claims[claim.id] = claim
+        brief.claims = list(claims.values())
+        if brief.language_guide:
+            features = {item.id: item for item in brief.language_guide.features}
+            for item in context.reviewed_evidence.language_features:
+                feature = LanguageFeature.model_validate(item.model_dump(mode="json"))
+                features[feature.id] = feature
+            brief.language_guide.features = list(features.values())
+        constraints = {item.id: item for item in brief.constraints}
+        for item in context.constraints:
+            if item.get("origin") != "profile_policy":
+                continue
+            constraints[item["id"]] = CulturalConstraint(
+                id=item["id"], text=item["text"], layers=item["layers"],
+                kind=item["kind"], origin="profile_policy", source_claim_ids=[],
+            )
+        brief.constraints = list(constraints.values())
+        return brief
+
     def start(self, project_id: str) -> dict[str, Any]:
         with observer.span("workflow-start", project_id=project_id):
             return self.graph.invoke(
@@ -167,13 +224,15 @@ class Workflow:
         existing = self.repository.latest_revision(project_id, "cultural_brief")
         if existing:
             return {"cultural_revision": existing["id"], "layer_revision_ids": []}
-        project = self.repository.get_project(project_id)
+        compiler = self._culture_compiler(project_id)
+        context = compiler.for_research()
         if isinstance(self.ai.provider, MockProvider):
-            self.ai.provider.set_context(locality=project["locality"], setting=project["setting"], period=project["period"])
-        research_prompt = CULTURAL_RESEARCH_PROMPT.format(**project)
+            self.ai.provider.set_context(culture_context=context.model_dump(mode="json"))
+        research_prompt = cultural_research_prompt(context)
         research = self.ai.cached_research(project_id, "cultural-grounding", research_prompt)
-        normalize_prompt = CULTURAL_NORMALIZE_PROMPT.format(research=research)
+        normalize_prompt = cultural_normalize_prompt(context, research)
         brief = self.ai.cached_structured(project_id, "normalize-cultural-brief", normalize_prompt, CulturalBrief)
+        brief = self._bind_brief_identity(brief, context)
         revision = self.repository.create_revision(project_id, "cultural_brief", brief)
         return {"cultural_revision": revision["id"], "layer_revision_ids": []}
 
@@ -184,8 +243,11 @@ class Workflow:
             if existing:
                 return {"layer_revision_ids": [existing["id"]]}
             source = self.repository.get_revision(state["extraction_revision"])["payload"]
-            brief = self.repository.get_revision(state["cultural_revision"])["payload"]
-            result = self.ai.cached_structured(project_id, f"plan-{layer}", layer_prompt(layer, source, brief), LayerPlan)
+            brief_revision = self.repository.get_revision(state["cultural_revision"])
+            context = self._culture_compiler(project_id, brief_revision).for_layer(layer)
+            result = self.ai.cached_structured(
+                project_id, f"plan-{layer}", layer_prompt(layer, source, context), LayerPlan,
+            )
             revision = self.repository.create_revision(project_id, f"plan_{layer}", result)
             return {"layer_revision_ids": [revision["id"]]}
         return node
@@ -223,9 +285,11 @@ class Workflow:
                     raise ValueError("Plan synthesis did not preserve all six required layers")
             plan_revision = self.repository.create_revision(project_id, "adaptation_plan", plan)
         source = SourceScreenplay.model_validate(self.repository.get_revision(state["extraction_revision"])["payload"])
-        brief = CulturalBrief.model_validate(self.repository.get_revision(state["cultural_revision"])["payload"])
+        brief_revision = self.repository.get_revision(state["cultural_revision"])
+        brief = CulturalBrief.model_validate(brief_revision["payload"])
         plan = AdaptationPlan.model_validate(plan_revision["payload"])
-        plan_issues = self._plan_quality_issues(source, brief, plan)
+        context = self._culture_compiler(project_id, brief_revision).for_language_audit()
+        plan_issues = self._plan_quality_issues(source, brief, plan, context)
         previous_verification = self.repository.latest_revision(project_id, "plan_verification")
         verification_revision = self.repository.create_revision(
             project_id, "plan_verification", plan_issues,
@@ -257,7 +321,9 @@ class Workflow:
         if isinstance(self.ai.provider, MockProvider):
             adapted = self.ai.provider.adapt(source, project["output_script"])
         else:
-            brief = CulturalBrief.model_validate(self.repository.get_revision(state["cultural_revision"])["payload"])
+            brief_revision = self.repository.get_revision(state["cultural_revision"])
+            brief = CulturalBrief.model_validate(brief_revision["payload"])
+            compiler = self._culture_compiler(project_id, brief_revision)
             plan = AdaptationPlan.model_validate(self.repository.get_revision(state["plan_revision"])["payload"])
             scene_order = {item.id: index for index, item in enumerate(source.scenes)}
             scenes: list[AdaptedScene] = []
@@ -293,7 +359,10 @@ class Workflow:
                     ],
                 }
                 scene_payload = scene.model_dump(mode="json")
-                prompt = adaptation_prompt(scene_payload, source_context, brief_payload, plan_payload)
+                culture_context = compiler.for_scene_adaptation(scene.id, claim_ids)
+                prompt = adaptation_prompt(
+                    scene_payload, source_context, brief_payload, plan_payload, culture_context,
+                )
                 result = self.ai.cached_structured(
                     project_id, f"adapt-scene-{scene.number}-attempt-1", prompt, AdaptedScene,
                 )
@@ -303,7 +372,7 @@ class Workflow:
                         break
                     prompt = adaptation_repair_prompt(
                         scene_payload, source_context, brief_payload, plan_payload,
-                        result.model_dump(mode="json"), errors,
+                        culture_context, result.model_dump(mode="json"), errors,
                     )
                     result = self.ai.cached_structured(
                         project_id, f"adapt-scene-{scene.number}-attempt-{attempt}", prompt, AdaptedScene,
@@ -344,15 +413,19 @@ class Workflow:
         if duplicates:
             issues.append({"severity": "blocking", "code": "duplicate_source_blocks", "message": f"Source blocks mapped more than once: {duplicates}"})
         if not isinstance(self.ai.provider, MockProvider):
-            brief = CulturalBrief.model_validate(self.repository.get_revision(state["cultural_revision"])["payload"])
+            brief_revision = self.repository.get_revision(state["cultural_revision"])
+            brief = CulturalBrief.model_validate(brief_revision["payload"])
+            culture_context = self._culture_compiler(project_id, brief_revision).for_language_audit()
             audit = self.ai.cached_structured(
-                project_id, "audit-adapted-dialect",
-                dialect_audit_prompt(adapted.model_dump(mode="json"), brief.model_dump(mode="json")),
-                DialectAudit,
+                project_id, "audit-adapted-language",
+                language_audit_prompt(
+                    adapted.model_dump(mode="json"), brief.model_dump(mode="json"), culture_context,
+                ),
+                LanguageAudit,
             )
-            previous_audit = self.repository.latest_revision(project_id, "dialect_audit")
+            previous_audit = self.repository.latest_revision(project_id, "language_audit")
             self.repository.create_revision(
-                project_id, "dialect_audit", audit,
+                project_id, "language_audit", audit,
                 previous_audit["id"] if previous_audit else None,
             )
             audit_by_scene = {item.scene_id: item for item in audit.scenes}
@@ -364,15 +437,15 @@ class Workflow:
                 if not scene_audit:
                     if expected_dialogue_ids:
                         issues.append({
-                            "severity": "blocking", "code": "dialect_audit_incomplete",
-                            "message": f"Dialect audit omitted speaking scene {scene.source_scene_id}.",
+                            "severity": "blocking", "code": "language_audit_incomplete",
+                            "message": f"Language audit omitted speaking scene {scene.source_scene_id}.",
                         })
                     continue
                 declared = set(scene_audit.dialogue_block_ids)
                 classified_sequence = [
-                    *scene_audit.supported_mewari_block_ids,
-                    *scene_audit.generic_hindi_block_ids,
-                    *scene_audit.unapproved_or_mixed_block_ids,
+                    *scene_audit.supported_target_variety_block_ids,
+                    *scene_audit.unsupported_fallback_language_block_ids,
+                    *scene_audit.mixed_or_unapproved_variety_block_ids,
                 ]
                 classified = set(classified_sequence)
                 missing_audit_blocks = sorted(expected_dialogue_ids - classified)
@@ -382,34 +455,35 @@ class Workflow:
                 })
                 if declared != expected_dialogue_ids or missing_audit_blocks or unknown_audit_blocks or duplicate_classifications:
                     issues.append({
-                        "severity": "blocking", "code": "dialect_audit_incomplete",
+                        "severity": "blocking", "code": "language_audit_incomplete",
                         "message": (
-                            f"Dialect audit for scene {scene.source_scene_id} is incomplete or inconsistent. "
+                            f"Language audit for scene {scene.source_scene_id} is incomplete or inconsistent. "
                             f"Missing={missing_audit_blocks}; unknown={unknown_audit_blocks}; "
                             f"multiply classified={duplicate_classifications}."
                         ),
                     })
             for scene_audit in audit.scenes:
-                if scene_audit.generic_hindi_block_ids:
+                if scene_audit.unsupported_fallback_language_block_ids:
+                    fallback = culture_context.language_policy.fallback_language or "fallback language"
                     issues.append({
-                        "severity": "blocking", "code": "generic_hindi_dialogue",
+                        "severity": "blocking", "code": "unsupported_fallback_dialogue",
                         "message": (
-                            f"Scene {scene_audit.scene_id} contains dialogue assessed as standard Hindi rather than "
-                            f"Maidani Mewari: {scene_audit.generic_hindi_block_ids}"
+                            f"Scene {scene_audit.scene_id} contains unsupported {fallback} dialogue rather than "
+                            f"{culture_context.target_variety}: {scene_audit.unsupported_fallback_language_block_ids}"
                         ),
                     })
-                if scene_audit.unapproved_or_mixed_block_ids:
+                if scene_audit.mixed_or_unapproved_variety_block_ids:
                     issues.append({
-                        "severity": "blocking", "code": "unapproved_dialect_mixing",
+                        "severity": "blocking", "code": "unapproved_variety_mixing",
                         "message": (
-                            f"Scene {scene_audit.scene_id} contains unsupported, mixed or potentially Marwari forms: "
-                            f"{scene_audit.unapproved_or_mixed_block_ids}"
+                            f"Scene {scene_audit.scene_id} contains unsupported, mixed or confusable language forms: "
+                            f"{scene_audit.mixed_or_unapproved_variety_block_ids}"
                         ),
                     })
             if not audit.passed and not any(
-                issue["code"] in {"generic_hindi_dialogue", "unapproved_dialect_mixing"} for issue in issues
+                issue["code"] in {"unsupported_fallback_dialogue", "unapproved_variety_mixing"} for issue in issues
             ):
-                issues.append({"severity": "blocking", "code": "dialect_audit_failed", "message": audit.summary})
+                issues.append({"severity": "blocking", "code": "language_audit_failed", "message": audit.summary})
         coverage = (len(mapped_blocks & source_blocks) / len(source_blocks)) if source_blocks else 1.0
         observer.score("story_anchor_coverage", coverage, project_id=project_id)
         revision = self.repository.create_revision(project_id, "adaptation_verification", issues)
@@ -449,28 +523,51 @@ class Workflow:
 
     @staticmethod
     def _plan_quality_issues(
-        source: SourceScreenplay, brief: CulturalBrief, plan: AdaptationPlan,
+        source: SourceScreenplay, brief: CulturalBrief, plan: AdaptationPlan, context,
     ) -> list[dict[str, Any]]:
         issues: list[dict[str, Any]] = []
-        guide = brief.dialect_guide
-        if not guide or guide.target_variety.strip().lower() != "maidani mewari":
+        if (
+            brief.culture_id != context.culture_id
+            or brief.profile_hash != context.profile_hash
+            or brief.profile_version != context.profile_version
+        ):
             issues.append({
-                "severity": "blocking", "code": "missing_target_dialect_guide",
-                "message": "The cultural brief does not contain a Maidani Mewari dialect guide.",
+                "severity": "blocking", "code": "culture_profile_mismatch",
+                "message": "The cultural brief does not match the project's immutable culture profile.",
+            })
+        guide = brief.language_guide
+        if not guide or guide.target_variety.strip().casefold() != context.target_variety.strip().casefold():
+            issues.append({
+                "severity": "blocking", "code": "missing_target_language_guide",
+                "message": f"The cultural brief does not contain a {context.target_variety} language guide.",
             })
             return issues
-        if "devanagari" not in guide.writing_script.strip().lower():
+        if guide.writing_script.strip().casefold() != context.output_script.strip().casefold():
             issues.append({
-                "severity": "blocking", "code": "wrong_dialect_script",
-                "message": f"Dialect guide script must be Devanagari, got {guide.writing_script}.",
+                "severity": "blocking", "code": "wrong_language_script",
+                "message": f"Language guide script must be {context.output_script}, got {guide.writing_script}.",
             })
         usable_features = [feature for feature in guide.features if feature.confidence in {"high", "medium"}]
-        if len(usable_features) < 6:
+        minimum_features = context.language_policy.minimum_supported_features
+        if len(usable_features) < minimum_features:
             issues.append({
-                "severity": "blocking", "code": "insufficient_dialect_evidence",
+                "severity": "blocking", "code": "insufficient_language_evidence",
                 "message": (
-                    "Fewer than six medium/high-confidence, source-backed Maidani Mewari language features are available; "
+                    f"Fewer than {minimum_features} medium/high-confidence, source-backed "
+                    f"{context.target_variety} language features are available; "
                     "a native-feeling adaptation cannot be grounded safely."
+                ),
+            })
+        available_categories = {feature.category for feature in usable_features}
+        missing_categories = sorted(
+            set(context.language_policy.required_feature_categories) - available_categories
+        )
+        if missing_categories:
+            issues.append({
+                "severity": "blocking", "code": "missing_language_feature_categories",
+                "message": (
+                    "The approved language guide is missing required evidence categories: "
+                    f"{missing_categories}."
                 ),
             })
         verbal = next((layer for layer in plan.layers if layer.layer == "verbal"), None)
@@ -495,12 +592,53 @@ class Workflow:
             change for decision in verbal.decisions for change in decision.proposed_changes
         ).lower()
         feature_markers = [feature.id.lower() for feature in guide.features] + [
-            feature.devanagari_form.lower() for feature in guide.features
+            feature.written_form.lower() for feature in guide.features
         ]
         if guide.features and not any(marker and marker in plan_text for marker in feature_markers):
             issues.append({
                 "severity": "blocking", "code": "verbal_plan_not_grounded",
-                "message": "The verbal plan does not cite or use any approved DialectFeature ID or Devanagari form.",
+                "message": "The verbal plan does not cite or use an approved LanguageFeature ID or written form.",
+            })
+        claim_ids = {item.id for item in brief.claims}
+        constraint_ids = {item.id for item in brief.constraints}
+        if len(claim_ids) != len(brief.claims):
+            issues.append({
+                "severity": "blocking", "code": "duplicate_cultural_claims",
+                "message": "Cultural claim IDs must be unique.",
+            })
+        reviewed_claim_ids = {item.id for item in context.reviewed_evidence.claims}
+        invalid_reviewed_origins = sorted(
+            item.id for item in brief.claims
+            if item.origin == "reviewed_profile_evidence" and item.id not in reviewed_claim_ids
+        )
+        if invalid_reviewed_origins:
+            issues.append({
+                "severity": "blocking", "code": "unapproved_reviewed_evidence",
+                "message": f"Claims are marked reviewed but are absent from the profile: {invalid_reviewed_origins}",
+            })
+        invalid_constraint_sources = sorted(
+            item.id for item in brief.constraints
+            if item.origin == "grounded_research"
+            and (not item.source_claim_ids or not set(item.source_claim_ids).issubset(claim_ids))
+        )
+        if invalid_constraint_sources:
+            issues.append({
+                "severity": "blocking", "code": "untraceable_cultural_constraints",
+                "message": f"Grounded constraints lack approved supporting claim IDs: {invalid_constraint_sources}",
+            })
+        unknown_claims = sorted({
+            claim_id for layer in plan.layers for decision in layer.decisions
+            for claim_id in decision.cultural_claim_ids if claim_id not in claim_ids
+        })
+        if unknown_claims:
+            issues.append({
+                "severity": "blocking", "code": "unknown_cultural_claims",
+                "message": f"The plan cites claims absent from the approved brief: {unknown_claims}",
+            })
+        if len(constraint_ids) != len(brief.constraints):
+            issues.append({
+                "severity": "blocking", "code": "duplicate_cultural_constraints",
+                "message": "Cultural constraint IDs must be unique.",
             })
         return issues
 
@@ -544,20 +682,23 @@ class Workflow:
         adapted = AdaptedScreenplay.model_validate(adapted_revision["payload"])
         plan = AdaptationPlan.model_validate(plan_revision["payload"])
         brief = CulturalBrief.model_validate(brief_revision["payload"])
+        visual_context = self._culture_compiler(project_id, brief_revision).for_visual_manifest()
 
         appearance_scaffold, scene_scaffold = self._visual_scaffolds(project_id, source)
+        trace_fields = {
+            "profile_hash": visual_context.profile_hash,
+            "brief_revision_id": brief_revision["id"],
+            "cultural_claim_ids": [item["id"] for item in visual_context.claims],
+            "cultural_constraint_ids": [item["id"] for item in visual_context.constraints],
+        }
+        appearance_scaffold = [{**item, **trace_fields} for item in appearance_scaffold]
+        scene_scaffold = [{**item, **trace_fields} for item in scene_scaffold]
         visible_character_ids = [item["character_id"] for item in appearance_scaffold]
 
         relevant_plan = plan.model_dump(mode="json")
         relevant_plan["layers"] = [
             layer.model_dump(mode="json") for layer in plan.layers
             if layer.layer in {"non_verbal", "characters", "visual_world", "story_world", "cultural_precision"}
-        ]
-        visual_brief = brief.model_dump(mode="json")
-        visual_brief.pop("dialect_guide", None)
-        visual_brief["claims"] = [
-            claim.model_dump(mode="json") for claim in brief.claims
-            if any(layer in {"non_verbal", "characters", "visual_world", "story_world", "cultural_precision"} for layer in claim.layers)
         ]
         source_payload = {
             "characters": [
@@ -600,7 +741,7 @@ class Workflow:
             manifest = self.ai.cached_structured(
                 project_id, operation,
                 visual_manifest_prompt(
-                    source_payload, adapted.model_dump(mode="json"), relevant_plan, visual_brief,
+                    source_payload, adapted.model_dump(mode="json"), relevant_plan, visual_context,
                     appearance_scaffold, scene_scaffold,
                 ),
                 VisualManifest,
@@ -628,11 +769,21 @@ class Workflow:
             # Exact set identity is deterministic application data, never a model decision.
             scene.set_id = scaffold["set_id"]
             scene.sub_location = scaffold["sub_location"]
+            scene.profile_hash = visual_context.profile_hash
+            scene.brief_revision_id = brief_revision["id"]
+            scene.cultural_claim_ids = scaffold["cultural_claim_ids"]
+            scene.cultural_constraint_ids = scaffold["cultural_constraint_ids"]
+        for appearance in manifest.appearances:
+            appearance.profile_hash = visual_context.profile_hash
+            appearance.brief_revision_id = brief_revision["id"]
+            appearance.cultural_claim_ids = trace_fields["cultural_claim_ids"]
+            appearance.cultural_constraint_ids = trace_fields["cultural_constraint_ids"]
         set_rows: dict[str, dict[str, Any]] = {}
         for scaffold in scene_scaffold:
             row = set_rows.setdefault(scaffold["set_id"], {
                 "id": scaffold["set_id"], "location_id": scaffold["location_id"],
                 "name": scaffold["sub_location"], "scene_ids": [],
+                "profile_hash": visual_context.profile_hash, "brief_revision_id": brief_revision["id"],
             })
             row["scene_ids"].append(scaffold["scene_id"])
         manifest.sets = [SetVisualSpec.model_validate(item) for item in set_rows.values()]
@@ -650,6 +801,18 @@ class Workflow:
             raise ValueError("Extraction is required before visual approval")
         source = SourceScreenplay.model_validate(source_revision["payload"])
         appearance_scaffold, scene_scaffold = self._visual_scaffolds(project_id, source)
+        brief_revision = self.repository.latest_revision(project_id, "cultural_brief")
+        if not brief_revision:
+            raise ValueError("An approved cultural brief is required before visual approval")
+        context = self._culture_compiler(project_id, brief_revision).for_visual_manifest()
+        trace_fields = {
+            "profile_hash": context.profile_hash,
+            "brief_revision_id": brief_revision["id"],
+            "cultural_claim_ids": [item["id"] for item in context.claims],
+            "cultural_constraint_ids": [item["id"] for item in context.constraints],
+        }
+        appearance_scaffold = [{**item, **trace_fields} for item in appearance_scaffold]
+        scene_scaffold = [{**item, **trace_fields} for item in scene_scaffold]
         manifest = VisualManifest.model_validate(revision["payload"])
         scaffold_by_scene = {item["scene_id"]: item for item in scene_scaffold}
         for scene in manifest.scenes:
@@ -692,21 +855,45 @@ class Workflow:
         manifest: VisualManifest, appearance_scaffold: list[dict[str, Any]], scene_scaffold: list[dict[str, Any]],
     ) -> None:
         expected_appearances = [
-            (item["id"], item["character_id"], item["scene_ids"]) for item in appearance_scaffold
+            (
+                item["id"], item["character_id"], item["scene_ids"], item.get("profile_hash", ""),
+                item.get("brief_revision_id", ""), item.get("cultural_claim_ids", []),
+                item.get("cultural_constraint_ids", []),
+            ) for item in appearance_scaffold
         ]
-        actual_appearances = [(item.id, item.character_id, item.scene_ids) for item in manifest.appearances]
+        actual_appearances = [(
+            item.id, item.character_id, item.scene_ids, item.profile_hash, item.brief_revision_id,
+            item.cultural_claim_ids, item.cultural_constraint_ids,
+        ) for item in manifest.appearances]
         if actual_appearances != expected_appearances:
             raise ValueError("Visual manifest changed, omitted or reordered canonical appearance IDs")
         expected_scenes = [(
             item["id"], item["scene_id"], item["appearance_ids"], item["location_id"],
-            item["set_id"], item["sub_location"], item["prop_ids"],
+            item["set_id"], item["sub_location"], item["prop_ids"], item.get("profile_hash", ""),
+            item.get("brief_revision_id", ""), item.get("cultural_claim_ids", []),
+            item.get("cultural_constraint_ids", []),
         ) for item in scene_scaffold]
         actual_scenes = [(
             item.id, item.scene_id, item.appearance_ids, item.location_id,
-            item.set_id, item.sub_location, item.prop_ids,
+            item.set_id, item.sub_location, item.prop_ids, item.profile_hash, item.brief_revision_id,
+            item.cultural_claim_ids, item.cultural_constraint_ids,
         ) for item in manifest.scenes]
         if actual_scenes != expected_scenes:
             raise ValueError("Visual manifest changed, omitted or reordered canonical scene dependencies")
+        expected_set_ids = {item["set_id"] for item in scene_scaffold}
+        if {item.id for item in manifest.sets} != expected_set_ids:
+            raise ValueError("Visual manifest changed or omitted canonical set IDs")
+        expected_profile_hash = appearance_scaffold[0].get("profile_hash", "") if appearance_scaffold else (
+            scene_scaffold[0].get("profile_hash", "") if scene_scaffold else ""
+        )
+        expected_brief_revision = appearance_scaffold[0].get("brief_revision_id", "") if appearance_scaffold else (
+            scene_scaffold[0].get("brief_revision_id", "") if scene_scaffold else ""
+        )
+        if any(
+            item.profile_hash != expected_profile_hash or item.brief_revision_id != expected_brief_revision
+            for item in manifest.sets
+        ):
+            raise ValueError("Visual set traceability does not match the approved culture context")
         placeholder_fragments = {
             "approved contemporary locality-appropriate everyday costume",
             "source-consistent grooming without inferred identity markers",
@@ -786,6 +973,7 @@ class Workflow:
         scene_map = {scene.id: stable_id(project_id, "scene", str(index)) for index, scene in enumerate(document.scenes, 1)}
         character_map = {character.id: stable_id(project_id, "character", character.name) for character in document.characters}
         element_map = {element.id: stable_id(project_id, element.kind, element.name) for element in document.production_elements}
+        block_map: dict[str, str] = {}
         for index, scene in enumerate(document.scenes, 1):
             old_scene_id = scene.id
             scene.id = scene_map[old_scene_id]
@@ -794,7 +982,9 @@ class Workflow:
             scene.production_element_ids = [element_map.get(item, item) for item in scene.production_element_ids]
             scene.location_id = element_map.get(scene.location_id, scene.location_id)
             for block_index, block in enumerate(scene.blocks):
+                old_block_id = block.id
                 block.id = stable_id(project_id, "block", f"{index}:{block_index}")
+                block_map[old_block_id] = block.id
                 block.speaker_id = character_map.get(block.speaker_id, block.speaker_id)
         for character in document.characters:
             old_id = character.id
@@ -815,6 +1005,21 @@ class Workflow:
             transition.before.scene_id = scene_map.get(transition.before.scene_id, transition.before.scene_id)
             transition.after.character_id = character_map.get(transition.after.character_id, transition.after.character_id)
             transition.after.scene_id = scene_map.get(transition.after.scene_id, transition.after.scene_id)
+        for index, event in enumerate(document.continuity_events, 1):
+            event.id = stable_id(project_id, "continuity-event", f"{index}:{event.kind}")
+            event.scene_id = scene_map.get(event.scene_id, event.scene_id)
+            event.character_id = character_map.get(event.character_id, event.character_id)
+            event.counterparty_character_id = character_map.get(
+                event.counterparty_character_id, event.counterparty_character_id,
+            )
+            event.relationship_character_id = character_map.get(
+                event.relationship_character_id, event.relationship_character_id,
+            )
+            event.prop_id = element_map.get(event.prop_id, event.prop_id)
+            event.related_prop_id = element_map.get(event.related_prop_id, event.related_prop_id)
+            event.evidence_block_ids = [block_map.get(item, item) for item in event.evidence_block_ids]
+        if document.continuity_events:
+            document.state_transitions, _ = build_state_ledger(document)
         document.story_contract.scene_purposes = {
             scene_map.get(scene_id, scene_id): purpose for scene_id, purpose in document.story_contract.scene_purposes.items()
         }

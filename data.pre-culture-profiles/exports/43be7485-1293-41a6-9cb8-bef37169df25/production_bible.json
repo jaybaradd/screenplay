@@ -1,0 +1,381 @@
+[
+  {
+    "aliases": [
+      "The farm",
+      "Farmhouse"
+    ],
+    "description": "Rural farmstead consisting of a main farmhouse with dining room, veranda, farm office, yard, and machinery shed.",
+    "id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+    "kind": "location",
+    "name": "Farmhouse & Grounds",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "2a7f6293-f941-51fa-94be-2af199d08126",
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "435fda02-8511-558a-afab-0bb5e04281f2",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "aliases": [
+      "Farmhouse Dining Room"
+    ],
+    "description": "Clean but dim room with two tall windows, long table reduced to one setting, cabinet, and loud wall clock.",
+    "id": "ffffb2bf-2e0d-5200-93ae-7960f5467780",
+    "kind": "set",
+    "name": "Dining Room",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+    ]
+  },
+  {
+    "aliases": [
+      "Veranda"
+    ],
+    "description": "Sheltered outdoor entryway under a narrow roof fronting the main entrance.",
+    "id": "f611a95f-c12e-5a58-ae28-3677d7a6a143",
+    "kind": "set",
+    "name": "Farmhouse Veranda",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "2a7f6293-f941-51fa-94be-2af199d08126"
+    ]
+  },
+  {
+    "aliases": [
+      "Office"
+    ],
+    "description": "Small room with emergency daylight from a small window, packed with ledgers, seed catalogues, and repair manuals.",
+    "id": "9a2846b6-e322-5e15-ba70-78bdc5d3b1d9",
+    "kind": "set",
+    "name": "Farm Office",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "435fda02-8511-558a-afab-0bb5e04281f2"
+    ]
+  },
+  {
+    "aliases": [
+      "Machinery shed"
+    ],
+    "description": "Dripping shed roof facing the farmyard and open shining fields under clearing sky.",
+    "id": "b9569242-8452-52b2-a44e-2bba88853425",
+    "kind": "set",
+    "name": "Machinery Shed & Yard",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "aliases": [
+      "Truck"
+    ],
+    "description": "Work truck belonging to Dane Transport, prone to engine ignition sputtering.",
+    "id": "777bb3ea-ad7d-5da6-96fb-9ce7c93cb38a",
+    "kind": "vehicle",
+    "name": "Mud-streaked Delivery Truck",
+    "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "2a7f6293-f941-51fa-94be-2af199d08126",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "aliases": [
+      "Coffee"
+    ],
+    "description": "A cup of coffee gone cold sitting before Mara at the dining table.",
+    "id": "0d2920b7-8a4b-5767-b539-3f9a8257467b",
+    "kind": "prop",
+    "name": "Cold Cup of Coffee",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78"
+    ]
+  },
+  {
+    "aliases": [
+      "Photograph"
+    ],
+    "description": "Framed picture of late husband Adrian placed at the opposite end of the dining table.",
+    "id": "cf322cfa-4bf8-5df5-a62a-7f87ac222ad8",
+    "kind": "prop",
+    "name": "Framed Photograph of Adrian",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78"
+    ]
+  },
+  {
+    "aliases": [
+      "The post",
+      "The notices"
+    ],
+    "description": "A leaning stack of unopened mail and overdue notices.",
+    "id": "51ab01b5-7f97-5386-94d1-b4f688e21df2",
+    "kind": "prop",
+    "name": "Stack of Unopened Envelopes",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78"
+    ]
+  },
+  {
+    "aliases": [
+      "Clock"
+    ],
+    "description": "Wall clock ticking loudly in the dim dining room.",
+    "id": "6ac85806-b80f-5a7e-81ec-20ac867382a8",
+    "kind": "prop",
+    "name": "Wall Clock",
+    "owner_character_id": null,
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "435fda02-8511-558a-afab-0bb5e04281f2"
+    ]
+  },
+  {
+    "aliases": [
+      "Brown envelope"
+    ],
+    "description": "Contains contract, three invoices, and a handwritten delivery log carried by Viktor.",
+    "id": "17622f2f-4420-587d-b803-b69b2f881be4",
+    "kind": "prop",
+    "name": "Sealed Brown Envelope",
+    "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "2a7f6293-f941-51fa-94be-2af199d08126",
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "435fda02-8511-558a-afab-0bb5e04281f2",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "aliases": [
+      "Phone"
+    ],
+    "description": "Rings on the delivery truck dashboard, ignored by Viktor.",
+    "id": "ea24d914-6bea-54b2-bdbf-5fb5c9211dea",
+    "kind": "prop",
+    "name": "Mobile Phone",
+    "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+    "scene_ids": [
+      "2a7f6293-f941-51fa-94be-2af199d08126"
+    ]
+  },
+  {
+    "aliases": [
+      "Wet boots"
+    ],
+    "description": "Muddy/wet boots taken off respectfully at the entrance.",
+    "id": "14c05018-08a6-51d8-aa4e-83ad0ccacefc",
+    "kind": "costume",
+    "name": "Viktor's Wet Boots",
+    "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+    "scene_ids": [
+      "2a7f6293-f941-51fa-94be-2af199d08126"
+    ]
+  },
+  {
+    "aliases": [
+      "Tray holding a teapot and cups",
+      "Tea tray"
+    ],
+    "description": "Tray with teapot and three cups used continuously by Dev throughout the day.",
+    "id": "3ee3071f-d96a-56e4-8868-abc01d980393",
+    "kind": "prop",
+    "name": "Tea Tray and Service",
+    "owner_character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+    "scene_ids": [
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "aliases": [
+      "Ledger"
+    ],
+    "description": "Account book with several pages cleanly excised near the rear.",
+    "id": "e39c7c11-485e-5a69-aa5b-8d78cb33fc78",
+    "kind": "prop",
+    "name": "Farm Ledger",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+    ]
+  },
+  {
+    "aliases": [
+      "Brass key"
+    ],
+    "description": "Small key kept on a waist chain, unlocking the gun cabinet.",
+    "id": "cddf362e-5afe-5402-a867-8106e89e7190",
+    "kind": "prop",
+    "name": "Brass Key on Waist Chain",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "aliases": [
+      "Pistol case",
+      "Old target pistol"
+    ],
+    "description": "Dusty, unloaded vintage target pistol in a fitted wooden case.",
+    "id": "639e86e3-404e-5ea9-87b6-6ecda837ded1",
+    "kind": "prop",
+    "name": "Target Pistol in Wooden Case",
+    "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+    "scene_ids": [
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "aliases": [
+      "Delivery log"
+    ],
+    "description": "Log sheet showing the redirected grain haulage to the old mill.",
+    "id": "3423f101-f690-578e-96ac-7e0ba7340da7",
+    "kind": "prop",
+    "name": "Handwritten Delivery Log",
+    "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+    "scene_ids": [
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "435fda02-8511-558a-afab-0bb5e04281f2",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "aliases": [
+      "Three invoices"
+    ],
+    "description": "Invoices totalling 12,000 for transport services.",
+    "id": "87b714df-5864-5ac7-a67b-9b667c17fc0c",
+    "kind": "prop",
+    "name": "Haulage Invoices",
+    "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+    "scene_ids": [
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "435fda02-8511-558a-afab-0bb5e04281f2"
+    ]
+  },
+  {
+    "aliases": [
+      "Lantern"
+    ],
+    "description": "Emergency battery light placed on the desk during the power cut.",
+    "id": "f1ff139d-5934-5163-8380-d896fb059b3f",
+    "kind": "prop",
+    "name": "Battery Lantern",
+    "owner_character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+    "scene_ids": [
+      "435fda02-8511-558a-afab-0bb5e04281f2"
+    ]
+  },
+  {
+    "aliases": [
+      "Laptop"
+    ],
+    "description": "Contains downloaded offline bank records and financial spreadsheet models.",
+    "id": "e20acf0f-cc5a-564c-8de1-46f15af37854",
+    "kind": "prop",
+    "name": "Ina's Laptop",
+    "owner_character_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+    "scene_ids": [
+      "435fda02-8511-558a-afab-0bb5e04281f2"
+    ]
+  },
+  {
+    "aliases": [
+      "Document bag"
+    ],
+    "description": "Ina's work bag.",
+    "id": "01e34e9a-0700-5c7b-8b96-712a0add7954",
+    "kind": "prop",
+    "name": "Canvas Document Bag",
+    "owner_character_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+    "scene_ids": [
+      "435fda02-8511-558a-afab-0bb5e04281f2"
+    ]
+  },
+  {
+    "aliases": [],
+    "description": "Desktop or handheld calculator used by Ina.",
+    "id": "6aeeb34c-2e16-57b1-aa9c-266dfedab1d7",
+    "kind": "prop",
+    "name": "Calculator",
+    "owner_character_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+    "scene_ids": [
+      "435fda02-8511-558a-afab-0bb5e04281f2"
+    ]
+  },
+  {
+    "aliases": [
+      "Agreement"
+    ],
+    "description": "Contract dividing payment into one-third immediate reserve and two-thirds post-harvest, signed on the truck hood.",
+    "id": "ea35cc20-7db1-59f4-994e-415c6cedf196",
+    "kind": "prop",
+    "name": "Handwritten Payment Agreement",
+    "owner_character_id": null,
+    "scene_ids": [
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "aliases": [],
+    "description": "Persistent rain on the windows and veranda, ending by late afternoon.",
+    "id": "581cf502-d757-52f3-9d2e-eb0af3cc4f2f",
+    "kind": "sound",
+    "name": "Rain Tapping and Drumming",
+    "owner_character_id": null,
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "2a7f6293-f941-51fa-94be-2af199d08126",
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+    ]
+  },
+  {
+    "aliases": [],
+    "description": "Truck rattling, stopping, and coughing before catching.",
+    "id": "f770cc8b-bf86-5b4d-80ff-4f6903fd50f8",
+    "kind": "sound",
+    "name": "Truck Engine Sputter and Ignition",
+    "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    ]
+  },
+  {
+    "aliases": [],
+    "description": "Metallic clanging of the front driveway gate.",
+    "id": "2febad54-8cc0-5de6-bbcc-2a3edb41428a",
+    "kind": "sound",
+    "name": "Front Gate Clang",
+    "owner_character_id": null,
+    "scene_ids": [
+      "a895348d-658b-5721-a20c-92fd6b5fca78"
+    ]
+  },
+  {
+    "aliases": [],
+    "description": "Phone ringing unanswered inside Viktor's truck cab.",
+    "id": "bba5d3a4-fbf2-5783-8d3d-f4a169e75225",
+    "kind": "sound",
+    "name": "Mobile Phone Ringing",
+    "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+    "scene_ids": [
+      "2a7f6293-f941-51fa-94be-2af199d08126"
+    ]
+  }
+]

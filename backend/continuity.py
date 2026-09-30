@@ -5,6 +5,7 @@ from collections import defaultdict
 from typing import Iterable
 
 from backend.schemas import ContinuityIssue, SourceScreenplay, StateTransition
+from backend.state_ledger import build_state_ledger
 
 
 def issue_id(code: str, entity_id: str | None, scenes: Iterable[str]) -> str:
@@ -67,9 +68,15 @@ def check_continuity(screenplay: SourceScreenplay) -> list[ContinuityIssue]:
                     message="Scene references an unknown production-element ID.",
                 ))
 
+    transitions_to_check = screenplay.state_transitions
+    event_based = bool(screenplay.continuity_events)
+    if event_based:
+        transitions_to_check, ledger_issues = build_state_ledger(screenplay)
+        issues.extend(ledger_issues)
+
     scene_order = {scene.id: index for index, scene in enumerate(screenplay.scenes)}
     transitions_by_character: dict[str, list[StateTransition]] = defaultdict(list)
-    for transition in screenplay.state_transitions:
+    for transition in transitions_to_check:
         transitions_by_character[transition.character_id].append(transition)
     for character_id, transitions in transitions_by_character.items():
         transitions.sort(key=lambda item: scene_order.get(item.scene_id, 10**9))
@@ -77,15 +84,17 @@ def check_continuity(screenplay: SourceScreenplay) -> list[ContinuityIssue]:
             affected = [previous.scene_id, current.scene_id]
             lost_props = sorted(set(previous.after.carries) - set(current.before.carries))
             gained_props = sorted(set(current.before.carries) - set(previous.after.carries))
-            if lost_props or gained_props:
+            if (lost_props or gained_props) and not event_based:
                 issues.append(ContinuityIssue(
                     id=issue_id("prop_transfer_gap", character_id, affected), severity="blocking",
                     code="prop_transfer_gap", entity_id=character_id, affected_scene_ids=affected,
                     expected=f"Carries {previous.after.carries}", actual=f"Carries {current.before.carries}",
                     message="A carried prop changes between appearances without a recorded transfer.",
                     suggested_resolution="Add a transfer/loss event or correct the before-state.",
+                    added_items=gained_props, removed_items=lost_props,
+                    probable_cause="The extracted before/after snapshots disagree or an intervening scene was omitted.",
                 ))
-            if previous.after.costume_id != current.before.costume_id:
+            if previous.after.costume_id != current.before.costume_id and not event_based:
                 issues.append(ContinuityIssue(
                     id=issue_id("costume_change_gap", character_id, affected), severity="blocking",
                     code="costume_change_gap", entity_id=character_id, affected_scene_ids=affected,
@@ -93,16 +102,8 @@ def check_continuity(screenplay: SourceScreenplay) -> list[ContinuityIssue]:
                     message="Costume changes between appearances without a recorded reason.",
                     suggested_resolution="Record a justified costume change or keep the prior costume.",
                 ))
-            missing_knowledge = sorted(set(previous.after.knows) - set(current.before.knows))
-            if missing_knowledge:
-                issues.append(ContinuityIssue(
-                    id=issue_id("knowledge_loss", character_id, affected), severity="warning",
-                    code="knowledge_loss", entity_id=character_id, affected_scene_ids=affected,
-                    expected=str(previous.after.knows), actual=str(current.before.knows),
-                    message="Previously known information is absent from the next state.",
-                ))
             healed = sorted(set(previous.after.injuries) - set(current.before.injuries))
-            if healed:
+            if healed and not event_based:
                 issues.append(ContinuityIssue(
                     id=issue_id("injury_disappears", character_id, affected), severity="blocking",
                     code="injury_disappears", entity_id=character_id, affected_scene_ids=affected,

@@ -1,0 +1,231 @@
+{
+  "culture_id": "maidani_mewari",
+  "profile_version": "1.0.0",
+  "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+  "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+  "adapted_blocks": [
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "block_id": "e6669b46-4324-5740-99ea-8a42a48bf5f1",
+      "source_block_ids": [
+        "e6669b46-4324-5740-99ea-8a42a48bf5f1"
+      ],
+      "cultural_claim_ids": [],
+      "adaptation_layer_ids": [
+        "mock-preservation"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "block_id": "41c8bbd7-fd32-5aad-abda-e0500cac5415",
+      "source_block_ids": [
+        "41c8bbd7-fd32-5aad-abda-e0500cac5415"
+      ],
+      "cultural_claim_ids": [],
+      "adaptation_layer_ids": [
+        "mock-preservation"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "block_id": "8b23e6bc-4fba-5948-96f6-afd1202c0457",
+      "source_block_ids": [
+        "8b23e6bc-4fba-5948-96f6-afd1202c0457"
+      ],
+      "cultural_claim_ids": [],
+      "adaptation_layer_ids": [
+        "mock-preservation"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "block_id": "a037f90b-8441-5b19-a503-2ed734f94267",
+      "source_block_ids": [
+        "a037f90b-8441-5b19-a503-2ed734f94267"
+      ],
+      "cultural_claim_ids": [],
+      "adaptation_layer_ids": [
+        "mock-preservation"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "block_id": "dc0ebee8-4860-504e-b123-08070c23f3f1",
+      "source_block_ids": [
+        "dc0ebee8-4860-504e-b123-08070c23f3f1"
+      ],
+      "cultural_claim_ids": [],
+      "adaptation_layer_ids": [
+        "mock-preservation"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "block_id": "9a65fd32-b289-58f6-bac7-dbaa886e1a46",
+      "source_block_ids": [
+        "9a65fd32-b289-58f6-bac7-dbaa886e1a46"
+      ],
+      "cultural_claim_ids": [],
+      "adaptation_layer_ids": [
+        "mock-preservation"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "block_id": "a3fe0c94-76c6-58bf-959a-e185452ecaa6",
+      "source_block_ids": [
+        "a3fe0c94-76c6-58bf-959a-e185452ecaa6"
+      ],
+      "cultural_claim_ids": [],
+      "adaptation_layer_ids": [
+        "mock-preservation"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "block_id": "a213a733-1a42-59f0-8e52-027f8c32f9a6",
+      "source_block_ids": [
+        "a213a733-1a42-59f0-8e52-027f8c32f9a6"
+      ],
+      "cultural_claim_ids": [],
+      "adaptation_layer_ids": [
+        "mock-preservation"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "block_id": "020725cc-2b24-5b0c-b25f-22ccb15b4961",
+      "source_block_ids": [
+        "020725cc-2b24-5b0c-b25f-22ccb15b4961"
+      ],
+      "cultural_claim_ids": [],
+      "adaptation_layer_ids": [
+        "mock-preservation"
+      ]
+    }
+  ],
+  "appearances": [
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "appearance_id": "a3105e13-1a91-507f-8a8c-ffd7473f8209",
+      "prompt_hash": "ab662687055d41f50fd8f7898cf13c4329554a4e4f066e271ad9306d1d84c4b8",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "appearance_id": "b11414ee-adc5-59a2-88b8-90ca693e0829",
+      "prompt_hash": "f3143c05a8ff7a985f71f19cbc726de3e1beb86ddad148f20b522dbb245d8a82",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "appearance_id": "469d85df-3bf9-5de1-a252-31707f9bd83b",
+      "prompt_hash": "dded1281f720d74f85ace7ff74e0729a6415c7f0b579325c1f6c09975c63c71c",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "scene_visual_id": "40c968d1-573b-5aa7-9a02-ddbf9733a4b4",
+      "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+      "prompt_hash": "cb34b9f282287cfb2f952ecbff9ca71092ab0f09c4d1d7138aadb5b42f1c111a",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "scene_visual_id": "635b1753-3a4c-503e-851b-05578bfd0604",
+      "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8",
+      "prompt_hash": "d9ae12ad9c29c7ef91a0aaa759b20396bf8a77b709e4436b1f583607c38d04b2",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ]
+    },
+    {
+      "culture_id": "maidani_mewari",
+      "profile_version": "1.0.0",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "scene_visual_id": "786303f5-df12-5fd9-893e-128d84d9bb5e",
+      "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1",
+      "prompt_hash": "f60e006395692ae9c645c083ae23057bbfbfa1368c9941d00a03f9a6a0d5fdd3",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ]
+    }
+  ]
+}

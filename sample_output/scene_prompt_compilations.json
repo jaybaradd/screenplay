@@ -1,0 +1,44 @@
+[
+  {
+    "asset_id": "9f2bb9cf-ae3d-5467-8f90-583db52407f4",
+    "created_at": "2026-09-30T20:47:28.517337+00:00",
+    "dependency_hash": "8b1fff4dbb144fa2ac03b81e04cf6abd3e40150a43b40b97891b0049047b25c1",
+    "reference_assets": [
+      {
+        "asset_id": "92472f5d-93ef-5daf-b0a8-5051b027a049",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — b11414ee-adc5-59a2-88b8-90ca693e0829"
+      },
+      {
+        "asset_id": "a34e3c31-75c4-57ba-9156-d3be7bbfb3a4",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — a3105e13-1a91-507f-8a8c-ffd7473f8209"
+      },
+      {
+        "asset_id": "d22c0bee-19e3-5b48-9ffb-e9462972a8d9",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8",
+    "set_id": "ab9b10b0-5d18-52b6-8758-0fc3b4205121"
+  },
+  {
+    "asset_id": "9855f05a-7098-58bc-84f7-05360830bbc7",
+    "created_at": "2026-09-30T20:47:28.693297+00:00",
+    "dependency_hash": "a40f807b1a46081911941a69a9f5254a44eaab21ed9bf1fc720552dd9b57ff0e",
+    "reference_assets": [
+      {
+        "asset_id": "6f23c160-c1e8-5ae2-aa7e-f86ae1bd1213",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 469d85df-3bf9-5de1-a252-31707f9bd83b"
+      },
+      {
+        "asset_id": "a34e3c31-75c4-57ba-9156-d3be7bbfb3a4",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — a3105e13-1a91-507f-8a8c-ffd7473f8209"
+      },
+      {
+        "asset_id": "9f2bb9cf-ae3d-5467-8f90-583db52407f4",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1",
+    "set_id": "9f13451c-4f3d-54b8-9d30-a64c013b3edc"
+  }
+]

@@ -1,0 +1,129 @@
+{
+  "profile": {
+    "commonly_confused_languages": [
+      "Marwari",
+      "generic Rajasthani",
+      "standard Hindi"
+    ],
+    "commonly_confused_visual_traditions": [
+      "generic Rajasthan tourism imagery",
+      "Thar desert imagery",
+      "royal wedding styling"
+    ],
+    "constraints": [
+      {
+        "id": "mm-language-boundary",
+        "kind": "language_boundary",
+        "layers": [
+          "verbal",
+          "cultural_precision"
+        ],
+        "text": "Do not substitute Marwari, generic Rajasthani or standard Hindi for Maidani Mewari; do not invent regional-sounding forms."
+      },
+      {
+        "id": "mm-visual-cliche-boundary",
+        "kind": "visual_boundary",
+        "layers": [
+          "visual_world",
+          "story_world",
+          "cultural_precision"
+        ],
+        "text": "Do not default to palaces, camels, sand dunes, weddings or tourist-folk imagery unless the screenplay and approved evidence require them."
+      },
+      {
+        "id": "mm-identity-boundary",
+        "kind": "identity_boundary",
+        "layers": [
+          "characters",
+          "non_verbal",
+          "story_world",
+          "cultural_precision"
+        ],
+        "text": "Do not infer caste, religion, wealth, occupation, values or universal personality traits from regional identity."
+      }
+    ],
+    "culture_id": "maidani_mewari",
+    "display_name": "Maidani Mewari",
+    "geographic_scope": "The plains of the Mewar region; the user must supply an exact locality and the research must remain scoped to it.",
+    "language_name": "Mewari",
+    "language_policy": {
+      "fallback_language": "standard Hindi",
+      "fallback_requires_register_rule": true,
+      "minimum_supported_features": 6,
+      "require_source_per_feature": true,
+      "required_feature_categories": [
+        "grammar",
+        "pronoun",
+        "honorific",
+        "particle",
+        "rhythm"
+      ]
+    },
+    "limitations": [
+      "Locality-specific language and visual evidence may be sparse; broader Mewari evidence must remain labelled as such.",
+      "User approval is the review gate when a native-language reviewer is unavailable.",
+      "Every project still requires grounded research; the profile alone is not permission to invent cultural facts."
+    ],
+    "production_enabled": true,
+    "required_research_dimensions": [
+      "verbal",
+      "non_verbal",
+      "characters",
+      "visual_world",
+      "story_world",
+      "cultural_precision"
+    ],
+    "research_guidance": [
+      "Treat broader Mewari evidence as a limitation when it is not specific to the selected locality.",
+      "Do not infer caste, religion, class, occupation or values from regional identity.",
+      "Separate contemporary practice from inherited or ceremonial practice."
+    ],
+    "source_policy": {
+      "discouraged": [
+        "tourism marketing",
+        "unsourced listicles",
+        "generic Rajasthan aggregators"
+      ],
+      "locality_specificity_rule": "Record when a source covers broader Mewari or Rajasthan rather than the exact selected locality.",
+      "preferred": [
+        "institutional",
+        "academic",
+        "linguistic",
+        "museum",
+        "government",
+        "locality-specific",
+        "locally authored language material"
+      ]
+    },
+    "supported_periods": [
+      {
+        "display_name": "Contemporary (2020–2026)",
+        "id": "contemporary_2020_2026"
+      }
+    ],
+    "supported_scripts": [
+      {
+        "display_name": "Devanagari",
+        "font_path": "assets/fonts/NotoSansDevanagari.ttf",
+        "html_lang": "mwr-Deva",
+        "id": "devanagari"
+      }
+    ],
+    "supported_settings": [
+      "rural",
+      "urban"
+    ],
+    "target_variety": "Maidani Mewari",
+    "version": "1.0.0",
+    "visual_policy": {
+      "prohibit_unapproved_festival_styling": true,
+      "require_locality_evidence": true,
+      "require_period_evidence": true
+    }
+  },
+  "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+  "reviewed_evidence": {
+    "claims": [],
+    "language_features": []
+  }
+}

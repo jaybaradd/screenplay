@@ -1,81 +1,173 @@
 {
   "appearances": [
     {
-      "character_id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
-      "costume_description": "Approved contemporary locality-appropriate everyday costume; preserve across scenes unless the story records a change.",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+      "costume_description": "Mock-only source-consistent everyday workwear; requires live visual planning.",
       "costume_id": null,
-      "grooming_description": "Source-consistent grooming without inferred identity markers.",
-      "id": "a84a4670-de52-5bfe-8875-05cc55406b17",
-      "identity_description": "Amar; source-consistent apparent age; Extracted speaker",
-      "prompt": "Two-panel cinematic character reference sheet for Amar: close portrait and full-body costume view. Contemporary Rajsamand plains, rural; natural documentary realism. Identity: source-consistent age, face, body and grooming. Avoid: Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery., Do not invent Mewari dialogue or infer caste, religion or class.",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ],
+      "grooming_description": "Mock-only source-consistent grooming; requires live visual planning.",
+      "id": "a3105e13-1a91-507f-8a8c-ffd7473f8209",
+      "identity_description": "Amar, source-consistent age, Extracted speaker",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "prompt": "Photorealistic live-action Indian film production reference, real human skin texture and anatomy, natural camera optics, physically plausible fabric and lighting, restrained documentary realism. Not an illustration, drawing, painting, animation, anime, comic, vector art, 3D render or game character.\nTwo-panel neutral production character reference with a close portrait and full-body view. Identity: Amar, source-consistent age, Extracted speaker. Costume: Mock-only source-consistent everyday workwear; requires live visual planning.. Grooming: Mock-only source-consistent grooming; requires live visual planning.. Plain background, consistent proportions, natural posture, no caption, no decorative cultural invention.",
       "scene_ids": [
-        "bdee878d-e691-557c-a505-2a9e15899e99",
-        "69f34aa5-80fe-54a9-8fb9-d79aa9556091",
-        "398cefff-0716-501b-8bff-28f8e8fc64f6"
+        "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+        "1d26c039-1ec4-5a61-a3a9-18669b853bc8",
+        "d871c423-5667-50a5-a638-4dfb9a5baee1"
       ]
     },
     {
-      "character_id": "f6518184-95e8-5d30-a144-2fd7817437b7",
-      "costume_description": "Approved contemporary locality-appropriate everyday costume; preserve across scenes unless the story records a change.",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "character_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
+      "costume_description": "Mock-only source-consistent everyday workwear; requires live visual planning.",
       "costume_id": null,
-      "grooming_description": "Source-consistent grooming without inferred identity markers.",
-      "id": "5b005a57-d287-5a97-b006-9cdb967287ee",
-      "identity_description": "Meera; source-consistent apparent age; Extracted speaker",
-      "prompt": "Two-panel cinematic character reference sheet for Meera: close portrait and full-body costume view. Contemporary Rajsamand plains, rural; natural documentary realism. Identity: source-consistent age, face, body and grooming. Avoid: Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery., Do not invent Mewari dialogue or infer caste, religion or class.",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ],
+      "grooming_description": "Mock-only source-consistent grooming; requires live visual planning.",
+      "id": "b11414ee-adc5-59a2-88b8-90ca693e0829",
+      "identity_description": "Meera, source-consistent age, Extracted speaker",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "prompt": "Photorealistic live-action Indian film production reference, real human skin texture and anatomy, natural camera optics, physically plausible fabric and lighting, restrained documentary realism. Not an illustration, drawing, painting, animation, anime, comic, vector art, 3D render or game character.\nTwo-panel neutral production character reference with a close portrait and full-body view. Identity: Meera, source-consistent age, Extracted speaker. Costume: Mock-only source-consistent everyday workwear; requires live visual planning.. Grooming: Mock-only source-consistent grooming; requires live visual planning.. Plain background, consistent proportions, natural posture, no caption, no decorative cultural invention.",
       "scene_ids": [
-        "bdee878d-e691-557c-a505-2a9e15899e99",
-        "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+        "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+        "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
       ]
     },
     {
-      "character_id": "4f3641a4-f006-5176-b03d-14c3abee98b7",
-      "costume_description": "Approved contemporary locality-appropriate everyday costume; preserve across scenes unless the story records a change.",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "character_id": "dd8cfe1f-067f-5379-b039-043f30e33160",
+      "costume_description": "Mock-only source-consistent everyday workwear; requires live visual planning.",
       "costume_id": null,
-      "grooming_description": "Source-consistent grooming without inferred identity markers.",
-      "id": "bfba0d09-2211-5a53-89df-e3e291c87fba",
-      "identity_description": "Shopkeeper; source-consistent apparent age; Extracted speaker",
-      "prompt": "Two-panel cinematic character reference sheet for Shopkeeper: close portrait and full-body costume view. Contemporary Rajsamand plains, rural; natural documentary realism. Identity: source-consistent age, face, body and grooming. Avoid: Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery., Do not invent Mewari dialogue or infer caste, religion or class.",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ],
+      "grooming_description": "Mock-only source-consistent grooming; requires live visual planning.",
+      "id": "469d85df-3bf9-5de1-a252-31707f9bd83b",
+      "identity_description": "Shopkeeper, source-consistent age, Extracted speaker",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "prompt": "Photorealistic live-action Indian film production reference, real human skin texture and anatomy, natural camera optics, physically plausible fabric and lighting, restrained documentary realism. Not an illustration, drawing, painting, animation, anime, comic, vector art, 3D render or game character.\nTwo-panel neutral production character reference with a close portrait and full-body view. Identity: Shopkeeper, source-consistent age, Extracted speaker. Costume: Mock-only source-consistent everyday workwear; requires live visual planning.. Grooming: Mock-only source-consistent grooming; requires live visual planning.. Plain background, consistent proportions, natural posture, no caption, no decorative cultural invention.",
       "scene_ids": [
-        "398cefff-0716-501b-8bff-28f8e8fc64f6"
+        "d871c423-5667-50a5-a638-4dfb9a5baee1"
       ]
     }
   ],
   "scenes": [
     {
       "appearance_ids": [
-        "a84a4670-de52-5bfe-8875-05cc55406b17",
-        "5b005a57-d287-5a97-b006-9cdb967287ee"
+        "a3105e13-1a91-507f-8a8c-ffd7473f8209",
+        "b11414ee-adc5-59a2-88b8-90ca693e0829"
       ],
-      "id": "af1669a5-df32-56b9-9fcb-af6c8bcb1121",
-      "location_id": "ae6ec863-9d48-5fd4-9e19-05c04b36001f",
-      "negative_prompt": "Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery.; Do not invent Mewari dialogue or infer caste, religion or class.",
-      "prompt": "Cinematic keyframe for scene 1: I promised I would deliver the letter before noon. Amar folds the letter and puts it inside his cloth bag. His younger sister Meera watches him from the doorway.. Location: Family House; time: MORNING; mood: source-consistent. Use supplied approved character references exactly; preserve costumes and visible props.",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ],
+      "id": "40c968d1-573b-5aa7-9a02-ddbf9733a4b4",
+      "location_id": "f8dd3f09-db6d-5814-8ad5-5a27ae3e7d91",
+      "negative_prompt": "No unsupported cultural detail.; No illustration, cartoon, animation, anime, comic, painting, vector art or 3D-rendered look.",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "prompt": "Photorealistic live-action Indian film production reference, real human skin texture and anatomy, natural camera optics, physically plausible fabric and lighting, restrained documentary realism. Not an illustration, drawing, painting, animation, anime, comic, vector art, 3D render or game character.\nMock cinematic keyframe for scene 1, preserving the supplied canonical appearance, location and prop identifiers. Use a single readable dramatic moment, natural lighting and source-consistent composition. This placeholder validates workflow structure only and requires live visual planning.",
       "prop_ids": [],
-      "scene_id": "bdee878d-e691-557c-a505-2a9e15899e99"
+      "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+      "set_id": "6b14bc4f-8970-5b99-936b-300cfa5f4462",
+      "sub_location": "Not stated in source"
     },
     {
       "appearance_ids": [
-        "5b005a57-d287-5a97-b006-9cdb967287ee",
-        "a84a4670-de52-5bfe-8875-05cc55406b17"
+        "b11414ee-adc5-59a2-88b8-90ca693e0829",
+        "a3105e13-1a91-507f-8a8c-ffd7473f8209"
       ],
-      "id": "6e8b6656-f052-5366-8e25-a392205600f1",
-      "location_id": "6ecfc561-5dd7-5f53-922e-d739812562de",
-      "negative_prompt": "Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery.; Do not invent Mewari dialogue or infer caste, religion or class.",
-      "prompt": "Cinematic keyframe for scene 2: Amar walks through the crowded road with the cloth bag over his shoulder. Meera catches up with him. The bus has already left. Tell me what is really in that letter.. Location: Market Road; time: AFTERNOON; mood: source-consistent. Use supplied approved character references exactly; preserve costumes and visible props.",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ],
+      "id": "635b1753-3a4c-503e-851b-05578bfd0604",
+      "location_id": "b964db6b-50f4-50dc-a6a5-559789f4fc14",
+      "negative_prompt": "No unsupported cultural detail.; No illustration, cartoon, animation, anime, comic, painting, vector art or 3D-rendered look.",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "prompt": "Photorealistic live-action Indian film production reference, real human skin texture and anatomy, natural camera optics, physically plausible fabric and lighting, restrained documentary realism. Not an illustration, drawing, painting, animation, anime, comic, vector art, 3D render or game character.\nMock cinematic keyframe for scene 2, preserving the supplied canonical appearance, location and prop identifiers. Use a single readable dramatic moment, natural lighting and source-consistent composition. This placeholder validates workflow structure only and requires live visual planning.",
       "prop_ids": [],
-      "scene_id": "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+      "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8",
+      "set_id": "ab9b10b0-5d18-52b6-8758-0fc3b4205121",
+      "sub_location": "Not stated in source"
     },
     {
       "appearance_ids": [
-        "bfba0d09-2211-5a53-89df-e3e291c87fba",
-        "a84a4670-de52-5bfe-8875-05cc55406b17"
+        "469d85df-3bf9-5de1-a252-31707f9bd83b",
+        "a3105e13-1a91-507f-8a8c-ffd7473f8209"
       ],
-      "id": "ce2f5abf-2eb4-5cf2-81eb-c4c6454f7079",
-      "location_id": "ec0e393f-1bf5-56c7-92d3-b0cc1b5d9195",
-      "negative_prompt": "Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery.; Do not invent Mewari dialogue or infer caste, religion or class.",
-      "prompt": "Cinematic keyframe for scene 3: You came a long way for a piece of paper. Amar removes the letter from his cloth bag and places it on the counter.. Location: Small Shop; time: EVENING; mood: source-consistent. Use supplied approved character references exactly; preserve costumes and visible props.",
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "cultural_claim_ids": [
+        "mock-claim"
+      ],
+      "cultural_constraint_ids": [
+        "mm-visual-cliche-boundary",
+        "mm-identity-boundary"
+      ],
+      "id": "786303f5-df12-5fd9-893e-128d84d9bb5e",
+      "location_id": "6cac3d58-4900-5d13-b765-531bd3636c0f",
+      "negative_prompt": "No unsupported cultural detail.; No illustration, cartoon, animation, anime, comic, painting, vector art or 3D-rendered look.",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "prompt": "Photorealistic live-action Indian film production reference, real human skin texture and anatomy, natural camera optics, physically plausible fabric and lighting, restrained documentary realism. Not an illustration, drawing, painting, animation, anime, comic, vector art, 3D render or game character.\nMock cinematic keyframe for scene 3, preserving the supplied canonical appearance, location and prop identifiers. Use a single readable dramatic moment, natural lighting and source-consistent composition. This placeholder validates workflow structure only and requires live visual planning.",
       "prop_ids": [],
-      "scene_id": "398cefff-0716-501b-8bff-28f8e8fc64f6"
+      "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1",
+      "set_id": "9f13451c-4f3d-54b8-9d30-a64c013b3edc",
+      "sub_location": "Not stated in source"
+    }
+  ],
+  "sets": [
+    {
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "id": "6b14bc4f-8970-5b99-936b-300cfa5f4462",
+      "location_id": "f8dd3f09-db6d-5814-8ad5-5a27ae3e7d91",
+      "name": "Not stated in source",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "scene_ids": [
+        "9128292f-2a4d-555f-8f87-68f85ad8cf93"
+      ]
+    },
+    {
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "id": "ab9b10b0-5d18-52b6-8758-0fc3b4205121",
+      "location_id": "b964db6b-50f4-50dc-a6a5-559789f4fc14",
+      "name": "Not stated in source",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "scene_ids": [
+        "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
+      ]
+    },
+    {
+      "brief_revision_id": "50fcc826-2938-46f8-8f5b-c3f6b34e985b",
+      "id": "9f13451c-4f3d-54b8-9d30-a64c013b3edc",
+      "location_id": "6cac3d58-4900-5d13-b765-531bd3636c0f",
+      "name": "Not stated in source",
+      "profile_hash": "0cd88007842bf2d548a128291fb656036b69d03e17350c24e976d907adcbbb35",
+      "scene_ids": [
+        "d871c423-5667-50a5-a638-4dfb9a5baee1"
+      ]
     }
   ]
 }

@@ -1,0 +1,57 @@
+{
+  "culture_id": "coastal_asteri",
+  "version": "9.4.1",
+  "display_name": "Coastal Asteri",
+  "production_enabled": false,
+  "language_name": "Asteri",
+  "target_variety": "Harbour Asteri",
+  "geographic_scope": "A fictional coastal test region used only to verify profile isolation.",
+  "limitations": ["This fictional profile is never available for production projects."],
+  "supported_scripts": [
+    {
+      "id": "asteri_script",
+      "display_name": "Asteri Script",
+      "font_path": "assets/fonts/NotoSansDevanagari.ttf",
+      "html_lang": "zxx"
+    }
+  ],
+  "supported_settings": ["port", "inland"],
+  "supported_periods": [
+    {"id": "asteri_present", "display_name": "Asteri Present"}
+  ],
+  "commonly_confused_languages": ["North Asteri", "Trade Cant"],
+  "commonly_confused_visual_traditions": ["Northern cliff ceremonial styling"],
+  "required_research_dimensions": ["verbal", "non_verbal", "characters", "visual_world", "story_world", "cultural_precision"],
+  "research_guidance": ["Treat all content as fictional test data."],
+  "source_policy": {
+    "preferred": ["fictional archive"],
+    "discouraged": ["fictional travel marketing"],
+    "locality_specificity_rule": "Distinguish harbour evidence from the broader fictional coast."
+  },
+  "language_policy": {
+    "minimum_supported_features": 2,
+    "require_source_per_feature": true,
+    "fallback_language": "Trade Cant",
+    "fallback_requires_register_rule": true,
+    "required_feature_categories": ["grammar", "particle"]
+  },
+  "visual_policy": {
+    "require_locality_evidence": true,
+    "require_period_evidence": true,
+    "prohibit_unapproved_festival_styling": true
+  },
+  "constraints": [
+    {
+      "id": "asteri-language-boundary",
+      "text": "Do not substitute North Asteri or Trade Cant for Harbour Asteri.",
+      "layers": ["verbal", "cultural_precision"],
+      "kind": "language_boundary"
+    },
+    {
+      "id": "asteri-visual-boundary",
+      "text": "Do not introduce northern cliff ceremonial styling without approved evidence.",
+      "layers": ["visual_world", "cultural_precision"],
+      "kind": "visual_boundary"
+    }
+  ]
+}

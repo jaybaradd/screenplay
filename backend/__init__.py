@@ -1,2 +1,1 @@
-"""Maidani Mewari Screenplay Adaptation Studio backend."""
-
+"""Culture-agnostic screenplay adaptation studio backend."""

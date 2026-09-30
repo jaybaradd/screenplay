@@ -1,42 +1,42 @@
 [
   {
-    "asset_id": "3f0289b1-3728-52ef-928d-c8f334f8fc36",
-    "dependency_hash": "aa0441759109626b82e6177430948de08d7210f36110778b7d33dd3ff83998a1",
+    "asset_id": "a34e3c31-75c4-57ba-9156-d3be7bbfb3a4",
+    "dependency_hash": "25788de8b13b0e0a16a6bfa260ba011cfd5d1d6e9272ba9ea45f9dd3f6575ec6",
     "issues": [],
     "passed": true,
     "summary": "Mock verifier confirms only workflow plumbing, not visual or cultural accuracy."
   },
   {
-    "asset_id": "19b6d218-5ffe-5ae6-b6c2-0d6be595d34d",
-    "dependency_hash": "a412adc9dcf52d2fc5f6ac8ffbb664f23aba8c5332db0e262933a3379ace91f8",
+    "asset_id": "92472f5d-93ef-5daf-b0a8-5051b027a049",
+    "dependency_hash": "7519d28d52669d876a7947eda55e9669bff72f5e22bf8a519283c6af1b39700e",
     "issues": [],
     "passed": true,
     "summary": "Mock verifier confirms only workflow plumbing, not visual or cultural accuracy."
   },
   {
-    "asset_id": "a1833ab9-ec99-5707-ab12-9a78030b83e5",
-    "dependency_hash": "b63b86c433d43ac2f58262f3cabda67b45d1820fc9bd36feba47e4f26085b16d",
+    "asset_id": "6f23c160-c1e8-5ae2-aa7e-f86ae1bd1213",
+    "dependency_hash": "ea9632bc06a60c9e4dae2861abf8d1dbb4c67ef7832fa2897214c61bb9179f40",
     "issues": [],
     "passed": true,
     "summary": "Mock verifier confirms only workflow plumbing, not visual or cultural accuracy."
   },
   {
-    "asset_id": "66b0a6e6-4f74-581b-9da2-14ce5fe11775",
-    "dependency_hash": "7f0dfcb17b0c7a397ca70a122379003c177855b8789da1c48d3705f4ed5afe6b",
+    "asset_id": "d22c0bee-19e3-5b48-9ffb-e9462972a8d9",
+    "dependency_hash": "76334169273cd41248e5744b933238a16095deb305dab9f5a95f8472707084b2",
     "issues": [],
     "passed": true,
     "summary": "Mock verifier confirms only workflow plumbing, not visual or cultural accuracy."
   },
   {
-    "asset_id": "802168fb-8712-589e-a1b5-5b32f9f97376",
-    "dependency_hash": "8a51e7eb27429b8828a54286ca2e6c90f84d7a0425c64a01bb83ecd530d82bbf",
+    "asset_id": "9f2bb9cf-ae3d-5467-8f90-583db52407f4",
+    "dependency_hash": "8b1fff4dbb144fa2ac03b81e04cf6abd3e40150a43b40b97891b0049047b25c1",
     "issues": [],
     "passed": true,
     "summary": "Mock verifier confirms only workflow plumbing, not visual or cultural accuracy."
   },
   {
-    "asset_id": "347af34a-319f-5651-826d-ec6f3b751824",
-    "dependency_hash": "7326706e7672a94e769c35439f15118f4c853a92c5cecce3d2f10ff349896820",
+    "asset_id": "9855f05a-7098-58bc-84f7-05360830bbc7",
+    "dependency_hash": "a40f807b1a46081911941a69a9f5254a44eaab21ed9bf1fc720552dd9b57ff0e",
     "issues": [],
     "passed": true,
     "summary": "Mock verifier confirms only workflow plumbing, not visual or cultural accuracy."

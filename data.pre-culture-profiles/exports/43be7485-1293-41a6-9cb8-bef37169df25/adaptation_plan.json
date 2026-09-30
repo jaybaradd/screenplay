@@ -1,0 +1,1378 @@
+{
+  "deeper_change_requests": [
+    "REQUEST: Strict purging of feudal caste titles ('ठाकुर सा' / 'Thakur') in verbal dialogue proposals for Dev Holt in Scene 2 (2a7f6293-f941-51fa-94be-2af199d08126), substituting neutral agrarian employer address ('साहब' / 'Sahab'). REASON: Story Contract and Cultural Precision rules strictly prohibit assigning caste or aristocratic feudal status without source evidence. The Vale farm is established as a substantial commercial pakka holding in the Banas basin, not a royal Rajput thikana."
+  ],
+  "layers": [
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78"
+          ],
+          "cultural_claim_ids": [
+            "claim_verbal_indirectness",
+            "claim_economic_baseline"
+          ],
+          "do_not_change": [
+            "Do not change Mara's emotional stonewalling or Dev's wry agrarian pragmatism.",
+            "Do not alter the timing of Viktor's sputtering vehicle arrival."
+          ],
+          "id": "dec_verbal_sc1_grief_and_accounts",
+          "negative_constraints": [
+            "Never use Dhundhari copula 'छै' or past 'छो'.",
+            "Never use Hindi negative 'नहीं' in vernacular dialogue; use 'नी'.",
+            "Do not use Marwari future marker '-सी' (karsi); use Mewari '-ला' (karula)."
+          ],
+          "preserved_invariants": [
+            "The one-year anniversary timing of Adrian's death.",
+            "Dev's protective, wry common sense juxtaposed with Mara's fortress of grief.",
+            "The core metaphors of the leaning notices, drawers not stopping interest, and the unyielding wheat."
+          ],
+          "proposed_changes": [
+            "Render Dev Holt's dialogue in dry, understated, elderly Maidani Mewari using the retroflex lateral flap ळ (feat_phonology_retroflex_l), the negative particle 'नी' (feat_neg_particle), and the present copula 'है/हे' (feat_copula_present): e.g., 'डाक वेगां ई आई गी सा। ट्रांसपोट कंपनी रो एक और कागद आयो है।' and 'दूसरा कागद ढळबा लाग ग्या।' and 'दराज मांय घालां तो ई ब्याज नी रुकतो।' (feat_postp_genitive, feat_neg_particle).",
+            "Formulate Dev's address to Mara using respectful elder-to-widowed-daughter-in-law distance, softly calling her 'बिंदणी' (feat_kinship_bindani) or using honorific enclitic 'सा' (feat_honorific_particle): 'म्हनै ठा है आज कांई दहाड़ो है, पण गऊं ने नी ठा।' (feat_postp_dative, feat_neg_particle).",
+            "Render Mara's speech in measured, guarded, grammatically firm Plains Mewari: 'दूसरा कागदां साथे रख दो।' and 'आज एक बरस व्हियो है (feat_inceptive_verb)। म्हूं आज हिसाब री बात नी करूला (feat_pron_1sg_nom, feat_postp_genitive, feat_neg_particle, feat_fut_suffix).' Mara uses 3rd-person avoidance for her deceased husband (claim_verbal_indirectness).",
+            "Dev observes Viktor's arrival: 'कागद वाळो आदमी ई दीखे।' to which Mara commands: 'के’य दो म्हूं कुणी सूं नी मळूं।' Dev dryly counters: 'मेहमान जसो नी दीखे।' using Maidani negation 'नी' instead of Hindi 'नहीं'."
+          ],
+          "risks": [
+            "Risk of drifting into Western Marwari forms (e.g., using 'कोनी' or '-सी' future suffixes) or Hindi syntax."
+          ],
+          "source_observations": [
+            "In Scene 1 (a895348d-658b-5721-a20c-92fd6b5fca78), Dev alerts Mara to an impending transport notice, noting that earlier notices are leaning and drawers don't stop interest from accumulating.",
+            "Mara shuts down conversation citing the one-year death anniversary: 'Today is one year. I am not discussing accounts today.' Dev responds with understated agrarian wisdom: 'I know what day it is. The wheat does not.'"
+          ],
+          "uncertainty": [
+            "The precise intimacy level between an elderly loyal farm hand and a young landed widow in Railmagra/Amet; addressing her as 'बिंदणी' (daughter-in-law of the estate/village) strikes the balance between respectful affection and traditional distance."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+          ],
+          "affected_scene_ids": [
+            "2a7f6293-f941-51fa-94be-2af199d08126"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_verbal_indirectness"
+          ],
+          "do_not_change": [
+            "Do not drop Viktor's reference to his six waiting drivers and the impending four o'clock bank deadline.",
+            "Keep Dev's physical and verbal defensive positioning intact."
+          ],
+          "id": "dec_verbal_sc2_veranda_confrontation",
+          "negative_constraints": [
+            "Do not substitute Marwari dative 'नूं' (nū̃) for Mewari 'ने' (ne).",
+            "Do not introduce archaic feudal subservience terms like 'अन्नदाता' or caste titles like 'ठाकुर सा'."
+          ],
+          "preserved_invariants": [
+            "The outstanding haulage debt of twelve thousand.",
+            "Viktor's deadline driven by payroll for his crew before bank closing at 4 PM.",
+            "Viktor's respectful removal of muddy boots at the door while maintaining unflinching resolve."
+          ],
+          "proposed_changes": [
+            "Render Viktor's urgent commercial tone in crisp, Plains Mewari infused with trade loanwords bearing Mewari case markers: 'विक्टर डाणे, डाणे ट्रांसपोट। म्हनै मालकिन सूं पांच मिनट बात करणी है।' (feat_pron_1sg_nom, feat_postp_dative).",
+            "Dev responds with guarded gatekeeping: 'मालकिन अैबळ नी मळे।' Viktor pushes: 'तीन चिट्ठियां माथे वां री दस्तखत है।' (feat_postp_genitive, claim_code_switching_rules).",
+            "Render Viktor's deadline urgency: 'च्यार बजे पेली म्हारा ड्राइवरों ने मजूरी चूकावणी है (feat_postp_dative, feat_postp_genitive)। गिया साल री ढुलाई रा बारह हज़ार रुपया बाकी है (feat_postp_genitive)। बैंक बंद व्हवा सूं पेली म्हनै जवाब चाहिजे (feat_inceptive_verb, feat_copula_present)।'",
+            "Dev counters with sombre reality without feudal caste titles: 'साहब तो गिया साल रो काम निबट्या पेली ई शांत व्है ग्या (feat_inceptive_verb)।' Viktor delivers his sharp staccato retort: 'पण हिसाब रो कागद तो नी मर्यो (feat_neg_particle, feat_postp_genitive)!'",
+            "Mara cuts through from the doorway with cold authority: 'पांच मिनट है थारे कने (feat_copula_present)।'"
+          ],
+          "risks": [
+            "Over-politeness could weaken the aggressive commercial friction required by the scene."
+          ],
+          "source_observations": [
+            "In Scene 2 (2a7f6293-f941-51fa-94be-2af199d08126), Viktor arrives at the threshold demanding 5 minutes with the owner before bank closure to settle twelve thousand in haulage debt for his drivers.",
+            "Dev stonewalls at the doorway ('The owner is unavailable'), Viktor counters sharply ('Her signature appears on three letters... invoice did not die'), and Mara steps out granting him five minutes."
+          ],
+          "uncertainty": [
+            "Whether Viktor as a transport operator uses informal singular 'थूं/थारे' or formal plural 'आप/थांरे' with Mara initially; given her status as estate owner and a grieving stranger, he starts with polite business distance ('थांरे') and slips into sharper direct address as the dispute escalates."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b"
+          ],
+          "affected_scene_ids": [
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+          ],
+          "cultural_claim_ids": [
+            "claim_verbal_indirectness",
+            "claim_economic_baseline"
+          ],
+          "do_not_change": [
+            "Do not allow the pistol to be loaded or fired.",
+            "Keep the exact causal sequence of Adrian's deceit uncovering."
+          ],
+          "id": "dec_verbal_sc3_dining_room_clash_and_pistol",
+          "negative_constraints": [
+            "Never use Eastern Rajasthani 'छै' or 'छो'.",
+            "Do not use Hindi 'मैं' or 'नहीं'; adhere strictly to 'म्हूं' and 'नी'."
+          ],
+          "preserved_invariants": [
+            "The target pistol is strictly unloaded and serves as a psychological and comedic turning point.",
+            "The collateral offered (broken tractor axle, grain drill) and the exact counter-arguments.",
+            "The revelation that Adrian diverted grain haulage to the sold mill without accounting entries.",
+            "The mutual grip on the physical delivery log before the blackout."
+          ],
+          "proposed_changes": [
+            "Translate Viktor's grievance and Mara's sharp rebuttal into rhythmic Maidani Mewari dialogue: Viktor: 'थांरा धणी दो बार मियाद बढ़वाई। म्हूं बढ़ा दी। पछे थांरे दफ्तर सूं जवाब आवणो ई बंद व्है ग्यो (feat_inceptive_verb)।' Mara: 'म्हारो दफ्तर तो असपताल रो गैलरो हो (feat_postp_genitive, feat_copula_past)!' Viktor: 'अर म्हारो दफ्तर वो छे जणा है जका रात-रात भर काम कियो अर अजे तांई बाट जोवे है (feat_pron_1pl_exc, feat_copula_present)!'",
+            "Adapt the ledger dispute: Mara discovers excised pages: 'म्हनै जो खाता मळ्या, वां मांय ये आंकड़े नी हा (feat_copula_past, feat_neg_particle)!' Mara reacts defensively: 'कांई थे म्हारै घर मांय म्हारा धणी ने बेईमान के’य रिया हो?' Viktor counters: 'म्हूं उधारी ने उधारी के’य रियो हूं। आदमी रा मरबा सूं उण रो खोटो हिसाब साचो नी व्है जावे (feat_inceptive_verb, feat_neg_particle).' Dev intervenes with tea: 'मर्यादा राखो, भाई सा (feat_honorific_particle).' Viktor: 'मियाद री ई मर्यादा व्है (feat_inceptive_verb)।'",
+            "Adapt collateral banter: Mara: 'उत्तरो टूल (ट्रैक्टर) ले जावो।' Viktor: 'उण रो धुरो (axle) टूटोड़ो है। फरवरी मांय वे म्हनै ईज टिकावता हा।' Mara: 'तो फेर बीज बोवणी री मशीन (grain drill) ले जाओ।' Viktor: 'अर थांरी बुवाई रोक दूं? म्हारो बाकीदार कंगाल व्है जावेला, म्हनै तो म्हारो पईसो चाहिजे (feat_fut_suffix, feat_copula_present)।' Mara: 'घणी किरपा थांरी, म्हारै कने रोकड़ा है नी अर थे म्हारो खेत बचाबा री बातां करो!' Viktor: 'अर घणो सवंग मांड्यो है थांरो, दुख रो ओटो ले’र किवाड़ बंद कर राख्यो है!'",
+            "Adapt the pistol confrontation: Mara retrieves the unloaded target pistol: 'वे केवता हा कि या बारै आवतां ई हर तकरार निबट जावे (feat_copula_past)।' Viktor steps back, defusing with dry wit: 'जणा ई वां रो बही-खातो अस्यो हो!' Mara laughs once. Viktor: 'साची बात या है, म्हनै तो बिल ई चोखा लागे (feat_copula_present)।' Mara: 'साची बात तो या है, म्हनै ईज।'",
+            "Adapt the grain diversion realization: Mara examines the delivery log: 'आ आखरी खेप आथूणा गोदाम मांय कदेई नी पूगी।' Viktor: 'नदी वाळी सड़क माथे पाणी भर ग्यो हो। वां ई जुना चरखा-मील (मिल) मांय गाड़ी मोड़ी ही।' Dev realizes: 'मील तो उणीज हफ्ते बिक गी ही!' Dev cuts the tension over the held paper: 'चा कड़क व्है री है अर थे दोई ढीठ व्है रिया हो (feat_inceptive_verb)!' Light cut-out."
+          ],
+          "risks": [
+            "Making the pistol exchange melodramatic rather than brisk, dark Chekhovian irony."
+          ],
+          "source_observations": [
+            "In Scene 3 (150372a9-7d97-5a39-8889-90dd8f7d25e9), Viktor and Mara clash intensely over the unpaid haulage, missing ledger pages, bad collateral offers (broken tractor, grain drill), escalating to Mara drawing an unloaded vintage target pistol.",
+            "The standoff dissolves when Viktor quips ('That may explain his accounting... I prefer invoices') and Mara laughs for the first time in a year, followed immediately by discovering Adrian's redirection of grain to the sold mill."
+          ],
+          "uncertainty": [
+            "Choice of regional terminology for 'mill' and 'grain drill'; in the Banas plains, 'मील' (mīl) and 'बोवणी री मशीन' (bovaṇī rī mashīn) / 'ड्रिल' are standard contemporary agricultural loanwords."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "12942f85-a994-554b-a7d0-e22280ef26ca",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b"
+          ],
+          "affected_scene_ids": [
+            "435fda02-8511-558a-afab-0bb5e04281f2"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_institutional_interfaces",
+            "claim_verbal_indirectness"
+          ],
+          "do_not_change": [
+            "Do not alter the financial terms of the resolution (1/3 now, remainder post-harvest).",
+            "Preserve Ina's objective, amused detachment."
+          ],
+          "id": "dec_verbal_sc4_office_audit_and_compromise",
+          "negative_constraints": [
+            "Never use Marwari '-सी' for the future tense in Ina's speech; use '-ला' / '-काळा'.",
+            "Never make Adrian's missing transaction ambiguous or blameless."
+          ],
+          "preserved_invariants": [
+            "Adrian diverted funds via an untracked personal transfer, proving his deceit.",
+            "The 1/3 immediate settlement from emergency reserves and 2/3 balance after the first grain sale.",
+            "Mara and Viktor's shift to mutual respect through factual clarity."
+          ],
+          "proposed_changes": [
+            "Ina's speech reflects an educated contemporary youth from Rajsamand doing rural auditing, seamlessly blending administrative Hindi/English accounting vocabulary with Mewari postpositions and case clitics (claim_code_switching_rules, feat_postp_genitive, feat_postp_dative): 'देव काका रो फोन आवतां ई म्हूं वेगी आई। नेटवर्क तो ग्योड़ो है, पण गिया साल रा बैंक स्टेटमेंट म्हारे लेपटॉप मांय डाउनलोड है (feat_postp_genitive, claim_code_switching_rules)।'",
+            "Ina reveals the audit result: 'ट्रांसपोट रा बिल तो बिलकुल सही है। पण गाड़ी मोड़बा रा दो दहाड़ा बाद मील सूं जमा रो इंदराज (deposit) ई बोल रियो है।' Mara: 'फेर रुपया कठा ग्या?' Ina: 'उणीज दोपहर ने खाते मांय सूं कट ग्या। पर्सनल ट्रांसफर है। कोई ब्यौरा नी लिख्योड़ो (feat_neg_particle)।'",
+            "Mara confronts the reality of Adrian's deception: 'वे तो केवता हा खेत माथे कोई आंच नी आवेला (feat_copula_past, feat_fut_suffix)।' Dev delivers his compassionate rural observation: 'शायद वे के’बा सूं पेली साचो व्हणो चावता हा (feat_inceptive_verb, feat_copula_past)।'",
+            "Viktor acknowledges their shared dilemma: 'म्हारी समस्या तो अजे ई वा ईज है, पण अबे या सिर्फ थांरी अकली री नी री (feat_postp_genitive, feat_neg_particle)।' Mara warns: 'नयी बात माथे या नी समझजो कि म्हूं माफ कर दीदा (feat_neg_particle)।' Viktor: 'म्हूं तो खोया रुपया री बात करतो हो (feat_copula_past)।' Mara: 'म्हूं ईज (feat_pron_1sg_nom)।'",
+            "Ina presents the split restructuring formula: 'आपां री इमरजेंसी बचत मांय सूं आज तीसरो हिस्सो (one-third) दे सकाळा, जिण सूं मजूरी अर बोवणी ई नी रुके (feat_pron_1pl_inc, feat_neg_particle)। बाकी रो हिसाब पहली फसल री तुलाई पेली लिख सकाळा, जे दोई जणा दस्तखत करो तो।' Viktor: 'म्हारा ड्राइवर वादां सूं पेट नी भर सके।' Mara: 'कांई नी मळबा सूं तो तीसरो हिस्सो रोकड़ो चोखो (feat_neg_particle)!' Viktor's grudging respect: 'थे थांरा धणी सूं घणी चोखी बात करो।' Mara: 'म्हूं हिसाब चोखो राखूं (feat_pron_1sg_nom)।'"
+          ],
+          "risks": [
+            "Over-purifying Ina's dialogue into archaic Mewari, erasing her identity as a tech-savvy contemporary rural accountant."
+          ],
+          "source_observations": [
+            "In Scene 4 (435fda02-8511-558a-afab-0bb5e04281f2), Ina Reed arrives with laptop and records, confirming Viktor's haulage invoices are valid and uncovering an untracked personal cash transfer by Adrian from the mill sale.",
+            "Mara realizes Adrian lied about farm security ('He told me the farm was secure'). Ina proposes a structured compromise: 1/3 emergency reserve paid today, balance tied to the first post-harvest grain payment.",
+            "Viktor notes Mara negotiates better than her husband; Mara counters that she keeps better records."
+          ],
+          "uncertainty": [
+            "The proportion of English technical terms (statement, download, personal transfer) versus Mewari vocabulary in young rural professionals; using English loanwords with Mewari case enclitics reflects true 2020–2026 Rajsamand Plains linguistic reality."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "12942f85-a994-554b-a7d0-e22280ef26ca",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b"
+          ],
+          "affected_scene_ids": [
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_verbal_indirectness",
+            "claim_economic_baseline"
+          ],
+          "do_not_change": [
+            "Do not omit the instruction to pack away the pistol and leave the ledgers open.",
+            "Preserve Viktor's engine sputtering twice before catching."
+          ],
+          "id": "dec_verbal_sc5_shed_resolution_and_renewal",
+          "negative_constraints": [
+            "Do not use Eastern Rajasthani copula 'छै' / 'छो'.",
+            "Do not use Marwari future marker '-सी'."
+          ],
+          "preserved_invariants": [
+            "The signing of the agreement on the truck bonnet.",
+            "The parting lines concerning the dining room curtains and the truck engine.",
+            "The decisive symbolic act of locking the pistol away and keeping the accounting ledgers open on the dining table."
+          ],
+          "proposed_changes": [
+            "Translate the outdoor signing and tea banter into warm, dry, grounded Maidani Mewari: Dev serving tea: 'ओ चोथो लोटो है सा। अबे म्हूं इण ने सबूत नी बणवा दूंला (feat_honorific_particle, feat_neg_particle, feat_fut_suffix).' Viktor takes a sip without flinching, achieving emotional and somatic catharsis (feat_idiom_kalje_thando: 'काळजे ठंडक पडणी').",
+            "Mara confirms the transaction: 'च्यार बजे पेली थांरा ड्राइवरों कने पईसा पूग जावेला (feat_fut_suffix)।' Viktor: 'अर म्हूं पहली तुलाई पछे पाछो आऊंला (feat_pron_1sg_nom, feat_fut_suffix)।' Mara: 'बाकी रा पईसा लेवा (feat_postp_genitive)।' Viktor: 'हां सा, बिलकुल (feat_honorific_particle)।'",
+            "Adapt their parting barbs: Viktor at the truck door: 'थांने वो ओसरे रो (कमरे रो) परदो खोल देणो चाहिजे।' Mara sharp and dry: 'अर थांने आपरी गाड़ी रो इंजनों सुधरा लेणो चाहिजे।' Truck coughs and fails. Dev sips quietly: 'वाह भई भगवान।' Mara smiles.",
+            "Mara hands the brass key to Dev, formally closing her period of mourning: 'पिस्तोल री पेटी ने गोदामां मांय मुका दो सा। अर बही-खाता मेज माथे ईज खुला रेवा दो (feat_honorific_particle).' Dev accepts: 'होवे बिंदणी (feat_kinship_bindani, claim_verbal_indirectness).' Truck catches and drives off into the clearing afternoon."
+          ],
+          "risks": [
+            "Risk of sentimentalizing the ending; keeping the humor dry, understated, and tied to mechanical sputtering preserves Chekhovian tone."
+          ],
+          "source_observations": [
+            "In Scene 5 (1c483613-d0f4-5fb5-b3be-5ac6cc01a54d), the agreement is signed on the truck hood outside the machinery shed; Dev brings the fourth pot of tea ('I refuse to let it become evidence'); Viktor drinks it stoically.",
+            "Mara promises the transfer before four; Viktor promises to return after the first harvest payment for the balance.",
+            "Parting quips: Viktor suggests opening dining room curtains; Mara tells him to fix his sputtering engine.",
+            "Mara gives Dev the brass key to store the pistol and orders the ledgers kept on the table; Viktor's truck starts and leaves as Mara turns to the open farmhouse door."
+          ],
+          "uncertainty": [
+            "Whether Dev uses 'होवे' (hove) or 'हाँ सा' (hān sā); 'होवे' is classic rural Maidani Mewari affirmative acknowledgement (claim_verbal_indirectness)."
+          ]
+        }
+      ],
+      "layer": "verbal",
+      "objective": "Translate and adapt the entire dialogue layer into authentic contemporary Maidani Mewari (Rajsamand Plains variety) written in Devanagari, strictly adhering to the phonology, morphosyntax, honorific registers, idioms, and code-switching paradigms outlined in the Dialect Guide, while preserving narrative tension, dramatic pacing, and character motivations."
+    },
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+          ],
+          "affected_scene_ids": [
+            "2a7f6293-f941-51fa-94be-2af199d08126"
+          ],
+          "cultural_claim_ids": [
+            "claim_spatial_seating",
+            "claim_built_environment",
+            "claim_ghunghat_practice"
+          ],
+          "do_not_change": [
+            "Do not alter Viktor's action of setting aside his muddy footwear.",
+            "Do not remove Dev's physical positioning in the entryway."
+          ],
+          "id": "dec_veranda_threshold_proxemics",
+          "negative_constraints": [
+            "Do not have Mara perform full face-covering ghunghat before Viktor; in business and farm management contexts, the odhna remains at the hairline.",
+            "Do not depict Viktor stepping across the threshold before being granted explicit permission."
+          ],
+          "preserved_invariants": [
+            "Viktor's removal of wet boots remains voluntary and courteous.",
+            "Dev acts as a resolute physical gatekeeper without overt violence.",
+            "Mara overrides Dev to grant Viktor strictly five minutes."
+          ],
+          "proposed_changes": [
+            "Stage Dev's physical blocking of the entrance using the traditional otlo/dhalyo threshold posture: feet planted solidly on the rough-cut marble entryway slab, weight resting back on his heels with hands clasped loosely in front of his abdomen, creating an impenetrable social barrier without aggressive arm movements.",
+            "Emphasize Viktor's boot removal as a practiced agrarian gesture: bending swiftly without resting his dry envelope on the wet floor, slipping off work boots at the outer sill ledge of the dhalyo and stepping onto the unpolished marble interior floor in clean stocking feet, establishing immediate bodily respect for domestic space despite his commercial urgency.",
+            "Position Mara behind Dev's right shoulder: standing half-framed by the interior doorway, maintaining upright posture with her odhna drawn firmly to her hairline, observing Viktor with a hard, unblinking gaze that refuses customary welcoming head tilts."
+          ],
+          "risks": [
+            "Dev's posture could read as frail domestic servitude rather than authoritative surrogate elder guardianship if not staged with physical weight."
+          ],
+          "source_observations": [
+            "In Scene 2, Viktor waits on the veranda with rain running from his coat, Dev stands in the doorway blocking entry without appearing to do so, and Viktor neatly removes his wet boots unbidden before entering upon Mara's command."
+          ],
+          "uncertainty": [
+            "Degree to which modern rural commercial transport owners in Rajsamand maintain footwear protocols during rapid daytime disputes."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b"
+          ],
+          "affected_scene_ids": [
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+          ],
+          "cultural_claim_ids": [
+            "claim_ghunghat_practice",
+            "claim_spatial_seating",
+            "claim_verbal_indirectness"
+          ],
+          "do_not_change": [
+            "Do not remove the single bitter laugh that shatters Mara's frozen mourning.",
+            "Do not allow Viktor to back down in terror; his retreat is careful, dry, and professional."
+          ],
+          "id": "dec_gaze_ghunghat_touch_negotiation",
+          "negative_constraints": [
+            "Do not turn the pistol confrontation into a genuine armed threat; it must preserve Chekhovian irony.",
+            "Do not have Mara pull a full ghunghat veil during the argument, which would mute her vocal power and commanding presence."
+          ],
+          "preserved_invariants": [
+            "Mara remains standing through the initial confrontation.",
+            "The pistol remains unloaded, dusty, and defused by dry humor.",
+            "Neither person yields their grip on the document when their hands meet."
+          ],
+          "proposed_changes": [
+            "Specify Mara's gaze discipline: she avoids direct eye contact with Viktor initially, fixing her gaze sharply on the account ledger and the table, adjusting her dark odhna closer to her cheeks when speaking sharply to reinforce boundary separation.",
+            "Choreograph the pistol reveal and laughter: Mara unlocks the gun case without rushing, her movements stiff with ritualized grievance; when the absurd pistol fails to intimidate Viktor and he steps back dryly, her single laugh breaks through a stiff posture, causing her shoulders to drop for the first time in twelve months.",
+            "Stage the hand contact on the delivery log sheet: when Viktor reaches to reclaim the log and Mara pins it down, their fingers make sharp, accidental skin-to-skin contact over the paper; both freeze in rigid silence, as rural social norms make physical contact between an unrelated man and a widowed woman an acute, electrifying breach of personal space, highlighting their mutual stubbornness."
+          ],
+          "risks": [
+            "Accidental touch could read as contrived romantic physical contact rather than an intense territorial collision over evidence."
+          ],
+          "source_observations": [
+            "In Scene 3, Viktor puts documents on the table, Mara remains standing while inspecting the ledger, Mara pulls out an unloaded pistol, laughs bitterly, and both freeze when their hands meet on the delivery log."
+          ],
+          "uncertainty": [
+            "The exact duration of frozen physical touch permissible in contemporary rural dramatic staging before it reads as melodramatic."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_spatial_seating",
+            "claim_verbal_indirectness"
+          ],
+          "do_not_change": [
+            "Do not omit Dev's tea tray in Scene 3 or Scene 5.",
+            "Do not remove Dev's deliberate jarring of the cups when Viktor crosses boundaries."
+          ],
+          "id": "dec_tea_ritual_elder_surrogate_proxemics",
+          "negative_constraints": [
+            "Do not depict Viktor rudely refusing the hospitality of tea once the settlement is reached.",
+            "Do not portray Dev as a subservient silent domestic servant; his presence embodies elder oversight."
+          ],
+          "preserved_invariants": [
+            "Dev uses tea as persistent pragmatic ballast across the story.",
+            "Viktor drinks the strong tea without complaining."
+          ],
+          "proposed_changes": [
+            "Calibrate Dev's handling of the tea tray as an instrument of spatial control: in Scene 3, he does not stand like a waiter, but stations himself at the payti end of the room near the kitchen entry, using the clatter of steel/ceramic cups on the metal tray to punctuate moral disapproval when Viktor calls Adrian dishonest.",
+            "In Scene 1, Dev straightens Adrian's framed photo with a careful two-handed touch, wiping a thumb across the glass, signaling deep personal reverence for the household while gently acknowledging Mara's frozen mourning.",
+            "In Scene 5, Dev pours over-boiled, thick ginger-cardamom farm chai from an aluminium kettle into small cups; Viktor accepts the steaming cup with both hands as required by rural Mewari hospitality etiquette, drinking the scalding, astringent brew without a grimace to demonstrate fortitude and mutual respect."
+          ],
+          "risks": [
+            "Dev might seem comical or trivialized if tea business distracts from his genuine protective instinct."
+          ],
+          "source_observations": [
+            "Throughout Scenes 1, 3, and 5, Dev carries a tea tray, straightens Adrian's photo, bangs the tray down when Viktor crosses boundaries, and serves strong tea to Mara and Viktor at the shed."
+          ],
+          "uncertainty": [
+            "Whether tea in this agrarian household would be served in glass tumblers or ceramic cups; ceramic saucers rattling matches the text invariant."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "12942f85-a994-554b-a7d0-e22280ef26ca",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b"
+          ],
+          "affected_scene_ids": [
+            "435fda02-8511-558a-afab-0bb5e04281f2"
+          ],
+          "cultural_claim_ids": [
+            "claim_ghunghat_practice",
+            "claim_institutional_interfaces",
+            "claim_attire_patterns"
+          ],
+          "do_not_change": [
+            "Do not change Ina's laptop and calculator-based auditing role.",
+            "Do not remove Mara sitting back as her defensive anger dissolves."
+          ],
+          "id": "dec_audit_proxemics_and_digital_contrast",
+          "negative_constraints": [
+            "Do not make Ina behave submissively or avert her eyes while presenting financial data to male or elder clients.",
+            "Do not introduce western physical gestures like high-fives or backslaps among any characters."
+          ],
+          "preserved_invariants": [
+            "Ina remains objective, efficient, and quietly amused.",
+            "The calculator and silent audit create heavy acoustic tension.",
+            "Mara's anger leaves her face when the secret transfer is proven."
+          ],
+          "proposed_changes": [
+            "Differentiate Ina's non-verbal posture from the older characters: Ina enters briskly, pushes wet hair behind her ears, does not draw an odhna, sits directly across from the ledger books, and works the laptop and calculator with open, unhesitating spatial confidence typical of young educated rural professionals.",
+            "Stage the lantern proxemics: Dev sets the battery lantern squarely between Mara and Viktor on the wooden desk, casting hard upward shadows on both their faces as they lean in toward Ina's screen, collapsing the adversarial physical distance into joint scrutiny of the numbers.",
+            "Choreograph Mara's somatic release: upon Ina revealing the unrecorded cash transfer, Mara's spine unlocks; she leans back into the chair, exhaling slowly, her hands releasing the grip on the edge of the desk, non-verbally demonstrating that the heavy armor of defending Adrian's honor has collapsed."
+          ],
+          "risks": [
+            "Mara's sudden loss of anger could appear weak if not framed as sober, pragmatic clarity."
+          ],
+          "source_observations": [
+            "In Scene 4, Dev places a battery lantern between Mara and Viktor in the dim office, Ina enters wet from the rain with laptop and bag, audits the accounts in heavy silence, and Mara sits back as her anger leaves her."
+          ],
+          "uncertainty": [
+            "Pacing of the calculator clicking silence before Ina delivers the audit conclusion."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "12942f85-a994-554b-a7d0-e22280ef26ca"
+          ],
+          "affected_scene_ids": [
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_spatial_seating",
+            "claim_ghunghat_practice",
+            "claim_attire_patterns"
+          ],
+          "do_not_change": [
+            "Do not alter Mara's small smile or her instruction to keep the ledgers on the table.",
+            "Do not remove the physical act of handing the brass key to Dev."
+          ],
+          "id": "dec_signing_hood_somatic_release",
+          "negative_constraints": [
+            "Do not have Viktor and Mara shake hands; rural etiquette in this context expresses agreement via document exchange, shared tea, and verbal confirmation.",
+            "Do not portray Mara as weeping or emotionally unraveled as the truck leaves."
+          ],
+          "preserved_invariants": [
+            "The agreement is signed on the truck hood.",
+            "Mara hands the brass key to Dev with specific orders to store the gun and keep ledgers out.",
+            "Mara allows herself a small smile as Viktor's truck finally starts."
+          ],
+          "proposed_changes": [
+            "Utilize the truck hood as a pragmatic neutral meeting ground: Mara leans forward firmly to sign first without hesitation, handing the pen to Viktor with a level, direct gaze that marks him as an equal partner rather than a trespasser.",
+            "Viktor's departure posture: he steps back to the driver door, pauses, and delivers his parting line about opening the dining room curtains not with a flirtatious smirk, but with a respectful nod and a brief glance back at the farmhouse facade, acknowledging her household's recovery.",
+            "Choreograph the brass key transfer: Mara unties or unhooks the brass key from the waistband of her attire and places it flat into Dev's open calloused palm; Dev closes his fingers over it firmly with a slow nod, non-verbally cementing the transition of household authority from frozen bereavement to active farm management."
+          ],
+          "risks": [
+            "The exchange between Mara and Viktor could slip into an overly overt romantic beat, violating their dry, begrudging mutual respect."
+          ],
+          "source_observations": [
+            "In Scene 5, the contract is signed on the hood of Viktor's truck, Dev brings tea, Mara and Viktor exchange dry banters about curtains and engines, and Mara hands the brass key to Dev with orders to store the pistol and keep the ledgers out."
+          ],
+          "uncertainty": [
+            "Whether Viktor offers a formal folded-hands greeting (ram-ram sa) or a simple respectful head dip upon entering the truck cab."
+          ]
+        }
+      ],
+      "layer": "non_verbal",
+      "objective": "Ground all physical posture, gaze, proxemics, hospitality gestures, head covering modulation, and silence in authentic Maidani Mewari rural agrarian norms while preserving the sharp dramatic tension and Chekhovian comedic beats of the source confrontation."
+    },
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "bbe63388-245b-5d5d-bfa4-9e740a27f355",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_attire_patterns",
+            "claim_ghunghat_practice",
+            "claim_verbal_indirectness"
+          ],
+          "do_not_change": [
+            "Do not alter Mara's core motivation to defend her husband's memory and protect her farm's solvency.",
+            "Do not eliminate her sharp verbal sparring or her initiation of the pistol standoff."
+          ],
+          "id": "char_mara_vale_grounding",
+          "negative_constraints": [
+            "Do not portray Mara as permanently veiled in her own domestic interior or during business negotiations.",
+            "Do not ascribe specific upper-caste royal lineage or exotic feudal mannerisms without textual warrant."
+          ],
+          "preserved_invariants": [
+            "Mara's exact age (34), bereavement status, stubborn pride, and pragmatic financial wit.",
+            "Her ownership of the farm and sole legal authority to sign repayment contracts.",
+            "Her refusal to surrender planting equipment or accept patronizing pity.",
+            "Her symbolic relinquishment of the pistol key to Dev at the resolution."
+          ],
+          "proposed_changes": [
+            "Calibrate Mara's social positioning as a widowed woman managing an irrigated wheat parcel and ancestral farmhouse in the Rajsamand agrarian plains, balancing traditional bereavement expectations with pragmatic household headship.",
+            "Inflect her restraint and pride through regional gendered decorum: her withdrawal into the dim dining room on the 'barsi' (one-year memorial day) represents both genuine mourning and an unassailable cultural shield against intrusive commercial demands.",
+            "Preserve her linguistic and behavioral avoidance of speaking Adrian's name directly in mixed company, utilizing respectful indirectness or remote third-person reference ('ve' / 'they') when addressing outsiders, which heightens the emotional sting when his deceit is laid bare.",
+            "Maintain her decisive transition in Scene 3 through Scene 5: from guarded feudal dignity and impulsive defiance (producing the target pistol) to razor-sharp managerial competence and dry, cautious openness toward Viktor."
+          ],
+          "risks": [
+            "Over-traditionalizing Mara into a helpless or passive purdah-observing archetype, which would collapse Chekhov's high-spirited, combative premise and plot progression."
+          ],
+          "source_observations": [
+            "Mara Vale (34) is a proud, grieving widow maintaining an isolated sanctuary on the one-year anniversary of her husband Adrian's death.",
+            "She uses mourning clothes and frozen grief as an emotional armor against unpaid accounts and external reality.",
+            "Her anger is triggered by Viktor calling her late husband dishonest in his own home; she reaches for Adrian's unloaded vintage pistol to end an impossible argument.",
+            "She breaks into bitter laughter, recognizes Adrian's deception, and pragmatically negotiates a structured repayment to protect her wheat planting."
+          ],
+          "uncertainty": [
+            "The degree to which an independent rural woman property owner in Railmagra/Kuraj asserts direct verbal authority over an outside male creditor versus working through an elder intermediary."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_attire_patterns",
+            "claim_spatial_seating",
+            "claim_verbal_indirectness"
+          ],
+          "do_not_change": [
+            "Do not remove Dev's iconic one-liners or his presence in any of the five scenes.",
+            "Do not turn him into an armed or aggressive combatant during the pistol escalation."
+          ],
+          "id": "char_dev_holt_grounding",
+          "negative_constraints": [
+            "Never use servile feudal epithets like 'annadata' in Dev's address to Mara.",
+            "Do not depict Dev sitting casually above Mara or violating age/status spatial norms on the charpai or dining table."
+          ],
+          "preserved_invariants": [
+            "Dev's age (63), dry humor, unwavering loyalty, and non-violent, steady intervention.",
+            "His physical actions: straightening Adrian's photograph, carrying the mail, blocking Viktor politely at the door, and serving four successive pots of tea."
+          ],
+          "proposed_changes": [
+            "Frame Dev's social identity as an experienced, senior agrarian manager/caretaker rooted in the Banas plains farming rhythm, occupying the trusted role of a village elder ('kaka' or veteran farm hand).",
+            "Ground his non-verbal boundary work in regional spatial codes: holding the physical threshold of the veranda/dhalyo in Scene 2, placing tea on the table to enforce domestic sanctity, and speaking with measured, proverbs-tinged rural cadence.",
+            "Reinforce his protective instinct toward Mara as customary elder stewardship that avoids patronizing her authority, recognizing her as the rightful decision-maker of the holding.",
+            "Utilize his continuous tea service not merely as domestic comic business, but as a deliberate de-escalation ritual customary in Mewari hospitality, where refusing to let tea 'become evidence' lightens an otherwise explosive room."
+          ],
+          "risks": [
+            "Reducing Dev to a caricatured comic servant rather than an indispensable pillar of rural farm life and emotional grounding."
+          ],
+          "source_observations": [
+            "Dev Holt (63) is the farm caretaker, loyal confidant, and pragmatic elder buffer.",
+            "He moves between Mara and outside visitors with tact, handling unopened notices, tea trays, and gatekeeping.",
+            "He respects Mara's grief while gently asserting agricultural imperatives ('I know what day it is. The wheat does not.').",
+            "He defuses hostility with dry humor, serves tea four times, and is 'pleased with the universe' when the standoff resolves amicably."
+          ],
+          "uncertainty": [
+            "Appropriate balance between deferential servant register and assertive senior kinsman register when correcting Mara."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_attire_patterns",
+            "claim_spatial_seating"
+          ],
+          "do_not_change": [
+            "Do not alter Viktor's direct, no-nonsense commercial speech or his core vulnerability regarding his drivers' livelihood.",
+            "Do not soften his confrontation in the dining room prior to the revelation of Adrian's deceit."
+          ],
+          "id": "char_viktor_dane_grounding",
+          "negative_constraints": [
+            "Do not frame Viktor as an outside criminal or predatory lender.",
+            "Do not dress Viktor in stereotypical folk attire; maintain contemporary practical driver/transport-owner dress (trousers/jeans, collared work shirt, mud-spattered boots)."
+          ],
+          "preserved_invariants": [
+            "Viktor's age (39), transport business ownership, precise financial demand (12,000 for haulage), and 4 PM driver payroll deadline.",
+            "His sputter-prone truck and brown envelope of invoices and delivery logs.",
+            "His emotional arc: shifting from exasperated creditor to captivated, respectful negotiator."
+          ],
+          "proposed_changes": [
+            "Ground Viktor's profession in the active commercial transport networks of Rajsamand, hauling regional grain, fertilizer, marble blocks, and mining freight along state highways.",
+            "Emphasize his social standing as a self-made small-fleet transport operator operating under brutal cash-flow deadlines common to regional Indian logistics, making his demand for immediate bank transfer completely credible.",
+            "Refine his respectful restraint: removing muddy boots at the veranda steps aligns seamlessly with rural household respect, establishing him as an honorable small businessman rather than an intimidator.",
+            "Highlight his professional integrity during bargaining: he refuses Mara's damaged tractor and vital grain drill because he understands farming mechanics and needs a solvent trading partner, cementing mutual respect based on shared agrarian competence."
+          ],
+          "risks": [
+            "Depicting Viktor as a thuggish moneylender or loan shark, which would ruin the romantic tension and Chekhovian symmetry of two proud equals."
+          ],
+          "source_observations": [
+            "Viktor Dane (39) is the owner of Dane Transport, owed twelve thousand for last season's haulage.",
+            "He is driven not by greed or personal malice, but by the urgent, unyielding necessity of paying his six drivers before the bank closes at four.",
+            "He shows instinctive courtesy despite his blunt exterior: removes his wet boots at the threshold, refuses to seize farm tools that would destroy Mara's livelihood, and faces down her pistol with dry, practical sarcasm.",
+            "He is intrigued and won over by Mara's formidable negotiation skills and record-keeping."
+          ],
+          "uncertainty": [
+            "Whether his small fleet operates Ashok Leyland / Tata trucks typical of Rajasthan agrarian transport or lighter commercial pickup vehicles."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "12942f85-a994-554b-a7d0-e22280ef26ca",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+          ],
+          "affected_scene_ids": [
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_institutional_interfaces",
+            "claim_attire_patterns"
+          ],
+          "do_not_change": [
+            "Do not remove Ina's arrival or alter her role in revealing the untracked personal transfer.",
+            "Do not change her split-payment solution that saves both the planting and the payroll."
+          ],
+          "id": "char_ina_reed_grounding",
+          "negative_constraints": [
+            "Do not portray Ina as subservient, timid, or restricted by traditional female seclusion; contemporary young educated professionals move freely across rural workplaces with mobile phones and laptops."
+          ],
+          "preserved_invariants": [
+            "Ina's age (26), laptop, canvas bag, handheld calculator, and neutral auditing role.",
+            "Her mathematical proposal (one-third immediate payment, balance post-harvest).",
+            "Her photographic archiving of the signed agreement via smartphone."
+          ],
+          "proposed_changes": [
+            "Ground Ina as a representative of the contemporary digitally educated rural youth cohort in Rajasthan—familiar with rural banking, agricultural cooperative credit, and e-Mitra digital records.",
+            "Frame her professional agility: she uses offline bank downloads and spreadsheet models because rural bandwidth in the Banas basin often drops during monsoon rains.",
+            "Maintain her cool detachment: as a young professional woman operating in an agrarian hub, her authority stems entirely from audit accuracy, figures, and objective logic, presenting a sharp contrast to Mara's emotional grief and Viktor's economic stress.",
+            "Keep her subtle amusement intact as she watches Mara and Viktor's explosive pride collapse under clear bookkeeping, subtly enjoying her role as the practical architect of peace."
+          ],
+          "risks": [
+            "Overshadowing Mara's authority by making Ina look like an outside government bureaucrat rather than a hired private accountant."
+          ],
+          "source_observations": [
+            "Ina Reed (26) is the farm's part-time accountant.",
+            "She arrives quickly on Dev's phone call with a laptop and canvas document bag, having prudently pre-downloaded bank statements before network failure.",
+            "She is analytical, objective, and quietly amused by the high-stakes interpersonal drama between Mara and Viktor.",
+            "She devises the mathematical compromise: one-third payment from emergency reserves today, balance tied to post-harvest grain sales."
+          ],
+          "uncertainty": [
+            "Whether Ina operates an independent local accounting kiosk / tax consultancy in a nearby market town (like Railmagra or Kuraj) or works as a freelance bookkeeper for multiple farms and marble units."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "bbe63388-245b-5d5d-bfa4-9e740a27f355",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_institutional_interfaces"
+          ],
+          "do_not_change": [
+            "Do not exonerate Adrian or frame his missing records as an innocent clerical error.",
+            "Do not make the target pistol loaded or operational."
+          ],
+          "id": "char_adrian_vale_framing",
+          "negative_constraints": [
+            "Do not invent a backstory justifying Adrian's theft that compromises the factual clarity of Ina's audit.",
+            "Do not transform Adrian's portrait into an overt religious shrine; keep it as a framed memorial photograph."
+          ],
+          "preserved_invariants": [
+            "Adrian remains entirely deceased; he appears only via his framed dining table photograph and documentary traces.",
+            "The exact nature of his deception: excised ledger leaves, redirected grain to the sold mill, unpaid transport invoice of 12,000, and untracked personal transfer.",
+            "The vintage target pistol must remain unloaded and dusty in its case."
+          ],
+          "proposed_changes": [
+            "Calibrate Adrian's offscreen profile as a charismatic but financially slippery rural landholder who masked mounting operational deficits and diverted agricultural revenues before his illness.",
+            "Anchor his clandestine grain movement to the local agrarian reality of private unregulated grain trades and mill sales bypasses common in regional mandis.",
+            "Preserve the target pistol as an inherited ancestral oddity kept in a carved wooden case—a relic of defunct landed swagger rather than active violence—which Mara brandishes only to realize its practical absurdity in the face of modern invoices and digital ledgers."
+          ],
+          "risks": [
+            "Attempting to redeem Adrian's character, which would dismantle Mara's psychological catharsis and remove the core dramatic pivot of the entire narrative."
+          ],
+          "source_observations": [
+            "Adrian Vale is deceased (one year prior) and remembered by Mara through a framed portrait on the dining table.",
+            "He is initially idolized by Mara as an honorable martyr whose memory must be preserved at all costs.",
+            "His physical legacy consists of an excised ledger, a broken north tractor offered as bad faith collateral, a secret grain diversion to an old mill, an untracked personal cash transfer, and an unloaded vintage target pistol in a locked case.",
+            "His revealed deceit punctures Mara's frozen mourning and frees her to re-engage with living reality."
+          ],
+          "uncertainty": [
+            "Exact destination of the personal bank transfer (whether medical costs, personal debt, or private speculation), which the source deliberately leaves undefined."
+          ]
+        }
+      ],
+      "layer": "characters",
+      "objective": "Ground the characters of 'The Debt at Noon' in the contemporary agrarian-industrial milieu of the Rajsamand Plains (2020–2026), precisely calibrating their social roles, generational authority, economic pressures, emotional arcs, and interpersonal boundaries while strictly preserving their Chekhovian dramatic functions, relationships, and causal choices."
+    },
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "12942f85-a994-554b-a7d0-e22280ef26ca"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_built_environment",
+            "claim_economic_baseline",
+            "claim_geo_scope"
+          ],
+          "do_not_change": [
+            "Do not alter the physical threshold dynamic at the veranda door or the claustrophobic dimness of the dining room."
+          ],
+          "id": "vw-dec-built-environment",
+          "negative_constraints": [
+            "Strictly prohibit ornamental royal haveli architecture, carved sandstone arches, and mud-thatch hut stereotyping."
+          ],
+          "preserved_invariants": [
+            "The spatial transition from defensive domestic containment in the dining room to analytical clarity in the office and resolution at the machinery shed.",
+            "The presence of two tall windows, the dining table, the lockable gun cabinet, and the machinery shed yard."
+          ],
+          "proposed_changes": [
+            "Design the farmhouse exterior and interior using pakka reinforced concrete and brick masonry finished in muted mint-green and faded chalk wash, characteristic of contemporary rural Rajsamand.",
+            "Incorporate unpolished, slurry-sawn local white/grey marble gangsaw offcut slabs into interior floor tiling, door lintels, and veranda skirting.",
+            "Adapt the veranda into a masonry 'otlo' (raised porch) and sheltered 'dhalyo' (verandah) featuring rough Kota stone or local marble paving where shoes are removed before entering the living quarters.",
+            "Stage the farm office with functional powder-coated steel almirahs, wooden desks stacked with tubewell maintenance logs, hybrid wheat seed sacks in the corner, and a wall-mounted MCB power switchboard reflecting rural electrical load-shedding."
+          ],
+          "risks": [
+            "Accidental drift into traditional feudal haveli decor with carved jharokhas or royal arches.",
+            "Depicting the residence as an impoverished mud hut instead of a solid pakka agrarian farmhouse."
+          ],
+          "source_observations": [
+            "Farmhouse dining room is clean but dim with two tall windows and a long dining table reduced to one setting.",
+            "Farmhouse veranda serves as the threshold where Dev stops Viktor.",
+            "Farm office is cluttered with ledgers, seed catalogues, and manuals.",
+            "Machinery shed has a dripping roof looking out over the yard and fields."
+          ],
+          "uncertainty": [
+            "Degree of exterior plaster weathering given the monsoon/post-monsoon moisture levels in the eastern Banas basin."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "12942f85-a994-554b-a7d0-e22280ef26ca"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_attire_patterns",
+            "claim_ghunghat_practice",
+            "claim_economic_baseline"
+          ],
+          "do_not_change": [
+            "Do not remove the brass key on Mara's waist or Viktor's action of taking off his muddy boots at the threshold."
+          ],
+          "id": "vw-dec-character-wardrobe",
+          "negative_constraints": [
+            "Do not dress characters in Bollywood Rajasthani royal regalia or heavily embroidered tourist attire."
+          ],
+          "preserved_invariants": [
+            "Mara's visual austerity and refusal of decorative mourning.",
+            "Dev's traditional agrarian demeanor as the household anchor.",
+            "Viktor's functional working creditor appearance and respectful removal of footwear.",
+            "Ina's modern, agile professional look."
+          ],
+          "proposed_changes": [
+            "Costume Mara Vale in a plain, deep charcoal or indigo synthetic-georgette saree or simple cotton odhna-kurti without metallic zari or bridal gota, reflecting sober one-year widowhood; her odhna rests comfortably at her hairline inside the house and office rather than full ghunghat; keep the brass key tied to her waist drawstring (kandora loop).",
+            "Dress Dev Holt in a handspun coarse white cotton dhoti, light collared cotton kurta, a faded pink/saffron potiya (turban cloth loosely wrapped), and silver murki hoops in his earlobes.",
+            "Costume Viktor Dane in durable contemporary dark denim trousers, a moisture-streaked utility shirt over a neutral tee, and practical slip-on rubberized work boots that leave wet treads on the veranda stone.",
+            "Dress Ina Reed in practical contemporary small-town professional attire: a tailored cotton salwar kameez or long kurti with leggings, paired with a water-resistant commuter jacket and flat rainy-season sandals."
+          ],
+          "risks": [
+            "Exaggerating folk-costume elements into festival or tourist attire (e.g., mirror work, heavy lehengas).",
+            "Imposing total facial ghunghat on Mara, which would obstruct visual performance and violate local workspace practices."
+          ],
+          "source_observations": [
+            "Mara Vale is 34 and dressed in plain dark clothes, carrying a brass key on a chain at her waist.",
+            "Dev Holt is 63, the farm's caretaker, serving tea and maintaining boundaries.",
+            "Viktor Dane is 39, owner of a transport company, entering in wet rain gear and work boots.",
+            "Ina Reed is 26, entering in wet clothes carrying a laptop bag."
+          ],
+          "uncertainty": [
+            "Whether Mara's mourning dress in this community leans toward plain indigo or undyed dark cotton."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_landscape_markers",
+            "claim_economic_baseline",
+            "claim_geo_scope"
+          ],
+          "do_not_change": [
+            "Do not change the truck's mechanical unreliability or its role as a makeshift desk for signing the agreement."
+          ],
+          "id": "vw-dec-transport-landscape",
+          "negative_constraints": [
+            "Strictly prohibit desert sand dunes, camels, or arid wasteland landscapes."
+          ],
+          "preserved_invariants": [
+            "The vehicle must be a working commercial haulage truck prone to ignition sputtering.",
+            "The weather progression from steady morning downpour to late afternoon clearing."
+          ],
+          "proposed_changes": [
+            "Model Viktor's delivery truck as a regional medium commercial carrier (such as a Tata 407 or Mahindra Bolero Maxi Truck) coated in Banas river basin mud and fine white marble slurry dust along the wheel arches.",
+            "Feature regional transport markings on the cab visor (e.g., 'Jai Shri Devnarayan Transport, Kankroli' painted in standard commercial lettering).",
+            "Depict the surrounding farmland as flat tubewell-irrigated wheat fields bounded by Euphorbia (Thor) and Vilayati Kikar fences, with low granite hills visible on the distant horizon under grey rain clouds clearing into sharp late afternoon sunlight."
+          ],
+          "risks": [
+            "Accidental insertion of Thar desert imagery such as sand dunes, camels, or dry desert scrubs."
+          ],
+          "source_observations": [
+            "Rain taps against dining room windows; a mud-streaked delivery truck rattles into the driveway.",
+            "Truck engine coughs, sputters, and finally restarts in the shed yard.",
+            "Clearing sky shines over wet fields beyond the yard."
+          ],
+          "uncertainty": [
+            "Specific make and model of haulage vehicle most common for regional grain and slurry transport in Railmagra."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "12942f85-a994-554b-a7d0-e22280ef26ca"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_built_environment",
+            "claim_institutional_interfaces"
+          ],
+          "do_not_change": [
+            "The target pistol must remain unloaded and dusty in its wooden case; the payment agreement must be signed directly on the truck hood."
+          ],
+          "id": "vw-dec-props-materiality",
+          "negative_constraints": [
+            "Do not depict loaded weapons, modern military rifles, or ornate royal armory swords."
+          ],
+          "preserved_invariants": [
+            "The target pistol is dusty and strictly unloaded.",
+            "The excised pages in the ledger reveal Adrian's deliberate concealment.",
+            "Dev continuously offers strong tea as pragmatic ballast across all key scenes."
+          ],
+          "proposed_changes": [
+            "Replace the cup of cold coffee with a ribbed stainless steel tumbler of lukewarm, settled milk-tea beside a framed studio portrait of Adrian draped with a faded dried marigold garland.",
+            "Furnish Dev's tea service as a classic aluminium or stainless steel tea kettle paired with heavy cutting-chai glass tumblers or small stainless steel katoris on a pressed metal tray.",
+            "Render the farm ledger as a traditional hardbound red cloth bahi-khata alongside modern printed computer spreadsheets, showing the physical cut pages near the binding.",
+            "Design the target pistol as an inherited vintage .22 break-action sporting target pistol resting in a velvet-lined shisham wood presentation box, coated in a fine layer of grey household dust.",
+            "Incorporate regional business stationeries: Dane Transport's challans and weighbridge receipts printed on NCR multi-copy paper, showing mill destinations near Railmagra and Kuraj.",
+            "Equip the office with a rechargeable LED emergency lantern alongside a Lenovo laptop and solar/battery desktop calculator used by Ina."
+          ],
+          "risks": [
+            "Making the pistol appear like an operational tactical firearm rather than an antique, harmless defensive bluff."
+          ],
+          "source_observations": [
+            "Cold coffee cup, framed portrait of Adrian, leaning stack of unopened mail.",
+            "Tea tray with teapot and cups handled by Dev throughout the day.",
+            "Farm ledger with cleanly excised pages, target pistol in wooden case.",
+            "Brown envelope containing invoices and handwritten delivery log.",
+            "Emergency battery lantern, laptop, calculator, and smartphone."
+          ],
+          "uncertainty": [
+            "Legal licensing format of inherited single-shot sporting target pistols in contemporary rural Rajasthan."
+          ]
+        }
+      ],
+      "layer": "visual_world",
+      "objective": "Ground the visual aesthetics, architecture, costumes, transport, props, and landscape strictly in the contemporary (2020-2026) agrarian-industrial milieu of the Rajsamand Plains, eliminating orientalist desert cliches while preserving the precise dramatic beats and character arcs."
+    },
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "12942f85-a994-554b-a7d0-e22280ef26ca"
+          ],
+          "affected_scene_ids": [
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_institutional_interfaces"
+          ],
+          "do_not_change": [
+            "Do not alter Viktor's core motive: he is not a loan shark, but an ethical small-fleet operator answering to working drivers."
+          ],
+          "id": "dec_sw_economic_stakes_haulage",
+          "negative_constraints": [
+            "Do not depict informal feudal moneylenders (sahukars) or exorbitant bonded-labor interest structures; maintain modern commercial contract reality."
+          ],
+          "preserved_invariants": [
+            "Debt remains fixed at twelve thousand for haulage.",
+            "Viktor's crew consists of six drivers expecting payment before the banking deadline.",
+            "Payment structure is split into one-third immediate reserve and two-thirds post-harvest settlement."
+          ],
+          "proposed_changes": [
+            "Frame Viktor's commercial urgency within the cash-flow rhythm of local transport logistics along the Railmagra-Kuraj rural artery, where independent haulers face strict daily banking and digital NEFT/RTGS cutoffs to disperse diesel advances and driver wages.",
+            "Ground the 12,000 debt in commercial agro-freight rates for moving bagged grain (wheat/mustard) between farm storehouses, private trading mills, and regional mandis, where a hauler's reputation depends on paying transport crews directly.",
+            "Anchor Mara's refusal of collateral in the material necessity of maintaining operational tubewell farming and field planting equipment (seed drill and tractor), preventing economic incapacitation of the holding."
+          ],
+          "risks": [
+            "Over-complicating dialogue with excessive banking terminology could slow dramatic momentum."
+          ],
+          "source_observations": [
+            "Viktor demands twelve thousand for haulage to pay six drivers before bank closing time.",
+            "Adrian owed haulage from last season's crop movement and attempted to offer a broken tractor with a cracked axle as collateral.",
+            "Ina restructures the settlement into one-third paid immediately from emergency reserves and the two-thirds balance tied to the first grain harvest payment."
+          ],
+          "uncertainty": [
+            "Whether cooperative bank branches in peripheral villages observe standard RTGS clearing hours or extended rural counter hours."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "bbe63388-245b-5d5d-bfa4-9e740a27f355"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+          ],
+          "cultural_claim_ids": [
+            "claim_ritual_calendar",
+            "claim_verbal_indirectness"
+          ],
+          "do_not_change": [
+            "Do not turn Mara into a helpless or passive victim; her grief is a fortress of pride and anger."
+          ],
+          "id": "dec_sw_mourning_anniversary_stakes",
+          "negative_constraints": [
+            "Do not introduce archaic or outlawed widow-seclusion tropes; Mara is the legitimate managing owner of the farm."
+          ],
+          "preserved_invariants": [
+            "Mara uses the one-year death anniversary as a shield against visitors and debts.",
+            "Dev's balance between deep respect for her grief and pragmatic urgency regarding farm survival.",
+            "Adrian's revered memory sits at the emotional center until shattered by evidence of diverted grain."
+          ],
+          "proposed_changes": [
+            "Align Mara's one-year mourning milestone with the solemn observance of the barsi (first annual death commemoration), where household decorum traditionally prescribes solemnity, restricted social interaction, and avoidance of financial disputes.",
+            "Preserve Dev's surrogate elder role as he delicately navigates customary deference to the widow's bereavement while firmly injecting the unrelenting seasonal demands of Banas basin crop cycles (preparing land for planting).",
+            "Ground the sanctification of Adrian's framed photograph within the domestic practice of keeping memorial portraits in central rooms, intensifying Mara's emotional shock when his financial dishonesty is unmasked."
+          ],
+          "risks": [
+            "Portraying mourning practices too rigidly could contradict Mara's modern, sharp-witted resilience."
+          ],
+          "source_observations": [
+            "Mara sits dressed in plain dark clothes beside a cold cup of coffee and Adrian's framed portrait on the exact one-year anniversary of his death.",
+            "Mara claims immunity from discussing accounts because 'Today is one year,' retreating into defensive isolation.",
+            "Dev reminds her that 'The wheat does not know what day it is,' urging her to confront material realities."
+          ],
+          "uncertainty": [
+            "Degree of ritual fasting or dietary restriction observed by a contemporary younger widow on a death anniversary."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+          ],
+          "affected_scene_ids": [
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_spatial_seating",
+            "claim_built_environment"
+          ],
+          "do_not_change": [
+            "Dev must remain neutral and grounded, never taking a physically aggressive stance against Viktor."
+          ],
+          "id": "dec_sw_threshold_etiquette_and_tea_ballast",
+          "negative_constraints": [
+            "Do not depict exaggerated feudal subservience or touching of feet; keep interactions between autonomous rural adults."
+          ],
+          "preserved_invariants": [
+            "Viktor leaves his boots neatly by the door.",
+            "Dev acts as gatekeeper and tea-bearing intermediary.",
+            "Dev's fourth pot of tea is drunk outside at the machinery shed to seal the signed truce."
+          ],
+          "proposed_changes": [
+            "Stage the initial standoff on the raised masonry veranda (dhalyo/otlo), where rural spatial boundaries dictate that strangers and creditors state their business outside before crossing into domestic quarters.",
+            "Reflect Viktor's unprompted removal of wet footwear as an instinctual cultural sign of respect for domestic boundaries and clean floors, subtly contrasting his abrasive commercial demands.",
+            "Amplify Dev's continuous tea service as a classic rural Mewari conflict-damping mechanism: brewing progressively over-boiled, pungent sweet chai that forces pauses in shouting matches and gives combatants an excuse to breathe."
+          ],
+          "risks": [
+            "Overemphasizing hospitality rituals could blunt Viktor's legitimate economic panic."
+          ],
+          "source_observations": [
+            "Viktor waits on the veranda; Dev stands in the doorway blocking access without appearing to do so.",
+            "Viktor voluntarily takes off his wet boots by the entrance before stepping inside.",
+            "Dev circulates continuously with a tea tray, serving multiple pots that defuse escalating fights."
+          ],
+          "uncertainty": [
+            "Whether tea cups in this setting are steel tumblers, glass glasses, or ceramic cups."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "bbe63388-245b-5d5d-bfa4-9e740a27f355"
+          ],
+          "affected_scene_ids": [
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_verbal_indirectness"
+          ],
+          "do_not_change": [
+            "Do not allow the gun to be loaded, cocked, or fired."
+          ],
+          "id": "dec_sw_pistol_farce_and_disillusionment",
+          "negative_constraints": [
+            "Do not turn the pistol into a criminal weapon or violent gang trope; it is a vintage family artifact used for empty bluster."
+          ],
+          "preserved_invariants": [
+            "The target pistol is strictly unloaded and dusty.",
+            "Mara does not fire; the pistol deflates the tension through dry comedy and sudden laughter.",
+            "Adrian's deception remains absolute: he siphoned grain proceeds into a personal transfer."
+          ],
+          "proposed_changes": [
+            "Frame the vintage target pistol as an inherited licensed sports firearm that Adrian kept for theatrical bravado, highlighting the Chekhovian absurdity of a widow brandishing an empty pistol against a haulage contractor in a rural dining room.",
+            "Ground the discovery of Adrian's deception in the regional context of private grain deals: rerouting a grain consignment to an unlisted private flour mill to pocket untraced cash before the sale of the asset was registered.",
+            "Preserve the transition of humor from bitter confrontation to collaborative clarity as Mara realizes she has spent a year sanctifying a man who left her with falsified ledgers and real liabilities."
+          ],
+          "risks": [
+            "Risk of making the firearm appear dangerously violent if physical handling is not kept strictly stylized and ironical."
+          ],
+          "source_observations": [
+            "Mara unlocks a small cabinet with a brass key from her waist, drawing out an old target pistol in a wooden case.",
+            "The pistol is dusty and unloaded; Viktor dryly responds 'That may explain his accounting' and steps back.",
+            "Mara laughs unexpectedly—the first laugh in the room for a year—and pushes the gun case aside.",
+            "They discover Adrian redirected grain to an old mill that was sold that same week, taking cash off the books."
+          ],
+          "uncertainty": [
+            "Exact vintage calibre of civilian sports firearms historically licensed in semi-rural Rajasthan."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "12942f85-a994-554b-a7d0-e22280ef26ca",
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_landscape_markers",
+            "claim_institutional_interfaces",
+            "claim_built_environment"
+          ],
+          "do_not_change": [
+            "Do not change the closing action: Mara watches Viktor depart and turns purposefully toward the open farmhouse door."
+          ],
+          "id": "dec_sw_soundscape_atmosphere_resolution",
+          "negative_constraints": [
+            "Do not include arid desert winds, dust storms, or camel bells in the ambient audio; soundscape must reflect wet agricultural fields and diesel machinery."
+          ],
+          "preserved_invariants": [
+            "Rain ceases by the final scene, transitioning into a clearing pale sky.",
+            "Truck engine sputters before catching on the second try.",
+            "Mara hands the pistol key to Dev with instructions to store the gun and keep ledgers out."
+          ],
+          "proposed_changes": [
+            "Ground the soundscape in unseasonal rain lashing corrugated tin sheds and brick walls, accompanied by the abrupt rural grid trip common during storm surges in the Banas plains.",
+            "Root Ina Reed's arrival in the digital reality of young semi-rural professionals: working offline on cached spreadsheets during rural network drops, auditing digital statement dumps while listening to the mechanical clack of a desk calculator.",
+            "Stage the visual and acoustic resolution around the machinery yard: wet red-black earth, tractor implements waiting for planting, dripping eaves, the stubborn cough and rumble of the diesel hauler engine, and the symbolic surrender of the pistol key to re-open the farm's active life."
+          ],
+          "risks": [
+            "Excessive focus on weather details could distract from the intimate character dynamics between Mara and Viktor."
+          ],
+          "source_observations": [
+            "Rain taps and drums against windows; power cuts out; battery lantern used in farm office; clock ticks loudly.",
+            "Ina arrives with laptop and downloaded statements because network is down; calculator buttons click.",
+            "Rain stops by late afternoon, water drips from machinery shed roof, pale clearing sky over fields.",
+            "Agreement signed on truck bonnet; engine coughs, fails, then catches; Mara surrenders the brass key to Dev."
+          ],
+          "uncertainty": [
+            "Whether mobile data networks in Railmagra recover immediately following storm-induced grid power outages."
+          ]
+        }
+      ],
+      "layer": "story_world",
+      "objective": "Ground the motivations, socio-economic stakes, death-anniversary customs, conflict escalation, soundscape, and comic deflation within the contemporary agrarian-industrial realities of the Rajsamand Plains without altering plot causality, character agency, or core story beats."
+    },
+    {
+      "decisions": [
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_geo_scope",
+            "claim_economic_baseline",
+            "claim_built_environment",
+            "claim_landscape_markers"
+          ],
+          "do_not_change": [
+            "Do not alter the physical sequence of spaces: dining room, veranda threshold, dining room standoff, farm office audit, and machinery shed resolution.",
+            "Do not alter the rainstorm weather transition to clearing afternoon sky."
+          ],
+          "id": "dec_audit_geographic_materiality",
+          "negative_constraints": [
+            "Strictly prohibit sand dunes, camel caravans, desert turbans, or arid Thar wasteland imagery.",
+            "Strictly prohibit ornamental feudal havelis, jharokha balconies, or royal palace iconography.",
+            "Do not depict primitive mud thatch huts as the primary dwelling of commercial farming families in 2020-2026."
+          ],
+          "preserved_invariants": [
+            "The farm is in acute financial distress with twelve thousand owed for haulage.",
+            "The dramatic isolation, rain-soaked gloom of the one-year bereavement anniversary, and machinery shed layout remain intact.",
+            "The economic stakes must threaten farm continuity (planting and equipment) without altering Mara's ownership of the estate."
+          ],
+          "proposed_changes": [
+            "Anchor all visual and physical textures of the farmstead to contemporary Rajsamand plains: pakka reinforced concrete/brick farmhouse with pale wash, rough discarded marble cutting-slab thresholds, flooring, and lintels.",
+            "Establish the external landscape beyond the veranda and shed as rocky, tubewell-irrigated black-and-loam wheat fields bordered by Vilayati Kikar and Euphorbia (Thor) hedges, with dried white marble slurry grit visible on truck tires rather than desert sand.",
+            "Frame the agricultural economy accurately around tubewell-irrigated rabi wheat harvesting, tractor logistics, and regional transport networks connecting Rajsamand, Bhilwara, and Udaipur."
+          ],
+          "risks": [
+            "Overloading background scenery with marble quarry machinery could distract from the intimate, claustrophobic domestic tension of the dining room."
+          ],
+          "source_observations": [
+            "The source setting describes an unspecified rural farmstead with rain, fields, a veranda, machinery shed, and a mud-streaked delivery truck.",
+            "Cultural brief specifies the setting strictly as the Rajsamand Plains (Banas River basin, Railmagra/Kuraj/Amet tract) marked by cash-crop agriculture (wheat/mustard), tubewells, marble quarries, and gangsaw cutting units, explicitly rejecting desert sand dunes and camel motifs."
+          ],
+          "uncertainty": [
+            "Degree of surface marble dust accumulation along secondary agrarian farm tracks in eastern Railmagra versus central Rajsamand quarry corridors."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "12942f85-a994-554b-a7d0-e22280ef26ca"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_verbal_indirectness",
+            "claim_attire_patterns"
+          ],
+          "do_not_change": [
+            "Do not alter the exact semantic meaning or causal progression of any dialogue beat.",
+            "Do not remove Viktor's responsibility to pay his six drivers before 4 PM."
+          ],
+          "id": "dec_audit_dialect_and_sociolect",
+          "negative_constraints": [
+            "Strictly prohibit Eastern Rajasthani (Dhundhari/Hadoti) copulas 'छै' (chhai) and 'छो' (chho).",
+            "Strictly prohibit Western Marwari dative 'नूं' (-nū̃) and future inflection '-सी' (-sī, e.g., karsī).",
+            "Strictly prohibit Southern Vagdi past tense forms ending in '-lo'.",
+            "Never use pseudo-archaic courtly Dingal poetic phrasing or exaggerated Bollywood feudal honorifics like 'अन्नदाता' (annadata)."
+          ],
+          "preserved_invariants": [
+            "Mara and Viktor's sharp battle of wits, clipped rhythm, and emotional escalation must remain rapid and biting.",
+            "Dev's ironic understatement regarding the tea and the leaning mail stack must be preserved in tone and comedic timing.",
+            "Ina's objective neutrality during the forensic accounting must remain uncompromised."
+          ],
+          "proposed_changes": [
+            "Enforce Maidani Mewari phonology and syntax across all dialogue adaptations: use first-person nominative 'म्हूं' (mhū̃), genitive 'रो/री/रा' (ro/rī/rā), dative 'ने' (-ne), present copula 'है/हे' (hai/he), past copula 'हो/ही/हा' (ho/hī/hā), future suffix '-ला' (-lā), and pre-verbal negative particle 'नी' (nī).",
+            "Incorporate natural modern code-switching where commercial, mechanical, and banking terms (driver, bank, transfer, invoice, tractor, deadline, balance) attach native Mewari case clitics directly to English/Hindi loans (e.g., 'बैंक बंद व्हैवा पे'ला', 'अकाउंट मांय').",
+            "Differentiate registers cleanly: Dev utilizes dry rural agrarian idioms and honorific 'सा' (sa); Mara speaks measured, proud, grammatically clipped Mewari; Viktor speaks urgent inter-district haulage transport Hindi-Mewari; Ina speaks technical bilingual administrative/financial phrasing."
+          ],
+          "risks": [
+            "Improper dialect application risks drifting into Western Marwari or Eastern Dhundhari if dialogue writers rely on generic Rajasthani tropes."
+          ],
+          "source_observations": [
+            "Characters currently speak standard English with varying registers: Dev is colloquial and dry; Mara is restrained and proud; Viktor is crisp and commercial; Ina is data-focused.",
+            "Adaptation into regional vernacular or code-switched register requires strict compliance with Maidani Mewari dialect grammar and sociolinguistic markers."
+          ],
+          "uncertainty": [
+            "Rate of lexical obsolescence among younger rural accountants (like Ina) regarding traditional bahi-khata accounting terminology versus standard computerized accounting loans."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "bbe63388-245b-5d5d-bfa4-9e740a27f355"
+          ],
+          "affected_scene_ids": [
+            "a895348d-658b-5721-a20c-92fd6b5fca78",
+            "2a7f6293-f941-51fa-94be-2af199d08126",
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_ghunghat_practice",
+            "claim_verbal_indirectness",
+            "claim_attire_patterns"
+          ],
+          "do_not_change": [
+            "Do not make Mara docile, timid, or dependent on male relatives to speak for her.",
+            "Do not omit the moment Mara brandishes the antique unloaded target pistol."
+          ],
+          "id": "dec_audit_gender_mourning_and_kinship_etiquette",
+          "negative_constraints": [
+            "Do not portray Mara as permanently or heavily veiled across her face during business audit, document inspection, or negotiation.",
+            "Do not dress Mara in theatrical Bollywood white widow's cinematic weeds; contemporary rural Mewari widows wear dull, muted, unornamented cotton sarees/ghagras.",
+            "Do not show Mara uttering her late husband's personal name flippantly or directly in front of elder Dev."
+          ],
+          "preserved_invariants": [
+            "Mara Vale's fierce psychological agency, refusal to be patronized or pitied, and willingness to wield Adrian's pistol in self-assertion must remain intact.",
+            "Mara must personally sign the final settlement agreement on the truck hood.",
+            "Adrian Vale must remain fully culpable of secret diversion of farm funds, justifying Mara's psychological liberation from mourning."
+          ],
+          "proposed_changes": [
+            "Align Mara's non-verbal decorum with contemporary Mewari mourning custom: she wears somber, unembellished cotton attire (muted dark or subdued single-tone saree/odhna without bright red/saffron bridal trims or glass lac bangles); her head is covered with the odhna drawn slightly forward at the door, but pushed back to the hairline inside her private office and during the focused business negotiation.",
+            "Maintain authentic naming conventions: Mara refers to her late husband in public/interpersonal dialogue using respectful third-person pronouns ('वे' / 'उणां' / 'घरवाला') or contextual circumlocution, rather than casually uttering his personal first name before Dev or Viktor, while maintaining Adrian's identity in legal documentation and ledger signatures.",
+            "Audit Dev's surrogate elder role: Dev acts as the protective household elder on the otlo/veranda threshold, using familiar yet respectful elder-to-widow phrasing ('बिंदणी' / 'बहू सा') while balancing his role as caretaker."
+          ],
+          "risks": [
+            "Making Mara excessively passive or submissive under the guise of 'traditional modesty' would destroy the foundational Chekhovian dynamic where the widow dominates the encounter with furious dignity."
+          ],
+          "source_observations": [
+            "Mara is a 34-year-old widow observing the exact one-year mark of her husband Adrian's death, dressed in plain dark mourning attire, refusing visitors.",
+            "She directly confronts Viktor, brandishes an antique pistol, and eventually engages in commercial bargaining.",
+            "Cultural brief indicates that contemporary Mewari women observe context-dependent laj/ghunghat, practicing reserve before elders/strangers, avoiding uttering the deceased husband's direct name in formal/elder company, and shifting attire from mourning drab to active management."
+          ],
+          "uncertainty": [
+            "Extent to which educated 30-something female agrarian landowners in semi-urbanized Railmagra tehsils maintain husband-name avoidance when speaking exclusively to unrelated younger female professionals like Ina Reed."
+          ]
+        },
+        {
+          "affected_character_ids": [
+            "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+            "5ae48853-64bd-5f78-acda-d57792b4d91b",
+            "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+            "12942f85-a994-554b-a7d0-e22280ef26ca"
+          ],
+          "affected_scene_ids": [
+            "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+            "435fda02-8511-558a-afab-0bb5e04281f2",
+            "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+          ],
+          "cultural_claim_ids": [
+            "claim_economic_baseline",
+            "claim_institutional_interfaces",
+            "claim_built_environment"
+          ],
+          "do_not_change": [
+            "Do not change the fundamental plot hinge: Adrian secretly siphoned the grain proceeds, leaving Mara and Viktor with matching documentation of his betrayal.",
+            "Do not alter the truck's engine sputtering twice before catching as Viktor leaves."
+          ],
+          "id": "dec_audit_institutional_material_realism",
+          "negative_constraints": [
+            "Do not depict primitive cash-only sacks or moneylender ledger books without digital interfaces; contemporary 2020-2026 rural Rajasthan combines paper bahi-khata with smartphones, laptops, and digital banking.",
+            "Never make the gun loaded, nor introduce country-made illegal firearms (kattas); it must remain an heirloom target pistol in an antique box as required by the Chekhovian prototype.",
+            "Do not depict Gavari dance masks or ritual paraphernalia inside the house; Gavari is strictly tribal Bhil outdoor ritual drama and is not a domestic plains peasant practice."
+          ],
+          "preserved_invariants": [
+            "The debt total remains exactly twelve thousand.",
+            "The target pistol is strictly unloaded.",
+            "The agreement signed on the truck hood splits payments: one-third paid immediately, the remainder tied to the first post-harvest grain payout.",
+            "Dev's fourth pot of tea remains the comedic punctuation of the scene."
+          ],
+          "proposed_changes": [
+            "Ground the financial mechanism in contemporary Indian agrarian commerce (2020-2026): the haulage debt stems from wheat transport to regional grain mandis/mills, substantiated by GST e-way transport bills, weighbridge slips (kanta parchi), and handwritten challans in Viktor's brown document folder.",
+            "Ground the banking reality: Ina verifies Adrian's unauthorized account transfer via downloaded bank statements (PDF on laptop) showing an untraceable immediate digital transfer (IMPS/RTGS/personal withdrawal), and models a 33% immediate settlement via emergency cooperative credit / digital current account transfer before the 4:00 PM bank cutoff.",
+            "Ground domestic props and hospitality: tea is prepared in a brass/aluminum patila with ginger and crushed cardamom, strained into sturdy dhabha-style fluted glass tumblers or ceramic cups on an enameled tin tray, served continuously by Dev as an essential rural de-escalation hospitality ritual.",
+            "Anchor the pistol prop: Mara's antique target pistol is an heirloom single-shot sporting/target handgun (or vintage pre-1970 licensed arm) kept in a polished teak velvet-lined box, reflecting local landed agrarian family gun possession, kept strictly unloaded and dusty."
+          ],
+          "risks": [
+            "Over-complicating dialogue with excessive Indian banking bureaucracy (e.g., IFS codes, NEFT reconciliation) could stall dramatic pace during the office confrontation."
+          ],
+          "source_observations": [
+            "Scene 3 and 4 feature invoices, bank transfers, an antique target pistol in a fitted wooden case, power outages, a battery lantern, a laptop, and tea served across multiple rounds.",
+            "Scene 5 features signing an agreement on a truck hood, cell phone photography of documents, and an ignition failure."
+          ],
+          "uncertainty": [
+            "Exact licensing paperwork requirements for pre-independence heirloom target pistols under Rajasthan state home department rules."
+          ]
+        }
+      ],
+      "layer": "cultural_precision",
+      "objective": "Audit geographic, socio-economic, linguistic, and material specificity to root the adaptation strictly in the contemporary Maidani Mewari agrarian-industrial plains of Rajsamand (2020-2026), systematically purging Thar desert cliches, royal haveli tropes, and extraneous Rajasthani dialectal features while preserving Chekhovian dramatic logic and all character invariants."
+    }
+  ],
+  "story_preservation_notes": [
+    "Central Dramatic Purpose Preserved: The high-friction collision between Mara's defensive bereavement fortress and Viktor's urgent commercial reality remains intact. Their battle of wills directly uncovers Adrian's financial dishonesty and transforms mutual hostility into genuine respect and renewed farm life.",
+    "Emotional Arc Retained: Scene 1 establishes frozen grief and avoidance; Scene 2 escalates threshold pressure and commercial deadline; Scene 3 reaches explosive anger, the ridiculous unloaded pistol standoff, and cathartic laughter; Scene 4 grounds the characters in forensic accounting and mutual vulnerability; Scene 5 delivers clearing skies, dry banter, release of grief, and pragmatic optimism.",
+    "Plot Invariants Fully Preserved: Haulage debt is exactly 12,000; Viktor must settle with his six drivers before bank closing; Adrian secretly diverted grain to the sold mill and took an untracked personal transfer; the vintage target pistol is completely unloaded and dusty; the settlement splits payment into 1/3 immediate reserve transfer and 2/3 post-harvest balance.",
+    "Relationship Invariants Fully Preserved: Dev Holt remains the loyal, pragmatic, tea-serving elder ballast; Viktor Dane is an ethical transport operator acting solely out of obligation to his crew, never a predatory loan shark; Mara Vale fiercely defends her dignity and rejects pity; Adrian Vale is de-idolized through incontrovertible financial evidence.",
+    "Prohibited Changes Fully Enforced: The pistol is never loaded or fired; Adrian is never exonerated; no sand dunes, camels, royal havelis, or full face-veils are introduced."
+  ],
+  "synthesis": [
+    "Full synthesis across verbal, non-verbal, character, visual-world, story-world, and cultural-precision specialist plans establishes a rigorous contemporary Maidani Mewari agrarian reality (Rajsamand Plains, 2020–2026) while strictly retaining the Chekhovian structure and all source plot invariants.",
+    "Linguistic and non-verbal alignment: All verbal dialogue uses Maidani Mewari phonology and morphosyntax (mhū̃, ro/rī/rā, ne, hai/he, -lā, nī), purged of Western Marwari (-sī, nū̃) and Eastern Dhundhari (chhai, chho). Proxemics strictly observe otlo/dhalyo thresholds, unprompted removal of muddy footwear, hairline odhna positioning without face-concealing purdah, and the accidental frozen skin contact over the delivery log.",
+    "Harmonization of props and materiality: The morning drink is standardized to a steel tumbler of settled milk-tea beside Adrian's framed portrait. Adrian's weapon is confirmed as an unloaded, dusty vintage .22 break-action sporting target pistol in a velvet-lined shisham wood case. Accounting combines traditional cloth bahi-khata ledgers with PDF downloads and spreadsheet models on Ina's laptop.",
+    "Resolution of honorific and caste framing: The potential feudal drift in Scene 2 ('ठाकुर सा') is resolved in favor of the neutral agrarian estate term 'साहब', preventing ungrounded assignment of Rajput/royal lineage while retaining Dev's respectful elder-surrogate distance and customary 'बिंदणी' address to Mara.",
+    "Institutional and socio-economic integrity: The 12,000 haulage debt, Viktor's responsibility to pay his 6 drivers before the 4:00 PM bank cutoff, Adrian's untracked personal cash transfer from the diverted mill grain, and Ina's structured split-compromise (1/3 emergency reserve paid today, 2/3 balance on the first grain harvest) are completely unified across all layers."
+  ]
+}

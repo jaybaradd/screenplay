@@ -3,17 +3,20 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from backend.providers import GeminiProvider, gemini_json_schema
-from backend.schemas import CulturalBrief, CulturalClaim, SourceScreenplay
+from backend.schemas import ContinuityEventExtraction, CulturalBrief, CulturalClaim, SourceScreenplay
 
 
 def brief() -> CulturalBrief:
     return CulturalBrief(
-        culture="Maidani Mewari", locality="Rajsamand plains", setting="rural", period="Contemporary",
+        culture_id="maidani_mewari", profile_version="1.0.0", profile_hash="test-profile",
+        culture="Maidani Mewari", locality="Rajsamand plains", setting="rural",
+        period="contemporary_2020_2026", output_script="devanagari",
         claims=[CulturalClaim(
             id="claim-1", claim="Test claim", scope="test", time_period="test",
-            source_url="https://example.test/source", confidence="low", layers=["cultural_precision"],
+            source_url="https://example.test/source", origin="grounded_research",
+            confidence="low", layers=["cultural_precision"],
         )],
-        negative_constraints=[], open_questions=[], research_summary="Test",
+        constraints=[], open_questions=[], research_summary="Test",
     )
 
 
@@ -64,3 +67,12 @@ def test_gemini_schema_uses_json_schema_path_without_unsupported_defaults():
     assert "minLength" not in encoded
     # Strict Pydantic objects remain strict where Gemini JSON Schema supports it.
     assert schema["additionalProperties"] is False
+
+
+def test_continuity_repair_schema_is_gemini_compatible():
+    schema = gemini_json_schema(ContinuityEventExtraction)
+    encoded = str(schema)
+    assert "ContinuityEvent" in encoded
+    assert "ProductionElement" in encoded
+    assert "default" not in encoded
+    assert "minLength" not in encoded

@@ -1,0 +1,2039 @@
+{
+  "characters": [
+    {
+      "age_range": "34",
+      "aliases": [
+        "Mara",
+        "The owner"
+      ],
+      "dialect_register": "Measured, direct, restrained contemporary speech",
+      "emotional_state": "Shifting from paralyzed mourning and defensive anger to sober clarity and cautious renewal",
+      "id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "name": "Mara Vale",
+      "personality": [
+        "Guarded",
+        "Proud",
+        "Pragmatic",
+        "Sharp-witted",
+        "Grieving"
+      ],
+      "relationships": [
+        {
+          "label": "Widow of Adrian",
+          "notes": "Adrian died one year ago; she preserved his memory until uncovering his financial dishonesty.",
+          "target_character_id": "bbe63388-245b-5d5d-bfa4-9e740a27f355"
+        },
+        {
+          "label": "Employer and confidante",
+          "notes": "Dev looks out for her wellbeing while trying to keep the farm solvent.",
+          "target_character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b"
+        },
+        {
+          "label": "Debtor / Adversary turned mutual negotiator",
+          "notes": "Initially hostile, they come to a begrudging mutual respect and agreement.",
+          "target_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+        },
+        {
+          "label": "Employer of part-time accountant",
+          "notes": "Relies on Ina for accurate financial auditing.",
+          "target_character_id": "12942f85-a994-554b-a7d0-e22280ef26ca"
+        }
+      ],
+      "role": "Farm owner and widow of Adrian",
+      "scene_entrances": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "2a7f6293-f941-51fa-94be-2af199d08126",
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ],
+      "scene_exits": [
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "age_range": "63",
+      "aliases": [
+        "Dev"
+      ],
+      "dialect_register": "Colloquial, understated, dry rural phrasing",
+      "emotional_state": "Protective, quietly reassuring, wryly observant",
+      "id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+      "name": "Dev Holt",
+      "personality": [
+        "Pragmatic",
+        "Loyal",
+        "Dry-humored",
+        "Observant",
+        "Patient"
+      ],
+      "relationships": [
+        {
+          "label": "Protective caretaker and surrogate elder",
+          "notes": "Steers Mara gently through reality without disrespecting her grief.",
+          "target_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+        },
+        {
+          "label": "Wary gatekeeper",
+          "notes": "Guards the farm perimeter, acts as pragmatic buffer.",
+          "target_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+        }
+      ],
+      "role": "Farm caretaker",
+      "scene_entrances": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "2a7f6293-f941-51fa-94be-2af199d08126",
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ],
+      "scene_exits": [
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "age_range": "39",
+      "aliases": [
+        "Viktor",
+        "The man from the notice"
+      ],
+      "dialect_register": "Crisp, urgent, commercial plainspoken English",
+      "emotional_state": "Stressed and impatient under payroll deadline, shifting to respectful and intrigued",
+      "id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "name": "Viktor Dane",
+      "personality": [
+        "Determined",
+        "No-nonsense",
+        "Responsible to his crew",
+        "Direct",
+        "Observant"
+      ],
+      "relationships": [
+        {
+          "label": "Creditor turned respectful business partner",
+          "notes": "Presses for twelve thousand in haulage debt to pay his drivers; respects her strength.",
+          "target_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+        },
+        {
+          "label": "Deceased debtor",
+          "notes": "Extended deadlines to Adrian before discovering Adrian's evasiveness.",
+          "target_character_id": "bbe63388-245b-5d5d-bfa4-9e740a27f355"
+        },
+        {
+          "label": "Interlocutor",
+          "notes": "Respects the house rules while remaining firm on debt collection.",
+          "target_character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b"
+        }
+      ],
+      "role": "Owner of Dane Transport",
+      "scene_entrances": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "2a7f6293-f941-51fa-94be-2af199d08126",
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ],
+      "scene_exits": [
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "age_range": "26",
+      "aliases": [
+        "Ina"
+      ],
+      "dialect_register": "Professional, data-focused, precise",
+      "emotional_state": "Focused, efficient, mildly amused by the interpersonal tension",
+      "id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+      "name": "Ina Reed",
+      "personality": [
+        "Competent",
+        "Analytical",
+        "Objective",
+        "Quietly amused"
+      ],
+      "relationships": [
+        {
+          "label": "Accountant to client",
+          "notes": "Quick to provide financial reality without taking sides.",
+          "target_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+        },
+        {
+          "label": "Colleague",
+          "notes": "Responds immediately to Dev's emergency phone call.",
+          "target_character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b"
+        }
+      ],
+      "role": "Part-time accountant",
+      "scene_entrances": [
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ],
+      "scene_exits": [
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "age_range": "Deceased",
+      "aliases": [
+        "Adrian",
+        "Mr. Vale"
+      ],
+      "dialect_register": "Not stated in source",
+      "emotional_state": "Deceased",
+      "id": "bbe63388-245b-5d5d-bfa4-9e740a27f355",
+      "name": "Adrian Vale",
+      "personality": [
+        "Evasive",
+        "Secrecy-prone",
+        "Charming or deflective in life"
+      ],
+      "relationships": [
+        {
+          "label": "Late husband",
+          "notes": "Died one year prior; concealed debts and diverted farm funds.",
+          "target_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+        },
+        {
+          "label": "Former client",
+          "notes": "Owed Viktor twelve thousand for haulage and offered a broken tractor.",
+          "target_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+        }
+      ],
+      "role": "Late husband of Mara (deceased)",
+      "scene_entrances": [],
+      "scene_exits": []
+    }
+  ],
+  "detected_language": "en",
+  "extraction_warnings": [],
+  "original_text": "THE DEBT AT NOON\n\nAn original contemporary test screenplay after the dramatic premise of\nAnton Chekhov's public-domain one-act play THE BEAR (1888).\n\n    \nINT. FARMHOUSE DINING ROOM - MORNING\n\nRain taps against two tall windows. The room is clean but dim. A long dining\ntable has been reduced to one place setting. On the wall, a clock marks every\nsecond too loudly.\n\nMARA VALE, 34, dressed in plain dark clothes, sits with a cup of coffee gone\ncold. A framed photograph of her late husband, ADRIAN, faces her from the other\nend of the table.\n\nDEV HOLT, 63, the farm's caretaker, enters with a stack of unopened envelopes.\nHe places them beside Mara's cup, careful not to cover the photograph.\n\nDEV\nThe post came early. There is another notice from the transport company.\n\nMARA\nPut it with the others.\n\nDEV\nThe others have begun to lean.\n\nMara looks at the stack. It is, in fact, leaning.\n\nMARA\nThen put them in a drawer.\n\nDEV\nDrawers do not stop interest from growing.\n\nMARA\nToday is one year. I am not discussing accounts today.\n\nDev softens. He turns Adrian's photograph slightly, straightening it.\n\nDEV\nI know what day it is. The wheat does not.\n\nOutside, an engine rattles, stops, then starts again before finally dying.\n\nDev looks through the window. A mud-streaked delivery truck stands at the end\nof the drive. VIKTOR DANE, 39, climbs out holding a sealed brown envelope.\n\nDEV\nThat will be the man from the notice.\n\nMARA\nTell him I receive no visitors.\n\nDEV\nHe does not look like a visitor.\n\nThe front gate CLANGS shut.\n\n\nEXT. FARMHOUSE VERANDA - LATE MORNING\n\nViktor waits under the narrow roof, rainwater running from his coat. He keeps\nthe brown envelope dry against his chest. Dev stands in the doorway, blocking\nthe entrance without appearing to do so.\n\nVIKTOR\nViktor Dane. Dane Transport. I need five minutes with the owner.\n\nDEV\nThe owner is unavailable.\n\nVIKTOR\nHer signature appears on three letters saying the same thing.\n\nDEV\nThen you have already heard from her.\n\nViktor glances toward his truck. Through its open window, a mobile phone rings\non the dashboard. He lets it ring out.\n\nVIKTOR\nMy drivers are expecting their wages by four. Her husband owed my company\ntwelve thousand for last season's haulage. I need an answer before the bank\ncloses.\n\nDEV\nMr. Vale died before last season ended.\n\nVIKTOR\nThe invoice did not.\n\nMara appears behind Dev.\n\nMARA\nYou have your five minutes.\n\nDev steps aside. Viktor removes his wet boots without being asked and leaves\nthem neatly by the door. Mara notices the gesture but gives him no credit for\nit.\n\n\nINT. FARMHOUSE DINING ROOM - NOON\n\nViktor sets the brown envelope on the table. It contains a contract, three\ninvoices and a handwritten delivery log. Mara remains standing. Dev waits near\nthe kitchen door with a tray holding a teapot and three empty cups.\n\nVIKTOR\nYour husband asked me to extend the deadline twice. I did. Then your office\nstopped answering.\n\nMARA\nMy office was a hospital corridor.\n\nVIKTOR\nAnd mine is six people who worked those nights and have already waited.\n\nMara opens the farm ledger. Several pages have been cut out cleanly near the\nback. She turns them one by one, unwilling to believe the gap.\n\nMARA\nThese figures were not in the accounts I inherited.\n\nVIKTOR\nThey were in the work your farm received.\n\nMARA\nAre you calling my husband dishonest in his own house?\n\nVIKTOR\nI am calling a debt unpaid. The dead do not become honest merely because we\nmiss them.\n\nDev puts the tray down harder than intended. The cups jump in their saucers.\n\nDEV\nThere are boundaries, sir.\n\nVIKTOR\nThere are also due dates.\n\nMara closes the ledger.\n\nMARA\nYou will leave now.\n\nVIKTOR\nNot without a payment or collateral.\n\nMARA\nTake the north tractor.\n\nDEV\nMara--\n\nVIKTOR\nIt has a cracked axle. Your husband offered it to me in February.\n\nMara's anger falters. Viktor immediately regrets the satisfaction on his face,\nbut not enough to hide it.\n\nMARA\nThen take the grain drill.\n\nVIKTOR\nAnd stop your planting? That would give me a broken customer instead of an\noverdue one.\n\nMARA\nHow generous of you to protect me from ruin while demanding cash I do not have.\n\nVIKTOR\nHow convenient to turn grief into a locked gate.\n\nSilence. Rain drums against the windows.\n\nMara crosses to a small cabinet and unlocks it with a brass key from a chain at\nher waist. Inside is an old target pistol in a wooden case. She removes the\ncase, places it on the table, and opens it. The pistol is dusty and unloaded.\n\nDev freezes with the teapot in his hand.\n\nMARA\nAdrian said every argument ended when this appeared.\n\nVIKTOR\nThat may explain his accounting.\n\nMara looks from the pistol to Viktor. Then, unexpectedly, she laughs once. It\nis not a happy sound, but it is the first laugh the room has heard in a year.\n\nViktor takes one careful step back.\n\nVIKTOR\nFor the record, I prefer invoices.\n\nMara closes the case and pushes it away.\n\nMARA\nFor the record, so do I.\n\nShe pulls the delivery log from the envelope and studies it closely.\n\nMARA\nThis final load never reached the western storehouse.\n\nVIKTOR\nThe river road flooded. Your husband redirected it to the old mill.\n\nDEV\nThe mill was sold that same week.\n\nThe three of them understand at once: Adrian moved the grain without entering\nthe sale in the farm ledger.\n\nViktor gathers the invoices, but Mara keeps the delivery log under her hand.\n\nMARA\nThis stays with me until I verify it.\n\nVIKTOR\nThe original stays with me.\n\nTheir hands meet on the page. Neither releases it.\n\nDEV\nThe tea is getting stronger while both of you become less reasonable.\n\nThe lights CUT OUT. The room goes still except for the rain.\n\n\nINT. FARM OFFICE - EARLY AFTERNOON\n\nEmergency daylight comes through a small window. Ledgers, seed catalogues and\nrepair manuals crowd the shelves. Dev lights a battery lantern and places it\nbetween Mara and Viktor.\n\nINA REED, 26, the farm's part-time accountant, hurries in carrying a laptop and\na canvas document bag. Her hair and shoulders are wet from the rain.\n\nINA\nI came as soon as Dev called. The network is down, but I downloaded last year's\nbank statements yesterday.\n\nMara gives Ina the delivery log. Viktor keeps the brown envelope and invoices\nbeside his chair.\n\nIna compares dates, tapping figures into a calculator. No one speaks. The\ncalculator buttons sound almost as loud as the clock in the dining room.\n\nINA\nThe transport invoices are legitimate. But there is also a deposit from the\nmill two days after the redirected delivery.\n\nMARA\nWhere did the money go?\n\nINA\nIt left the account the same afternoon. Personal transfer. No description.\n\nMara sits back. For the first time, the anger leaves her face entirely.\n\nMARA\nHe told me the farm was secure.\n\nDEV\nPerhaps he wanted it to be true before he said it.\n\nViktor reaches for the envelope, then stops.\n\nVIKTOR\nMy problem is still real. But it is no longer only yours.\n\nMARA\nDo not mistake new information for forgiveness.\n\nVIKTOR\nI was speaking about the missing money.\n\nMARA\nSo was I.\n\nIna suppresses a smile and turns the laptop toward them.\n\nINA\nThe emergency reserve can cover one third today without stopping payroll or\nplanting. The balance could be tied to the first grain payment, if both parties\nsign.\n\nVIKTOR\nMy drivers cannot divide promises among themselves.\n\nMARA\nThey would have one third of something instead of all of nothing.\n\nViktor studies her. His impatience has become reluctant respect.\n\nVIKTOR\nYou negotiate better than your husband.\n\nMARA\nI keep better records.\n\n\nEXT. MACHINERY SHED - LATE AFTERNOON\n\nThe rain has stopped. Water drips from the shed roof. Beyond the yard, the\nfields shine under a pale strip of clearing sky.\n\nIna places a handwritten payment agreement on the hood of Viktor's truck. Mara\nsigns first. Viktor signs beneath her name. Ina photographs both pages with her\nphone and returns the originals to the brown envelope.\n\nDev arrives carrying the same tea tray. Two cups are now filled. He gives one\nto Mara and one to Viktor, keeping the third for himself.\n\nDEV\nThis is the fourth pot. I refuse to let it become evidence.\n\nViktor takes a sip. It is painfully strong, but he manages not to react.\n\nMARA\nYour drivers will have the transfer before four.\n\nVIKTOR\nAnd I will return after the first grain payment.\n\nMARA\nFor the balance.\n\nVIKTOR\nOf course.\n\nHe closes the brown envelope and places it inside his coat. Mara still holds\nthe copied delivery log.\n\nViktor walks to the driver's door, then looks back toward the farmhouse.\n\nVIKTOR\nYou should open the curtains in that dining room.\n\nMARA\nYou should repair your engine.\n\nViktor tries the ignition. The truck coughs but does not start.\n\nDev drinks his tea, pleased with the universe.\n\nMara allows herself a small smile. She takes the brass key from her waist and\nhands it to Dev.\n\nMARA\nPut the pistol case in storage. Keep the ledgers on the table.\n\nDev closes his hand around the key.\n\nViktor tries the ignition again. The engine catches.\n\nMara watches the truck leave, then turns toward the open farmhouse door.\n\nFADE OUT.",
+  "production_elements": [
+    {
+      "aliases": [
+        "The farm",
+        "Farmhouse"
+      ],
+      "description": "Rural farmstead consisting of a main farmhouse with dining room, veranda, farm office, yard, and machinery shed.",
+      "id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "kind": "location",
+      "name": "Farmhouse & Grounds",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "2a7f6293-f941-51fa-94be-2af199d08126",
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "aliases": [
+        "Farmhouse Dining Room"
+      ],
+      "description": "Clean but dim room with two tall windows, long table reduced to one setting, cabinet, and loud wall clock.",
+      "id": "ffffb2bf-2e0d-5200-93ae-7960f5467780",
+      "kind": "set",
+      "name": "Dining Room",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+      ]
+    },
+    {
+      "aliases": [
+        "Veranda"
+      ],
+      "description": "Sheltered outdoor entryway under a narrow roof fronting the main entrance.",
+      "id": "f611a95f-c12e-5a58-ae28-3677d7a6a143",
+      "kind": "set",
+      "name": "Farmhouse Veranda",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "2a7f6293-f941-51fa-94be-2af199d08126"
+      ]
+    },
+    {
+      "aliases": [
+        "Office"
+      ],
+      "description": "Small room with emergency daylight from a small window, packed with ledgers, seed catalogues, and repair manuals.",
+      "id": "9a2846b6-e322-5e15-ba70-78bdc5d3b1d9",
+      "kind": "set",
+      "name": "Farm Office",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "435fda02-8511-558a-afab-0bb5e04281f2"
+      ]
+    },
+    {
+      "aliases": [
+        "Machinery shed"
+      ],
+      "description": "Dripping shed roof facing the farmyard and open shining fields under clearing sky.",
+      "id": "b9569242-8452-52b2-a44e-2bba88853425",
+      "kind": "set",
+      "name": "Machinery Shed & Yard",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "aliases": [
+        "Truck"
+      ],
+      "description": "Work truck belonging to Dane Transport, prone to engine ignition sputtering.",
+      "id": "777bb3ea-ad7d-5da6-96fb-9ce7c93cb38a",
+      "kind": "vehicle",
+      "name": "Mud-streaked Delivery Truck",
+      "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "2a7f6293-f941-51fa-94be-2af199d08126",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "aliases": [
+        "Coffee"
+      ],
+      "description": "A cup of coffee gone cold sitting before Mara at the dining table.",
+      "id": "0d2920b7-8a4b-5767-b539-3f9a8257467b",
+      "kind": "prop",
+      "name": "Cold Cup of Coffee",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78"
+      ]
+    },
+    {
+      "aliases": [
+        "Photograph"
+      ],
+      "description": "Framed picture of late husband Adrian placed at the opposite end of the dining table.",
+      "id": "cf322cfa-4bf8-5df5-a62a-7f87ac222ad8",
+      "kind": "prop",
+      "name": "Framed Photograph of Adrian",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78"
+      ]
+    },
+    {
+      "aliases": [
+        "The post",
+        "The notices"
+      ],
+      "description": "A leaning stack of unopened mail and overdue notices.",
+      "id": "51ab01b5-7f97-5386-94d1-b4f688e21df2",
+      "kind": "prop",
+      "name": "Stack of Unopened Envelopes",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78"
+      ]
+    },
+    {
+      "aliases": [
+        "Clock"
+      ],
+      "description": "Wall clock ticking loudly in the dim dining room.",
+      "id": "6ac85806-b80f-5a7e-81ec-20ac867382a8",
+      "kind": "prop",
+      "name": "Wall Clock",
+      "owner_character_id": null,
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "435fda02-8511-558a-afab-0bb5e04281f2"
+      ]
+    },
+    {
+      "aliases": [
+        "Brown envelope"
+      ],
+      "description": "Contains contract, three invoices, and a handwritten delivery log carried by Viktor.",
+      "id": "17622f2f-4420-587d-b803-b69b2f881be4",
+      "kind": "prop",
+      "name": "Sealed Brown Envelope",
+      "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "2a7f6293-f941-51fa-94be-2af199d08126",
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "aliases": [
+        "Phone"
+      ],
+      "description": "Rings on the delivery truck dashboard, ignored by Viktor.",
+      "id": "ea24d914-6bea-54b2-bdbf-5fb5c9211dea",
+      "kind": "prop",
+      "name": "Mobile Phone",
+      "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "scene_ids": [
+        "2a7f6293-f941-51fa-94be-2af199d08126"
+      ]
+    },
+    {
+      "aliases": [
+        "Wet boots"
+      ],
+      "description": "Muddy/wet boots taken off respectfully at the entrance.",
+      "id": "14c05018-08a6-51d8-aa4e-83ad0ccacefc",
+      "kind": "costume",
+      "name": "Viktor's Wet Boots",
+      "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "scene_ids": [
+        "2a7f6293-f941-51fa-94be-2af199d08126"
+      ]
+    },
+    {
+      "aliases": [
+        "Tray holding a teapot and cups",
+        "Tea tray"
+      ],
+      "description": "Tray with teapot and three cups used continuously by Dev throughout the day.",
+      "id": "3ee3071f-d96a-56e4-8868-abc01d980393",
+      "kind": "prop",
+      "name": "Tea Tray and Service",
+      "owner_character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+      "scene_ids": [
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "aliases": [
+        "Ledger"
+      ],
+      "description": "Account book with several pages cleanly excised near the rear.",
+      "id": "e39c7c11-485e-5a69-aa5b-8d78cb33fc78",
+      "kind": "prop",
+      "name": "Farm Ledger",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+      ]
+    },
+    {
+      "aliases": [
+        "Brass key"
+      ],
+      "description": "Small key kept on a waist chain, unlocking the gun cabinet.",
+      "id": "cddf362e-5afe-5402-a867-8106e89e7190",
+      "kind": "prop",
+      "name": "Brass Key on Waist Chain",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "aliases": [
+        "Pistol case",
+        "Old target pistol"
+      ],
+      "description": "Dusty, unloaded vintage target pistol in a fitted wooden case.",
+      "id": "639e86e3-404e-5ea9-87b6-6ecda837ded1",
+      "kind": "prop",
+      "name": "Target Pistol in Wooden Case",
+      "owner_character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "scene_ids": [
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "aliases": [
+        "Delivery log"
+      ],
+      "description": "Log sheet showing the redirected grain haulage to the old mill.",
+      "id": "3423f101-f690-578e-96ac-7e0ba7340da7",
+      "kind": "prop",
+      "name": "Handwritten Delivery Log",
+      "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "scene_ids": [
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "435fda02-8511-558a-afab-0bb5e04281f2",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "aliases": [
+        "Three invoices"
+      ],
+      "description": "Invoices totalling 12,000 for transport services.",
+      "id": "87b714df-5864-5ac7-a67b-9b667c17fc0c",
+      "kind": "prop",
+      "name": "Haulage Invoices",
+      "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "scene_ids": [
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+        "435fda02-8511-558a-afab-0bb5e04281f2"
+      ]
+    },
+    {
+      "aliases": [
+        "Lantern"
+      ],
+      "description": "Emergency battery light placed on the desk during the power cut.",
+      "id": "f1ff139d-5934-5163-8380-d896fb059b3f",
+      "kind": "prop",
+      "name": "Battery Lantern",
+      "owner_character_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+      "scene_ids": [
+        "435fda02-8511-558a-afab-0bb5e04281f2"
+      ]
+    },
+    {
+      "aliases": [
+        "Laptop"
+      ],
+      "description": "Contains downloaded offline bank records and financial spreadsheet models.",
+      "id": "e20acf0f-cc5a-564c-8de1-46f15af37854",
+      "kind": "prop",
+      "name": "Ina's Laptop",
+      "owner_character_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+      "scene_ids": [
+        "435fda02-8511-558a-afab-0bb5e04281f2"
+      ]
+    },
+    {
+      "aliases": [
+        "Document bag"
+      ],
+      "description": "Ina's work bag.",
+      "id": "01e34e9a-0700-5c7b-8b96-712a0add7954",
+      "kind": "prop",
+      "name": "Canvas Document Bag",
+      "owner_character_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+      "scene_ids": [
+        "435fda02-8511-558a-afab-0bb5e04281f2"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Desktop or handheld calculator used by Ina.",
+      "id": "6aeeb34c-2e16-57b1-aa9c-266dfedab1d7",
+      "kind": "prop",
+      "name": "Calculator",
+      "owner_character_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+      "scene_ids": [
+        "435fda02-8511-558a-afab-0bb5e04281f2"
+      ]
+    },
+    {
+      "aliases": [
+        "Agreement"
+      ],
+      "description": "Contract dividing payment into one-third immediate reserve and two-thirds post-harvest, signed on the truck hood.",
+      "id": "ea35cc20-7db1-59f4-994e-415c6cedf196",
+      "kind": "prop",
+      "name": "Handwritten Payment Agreement",
+      "owner_character_id": null,
+      "scene_ids": [
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Persistent rain on the windows and veranda, ending by late afternoon.",
+      "id": "581cf502-d757-52f3-9d2e-eb0af3cc4f2f",
+      "kind": "sound",
+      "name": "Rain Tapping and Drumming",
+      "owner_character_id": null,
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "2a7f6293-f941-51fa-94be-2af199d08126",
+        "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Truck rattling, stopping, and coughing before catching.",
+      "id": "f770cc8b-bf86-5b4d-80ff-4f6903fd50f8",
+      "kind": "sound",
+      "name": "Truck Engine Sputter and Ignition",
+      "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78",
+        "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Metallic clanging of the front driveway gate.",
+      "id": "2febad54-8cc0-5de6-bbcc-2a3edb41428a",
+      "kind": "sound",
+      "name": "Front Gate Clang",
+      "owner_character_id": null,
+      "scene_ids": [
+        "a895348d-658b-5721-a20c-92fd6b5fca78"
+      ]
+    },
+    {
+      "aliases": [],
+      "description": "Phone ringing unanswered inside Viktor's truck cab.",
+      "id": "bba5d3a4-fbf2-5783-8d3d-f4a169e75225",
+      "kind": "sound",
+      "name": "Mobile Phone Ringing",
+      "owner_character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "scene_ids": [
+        "2a7f6293-f941-51fa-94be-2af199d08126"
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "blocks": [
+        {
+          "id": "896e1834-8e7a-5628-83e1-2fa0a5318dcc",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Rain taps against two tall windows. The room is clean but dim. A long dining table has been reduced to one place setting. On the wall, a clock marks every second too loudly.",
+          "type": "action"
+        },
+        {
+          "id": "dabc0461-b5be-5c7c-9e24-457c104f979b",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "MARA VALE, 34, dressed in plain dark clothes, sits with a cup of coffee gone cold. A framed photograph of her late husband, ADRIAN, faces her from the other end of the table.",
+          "type": "action"
+        },
+        {
+          "id": "8cdb9a82-ded0-577d-ab41-ff09d2f9156a",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "DEV HOLT, 63, the farm's caretaker, enters with a stack of unopened envelopes. He places them beside Mara's cup, careful not to cover the photograph.",
+          "type": "action"
+        },
+        {
+          "id": "166f4392-19a3-55cb-87b9-0751a8dd0b0f",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "The post came early. There is another notice from the transport company.",
+          "type": "dialogue"
+        },
+        {
+          "id": "ad4d1118-0a51-5494-9187-ef1ba7063123",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Put it with the others.",
+          "type": "dialogue"
+        },
+        {
+          "id": "ae12a911-8bad-52ec-a160-e11a3f286fb4",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "The others have begun to lean.",
+          "type": "dialogue"
+        },
+        {
+          "id": "21418b75-20fb-5154-91d6-35aea97b5b5e",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara looks at the stack. It is, in fact, leaning.",
+          "type": "action"
+        },
+        {
+          "id": "d3effa5f-19d7-5897-9215-039d3102f1c9",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Then put them in a drawer.",
+          "type": "dialogue"
+        },
+        {
+          "id": "cc6c33d6-8f47-5785-929f-b0a6f115dee2",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "Drawers do not stop interest from growing.",
+          "type": "dialogue"
+        },
+        {
+          "id": "e2876bbd-981a-5010-83ce-36a7f8a65283",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Today is one year. I am not discussing accounts today.",
+          "type": "dialogue"
+        },
+        {
+          "id": "f8da01bf-8f29-54d9-bb38-7102e56cac10",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Dev softens. He turns Adrian's photograph slightly, straightening it.",
+          "type": "action"
+        },
+        {
+          "id": "80eeeaff-663f-5cdb-a0e7-a141b09207a0",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "I know what day it is. The wheat does not.",
+          "type": "dialogue"
+        },
+        {
+          "id": "5e371c53-e87d-5e41-8bf6-e89f917b09b5",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Outside, an engine rattles, stops, then starts again before finally dying.",
+          "type": "action"
+        },
+        {
+          "id": "c9b59baa-17b7-501e-a530-54d2a0b500c1",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Dev looks through the window. A mud-streaked delivery truck stands at the end of the drive. VIKTOR DANE, 39, climbs out holding a sealed brown envelope.",
+          "type": "action"
+        },
+        {
+          "id": "eaee1b00-6a2e-5e55-ae8f-12fb68132a0a",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "That will be the man from the notice.",
+          "type": "dialogue"
+        },
+        {
+          "id": "5f45c365-c526-5b91-8562-5e864af74406",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Tell him I receive no visitors.",
+          "type": "dialogue"
+        },
+        {
+          "id": "1edaf22c-0d78-55f2-95e5-aeaca6ad5160",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "He does not look like a visitor.",
+          "type": "dialogue"
+        },
+        {
+          "id": "39cccec3-9a78-55bf-b5ea-aecc01d7c192",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "The front gate CLANGS shut.",
+          "type": "action"
+        }
+      ],
+      "character_ids": [
+        "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+        "5ae48853-64bd-5f78-acda-d57792b4d91b",
+        "6278c5b3-fe24-5cf7-a85a-78535e398b87"
+      ],
+      "day_or_date": "One-year anniversary of Adrian's death",
+      "dramatic_purpose": "Establish Mara's deep grief, defensive withdrawal, and financial crisis on the exact anniversary of her husband's death, interrupted by an insistent creditor.",
+      "heading": "INT. FARMHOUSE DINING ROOM - MORNING",
+      "id": "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "int_ext": "INT",
+      "location": "FARMHOUSE",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "mood": "Mournful, tense, claustrophobic, and heavy with grief",
+      "number": 1,
+      "production_element_ids": [
+        "ddd84bed-6f25-5682-a352-ffced6536f5e",
+        "ffffb2bf-2e0d-5200-93ae-7960f5467780",
+        "0d2920b7-8a4b-5767-b539-3f9a8257467b",
+        "cf322cfa-4bf8-5df5-a62a-7f87ac222ad8",
+        "51ab01b5-7f97-5386-94d1-b4f688e21df2",
+        "6ac85806-b80f-5a7e-81ec-20ac867382a8",
+        "777bb3ea-ad7d-5da6-96fb-9ce7c93cb38a",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "581cf502-d757-52f3-9d2e-eb0af3cc4f2f",
+        "f770cc8b-bf86-5b4d-80ff-4f6903fd50f8",
+        "2febad54-8cc0-5de6-bbcc-2a3edb41428a"
+      ],
+      "sub_location": "DINING ROOM",
+      "summary": "On the one-year anniversary of her husband Adrian's death, Mara sits in isolated mourning. Dev brings unpaid creditor notices and alerts her to the arrival of Viktor Dane demanding debt payment.",
+      "time": "MORNING",
+      "weather": "Rain tapping against tall windows"
+    },
+    {
+      "blocks": [
+        {
+          "id": "a8fb197b-b2b4-5126-a73d-05260b5cd693",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor waits under the narrow roof, rainwater running from his coat. He keeps the brown envelope dry against his chest. Dev stands in the doorway, blocking the entrance without appearing to do so.",
+          "type": "action"
+        },
+        {
+          "id": "00cea27a-8dbb-5509-9757-1c141637bc4b",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "Viktor Dane. Dane Transport. I need five minutes with the owner.",
+          "type": "dialogue"
+        },
+        {
+          "id": "2c438b52-860f-5b57-bfe1-cf8b4a8c2e58",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "The owner is unavailable.",
+          "type": "dialogue"
+        },
+        {
+          "id": "c948d31a-926c-5a7e-947b-c6b6be16ed3d",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "Her signature appears on three letters saying the same thing.",
+          "type": "dialogue"
+        },
+        {
+          "id": "0e3c59cf-f463-5b92-a70e-ff5b4b0d62e6",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "Then you have already heard from her.",
+          "type": "dialogue"
+        },
+        {
+          "id": "e1d5490d-ccab-5e44-8bbd-096503005ca3",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor glances toward his truck. Through its open window, a mobile phone rings on the dashboard. He lets it ring out.",
+          "type": "action"
+        },
+        {
+          "id": "e9f056ea-1fd3-5c56-86e5-abaebfc15a7d",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "My drivers are expecting their wages by four. Her husband owed my company twelve thousand for last season's haulage. I need an answer before the bank closes.",
+          "type": "dialogue"
+        },
+        {
+          "id": "1fb2ad89-7651-5b63-8fba-a6cccf2c932f",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "Mr. Vale died before last season ended.",
+          "type": "dialogue"
+        },
+        {
+          "id": "05e901ec-9349-5a8d-a808-f844383489f9",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "The invoice did not.",
+          "type": "dialogue"
+        },
+        {
+          "id": "104e6159-b8c0-5fb9-9896-7fd85d91f27c",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara appears behind Dev.",
+          "type": "action"
+        },
+        {
+          "id": "426df3d2-fa9d-5213-8443-8d34aa9c497c",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "You have your five minutes.",
+          "type": "dialogue"
+        },
+        {
+          "id": "e5495a62-7adb-5e2d-9424-8799a80795a6",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Dev steps aside. Viktor removes his wet boots without being asked and leaves them neatly by the door. Mara notices the gesture but gives him no credit for it.",
+          "type": "action"
+        }
+      ],
+      "character_ids": [
+        "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+        "5ae48853-64bd-5f78-acda-d57792b4d91b",
+        "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7"
+      ],
+      "day_or_date": "One-year anniversary of Adrian's death",
+      "dramatic_purpose": "Force an inevitable face-to-face clash between Mara's sanctuary of mourning and Viktor's pressing economic deadline.",
+      "heading": "EXT. FARMHOUSE VERANDA - LATE MORNING",
+      "id": "2a7f6293-f941-51fa-94be-2af199d08126",
+      "int_ext": "EXT",
+      "location": "FARMHOUSE",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "mood": "Confrontational and resolute",
+      "number": 2,
+      "production_element_ids": [
+        "ddd84bed-6f25-5682-a352-ffced6536f5e",
+        "f611a95f-c12e-5a58-ae28-3677d7a6a143",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "ea24d914-6bea-54b2-bdbf-5fb5c9211dea",
+        "14c05018-08a6-51d8-aa4e-83ad0ccacefc",
+        "bba5d3a4-fbf2-5783-8d3d-f4a169e75225",
+        "581cf502-d757-52f3-9d2e-eb0af3cc4f2f"
+      ],
+      "sub_location": "VERANDA",
+      "summary": "Dev tries to turn Viktor away at the veranda door, but Viktor insists he needs payment for his drivers before the bank closes. Mara overhears and admits Viktor into the house.",
+      "time": "LATE MORNING",
+      "weather": "Rainy"
+    },
+    {
+      "blocks": [
+        {
+          "id": "b4903e34-d232-51ae-839f-5546c30feb7e",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor sets the brown envelope on the table. It contains a contract, three invoices and a handwritten delivery log. Mara remains standing. Dev waits near the kitchen door with a tray holding a teapot and three empty cups.",
+          "type": "action"
+        },
+        {
+          "id": "7df0c778-e02d-557d-8931-b227093c6291",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "Your husband asked me to extend the deadline twice. I did. Then your office stopped answering.",
+          "type": "dialogue"
+        },
+        {
+          "id": "2d06c2cc-fe91-561b-9910-e528fba4f9ee",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "My office was a hospital corridor.",
+          "type": "dialogue"
+        },
+        {
+          "id": "c1e40bf8-f266-5e34-b976-9eab78889bd4",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "And mine is six people who worked those nights and have already waited.",
+          "type": "dialogue"
+        },
+        {
+          "id": "1da7e5f8-07c0-543e-bfe6-35df191318df",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara opens the farm ledger. Several pages have been cut out cleanly near the back. She turns them one by one, unwilling to believe the gap.",
+          "type": "action"
+        },
+        {
+          "id": "efa7be9a-4a83-5094-871b-216842bd212e",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "These figures were not in the accounts I inherited.",
+          "type": "dialogue"
+        },
+        {
+          "id": "819cc138-4012-5c6f-a1a9-c60bc5bea4fd",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "They were in the work your farm received.",
+          "type": "dialogue"
+        },
+        {
+          "id": "7cdf71f4-bd32-564d-af4a-2dedbc5feb5c",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Are you calling my husband dishonest in his own house?",
+          "type": "dialogue"
+        },
+        {
+          "id": "d6548241-cec8-5e49-9e42-e5f52319887f",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "I am calling a debt unpaid. The dead do not become honest merely because we miss them.",
+          "type": "dialogue"
+        },
+        {
+          "id": "b4ccb9f8-de86-5dae-a239-ecff9465aa0b",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Dev puts the tray down harder than intended. The cups jump in their saucers.",
+          "type": "action"
+        },
+        {
+          "id": "14c70781-6231-54e0-b673-8b2c6267ab7c",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "There are boundaries, sir.",
+          "type": "dialogue"
+        },
+        {
+          "id": "b6e79520-6be4-5960-8c9a-89738fa531bf",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "There are also due dates.",
+          "type": "dialogue"
+        },
+        {
+          "id": "a71f1da3-25bb-55eb-99fc-ffdf075a73a2",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara closes the ledger.",
+          "type": "action"
+        },
+        {
+          "id": "536c9d09-084b-5662-859e-6e2582580b89",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "You will leave now.",
+          "type": "dialogue"
+        },
+        {
+          "id": "27aa2391-f38d-500e-9f2b-eab940deb235",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "Not without a payment or collateral.",
+          "type": "dialogue"
+        },
+        {
+          "id": "92913f39-5294-5522-91ab-9ec2f1b1fea1",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Take the north tractor.",
+          "type": "dialogue"
+        },
+        {
+          "id": "03a1f16d-9766-5f96-a65b-ff154a274406",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "Mara--",
+          "type": "dialogue"
+        },
+        {
+          "id": "62fa9f51-3209-5739-ba2f-ce4b14a0753c",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "It has a cracked axle. Your husband offered it to me in February.",
+          "type": "dialogue"
+        },
+        {
+          "id": "837dc8cb-f071-5aed-b69e-53d1f7a6c58d",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara's anger falters. Viktor immediately regrets the satisfaction on his face, but not enough to hide it.",
+          "type": "action"
+        },
+        {
+          "id": "ee2eac53-e9a5-508f-97a4-e6e94918261f",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Then take the grain drill.",
+          "type": "dialogue"
+        },
+        {
+          "id": "bc19e5d2-f2c3-5267-b315-c3f8fb4528f9",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "And stop your planting? That would give me a broken customer instead of an overdue one.",
+          "type": "dialogue"
+        },
+        {
+          "id": "64cd6f4f-524e-523f-93f1-df524d3dbea2",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "How generous of you to protect me from ruin while demanding cash I do not have.",
+          "type": "dialogue"
+        },
+        {
+          "id": "9004f26c-ddaf-5da0-b00a-90318f870a44",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "How convenient to turn grief into a locked gate.",
+          "type": "dialogue"
+        },
+        {
+          "id": "dc1bb744-2590-524c-b2c5-9d80b438e187",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Silence. Rain drums against the windows.",
+          "type": "action"
+        },
+        {
+          "id": "0960274a-3eb7-530a-84a2-209d35ebbec7",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara crosses to a small cabinet and unlocks it with a brass key from a chain at her waist. Inside is an old target pistol in a wooden case. She removes the case, places it on the table, and opens it. The pistol is dusty and unloaded.",
+          "type": "action"
+        },
+        {
+          "id": "cf7c431a-87e4-5834-8fec-155dd3caaee0",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Dev freezes with the teapot in his hand.",
+          "type": "action"
+        },
+        {
+          "id": "4089f453-fbb0-5eb0-a012-ebd3f8bff541",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Adrian said every argument ended when this appeared.",
+          "type": "dialogue"
+        },
+        {
+          "id": "a2c36222-bb07-587e-af57-a4306e696625",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "That may explain his accounting.",
+          "type": "dialogue"
+        },
+        {
+          "id": "80130f99-f983-580c-8e13-c95cbc0a2653",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara looks from the pistol to Viktor. Then, unexpectedly, she laughs once. It is not a happy sound, but it is the first laugh the room has heard in a year.",
+          "type": "action"
+        },
+        {
+          "id": "259df192-93a6-5aa5-9642-4dc3c1ac6471",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor takes one careful step back.",
+          "type": "action"
+        },
+        {
+          "id": "736ac4b8-fd0d-593f-b478-a45c2b11ae96",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "For the record, I prefer invoices.",
+          "type": "dialogue"
+        },
+        {
+          "id": "e5f2507f-e819-57c2-a063-393f2e0db1d9",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara closes the case and pushes it away.",
+          "type": "action"
+        },
+        {
+          "id": "237bad25-1f88-51d8-a84f-19f4dd946c99",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "For the record, so do I.",
+          "type": "dialogue"
+        },
+        {
+          "id": "422fe101-318f-54c0-a91a-66a1fb9339a3",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "She pulls the delivery log from the envelope and studies it closely.",
+          "type": "action"
+        },
+        {
+          "id": "0d091909-2164-5c7f-b9a7-7e1d19a3fbb0",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "This final load never reached the western storehouse.",
+          "type": "dialogue"
+        },
+        {
+          "id": "9127b6cd-7632-5c6d-883c-626d34f88661",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "The river road flooded. Your husband redirected it to the old mill.",
+          "type": "dialogue"
+        },
+        {
+          "id": "cb6f59ba-661d-5d49-bef1-ce7e24ce4811",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "The mill was sold that same week.",
+          "type": "dialogue"
+        },
+        {
+          "id": "d192ffc8-0c69-5cce-bf0d-70308a958155",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "The three of them understand at once: Adrian moved the grain without entering the sale in the farm ledger.",
+          "type": "action"
+        },
+        {
+          "id": "a847518f-95e1-598a-8e27-0c579d07d1a0",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor gathers the invoices, but Mara keeps the delivery log under her hand.",
+          "type": "action"
+        },
+        {
+          "id": "bdfacd25-2ce6-588b-8f58-0a33283d20cb",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "This stays with me until I verify it.",
+          "type": "dialogue"
+        },
+        {
+          "id": "7662e52d-5a1a-5582-800a-08b3d5141101",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "The original stays with me.",
+          "type": "dialogue"
+        },
+        {
+          "id": "910e52fd-5371-5d96-b5eb-731424260b09",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Their hands meet on the page. Neither releases it.",
+          "type": "action"
+        },
+        {
+          "id": "89f0eb7a-bf52-5f80-80de-304aa9610516",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "The tea is getting stronger while both of you become less reasonable.",
+          "type": "dialogue"
+        },
+        {
+          "id": "06314c6a-94ac-558d-a9e2-81587f3d5e04",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "The lights CUT OUT. The room goes still except for the rain.",
+          "type": "action"
+        }
+      ],
+      "character_ids": [
+        "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+        "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+        "5ae48853-64bd-5f78-acda-d57792b4d91b"
+      ],
+      "day_or_date": "One-year anniversary of Adrian's death",
+      "dramatic_purpose": "Escalate the hostility between Mara and Viktor to an absurd climax with the pistol, dissolving into mutual professional recognition as Adrian's deception comes to light.",
+      "heading": "INT. FARMHOUSE DINING ROOM - NOON",
+      "id": "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "int_ext": "INT",
+      "location": "FARMHOUSE",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "mood": "Fierce, volatile, darkly humorous, and startlingly revelatory",
+      "number": 3,
+      "production_element_ids": [
+        "ddd84bed-6f25-5682-a352-ffced6536f5e",
+        "ffffb2bf-2e0d-5200-93ae-7960f5467780",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "3ee3071f-d96a-56e4-8868-abc01d980393",
+        "e39c7c11-485e-5a69-aa5b-8d78cb33fc78",
+        "cddf362e-5afe-5402-a867-8106e89e7190",
+        "639e86e3-404e-5ea9-87b6-6ecda837ded1",
+        "3423f101-f690-578e-96ac-7e0ba7340da7",
+        "87b714df-5864-5ac7-a67b-9b667c17fc0c",
+        "581cf502-d757-52f3-9d2e-eb0af3cc4f2f"
+      ],
+      "sub_location": "DINING ROOM",
+      "summary": "Mara and Viktor clash sharply over Adrian's unpaid debt and missing ledger pages. When Mara threatens him with Adrian's unloaded pistol, the tension breaks into dark humor and an unexpected discovery of grain redirected by Adrian without accounting.",
+      "time": "NOON",
+      "weather": "Rain drumming against windows"
+    },
+    {
+      "blocks": [
+        {
+          "id": "f1af4ea9-94f1-5e98-bfdf-34d8db569c57",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Emergency daylight comes through a small window. Ledgers, seed catalogues and repair manuals crowd the shelves. Dev lights a battery lantern and places it between Mara and Viktor.",
+          "type": "action"
+        },
+        {
+          "id": "df838adb-41db-55f1-bcbb-6a12a945610a",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "INA REED, 26, the farm's part-time accountant, hurries in carrying a laptop and a canvas document bag. Her hair and shoulders are wet from the rain.",
+          "type": "action"
+        },
+        {
+          "id": "64403032-4337-5308-aa42-b8a9c3ed3887",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+          "speaker_label": "INA",
+          "text": "I came as soon as Dev called. The network is down, but I downloaded last year's bank statements yesterday.",
+          "type": "dialogue"
+        },
+        {
+          "id": "56ee1fa0-4bf9-5831-92fb-bb12b6e14e0f",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara gives Ina the delivery log. Viktor keeps the brown envelope and invoices beside his chair.",
+          "type": "action"
+        },
+        {
+          "id": "2a3ab0bd-275e-5769-9902-995dbb2a44ff",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Ina compares dates, tapping figures into a calculator. No one speaks. The calculator buttons sound almost as loud as the clock in the dining room.",
+          "type": "action"
+        },
+        {
+          "id": "0064d942-2c66-5b75-9f6c-1c4db59dcb0a",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+          "speaker_label": "INA",
+          "text": "The transport invoices are legitimate. But there is also a deposit from the mill two days after the redirected delivery.",
+          "type": "dialogue"
+        },
+        {
+          "id": "4f418ae1-020e-503f-8699-ddd983c714f4",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Where did the money go?",
+          "type": "dialogue"
+        },
+        {
+          "id": "d760c838-a82d-52cf-a0be-3895c1bdc210",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+          "speaker_label": "INA",
+          "text": "It left the account the same afternoon. Personal transfer. No description.",
+          "type": "dialogue"
+        },
+        {
+          "id": "629c27c4-a785-5c6c-8309-b326a330c566",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara sits back. For the first time, the anger leaves her face entirely.",
+          "type": "action"
+        },
+        {
+          "id": "8ac7bb40-898b-550a-8c92-b08514de4e38",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "He told me the farm was secure.",
+          "type": "dialogue"
+        },
+        {
+          "id": "2f6c035e-1ac0-530d-b42e-249dc16efc9e",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "Perhaps he wanted it to be true before he said it.",
+          "type": "dialogue"
+        },
+        {
+          "id": "c372e412-b79f-5677-a71e-f113a3693873",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor reaches for the envelope, then stops.",
+          "type": "action"
+        },
+        {
+          "id": "250b3fc2-791e-56db-8a04-4d23518e3a17",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "My problem is still real. But it is no longer only yours.",
+          "type": "dialogue"
+        },
+        {
+          "id": "a090524a-0cfd-52ed-9dd4-8eb6e34b7539",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Do not mistake new information for forgiveness.",
+          "type": "dialogue"
+        },
+        {
+          "id": "dfdcf959-06eb-5592-a22c-d021229e9ca5",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "I was speaking about the missing money.",
+          "type": "dialogue"
+        },
+        {
+          "id": "7b36136e-f2db-50c7-87ef-9645c57f5074",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "So was I.",
+          "type": "dialogue"
+        },
+        {
+          "id": "8c0034c1-ebdf-504a-bf46-1beea56d2cc2",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Ina suppresses a smile and turns the laptop toward them.",
+          "type": "action"
+        },
+        {
+          "id": "3ae87e76-d34d-59b7-9b41-450588f09646",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "12942f85-a994-554b-a7d0-e22280ef26ca",
+          "speaker_label": "INA",
+          "text": "The emergency reserve can cover one third today without stopping payroll or planting. The balance could be tied to the first grain payment, if both parties sign.",
+          "type": "dialogue"
+        },
+        {
+          "id": "a4a58ae0-206d-5bea-9443-f0089b4e49a4",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "My drivers cannot divide promises among themselves.",
+          "type": "dialogue"
+        },
+        {
+          "id": "0171d4ff-bbee-5d83-96af-39fe7865706d",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "They would have one third of something instead of all of nothing.",
+          "type": "dialogue"
+        },
+        {
+          "id": "32f05dd0-14aa-525e-a223-71fe7e9394c7",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor studies her. His impatience has become reluctant respect.",
+          "type": "action"
+        },
+        {
+          "id": "118513f1-a055-5c6b-8be0-e9a58e07f03f",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "You negotiate better than your husband.",
+          "type": "dialogue"
+        },
+        {
+          "id": "5c05f304-3564-55b3-9ed2-6f744f53d132",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "I keep better records.",
+          "type": "dialogue"
+        }
+      ],
+      "character_ids": [
+        "5ae48853-64bd-5f78-acda-d57792b4d91b",
+        "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+        "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+        "12942f85-a994-554b-a7d0-e22280ef26ca"
+      ],
+      "day_or_date": "One-year anniversary of Adrian's death",
+      "dramatic_purpose": "Uncover Adrian's financial dishonesty and shift Mara and Viktor's relationship from adversarial conflict to pragmatic mutual respect and compromise.",
+      "heading": "INT. FARM OFFICE - EARLY AFTERNOON",
+      "id": "435fda02-8511-558a-afab-0bb5e04281f2",
+      "int_ext": "INT",
+      "location": "FARMHOUSE",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "mood": "Quietly intense, analytical, and sobering",
+      "number": 4,
+      "production_element_ids": [
+        "ddd84bed-6f25-5682-a352-ffced6536f5e",
+        "9a2846b6-e322-5e15-ba70-78bdc5d3b1d9",
+        "f1ff139d-5934-5163-8380-d896fb059b3f",
+        "e20acf0f-cc5a-564c-8de1-46f15af37854",
+        "01e34e9a-0700-5c7b-8b96-712a0add7954",
+        "3423f101-f690-578e-96ac-7e0ba7340da7",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "87b714df-5864-5ac7-a67b-9b667c17fc0c",
+        "6aeeb34c-2e16-57b1-aa9c-266dfedab1d7"
+      ],
+      "sub_location": "FARM OFFICE",
+      "summary": "In the blackout-lit office, accountant Ina Reed confirms the transport invoices and reveals an untracked personal cash transfer by Adrian. Realizing they are both victims of Adrian's secrets, Mara and Viktor negotiate a structured payment plan.",
+      "time": "EARLY AFTERNOON",
+      "weather": "Rainy (daylight dimmed by storm)"
+    },
+    {
+      "blocks": [
+        {
+          "id": "867288e7-16c5-5fe1-8d71-cfc0bb25a168",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "The rain has stopped. Water drips from the shed roof. Beyond the yard, the fields shine under a pale strip of clearing sky.",
+          "type": "action"
+        },
+        {
+          "id": "45e538c0-418f-5d86-ab77-b716d91613f9",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Ina places a handwritten payment agreement on the hood of Viktor's truck. Mara signs first. Viktor signs beneath her name. Ina photographs both pages with her phone and returns the originals to the brown envelope.",
+          "type": "action"
+        },
+        {
+          "id": "5e296336-39c0-5569-9a46-732c57e07790",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Dev arrives carrying the same tea tray. Two cups are now filled. He gives one to Mara and one to Viktor, keeping the third for himself.",
+          "type": "action"
+        },
+        {
+          "id": "c4c09e83-b9dc-5f9d-8572-c59c896f03f6",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "5ae48853-64bd-5f78-acda-d57792b4d91b",
+          "speaker_label": "DEV",
+          "text": "This is the fourth pot. I refuse to let it become evidence.",
+          "type": "dialogue"
+        },
+        {
+          "id": "4a06a485-b6b3-5893-bfcb-3e9f54dc83f9",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor takes a sip. It is painfully strong, but he manages not to react.",
+          "type": "action"
+        },
+        {
+          "id": "01b68895-0368-581e-b241-6c0ab2ebf7d0",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Your drivers will have the transfer before four.",
+          "type": "dialogue"
+        },
+        {
+          "id": "d7b7fb7d-6673-5a04-a3b2-09e9a2c0c4d2",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "And I will return after the first grain payment.",
+          "type": "dialogue"
+        },
+        {
+          "id": "98638e46-51f4-5c64-aafe-5eaaa0102b3e",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "For the balance.",
+          "type": "dialogue"
+        },
+        {
+          "id": "4db82354-1c8c-57fe-aa83-32c34391f8a9",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "Of course.",
+          "type": "dialogue"
+        },
+        {
+          "id": "c5504288-1cbe-5145-9399-cb9d37a570be",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "He closes the brown envelope and places it inside his coat. Mara still holds the copied delivery log.",
+          "type": "action"
+        },
+        {
+          "id": "594e920a-9727-550c-8760-84451f2c46e2",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor walks to the driver's door, then looks back toward the farmhouse.",
+          "type": "action"
+        },
+        {
+          "id": "bf2c2467-8ee9-53c5-b00c-0f12b7b1df49",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+          "speaker_label": "VIKTOR",
+          "text": "You should open the curtains in that dining room.",
+          "type": "dialogue"
+        },
+        {
+          "id": "a17bd952-4e36-5187-9466-b3fad4e8e690",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "You should repair your engine.",
+          "type": "dialogue"
+        },
+        {
+          "id": "a3d6704a-c040-59a3-b1ea-42593d3fe60d",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor tries the ignition. The truck coughs but does not start.",
+          "type": "action"
+        },
+        {
+          "id": "cdd8a2c7-d6a7-5f78-aa90-70b7ce47fb82",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Dev drinks his tea, pleased with the universe.",
+          "type": "action"
+        },
+        {
+          "id": "5a8e07c5-06d1-587e-9028-4469b26ec528",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara allows herself a small smile. She takes the brass key from her waist and hands it to Dev.",
+          "type": "action"
+        },
+        {
+          "id": "31e05c23-1879-509d-a346-02d685b7f854",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+          "speaker_label": "MARA",
+          "text": "Put the pistol case in storage. Keep the ledgers on the table.",
+          "type": "dialogue"
+        },
+        {
+          "id": "21d1fd96-b424-5065-b3f2-5df7af1594b5",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Dev closes his hand around the key.",
+          "type": "action"
+        },
+        {
+          "id": "6af98fa0-2790-5509-b868-b49c58cdf63f",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Viktor tries the ignition again. The engine catches.",
+          "type": "action"
+        },
+        {
+          "id": "303f00b8-09cc-5ccd-a39e-645dc8afa4cf",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "Mara watches the truck leave, then turns toward the open farmhouse door.",
+          "type": "action"
+        },
+        {
+          "id": "2d398dfc-f618-5670-9df3-455bb90a6740",
+          "source_end": 0,
+          "source_start": 0,
+          "speaker_id": null,
+          "speaker_label": null,
+          "text": "FADE OUT.",
+          "type": "transition"
+        }
+      ],
+      "character_ids": [
+        "12942f85-a994-554b-a7d0-e22280ef26ca",
+        "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+        "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+        "5ae48853-64bd-5f78-acda-d57792b4d91b"
+      ],
+      "day_or_date": "One-year anniversary of Adrian's death",
+      "dramatic_purpose": "Resolve the immediate external conflict, cement mutual respect, and mark Mara's psychological transition from trapped grief to active engagement with the future.",
+      "heading": "EXT. MACHINERY SHED - LATE AFTERNOON",
+      "id": "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d",
+      "int_ext": "EXT",
+      "location": "FARMHOUSE",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "mood": "Cautiously hopeful, dryly warm, and transitional",
+      "number": 5,
+      "production_element_ids": [
+        "ddd84bed-6f25-5682-a352-ffced6536f5e",
+        "b9569242-8452-52b2-a44e-2bba88853425",
+        "777bb3ea-ad7d-5da6-96fb-9ce7c93cb38a",
+        "ea35cc20-7db1-59f4-994e-415c6cedf196",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "3ee3071f-d96a-56e4-8868-abc01d980393",
+        "cddf362e-5afe-5402-a867-8106e89e7190",
+        "3423f101-f690-578e-96ac-7e0ba7340da7",
+        "f770cc8b-bf86-5b4d-80ff-4f6903fd50f8"
+      ],
+      "sub_location": "MACHINERY SHED",
+      "summary": "Mara and Viktor sign the restructured contract on the truck bonnet and share Dev's tea. Mara lets go of her symbolic armor, ordering the gun stored away and ledgers kept open.",
+      "time": "LATE AFTERNOON",
+      "weather": "Rain stopped, water dripping, pale strip of clearing sky"
+    }
+  ],
+  "state_transitions": [
+    {
+      "after": {
+        "carries": [
+          "prop_brass_key"
+        ],
+        "character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+        "costume_id": null,
+        "emotion": "Hostile and irritated",
+        "injuries": [],
+        "knows": [
+          "A persistent creditor from the transport company has arrived at the gate"
+        ],
+        "relationship_state": {
+          "Adrian": "Sanctified memory"
+        },
+        "scene_id": "a895348d-658b-5721-a20c-92fd6b5fca78"
+      },
+      "before": {
+        "carries": [
+          "prop_brass_key"
+        ],
+        "character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+        "costume_id": null,
+        "emotion": "Paralyzed by mourning and defensive denial",
+        "injuries": [],
+        "knows": [
+          "Today marks exactly one year since Adrian's death"
+        ],
+        "relationship_state": {
+          "Adrian": "Deceased husband, sanctified in grief"
+        },
+        "scene_id": "a895348d-658b-5721-a20c-92fd6b5fca78"
+      },
+      "character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "events": [
+        "Refuses to read bills or talk to creditors on the death anniversary",
+        "Learns a transport creditor has arrived at the farm"
+      ],
+      "scene_id": "a895348d-658b-5721-a20c-92fd6b5fca78"
+    },
+    {
+      "after": {
+        "carries": [
+          "prop_brass_key",
+          "prop_delivery_log"
+        ],
+        "character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+        "costume_id": null,
+        "emotion": "Shocked, disillusioned, yet professionally energized",
+        "injuries": [],
+        "knows": [
+          "Adrian diverted grain deliveries and altered the ledger",
+          "Viktor's invoices are probably real"
+        ],
+        "relationship_state": {
+          "Adrian": "Fallen from pedestal, suspected of deceit",
+          "Viktor": "Formidable opponent with valid grievance"
+        },
+        "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+      },
+      "before": {
+        "carries": [
+          "prop_brass_key"
+        ],
+        "character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+        "costume_id": null,
+        "emotion": "Fierce defiance and righteous anger",
+        "injuries": [],
+        "knows": [
+          "Viktor claims twelve thousand is owed"
+        ],
+        "relationship_state": {
+          "Adrian": "Honorable deceased partner",
+          "Viktor": "Hostile adversary intruding on her grief"
+        },
+        "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+      },
+      "character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "events": [
+        "Discovers missing ledger pages in Adrian's records",
+        "Tries to offer unusable farm equipment, called out by Viktor",
+        "Draws Adrian's old unloaded target pistol as defense",
+        "Shares a dark laugh with Viktor, breaking the tension",
+        "Discovers Adrian secretly redirected grain to the old mill before selling it"
+      ],
+      "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+    },
+    {
+      "after": {
+        "carries": [
+          "prop_brown_envelope",
+          "prop_invoices"
+        ],
+        "character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+        "costume_id": null,
+        "emotion": "Impressed, cautious, and less antagonistic",
+        "injuries": [],
+        "knows": [
+          "Mara was kept in the dark by Adrian",
+          "Mara is a capable and fearless negotiator"
+        ],
+        "relationship_state": {
+          "Mara": "Grudging respect and burgeoning intrigue"
+        },
+        "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+      },
+      "before": {
+        "carries": [
+          "prop_brown_envelope",
+          "prop_invoices",
+          "prop_delivery_log"
+        ],
+        "character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+        "costume_id": null,
+        "emotion": "Driven, stubborn, and pressured by payroll",
+        "injuries": [],
+        "knows": [
+          "Adrian owed twelve thousand and delayed payment repeatedly"
+        ],
+        "relationship_state": {
+          "Mara": "Evasive debtor hiding behind bereavement"
+        },
+        "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+      },
+      "character_id": "6278c5b3-fe24-5cf7-a85a-78535e398b87",
+      "events": [
+        "Rebuffs Mara's bad collateral offers",
+        "Faces Mara's pistol without panic, defusing it with dry wit",
+        "Discovers Mara was entirely unaware of Adrian's secret grain rerouting"
+      ],
+      "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9"
+    },
+    {
+      "after": {
+        "carries": [
+          "prop_delivery_log"
+        ],
+        "character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+        "costume_id": null,
+        "emotion": "Empowered, ready to step out of isolation",
+        "injuries": [],
+        "knows": [
+          "The debt is managed and the farm can proceed with planting"
+        ],
+        "relationship_state": {
+          "Adrian": "Mourning concluded; myth replaced with truth",
+          "Viktor": "Agreed commercial relationship with quiet romantic undertone"
+        },
+        "scene_id": "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      },
+      "before": {
+        "carries": [
+          "prop_brass_key",
+          "prop_delivery_log"
+        ],
+        "character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+        "costume_id": null,
+        "emotion": "Relieved, calm, poised",
+        "injuries": [],
+        "knows": [
+          "Payment plan of 1/3 down and balance after harvest is settled"
+        ],
+        "relationship_state": {
+          "Adrian": "Accepted past flawed reality",
+          "Viktor": "Respected business counterpart with spark of mutual interest"
+        },
+        "scene_id": "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+      },
+      "character_id": "2ac3cd20-a7f7-5ddb-81e2-17802145e8d7",
+      "events": [
+        "Signs the repayment contract on the truck hood",
+        "Exchanges warm barbs with Viktor about curtains and his engine",
+        "Surrenders the pistol key to Dev to put the gun in storage",
+        "Orders the ledger kept open on the table"
+      ],
+      "scene_id": "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    }
+  ],
+  "story_contract": {
+    "central_dramatic_purpose": "Dramatize the collision between a widow using grief as an emotional fortress and an urgent creditor demanding payment, whose hostile confrontation uncovers the late husband's deceit and transforms their combat into mutual respect and renewed life.",
+    "emotional_arc": [
+      "Scene 1: Stagnant grief, isolated gloom, defensive avoidance.",
+      "Scene 2: High friction, stubborn boundary defense, pressing urgency.",
+      "Scene 3: Explosive anger, ridiculous threat, unexpected laughter, and disillusionment.",
+      "Scene 4: Sober realization, vulnerability, analytical reconciliation, mutual respect.",
+      "Scene 5: Clearing clouds, dry warmth, release of grief, and optimism."
+    ],
+    "plot_invariants": [
+      "The debt owed to Dane Transport is 12,000 for haulage.",
+      "Adrian Vale diverted grain to the old mill and siphoned the proceeds prior to his death.",
+      "The target pistol brought out by Mara is unloaded.",
+      "The resolution allows planting and payroll to continue through a split repayment structure."
+    ],
+    "prohibited_changes": [
+      "Do not make the pistol loaded or have Mara actually shoot Viktor; the scene's power relies on Chekhovian irony and emotional deflation.",
+      "Do not make Viktor a predatory villain; his drive must stem strictly from paying his drivers.",
+      "Do not let Adrian be exonerated; his missing ledger pages and personal account transfer are the hinge of Mara's psychological release.",
+      "Do not remove Dev's role as the pragmatic, tea-bearing ballast."
+    ],
+    "relationship_invariants": [
+      "Dev Holt maintains unconditional loyalty and protective care towards Mara while maintaining practical common sense.",
+      "Viktor Dane refuses to be cheated or brushed off because of his responsibility to his six drivers.",
+      "Mara Vale will not accept personal pity or condescension from anyone.",
+      "The memory of Adrian Vale transitions from sacred idolization to acknowledged human dishonesty."
+    ],
+    "scene_purposes": {
+      "150372a9-7d97-5a39-8889-90dd8f7d25e9": "Escalate the dining room conflict over the unpaid haulage to a standoff involving a target pistol, which collapses into dark humor and the discovery of missing grain records.",
+      "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d": "Formalize the signed debt agreement at the truck, symbolically packing away Adrian's pistol and unlocking Mara from isolated mourning.",
+      "2a7f6293-f941-51fa-94be-2af199d08126": "Dramatize Viktor's confrontation at the veranda threshold, establishing his legitimate urgency to pay drivers versus Dev and Mara's wall of grief.",
+      "435fda02-8511-558a-afab-0bb5e04281f2": "Verify Adrian's secret diversion of funds through Ina's audit in the dark farm office, shifting Mara and Viktor into collaborative problem-solving.",
+      "a895348d-658b-5721-a20c-92fd6b5fca78": "Establish Mara's frozen mourning on the one-year anniversary of Adrian's death, set against looming financial collapse and the arrival of a relentless creditor."
+    }
+  },
+  "title": "THE DEBT AT NOON"
+}

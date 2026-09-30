@@ -1,4 +1,4 @@
-# Maidani Mewari Screenplay Adaptation Studio
+# Cultural Screenplay Adaptation Studio
 
 A local, single-user AI engineering MVP for structured screenplay extraction, human-approved cultural adaptation, continuity control and visually consistent production assets.
 
@@ -19,9 +19,11 @@ input → extraction → canonicalization → continuity → approval
 - Versioned structured documents and approvals in a separate SQLite database.
 - Canonical scenes, characters, production elements and state records.
 - Deterministic continuity checks for missing scenes/metadata, unknown IDs, prop transfers, costumes, knowledge and injuries.
-- A source-cited Gemini cultural-research path followed by schema normalization and an explicit Maidani Mewari dialect guide.
+- Evidence-linked continuity events with deterministically derived before/after state, cumulative knowledge and a scoped
+  continuity-only repair that leaves screenplay scenes and dialogue untouched.
+- Versioned declarative culture profiles plus a source-cited, project-specific cultural brief and language guide.
 - Six independent adaptation layers: verbal, non-verbal, characters, visual world, story world and cultural precision.
-- Lossless one-to-one source-block mapping with automatic scene repair and a post-adaptation dialect audit.
+- Lossless one-to-one source-block mapping with automatic scene repair and a post-adaptation language audit.
 - Side-by-side screenplay review and hash-guarded surgical block corrections.
 - Editable, versioned visual manifests with in-place model regeneration before image spending.
 - One character/costume sheet per appearance and one incrementally approved keyframe per scene.
@@ -31,11 +33,21 @@ input → extraction → canonicalization → continuity → approval
 - Automated visual verification is advisory at the human gate: a reviewer can accept a false negative with a required audit reason, directly version a scene prompt, or restore a retained image without another generation call.
 - Single-asset generation/correction/retry without rebuilding unrelated assets.
 - Optional Langfuse observations plus an always-present local AI-usage log.
-- ZIP export with screenplay PDFs/text, structured data, reports and images.
-- Bundled Noto Sans Devanagari font (SIL Open Font License) for shaped PDF output.
+- ZIP export with screenplay PDFs/text, structured data, reports, images, the snapshotted culture profile and culture traceability map.
+- Profile-selected bundled output font with proper shaping; the production profile currently uses Noto Sans Devanagari (SIL Open Font License).
 - Deterministic mock mode for tests and demonstrations without external credentials.
 
-The existing `culture-pack/` folder is deliberately not loaded by the runtime.
+Raw or unreviewed research files are deliberately not loaded by the runtime. Only a validated profile, optional reviewed evidence and the approved project cultural brief can enter prompts.
+
+## Culture profiles
+
+Production profiles live under `backend/cultures/profiles/`. A profile declares its target variety, supported scripts,
+settings and periods, source policy, evidence threshold, confusable traditions and structured cultural constraints. New
+projects snapshot the complete profile and hash before the workflow starts, so later profile edits cannot change an existing
+adaptation. Adding another culture requires a validated profile directory and licensed font asset, not prompt or workflow code.
+
+Only Maidani Mewari is production-enabled in this MVP. A fictional profile under `tests/fixtures/cultures/` proves that generic
+prompts do not leak production-culture content.
 
 ## Setup
 
@@ -71,13 +83,25 @@ make ui
 
 Then open `http://localhost:8501`.
 
+### Fresh database after the culture-profile refactor
+
+The current schema intentionally does not migrate pre-profile projects. The application never deletes them automatically.
+Before first start, archive the old data directory and let the application create a fresh one:
+
+```bash
+mv data data.pre-culture-profiles
+mkdir data
+```
+
 ## Test
 
 ```bash
 make test
 ```
 
-The tests cover continuity and extraction-metadata failures, lossless block mapping, immutable revisions, idempotency, every LangGraph approval gate, process restart/resume, surgical-edit isolation, canonical sub-location sets, sequential scene unlocking, labelled visual references, per-asset retry and export generation.
+The tests cover culture-profile validation and isolation, event-ledger continuity and extraction-metadata failures, lossless block mapping,
+immutable revisions, idempotency, every LangGraph approval gate, process restart/resume, surgical-edit isolation, canonical
+sub-location sets, sequential scene unlocking, labelled visual references, per-asset retry and export generation.
 
 Generate the deterministic, credential-free submission sample with:
 
@@ -96,7 +120,8 @@ flowchart LR
     WF --> CP[(checkpoints.sqlite)]
     API --> DB[(app.sqlite)]
     WF --> DB
-    WF --> AI[Google GenAI adapter]
+    WF --> CR[Culture profile snapshot + approved brief]
+    CR --> AI[Google GenAI adapter]
     AI --> LF[Langfuse optional]
     API --> FS[Local assets/exports]
 ```
@@ -112,20 +137,20 @@ See `ARCHITECTURE.md` for the failure/replay model and cultural-safety boundary,
 - All structured calls use Pydantic response schemas.
 - Search grounding runs only while producing the cultural brief.
 - Once approved, the brief is frozen and later stages cannot browse.
-- Dialogue targets Maidani Mewari in Devanagari; standard Hindi is allowed only through an approved code-switching rule, and Marwari is not treated as a substitute.
-- Unsupported dialect detail must be omitted or marked uncertain; insufficient language evidence blocks plan approval unless explicitly overridden.
+- Dialogue targets the selected profile's exact variety and script; fallback or confusable varieties are handled only according to the profile's approved language policy.
+- Unsupported language detail must be omitted or marked uncertain; insufficient evidence blocks plan approval unless explicitly overridden.
 - Every source block must survive adaptation exactly once and in order. Incomplete scene output is repaired twice, then fails recoverably.
 - Story purpose, relationships, causal logic and emotional arc outrank decorative changes.
 
 ## Known limitations
 
 - Pasted text and `.txt` input only; no PDF/DOCX ingestion.
-- Maidani Mewari, one locality and Devanagari only.
+- Maidani Mewari is the only production-enabled profile; one exact locality and one cultural adaptation are supported per project.
 - No native-speaker reviewer is available. The application exposes sources, confidence and uncertainty; it does not claim linguistic certification.
 - Mock outputs demonstrate engineering behavior, not cultural accuracy.
 - SQLite is intended for a local hiring-assignment demo, not concurrent production traffic.
 - Visual verification is prompt/manifest based in the MVP; a live multimodal verifier can be strengthened with an evaluated dataset.
-- The PDF renderer depends on an installed Devanagari-capable system font.
+- Every production profile must reference a bundled, licensed font compatible with its selected script.
 
 ## AI usage and privacy
 

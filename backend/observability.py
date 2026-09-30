@@ -36,14 +36,21 @@ class Observer:
                 yield observation
 
     @contextmanager
-    def generation(self, name: str, *, project_id: str, model: str, input_data: Any) -> Iterator[Any]:
+    def generation(
+        self, name: str, *, project_id: str, model: str, input_data: Any,
+        metadata: dict[str, Any] | None = None,
+    ) -> Iterator[Any]:
         captured_input = input_data if settings.langfuse_capture_content else {"input_hash_only": True}
         if not self.enabled or self.client is None:
             yield _NullObservation()
             return
         from langfuse import propagate_attributes
 
-        with propagate_attributes(session_id=project_id, metadata={"capture_content": settings.langfuse_capture_content}):
+        trace_metadata = {
+            "capture_content": str(settings.langfuse_capture_content).lower(),
+            **{key: str(value) for key, value in (metadata or {}).items() if value is not None},
+        }
+        with propagate_attributes(session_id=project_id, metadata=trace_metadata):
             with self.client.start_as_current_observation(
                 as_type="generation", name=name, model=model, input=captured_input
             ) as observation:

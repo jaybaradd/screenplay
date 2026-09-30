@@ -134,7 +134,6 @@ def show_correction(asset: dict, kind: str) -> None:
     with st.expander("Correct only this image"):
         feedback = st.text_area(
             "Describe only what should change",
-            placeholder="Keep every approved identity, costume and set detail unchanged; correct only …",
             key=f"asset-feedback-{asset['id']}",
         )
         candidates = [
@@ -313,7 +312,6 @@ if any(asset["kind"] == "scene_keyframe" for asset in assets) or project["stage"
                     )
                     reference_override_reason = st.text_area(
                         "Continuity override reason",
-                        placeholder="The dining-room geometry, character appearances and costumes match the approved references.",
                         key=f"reference-override-reason-{asset['id']}",
                     )
             can_approve_image = (
@@ -335,7 +333,7 @@ if any(asset["kind"] == "scene_keyframe" for asset in assets) or project["stage"
                     materials = st.text_input("Materials (comma-separated)", key=f"materials-{asset['id']}")
                     palette = st.text_input("Stable colour palette (comma-separated)", key=f"palette-{asset['id']}")
                     adjacency = st.text_area(
-                        "Explicit adjacency only (example: east door opens to the veranda)", key=f"adjacency-{asset['id']}",
+                        "Explicit adjacency notes", key=f"adjacency-{asset['id']}",
                     )
                     mutable = st.text_input("Elements allowed to move/change", key=f"mutable-{asset['id']}")
                     character_state = st.text_area("Character/costume state carried forward", key=f"character-state-{asset['id']}")
@@ -363,10 +361,6 @@ if any(asset["kind"] == "scene_keyframe" for asset in assets) or project["stage"
                         )
                         override_reason = st.text_area(
                             "Override reason",
-                            placeholder=(
-                                "Example: The intended slight hand-to-palm overlap is visually acceptable; the verifier "
-                                "overweighted a minute contact detail while identity, costume and set continuity are correct."
-                            ),
                             key=f"override-reason-{asset['id']}",
                         )
                     payload = {

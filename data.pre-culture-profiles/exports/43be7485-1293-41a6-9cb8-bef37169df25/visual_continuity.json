@@ -1,0 +1,212 @@
+{
+  "scenes": [
+    {
+      "appearance_ids": [
+        "470c2fcc-aa16-5b41-8542-ef751c43e33c",
+        "594021fc-b31d-5dad-ae7c-d6d52e6933e6",
+        "947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      ],
+      "approved_at": "2026-09-30T13:34:50.643612+00:00",
+      "asset_id": "ccf84d92-ab00-5d25-95ee-a8f6865f4981",
+      "character_state_notes": [],
+      "costume_ids": [
+        "0a643ba4-d6ed-51dd-8f45-ee99078559d0",
+        "244d83c4-02c5-5d9c-a853-e4964e131fd6",
+        "0246dfc4-0191-5f64-a6d9-5e56fa94e9eb"
+      ],
+      "prop_ids": [
+        "ffffb2bf-2e0d-5200-93ae-7960f5467780",
+        "0d2920b7-8a4b-5767-b539-3f9a8257467b",
+        "cf322cfa-4bf8-5df5-a62a-7f87ac222ad8",
+        "51ab01b5-7f97-5386-94d1-b4f688e21df2",
+        "6ac85806-b80f-5a7e-81ec-20ac867382a8",
+        "777bb3ea-ad7d-5da6-96fb-9ce7c93cb38a",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "581cf502-d757-52f3-9d2e-eb0af3cc4f2f",
+        "f770cc8b-bf86-5b4d-80ff-4f6903fd50f8",
+        "2febad54-8cc0-5de6-bbcc-2a3edb41428a"
+      ],
+      "prop_state_notes": [],
+      "scene_id": "a895348d-658b-5721-a20c-92fd6b5fca78",
+      "scene_number": 1,
+      "set_id": "5bea9956-5740-51b9-941a-d001697285cb"
+    },
+    {
+      "appearance_ids": [
+        "947e9408-7f5b-561d-b8a3-69f03a11e94d",
+        "594021fc-b31d-5dad-ae7c-d6d52e6933e6",
+        "470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      ],
+      "approved_at": "2026-09-30T13:35:30.866596+00:00",
+      "asset_id": "8d5f8b7d-df0a-5c42-abf3-be2089976e90",
+      "character_state_notes": [],
+      "costume_ids": [
+        "0246dfc4-0191-5f64-a6d9-5e56fa94e9eb",
+        "244d83c4-02c5-5d9c-a853-e4964e131fd6",
+        "0a643ba4-d6ed-51dd-8f45-ee99078559d0"
+      ],
+      "prop_ids": [
+        "f611a95f-c12e-5a58-ae28-3677d7a6a143",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "ea24d914-6bea-54b2-bdbf-5fb5c9211dea",
+        "14c05018-08a6-51d8-aa4e-83ad0ccacefc",
+        "bba5d3a4-fbf2-5783-8d3d-f4a169e75225",
+        "581cf502-d757-52f3-9d2e-eb0af3cc4f2f"
+      ],
+      "prop_state_notes": [],
+      "scene_id": "2a7f6293-f941-51fa-94be-2af199d08126",
+      "scene_number": 2,
+      "set_id": "9e75ea58-5520-522f-9837-27fcef01b83b"
+    },
+    {
+      "appearance_ids": [
+        "947e9408-7f5b-561d-b8a3-69f03a11e94d",
+        "470c2fcc-aa16-5b41-8542-ef751c43e33c",
+        "594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      ],
+      "approved_at": "2026-09-30T14:37:22.822994+00:00",
+      "asset_id": "733aabff-e30c-5e8f-9386-dd670428feac",
+      "character_state_notes": [],
+      "costume_ids": [
+        "0246dfc4-0191-5f64-a6d9-5e56fa94e9eb",
+        "0a643ba4-d6ed-51dd-8f45-ee99078559d0",
+        "244d83c4-02c5-5d9c-a853-e4964e131fd6"
+      ],
+      "prop_ids": [
+        "ffffb2bf-2e0d-5200-93ae-7960f5467780",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "3ee3071f-d96a-56e4-8868-abc01d980393",
+        "e39c7c11-485e-5a69-aa5b-8d78cb33fc78",
+        "cddf362e-5afe-5402-a867-8106e89e7190",
+        "639e86e3-404e-5ea9-87b6-6ecda837ded1",
+        "3423f101-f690-578e-96ac-7e0ba7340da7",
+        "87b714df-5864-5ac7-a67b-9b667c17fc0c",
+        "581cf502-d757-52f3-9d2e-eb0af3cc4f2f"
+      ],
+      "prop_state_notes": [],
+      "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+      "scene_number": 3,
+      "set_id": "5bea9956-5740-51b9-941a-d001697285cb"
+    },
+    {
+      "appearance_ids": [
+        "594021fc-b31d-5dad-ae7c-d6d52e6933e6",
+        "470c2fcc-aa16-5b41-8542-ef751c43e33c",
+        "947e9408-7f5b-561d-b8a3-69f03a11e94d",
+        "7457779a-97f1-51fc-a6c7-80ccdd9e45d5"
+      ],
+      "approved_at": "2026-09-30T14:48:04.855366+00:00",
+      "asset_id": "ef8982de-95fc-55f9-a356-5f060665a239",
+      "character_state_notes": [],
+      "costume_ids": [
+        "244d83c4-02c5-5d9c-a853-e4964e131fd6",
+        "0a643ba4-d6ed-51dd-8f45-ee99078559d0",
+        "0246dfc4-0191-5f64-a6d9-5e56fa94e9eb",
+        "de16ed17-62ca-5642-9c0e-262fddc9337a"
+      ],
+      "prop_ids": [
+        "9a2846b6-e322-5e15-ba70-78bdc5d3b1d9",
+        "f1ff139d-5934-5163-8380-d896fb059b3f",
+        "e20acf0f-cc5a-564c-8de1-46f15af37854",
+        "01e34e9a-0700-5c7b-8b96-712a0add7954",
+        "3423f101-f690-578e-96ac-7e0ba7340da7",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "87b714df-5864-5ac7-a67b-9b667c17fc0c",
+        "6aeeb34c-2e16-57b1-aa9c-266dfedab1d7"
+      ],
+      "prop_state_notes": [],
+      "scene_id": "435fda02-8511-558a-afab-0bb5e04281f2",
+      "scene_number": 4,
+      "set_id": "9ecdfdd5-eba2-5557-94aa-73984c66e60e"
+    },
+    {
+      "appearance_ids": [
+        "7457779a-97f1-51fc-a6c7-80ccdd9e45d5",
+        "470c2fcc-aa16-5b41-8542-ef751c43e33c",
+        "947e9408-7f5b-561d-b8a3-69f03a11e94d",
+        "594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      ],
+      "approved_at": "2026-09-30T14:49:46.660769+00:00",
+      "asset_id": "285f6727-971d-5a87-be75-f2b565da535a",
+      "character_state_notes": [],
+      "costume_ids": [
+        "de16ed17-62ca-5642-9c0e-262fddc9337a",
+        "0a643ba4-d6ed-51dd-8f45-ee99078559d0",
+        "0246dfc4-0191-5f64-a6d9-5e56fa94e9eb",
+        "244d83c4-02c5-5d9c-a853-e4964e131fd6"
+      ],
+      "prop_ids": [
+        "b9569242-8452-52b2-a44e-2bba88853425",
+        "777bb3ea-ad7d-5da6-96fb-9ce7c93cb38a",
+        "ea35cc20-7db1-59f4-994e-415c6cedf196",
+        "17622f2f-4420-587d-b803-b69b2f881be4",
+        "3ee3071f-d96a-56e4-8868-abc01d980393",
+        "cddf362e-5afe-5402-a867-8106e89e7190",
+        "3423f101-f690-578e-96ac-7e0ba7340da7",
+        "f770cc8b-bf86-5b4d-80ff-4f6903fd50f8"
+      ],
+      "prop_state_notes": [],
+      "scene_id": "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d",
+      "scene_number": 5,
+      "set_id": "4e76ac08-64ad-5db2-86eb-13cc22944994"
+    }
+  ],
+  "sets": [
+    {
+      "adjacency_notes": [],
+      "approved_at": "2026-09-30T13:34:50.643536+00:00",
+      "fixed_elements": [],
+      "geometry_notes": "",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "materials": [],
+      "mutable_elements": [],
+      "name": "DINING ROOM",
+      "palette": [],
+      "reference_asset_id": "ccf84d92-ab00-5d25-95ee-a8f6865f4981",
+      "set_id": "5bea9956-5740-51b9-941a-d001697285cb",
+      "source_scene_id": "a895348d-658b-5721-a20c-92fd6b5fca78"
+    },
+    {
+      "adjacency_notes": [],
+      "approved_at": "2026-09-30T13:35:30.866531+00:00",
+      "fixed_elements": [],
+      "geometry_notes": "",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "materials": [],
+      "mutable_elements": [],
+      "name": "VERANDA",
+      "palette": [],
+      "reference_asset_id": "8d5f8b7d-df0a-5c42-abf3-be2089976e90",
+      "set_id": "9e75ea58-5520-522f-9837-27fcef01b83b",
+      "source_scene_id": "2a7f6293-f941-51fa-94be-2af199d08126"
+    },
+    {
+      "adjacency_notes": [],
+      "approved_at": "2026-09-30T14:48:04.855276+00:00",
+      "fixed_elements": [],
+      "geometry_notes": "",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "materials": [],
+      "mutable_elements": [],
+      "name": "FARM OFFICE",
+      "palette": [],
+      "reference_asset_id": "ef8982de-95fc-55f9-a356-5f060665a239",
+      "set_id": "9ecdfdd5-eba2-5557-94aa-73984c66e60e",
+      "source_scene_id": "435fda02-8511-558a-afab-0bb5e04281f2"
+    },
+    {
+      "adjacency_notes": [],
+      "approved_at": "2026-09-30T14:49:46.660706+00:00",
+      "fixed_elements": [],
+      "geometry_notes": "",
+      "location_id": "ddd84bed-6f25-5682-a352-ffced6536f5e",
+      "materials": [],
+      "mutable_elements": [],
+      "name": "MACHINERY SHED",
+      "palette": [],
+      "reference_asset_id": "285f6727-971d-5a87-be75-f2b565da535a",
+      "set_id": "4e76ac08-64ad-5db2-86eb-13cc22944994",
+      "source_scene_id": "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d"
+    }
+  ]
+}

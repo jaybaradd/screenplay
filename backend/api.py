@@ -8,6 +8,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
 from backend.config import settings
+from backend.cultures.models import TargetSelection
+from backend.cultures.registry import culture_registry
 from backend.schemas import (
     ApprovalRequest, AssetCorrectionRequest, AssetPromptRevisionRequest, AssetStatus, CorrectionRequest,
     MergeRequest, ProjectCreate, RecordPatch, SceneVisualApprovalRequest,
@@ -23,7 +25,7 @@ workflow = Workflow(repository)
 project_service = ProjectService(repository, workflow.ai)
 export_service = ExportService(repository)
 
-app = FastAPI(title="Maidani Mewari Screenplay Studio", version="0.1.0")
+app = FastAPI(title="Cultural Screenplay Adaptation Studio", version="0.2.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:8501", "http://127.0.0.1:8501"],
@@ -36,6 +38,13 @@ app.add_middleware(
 def view(project_id: str) -> dict[str, Any]:
     project = repository.get_project(project_id)
     project["revisions"] = repository.list_latest_revisions(project_id)
+    project["approvals"] = repository.list_approvals(project_id)
+    cultural_brief = project["revisions"].get("cultural_brief")
+    project["approved_brief_revision_id"] = (
+        cultural_brief["id"]
+        if cultural_brief and any(item["gate"] == "plan" for item in project["approvals"])
+        else None
+    )
     assets = repository.list_assets(project_id)
     # Recover image files that were atomically written before a verifier/parser
     # failure prevented the database path from being committed.
@@ -47,7 +56,6 @@ def view(project_id: str) -> dict[str, Any]:
                     asset["id"], AssetStatus.failed, path=str(candidate), error=asset["error"],
                 )
     project["assets"] = repository.list_assets(project_id)
-    project["approvals"] = repository.list_approvals(project_id)
     return project
 
 
@@ -75,15 +83,37 @@ def list_projects() -> list[dict[str, Any]]:
     return repository.list_projects()
 
 
+@app.get("/v1/cultures")
+def list_cultures() -> list[dict[str, Any]]:
+    return [item.model_dump(mode="json") for item in culture_registry.summaries()]
+
+
+@app.get("/v1/cultures/{culture_id}")
+def get_culture(culture_id: str) -> dict[str, Any]:
+    def action():
+        profile = culture_registry.snapshot(culture_id).profile
+        if not profile.production_enabled:
+            raise KeyError(f"Culture profile {culture_id} is not production-enabled")
+        return profile.model_dump(mode="json")
+    return guard(action)
+
+
 @app.post("/v1/projects", status_code=201)
 def create_project(request: ProjectCreate, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = "create-project"
     cached = repository.get_idempotent(scope, idempotency_key)
     if cached:
         return view(cached["id"])
-    project = repository.create_project(request)
-    repository.save_idempotent(scope, idempotency_key, {"id": project["id"]})
-    return view(project["id"])
+    def action():
+        selection = TargetSelection(
+            culture_id=request.culture_id, locality=request.locality, setting=request.setting,
+            period=request.period, output_script=request.output_script,
+        )
+        snapshot = culture_registry.validate_selection(selection)
+        project = repository.create_project(request, snapshot)
+        repository.save_idempotent(scope, idempotency_key, {"id": project["id"]})
+        return view(project["id"])
+    return guard(action)
 
 
 @app.get("/v1/projects/{project_id}")
@@ -138,6 +168,21 @@ def merge_records(project_id: str, request: MergeRequest, idempotency_key: str |
         result = project_service.merge_records(project_id, request)
         repository.save_idempotent(scope, idempotency_key, {"revision_id": result["id"]})
         return result
+    return guard(action)
+
+
+@app.post("/v1/projects/{project_id}/continuity/repair")
+def repair_continuity(project_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
+    scope = f"repair-continuity:{project_id}"
+    cached = repository.get_idempotent(scope, idempotency_key)
+    if cached:
+        return repository.get_revision(cached["revision_id"])
+
+    def action():
+        revision = project_service.repair_continuity(project_id)
+        repository.save_idempotent(scope, idempotency_key, {"revision_id": revision["id"]})
+        return revision
+
     return guard(action)
 
 

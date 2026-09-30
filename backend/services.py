@@ -11,14 +11,18 @@ from pathlib import Path
 from typing import Any
 
 from backend.config import settings
+from backend.cultures.context import compiler_for_project
+from backend.cultures.models import CultureProfileSnapshot, ScriptSpec
 from backend.continuity import check_continuity
-from backend.prompts import correction_prompt, VISUAL_STYLE_LOCK
+from backend.prompts import continuity_repair_prompt, correction_prompt, VISUAL_STYLE_LOCK
 from backend.providers import AIService, MockProvider, stable_id
 from backend.schemas import (
     AdaptedScreenplay, AssetCorrectionRequest, AssetStatus, CorrectionPatch, CorrectionRequest, MergeRequest,
-    RecordPatch, SceneContinuitySnapshot, SceneVisualApprovalRequest, SetContinuitySnapshot,
+    ContinuityEvent, ContinuityEventExtraction, ContinuityIssue, RecordPatch, SceneContinuitySnapshot,
+    SceneVisualApprovalRequest, SetContinuitySnapshot,
     SourceScreenplay, VisualContinuityLedger, VisualManifest, utc_now,
 )
+from backend.state_ledger import build_state_ledger
 from backend.storage import Repository, content_hash
 
 
@@ -40,6 +44,8 @@ class ProjectService:
         self.ai = ai
 
     def patch_record(self, project_id: str, patch: RecordPatch) -> dict[str, Any]:
+        if patch.document_kind == "culture_profile_snapshot":
+            raise ValueError("Culture profile snapshots are immutable for the lifetime of a project")
         if patch.document_kind == "visual_manifest" and self.repository.get_project(project_id)["stage"] != "visual_review":
             raise ValueError("Visual prompts can be edited only at the visual review gate")
         current = self.repository.latest_revision(project_id, patch.document_kind)
@@ -54,10 +60,131 @@ class ProjectService:
             payload = copy.deepcopy(patch.value)
         if patch.document_kind == "visual_manifest":
             payload = VisualManifest.model_validate(payload).model_dump(mode="json")
+        elif patch.document_kind == "extraction":
+            source = SourceScreenplay.model_validate(payload)
+            if source.continuity_events:
+                source.state_transitions, ledger_issues = build_state_ledger(source)
+                blocking = [item for item in ledger_issues if item.severity == "blocking"]
+                if blocking:
+                    raise ValueError("Invalid continuity events: " + "; ".join(item.message for item in blocking))
+            payload = source.model_dump(mode="json")
         revision = self.repository.create_revision(project_id, patch.document_kind, payload, current["id"])
         if patch.document_kind == "extraction":
             self._refresh_continuity(project_id, revision)
         return revision
+
+    def repair_continuity(self, project_id: str) -> dict[str, Any]:
+        project = self.repository.get_project(project_id)
+        if project["stage"] != "extraction_review":
+            raise ValueError("Continuity can be repaired only at the extraction review gate")
+        current = self.repository.latest_revision(project_id, "extraction")
+        if not current:
+            raise KeyError("Extraction does not exist")
+        source = SourceScreenplay.model_validate(current["payload"])
+        successful_result: ContinuityEventExtraction | None = None
+        repaired_source: SourceScreenplay | None = None
+        if isinstance(self.ai.provider, MockProvider):
+            events = []
+            for scene in source.scenes:
+                evidence = [scene.blocks[0].id] if scene.blocks else []
+                for character_id in scene.character_ids:
+                    events.append(ContinuityEvent(
+                        id="pending", scene_id=scene.id, character_id=character_id,
+                        kind="no_change", timing="during_scene", evidence_block_ids=evidence,
+                        description="Mock mode records reviewed coverage without asserting a state change.",
+                        confidence="low",
+                    ))
+            successful_result = ContinuityEventExtraction(
+                events=events,
+                new_production_elements=[],
+                warnings=["Mock mode cannot extract evidence-backed continuity changes."],
+            )
+            repaired_source, _ = self._materialize_continuity_repair(project_id, source, successful_result)
+        else:
+            repair_source = source.model_dump(mode="json")
+            repair_source.pop("state_transitions", None)
+            repair_source.pop("continuity_events", None)
+            base_prompt = continuity_repair_prompt(repair_source)
+            prior_output: dict[str, Any] | None = None
+            semantic_errors: list[str] = []
+            for attempt in range(1, 4):
+                prompt = base_prompt
+                if prior_output is not None:
+                    prompt += (
+                        "\n\nThe previous structured result failed deterministic validation. Return a complete corrected "
+                        "ContinuityEventExtraction using only supplied or proposed canonical records.\nERRORS:\n"
+                        + json.dumps(semantic_errors, ensure_ascii=False)
+                        + "\nPREVIOUS OUTPUT:\n" + json.dumps(prior_output, ensure_ascii=False)
+                    )
+                result = self.ai.cached_structured(
+                    project_id, f"repair-continuity-v{current['version']}-attempt-{attempt}",
+                    prompt, ContinuityEventExtraction,
+                )
+                try:
+                    candidate, ledger_issues = self._materialize_continuity_repair(project_id, source, result)
+                    blocking = [item for item in ledger_issues if item.severity == "blocking"]
+                    semantic_errors = [item.actual or item.message for item in blocking]
+                except ValueError as error:
+                    candidate = None
+                    semantic_errors = [str(error)]
+                if candidate is not None and not semantic_errors:
+                    successful_result = result
+                    repaired_source = candidate
+                    break
+                prior_output = result.model_dump(mode="json")
+            if repaired_source is None or successful_result is None:
+                raise ValueError(
+                    "Continuity repair failed deterministic validation after 3 attempts: "
+                    + "; ".join(semantic_errors)
+                )
+        repaired_source.extraction_warnings = [
+            item for item in repaired_source.extraction_warnings
+            if not item.startswith("Continuity repair:")
+        ] + [f"Continuity repair: {item}" for item in successful_result.warnings]
+        revision = self.repository.create_revision(project_id, "extraction", repaired_source, current["id"])
+        self._refresh_continuity(project_id, revision)
+        return revision
+
+    @staticmethod
+    def _materialize_continuity_repair(
+        project_id: str, source: SourceScreenplay, result: ContinuityEventExtraction,
+    ) -> tuple[SourceScreenplay, list[ContinuityIssue]]:
+        source = source.model_copy(deep=True)
+        result = result.model_copy(deep=True)
+        element_id_map: dict[str, str] = {}
+        elements_by_name = {
+            item.name.strip().casefold(): item for item in source.production_elements
+        }
+        valid_scene_ids = {item.id for item in source.scenes}
+        valid_character_ids = {item.id for item in source.characters}
+        for proposed in result.new_production_elements:
+            existing = elements_by_name.get(proposed.name.strip().casefold())
+            if existing:
+                element_id_map[proposed.id] = existing.id
+                continue
+            if proposed.kind not in {"prop", "costume", "grooming", "jewellery"}:
+                raise ValueError("Continuity repair may add only source-supported props or appearance elements")
+            old_id = proposed.id
+            proposed.id = stable_id(project_id, proposed.kind, proposed.name)
+            proposed.scene_ids = [item for item in proposed.scene_ids if item in valid_scene_ids]
+            if proposed.owner_character_id not in valid_character_ids:
+                proposed.owner_character_id = None
+            element_id_map[old_id] = proposed.id
+            source.production_elements.append(proposed)
+            elements_by_name[proposed.name.strip().casefold()] = proposed
+
+        normalized_events: list[ContinuityEvent] = []
+        for index, event in enumerate(result.events, 1):
+            event.prop_id = element_id_map.get(event.prop_id, event.prop_id)
+            event.related_prop_id = element_id_map.get(event.related_prop_id, event.related_prop_id)
+            event.id = stable_id(
+                project_id, "continuity-event",
+                f"{event.scene_id}:{event.character_id}:{index}:{event.kind}",
+            )
+            normalized_events.append(event)
+        source.continuity_events = normalized_events
+        source.state_transitions, ledger_issues = build_state_ledger(source)
+        return source, ledger_issues
 
     def merge_records(self, project_id: str, request: MergeRequest) -> dict[str, Any]:
         current = self.repository.latest_revision(project_id, "extraction")
@@ -88,6 +215,13 @@ class ProjectService:
                     transition.before.character_id = request.primary_id
                 if transition.after.character_id in duplicate_ids:
                     transition.after.character_id = request.primary_id
+            for event in source.continuity_events:
+                if event.character_id in duplicate_ids:
+                    event.character_id = request.primary_id
+                if event.counterparty_character_id in duplicate_ids:
+                    event.counterparty_character_id = request.primary_id
+                if event.relationship_character_id in duplicate_ids:
+                    event.relationship_character_id = request.primary_id
         else:
             records = {record.id: record for record in source.production_elements}
             primary = records.get(request.primary_id)
@@ -101,6 +235,13 @@ class ProjectService:
                 scene.production_element_ids = list(dict.fromkeys(request.primary_id if item in duplicate_ids else item for item in scene.production_element_ids))
                 if scene.location_id in duplicate_ids:
                     scene.location_id = request.primary_id
+            for event in source.continuity_events:
+                if event.prop_id in duplicate_ids:
+                    event.prop_id = request.primary_id
+                if event.related_prop_id in duplicate_ids:
+                    event.related_prop_id = request.primary_id
+        if source.continuity_events:
+            source.state_transitions, _ = build_state_ledger(source)
         revision = self.repository.create_revision(project_id, "extraction", source, current["id"])
         self._refresh_continuity(project_id, revision)
         return revision
@@ -146,13 +287,16 @@ class ProjectService:
         else:
             extraction = self.repository.latest_revision(project_id, "extraction")
             brief = self.repository.latest_revision(project_id, "cultural_brief")
+            culture_context = compiler_for_project(
+                self.repository, project_id, brief,
+            ).for_correction(target.id)
             context = {
                 "neighbours": neighbours,
                 "story_contract": extraction["payload"]["story_contract"] if extraction else {},
-                "cultural_brief": brief["payload"] if brief else {},
             }
             patch = self.ai.cached_structured(
-                project_id, f"correct-block-{target.id}", correction_prompt(target_payload, request.instruction, context), CorrectionPatch,
+                project_id, f"correct-block-{target.id}",
+                correction_prompt(target_payload, request.instruction, context, culture_context), CorrectionPatch,
             )
         if patch.target_id != target.id or patch.precondition_hash != actual_hash or patch.field != "adapted_text":
             raise ValueError("Correction model attempted to modify an unapproved target")
@@ -586,10 +730,19 @@ class ProjectService:
                             add_reference(f"IMMUTABLE CHARACTER/COSTUME REFERENCE — {appearance_id}", reference["id"])
         try:
             self.repository.update_asset(asset_id, AssetStatus.pending, increment_attempt=True)
-            self.ai.provider.generate_image(asset["prompt"], temporary, references)
+            self.ai.generate_image(asset["project_id"], asset_id, asset["prompt"], temporary, references)
             os.replace(temporary, output)
+            brief_revision = self.repository.latest_revision(asset["project_id"], "cultural_brief")
+            verification_prompt = asset["prompt"]
+            if brief_revision:
+                visual_context = compiler_for_project(
+                    self.repository, asset["project_id"], brief_revision,
+                ).for_visual_verification(asset.get("scene_id") or asset["canonical_id"])
+                verification_prompt += "\nAPPROVED VISUAL CULTURE CONTEXT:\n" + json.dumps(
+                    visual_context.model_dump(mode="json", exclude_none=True), ensure_ascii=False,
+                )
             verification = self.ai.cached_visual_verification(
-                asset["project_id"], asset_id, asset["dependency_hash"], asset["prompt"], output, references,
+                asset["project_id"], asset_id, asset["dependency_hash"], verification_prompt, output, references,
             )
             history = self.repository.latest_revision(asset["project_id"], "visual_verification")
             records = list(history["payload"]) if history else []
@@ -731,6 +884,10 @@ class ExportService:
         if not active_assets or incomplete:
             raise ValueError(f"Generate and verify all visual assets before export; incomplete assets: {incomplete}")
         revisions = self.repository.list_latest_revisions(project_id)
+        snapshot = CultureProfileSnapshot.model_validate(revisions["culture_profile_snapshot"]["payload"])
+        script = next(
+            item for item in snapshot.profile.supported_scripts if item.id == project["output_script"]
+        )
         adapted = AdaptedScreenplay.model_validate(revisions["adapted_screenplay"]["payload"])
         extraction = SourceScreenplay.model_validate(revisions["extraction"]["payload"])
         character_names = {character.id: character.name for character in extraction.characters}
@@ -741,8 +898,9 @@ class ExportService:
         screenplay_text = self._screenplay_text(adapted, character_names)
         (export_root / "adapted_screenplay.txt").write_text(screenplay_text, encoding="utf-8")
         screenplay_body = screenplay_text.removeprefix(f"{adapted.title}\n\n")
-        self._write_pdf(export_root / "adapted_screenplay.pdf", adapted.title, screenplay_body)
+        self._write_pdf(export_root / "adapted_screenplay.pdf", adapted.title, screenplay_body, script)
         mapping = {
+            "culture_profile.json": "culture_profile_snapshot",
             "scene_breakdown.json": "extraction",
             "cultural_brief.json": "cultural_brief",
             "adaptation_plan.json": "adaptation_plan",
@@ -771,12 +929,62 @@ class ExportService:
             if filename == "production_bible.json" and payload:
                 payload = payload["production_elements"]
             (export_root / filename).write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        manifest = revisions.get("visual_manifest", {}).get("payload", {"appearances": [], "scenes": []})
+        culture_trace = {
+            "culture_id": project["culture_id"],
+            "profile_version": project["profile_version"],
+            "profile_hash": project["profile_hash"],
+            "brief_revision_id": revisions["cultural_brief"]["id"],
+        }
+        culture_traceability = {
+            **culture_trace,
+            "adapted_blocks": [
+                {
+                    **culture_trace,
+                    "block_id": block.id,
+                    "source_block_ids": block.source_block_ids,
+                    "cultural_claim_ids": block.cultural_claim_ids,
+                    "adaptation_layer_ids": block.adaptation_layer_ids,
+                }
+                for scene in adapted.scenes for block in scene.blocks
+            ],
+            "appearances": [
+                {
+                    **culture_trace,
+                    "appearance_id": item["id"],
+                    "prompt_hash": content_hash(item.get("prompt", "")),
+                    "cultural_claim_ids": item.get("cultural_claim_ids", []),
+                    "cultural_constraint_ids": item.get("cultural_constraint_ids", []),
+                }
+                for item in manifest.get("appearances", [])
+            ],
+            "scenes": [
+                {
+                    **culture_trace,
+                    "scene_visual_id": item["id"],
+                    "scene_id": item["scene_id"],
+                    "prompt_hash": content_hash({
+                        "prompt": item.get("prompt", ""),
+                        "negative_prompt": item.get("negative_prompt", ""),
+                    }),
+                    "cultural_claim_ids": item.get("cultural_claim_ids", []),
+                    "cultural_constraint_ids": item.get("cultural_constraint_ids", []),
+                }
+                for item in manifest.get("scenes", [])
+            ],
+        }
+        (export_root / "culture_traceability.json").write_text(
+            json.dumps(culture_traceability, ensure_ascii=False, indent=2), encoding="utf-8",
+        )
         issues = revisions.get("continuity_issues", {"payload": []})["payload"]
         continuity_text = "\n\n".join(f"[{item.get('severity','info').upper()}] {item.get('message','')}\nAffected: {', '.join(item.get('affected_scene_ids', []))}" for item in issues) or "No continuity issues recorded."
-        self._write_pdf(export_root / "continuity_report.pdf", "Continuity Report", continuity_text)
+        self._write_pdf(export_root / "continuity_report.pdf", "Continuity Report", continuity_text, script)
         (export_root / "ai_usage_log.json").write_text(json.dumps(self.repository.list_model_runs(project_id), ensure_ascii=False, indent=2), encoding="utf-8")
         (export_root / "known_limitations.md").write_text(
-            "# Known limitations\n\n- Single-user local MVP.\n- TXT/pasted input only.\n- Maidani Mewari and Devanagari only.\n- Native-speaker validation is unavailable; uncertainty remains visible.\n- SQLite is for demonstration, not concurrent production.\n",
+            "# Known limitations\n\n- Single-user local MVP.\n- TXT/pasted input only.\n"
+            f"- This project targets {snapshot.profile.display_name} in {script.display_name}.\n"
+            "- Native-speaker validation is unavailable; uncertainty remains visible.\n"
+            "- SQLite is for demonstration, not concurrent production.\n",
             encoding="utf-8",
         )
         for folder in ("character_bible", "costume_bible", "scene_keyframes"):
@@ -810,17 +1018,17 @@ class ExportService:
         return "\n".join(lines)
 
     @staticmethod
-    def _write_pdf(path: Path, title: str, body: str) -> None:
+    def _write_pdf(path: Path, title: str, body: str, script: ScriptSpec) -> None:
         from weasyprint import HTML
 
-        font = Path(__file__).resolve().parents[1] / "assets" / "fonts" / "NotoSansDevanagari.ttf"
+        font = Path(__file__).resolve().parents[1] / script.font_path
         if not font.exists():
-            raise FileNotFoundError(f"Bundled Devanagari font is missing: {font}")
+            raise FileNotFoundError(f"Bundled font for {script.display_name} is missing: {font}")
         paragraphs = "".join(f"<p>{escape(part)}</p>" for part in body.split("\n\n"))
-        html = f"""<!doctype html><html lang="hi"><meta charset="utf-8"><style>
+        html = f"""<!doctype html><html lang="{escape(script.html_lang)}"><meta charset="utf-8"><style>
         @page {{ size: A4; margin: 22mm; }}
-        @font-face {{ font-family: 'Bundled Noto Sans Devanagari'; src: url('{font.as_uri()}'); }}
-        body {{ font-family: 'Bundled Noto Sans Devanagari', sans-serif; font-size: 11pt; line-height: 1.5; }}
+        @font-face {{ font-family: 'Bundled Output Font'; src: url('{font.as_uri()}'); }}
+        body {{ font-family: 'Bundled Output Font', sans-serif; font-size: 11pt; line-height: 1.5; }}
         h1 {{ font-size: 20pt; }} p {{ white-space: pre-wrap; }}
         </style><body><h1>{escape(title)}</h1>{paragraphs}</body></html>"""
         HTML(string=html).write_pdf(path)

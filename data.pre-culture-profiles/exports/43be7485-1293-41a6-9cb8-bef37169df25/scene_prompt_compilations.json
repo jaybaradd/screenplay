@@ -1,0 +1,263 @@
+[
+  {
+    "asset_id": "9d3f7812-d982-56a2-aea4-8449115bbfb7",
+    "created_at": "2026-09-30T13:35:51.274649+00:00",
+    "dependency_hash": "4c5e49dfe0483c19aa3a6512bef340c42237e0ee2a23b17987a3a9098f994db1",
+    "reference_assets": [
+      {
+        "asset_id": "ccf84d92-ab00-5d25-95ee-a8f6865f4981",
+        "label": "AUTHORITATIVE SAME-SET REFERENCE — DINING ROOM; preserve geometry and fixed elements"
+      },
+      {
+        "asset_id": "b6b8d379-4d44-5452-8296-9fba8f5c0e9d",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      },
+      {
+        "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      },
+      {
+        "asset_id": "9cb5399c-a45b-5af4-bda8-6a4660e59338",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      },
+      {
+        "asset_id": "8d5f8b7d-df0a-5c42-abf3-be2089976e90",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+    "set_id": "5bea9956-5740-51b9-941a-d001697285cb"
+  },
+  {
+    "asset_id": "a729eda1-8883-5fec-94a4-f5bb2ca7187b",
+    "created_at": "2026-09-30T13:39:42.369851+00:00",
+    "dependency_hash": "edd62118adf8d684543f3d5d3c5e0b73a9ce789ea114f491b16c81b519fd2bed",
+    "reference_assets": [
+      {
+        "asset_id": "ccf84d92-ab00-5d25-95ee-a8f6865f4981",
+        "label": "AUTHORITATIVE SAME-SET REFERENCE — DINING ROOM; preserve geometry and fixed elements"
+      },
+      {
+        "asset_id": "b6b8d379-4d44-5452-8296-9fba8f5c0e9d",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      },
+      {
+        "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      },
+      {
+        "asset_id": "9cb5399c-a45b-5af4-bda8-6a4660e59338",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      },
+      {
+        "asset_id": "8d5f8b7d-df0a-5c42-abf3-be2089976e90",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+    "set_id": "5bea9956-5740-51b9-941a-d001697285cb"
+  },
+  {
+    "asset_id": "a021c180-4eee-5b00-ad0e-01547c4637b7",
+    "created_at": "2026-09-30T13:43:43.856407+00:00",
+    "dependency_hash": "f95c9098175a30249144fbcdabcb876e6e24f65fafa428f289eec1a458fe6425",
+    "reference_assets": [
+      {
+        "asset_id": "ccf84d92-ab00-5d25-95ee-a8f6865f4981",
+        "label": "AUTHORITATIVE SAME-SET REFERENCE — DINING ROOM; preserve geometry and fixed elements"
+      },
+      {
+        "asset_id": "b6b8d379-4d44-5452-8296-9fba8f5c0e9d",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      },
+      {
+        "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      },
+      {
+        "asset_id": "9cb5399c-a45b-5af4-bda8-6a4660e59338",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      },
+      {
+        "asset_id": "8d5f8b7d-df0a-5c42-abf3-be2089976e90",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+    "set_id": "5bea9956-5740-51b9-941a-d001697285cb"
+  },
+  {
+    "asset_id": "2cb2fa40-2274-5e41-89d0-ddaed1e30527",
+    "created_at": "2026-09-30T13:51:49.707085+00:00",
+    "dependency_hash": "374900ec2dd06c680561d7488a1b0e294002a429e3c90e89b837c4dad1b0c5f8",
+    "reference_assets": [
+      {
+        "asset_id": "ccf84d92-ab00-5d25-95ee-a8f6865f4981",
+        "label": "AUTHORITATIVE SAME-SET REFERENCE — DINING ROOM; preserve geometry and fixed elements"
+      },
+      {
+        "asset_id": "b6b8d379-4d44-5452-8296-9fba8f5c0e9d",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      },
+      {
+        "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      },
+      {
+        "asset_id": "9cb5399c-a45b-5af4-bda8-6a4660e59338",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      },
+      {
+        "asset_id": "8d5f8b7d-df0a-5c42-abf3-be2089976e90",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+    "set_id": "5bea9956-5740-51b9-941a-d001697285cb"
+  },
+  {
+    "asset_id": "d896b2cd-7528-5165-8ab0-63f0f0eb04b5",
+    "created_at": "2026-09-30T13:54:09.979142+00:00",
+    "dependency_hash": "6604bdd19c0a6d8814264bbeeef2c69d6b82ea41c0522dd20191b9e42b30e2ca",
+    "reference_assets": [
+      {
+        "asset_id": "ccf84d92-ab00-5d25-95ee-a8f6865f4981",
+        "label": "AUTHORITATIVE SAME-SET REFERENCE — DINING ROOM; preserve geometry and fixed elements"
+      },
+      {
+        "asset_id": "b6b8d379-4d44-5452-8296-9fba8f5c0e9d",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      },
+      {
+        "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      },
+      {
+        "asset_id": "9cb5399c-a45b-5af4-bda8-6a4660e59338",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      },
+      {
+        "asset_id": "8d5f8b7d-df0a-5c42-abf3-be2089976e90",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+    "set_id": "5bea9956-5740-51b9-941a-d001697285cb"
+  },
+  {
+    "asset_id": "733aabff-e30c-5e8f-9386-dd670428feac",
+    "created_at": "2026-09-30T13:58:06.287664+00:00",
+    "dependency_hash": "2d38a5cea655bb1f33465d4f8de85622542fdd2b63e318f901e7de832ff9504b",
+    "reference_assets": [
+      {
+        "asset_id": "ccf84d92-ab00-5d25-95ee-a8f6865f4981",
+        "label": "AUTHORITATIVE SAME-SET REFERENCE — DINING ROOM; preserve geometry and fixed elements"
+      },
+      {
+        "asset_id": "b6b8d379-4d44-5452-8296-9fba8f5c0e9d",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      },
+      {
+        "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      },
+      {
+        "asset_id": "9cb5399c-a45b-5af4-bda8-6a4660e59338",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      },
+      {
+        "asset_id": "8d5f8b7d-df0a-5c42-abf3-be2089976e90",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "150372a9-7d97-5a39-8889-90dd8f7d25e9",
+    "set_id": "5bea9956-5740-51b9-941a-d001697285cb"
+  },
+  {
+    "asset_id": "42f14717-689f-5c2c-a117-2d56ce435d81",
+    "created_at": "2026-09-30T14:37:22.851095+00:00",
+    "dependency_hash": "e219f126a488477823c07c412a86255c0abbc41fa72e0226334c1d6baa9499e2",
+    "reference_assets": [
+      {
+        "asset_id": "9cb5399c-a45b-5af4-bda8-6a4660e59338",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      },
+      {
+        "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      },
+      {
+        "asset_id": "b6b8d379-4d44-5452-8296-9fba8f5c0e9d",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      },
+      {
+        "asset_id": "2f0f7488-1817-5f6b-9a61-2b5937800aa9",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 7457779a-97f1-51fc-a6c7-80ccdd9e45d5"
+      },
+      {
+        "asset_id": "733aabff-e30c-5e8f-9386-dd670428feac",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "435fda02-8511-558a-afab-0bb5e04281f2",
+    "set_id": "9ecdfdd5-eba2-5557-94aa-73984c66e60e"
+  },
+  {
+    "asset_id": "ef8982de-95fc-55f9-a356-5f060665a239",
+    "created_at": "2026-09-30T14:45:19.914659+00:00",
+    "dependency_hash": "5ae8c00b459885828d36008ea11f9f6c3e61d5b5c4d17d310c390cbcac1465ea",
+    "reference_assets": [
+      {
+        "asset_id": "9cb5399c-a45b-5af4-bda8-6a4660e59338",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      },
+      {
+        "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      },
+      {
+        "asset_id": "b6b8d379-4d44-5452-8296-9fba8f5c0e9d",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      },
+      {
+        "asset_id": "2f0f7488-1817-5f6b-9a61-2b5937800aa9",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 7457779a-97f1-51fc-a6c7-80ccdd9e45d5"
+      },
+      {
+        "asset_id": "733aabff-e30c-5e8f-9386-dd670428feac",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "435fda02-8511-558a-afab-0bb5e04281f2",
+    "set_id": "9ecdfdd5-eba2-5557-94aa-73984c66e60e"
+  },
+  {
+    "asset_id": "285f6727-971d-5a87-be75-f2b565da535a",
+    "created_at": "2026-09-30T14:48:04.935240+00:00",
+    "dependency_hash": "1b92f4f64790c8df2bcaa889d1cf5eee9116e321a716d681f52ea50097708008",
+    "reference_assets": [
+      {
+        "asset_id": "2f0f7488-1817-5f6b-9a61-2b5937800aa9",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 7457779a-97f1-51fc-a6c7-80ccdd9e45d5"
+      },
+      {
+        "asset_id": "c146ba95-550a-584c-b0a2-3a16f0212901",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 470c2fcc-aa16-5b41-8542-ef751c43e33c"
+      },
+      {
+        "asset_id": "b6b8d379-4d44-5452-8296-9fba8f5c0e9d",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 947e9408-7f5b-561d-b8a3-69f03a11e94d"
+      },
+      {
+        "asset_id": "9cb5399c-a45b-5af4-bda8-6a4660e59338",
+        "label": "IMMUTABLE CHARACTER/COSTUME REFERENCE — 594021fc-b31d-5dad-ae7c-d6d52e6933e6"
+      },
+      {
+        "asset_id": "ef8982de-95fc-55f9-a356-5f060665a239",
+        "label": "IMMEDIATE PRIOR SCENE — carry only character, costume and prop state; do not copy its set"
+      }
+    ],
+    "scene_id": "1c483613-d0f4-5fb5-b3be-5ac6cc01a54d",
+    "set_id": "4e76ac08-64ad-5db2-86eb-13cc22944994"
+  }
+]

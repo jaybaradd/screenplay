@@ -16,7 +16,7 @@ from backend.observability import observer
 from backend.prompts import PROMPT_VERSION
 from backend.schemas import (
     AdaptedBlock, AdaptedScene, AdaptedScreenplay, BlockType, CharacterRecord,
-    ContentBlock, CulturalBrief, CulturalClaim, DialectGuide, LayerDecision, LayerPlan,
+    ContentBlock, CulturalBrief, CulturalClaim, CulturalConstraint, LanguageGuide, LayerDecision, LayerPlan,
     ProductionElement, SceneRecord, SourceScreenplay, StoryContract,
     VisualVerification,
 )
@@ -380,25 +380,37 @@ class MockProvider(Provider):
         )
 
     def _cultural_brief(self) -> CulturalBrief:
+        context = self.context.get("culture_context", {})
+        profile_constraints = [
+            CulturalConstraint(
+                id=item["id"], text=item["text"], layers=item["layers"],
+                kind=item["kind"], origin="profile_policy", source_claim_ids=[],
+            ) for item in context.get("constraints", [])
+            if item.get("origin") == "profile_policy"
+        ]
         return CulturalBrief(
-            culture="Maidani Mewari", locality=self.context.get("locality", "User-selected locality"),
-            setting=self.context.get("setting", "rural"), period=self.context.get("period", "Contemporary"),
+            culture_id=context.get("culture_id", "mock-culture"),
+            profile_version=context.get("profile_version", "0.0.0"),
+            profile_hash=context.get("profile_hash", "mock-profile"),
+            culture=context.get("display_name", "Mock culture"),
+            locality=context.get("locality", "User-selected locality"),
+            setting=context.get("setting", "unspecified"), period=context.get("period", "unspecified"),
+            output_script=context.get("output_script", "unspecified"),
             claims=[CulturalClaim(
                 id="mock-claim", claim="No cultural factual claim is asserted in mock mode.",
                 scope="Workflow demonstration only", time_period="Not applicable", source_url="mock://no-live-grounding",
+                origin="mock",
                 confidence="low", layers=["cultural_precision"],
                 uncertainty="Configure live Gemini grounding before presenting cultural output.",
                 prohibited_extrapolations=["Do not treat mock content as cultural evidence."],
             )],
-            dialect_guide=DialectGuide(
-                target_variety="Maidani Mewari", writing_script="Devanagari", features=[],
+            language_guide=LanguageGuide(
+                target_variety=context.get("target_variety", "Mock target variety"),
+                writing_script=context.get("output_script", "unspecified"), features=[],
                 register_rules=[], code_switching_rules=[],
                 negative_constraints=["Mock mode cannot supply culturally verified dialogue."],
             ),
-            negative_constraints=[
-                "Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery.",
-                "Do not invent Mewari dialogue or infer caste, religion or class.",
-            ],
+            constraints=profile_constraints,
             open_questions=["Live cultural grounding has not run."],
             research_summary="Mock mode validates engineering flow, not cultural accuracy.",
         )
@@ -426,6 +438,15 @@ class AIService:
         self.repository = repository
         self.provider: Provider = GeminiProvider() if settings.ai_mode == "live" and settings.gemini_api_key else MockProvider()
 
+    def _culture_metadata(self, project_id: str) -> dict[str, Any]:
+        project = self.repository.get_project(project_id)
+        brief = self.repository.latest_revision(project_id, "cultural_brief")
+        return {
+            "culture_id": project.get("culture_id"),
+            "profile_hash": project.get("profile_hash"),
+            "brief_revision_id": brief["id"] if brief else None,
+        }
+
     def cached_structured(self, project_id: str, operation: str, prompt: str, schema: type[T]) -> T:
         prompt_hash = content_hash(f"{PROMPT_VERSION}:{prompt}")
         input_hash = content_hash(prompt)
@@ -434,14 +455,19 @@ class AIService:
         if cached:
             return schema.model_validate(cached["output"])
         started = time.perf_counter()
+        culture_metadata = self._culture_metadata(project_id)
         try:
-            with observer.generation(operation, project_id=project_id, model=self.provider.text_model, input_data=prompt) as observation:
+            with observer.generation(
+                operation, project_id=project_id, model=self.provider.text_model, input_data=prompt,
+                metadata=culture_metadata,
+            ) as observation:
                 result = self.provider.structured(prompt, schema)
                 output = result.model_dump(mode="json")
                 observation.update(output=output if settings.langfuse_capture_content else {"output_hash": content_hash(output)})
             self.repository.save_model_run(
                 project_id=project_id, operation=operation, provider=self.provider.name, model=self.provider.text_model,
                 prompt_hash=prompt_hash, input_hash=input_hash, cache_key=cache_key, output=output, status="success",
+                **culture_metadata,
                 latency_ms=int((time.perf_counter() - started) * 1000),
             )
             return result
@@ -449,6 +475,7 @@ class AIService:
             self.repository.save_model_run(
                 project_id=project_id, operation=operation, provider=self.provider.name, model=self.provider.text_model,
                 prompt_hash=prompt_hash, input_hash=input_hash, cache_key=cache_key, status="failed",
+                **culture_metadata,
                 latency_ms=int((time.perf_counter() - started) * 1000), error=str(error),
             )
             raise
@@ -461,13 +488,18 @@ class AIService:
         if cached:
             return cached["output"]["text"]
         started = time.perf_counter()
+        culture_metadata = self._culture_metadata(project_id)
         try:
-            with observer.generation(operation, project_id=project_id, model=self.provider.text_model, input_data=prompt) as observation:
+            with observer.generation(
+                operation, project_id=project_id, model=self.provider.text_model, input_data=prompt,
+                metadata=culture_metadata,
+            ) as observation:
                 result = self.provider.grounded_research(prompt)
                 observation.update(output=result if settings.langfuse_capture_content else {"output_hash": content_hash(result)})
             self.repository.save_model_run(
                 project_id=project_id, operation=operation, provider=self.provider.name, model=self.provider.text_model,
                 prompt_hash=prompt_hash, input_hash=input_hash, cache_key=cache_key, output={"text": result}, status="success",
+                **culture_metadata,
                 latency_ms=int((time.perf_counter() - started) * 1000),
             )
             return result
@@ -475,6 +507,7 @@ class AIService:
             self.repository.save_model_run(
                 project_id=project_id, operation=operation, provider=self.provider.name, model=self.provider.text_model,
                 prompt_hash=prompt_hash, input_hash=input_hash, cache_key=cache_key, status="failed",
+                **culture_metadata,
                 latency_ms=int((time.perf_counter() - started) * 1000), error=str(error),
             )
             raise
@@ -498,16 +531,18 @@ class AIService:
         if cached:
             return VisualVerification.model_validate(cached["output"])
         started = time.perf_counter()
+        culture_metadata = self._culture_metadata(project_id)
         try:
             with observer.generation(operation, project_id=project_id, model=self.provider.text_model, input_data={
                 "asset_id": asset_id, "dependency_hash": dependency_hash, "image_hash": image_hash,
-            }) as observation:
+            }, metadata=culture_metadata) as observation:
                 result = self.provider.verify_image(asset_id, dependency_hash, prompt, image, references)
                 output = result.model_dump(mode="json")
                 observation.update(output=output)
             self.repository.save_model_run(
                 project_id=project_id, operation=operation, provider=self.provider.name, model=self.provider.text_model,
                 prompt_hash=prompt_hash, input_hash=input_hash, cache_key=cache_key, output=output, status="success",
+                **culture_metadata,
                 latency_ms=int((time.perf_counter() - started) * 1000),
             )
             return result
@@ -515,6 +550,49 @@ class AIService:
             self.repository.save_model_run(
                 project_id=project_id, operation=operation, provider=self.provider.name, model=self.provider.text_model,
                 prompt_hash=prompt_hash, input_hash=input_hash, cache_key=cache_key, status="failed",
+                **culture_metadata,
+                latency_ms=int((time.perf_counter() - started) * 1000), error=str(error),
+            )
+            raise
+
+    def generate_image(
+        self, project_id: str, asset_id: str, prompt: str, output: Path,
+        references: list[ImageReference] | None = None,
+    ) -> None:
+        operation = f"generate-image-{asset_id}"
+        prompt_hash = content_hash(f"{PROMPT_VERSION}:image:{prompt}")
+        input_hash = content_hash({
+            "asset_id": asset_id,
+            "references": [
+                {"label": label, "hash": hashlib.sha256(path.read_bytes()).hexdigest()}
+                for label, path in references or []
+            ],
+        })
+        cache_key = content_hash(
+            f"{project_id}:{self.provider.name}:{self.provider.image_model}:{operation}:{prompt_hash}:{input_hash}"
+        )
+        culture_metadata = self._culture_metadata(project_id)
+        started = time.perf_counter()
+        try:
+            with observer.generation(
+                operation, project_id=project_id, model=self.provider.image_model,
+                input_data={"prompt": prompt, "reference_count": len(references or [])},
+                metadata=culture_metadata,
+            ) as observation:
+                self.provider.generate_image(prompt, output, references)
+                image_hash = hashlib.sha256(output.read_bytes()).hexdigest()
+                observation.update(output={"image_hash": image_hash})
+            self.repository.save_model_run(
+                project_id=project_id, operation=operation, provider=self.provider.name,
+                model=self.provider.image_model, prompt_hash=prompt_hash, input_hash=input_hash,
+                cache_key=cache_key, output={"image_hash": image_hash}, status="success",
+                **culture_metadata, latency_ms=int((time.perf_counter() - started) * 1000),
+            )
+        except Exception as error:
+            self.repository.save_model_run(
+                project_id=project_id, operation=operation, provider=self.provider.name,
+                model=self.provider.image_model, prompt_hash=prompt_hash, input_hash=input_hash,
+                cache_key=cache_key, status="failed", **culture_metadata,
                 latency_ms=int((time.perf_counter() - started) * 1000), error=str(error),
             )
             raise

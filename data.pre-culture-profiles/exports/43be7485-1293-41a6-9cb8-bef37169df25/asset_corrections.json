@@ -1,0 +1,128 @@
+[
+  {
+    "asset_id": "2f0f7488-1817-5f6b-9a61-2b5937800aa9",
+    "created_at": "2026-09-30T08:13:03.482322+00:00",
+    "instruction": "Keep the outfit/costume, just make the character live action human like",
+    "parent_asset_id": "d0e91598-5ccc-56c8-80b9-b4a3994e95ce",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "0649d65d-b656-5274-ac0d-0f492bbb2a2b",
+    "created_at": "2026-09-30T08:25:20.356077+00:00",
+    "instruction": "The photo should be on the wall instead. the walls should have some water damage on them. and the truck should be a smaller pickup truck kind of thing",
+    "parent_asset_id": "12a82022-ffba-5a66-8f87-1a83e614f7fe",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "7f8640b8-bc82-579e-8f46-2d03d2adc4bc",
+    "created_at": "2026-09-30T08:34:25.688577+00:00",
+    "instruction": "instead of showing the person in the left window, show the person in the right window. replace the left window with a door.",
+    "parent_asset_id": "0649d65d-b656-5274-ac0d-0f492bbb2a2b",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "ccf84d92-ab00-5d25-95ee-a8f6865f4981",
+    "created_at": "2026-09-30T08:38:16.456027+00:00",
+    "instruction": "just keep one window in the room and one door.",
+    "parent_asset_id": "7f8640b8-bc82-579e-8f46-2d03d2adc4bc",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "e035c877-6317-5bbf-99b1-ca4b59e544ff",
+    "created_at": "2026-09-30T08:50:12.743949+00:00",
+    "instruction": "make viktor stand under the shade away from the rain, and keep his shoes off set aside. keep the veranda floor clean.",
+    "parent_asset_id": "f0d2153d-2426-51a3-a87c-f96c3f4f0640",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "3488fe01-0bee-557a-89d4-0ede12a47699",
+    "created_at": "2026-09-30T08:56:35.263575+00:00",
+    "instruction": "make viktor stand under the roof of the veranda with his shoes still off on the raised platform of the veranda",
+    "parent_asset_id": "e035c877-6317-5bbf-99b1-ca4b59e544ff",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "df335aa1-487c-526f-8059-d75fcd500a78",
+    "created_at": "2026-09-30T08:59:41.967814+00:00",
+    "instruction": "remove the duplicate viktor standing outside. make dev and mara face viktor inside the veranda roof.",
+    "parent_asset_id": "3488fe01-0bee-557a-89d4-0ede12a47699",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "bb0db6fb-fc8f-52ce-a56f-42f84dbd1475",
+    "created_at": "2026-09-30T09:02:12.996787+00:00",
+    "instruction": "REMOVE ONE VIKTOR STANDING OUTSIDE THE VERANDA. MAKE DEV AND MARA FACE THE VIKTOR STANDING UNDER THE VERANDA. FOLLOW THIS STRICTLY.",
+    "parent_asset_id": "df335aa1-487c-526f-8059-d75fcd500a78",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "facd7d0f-7f58-5993-92eb-a8f44c3a3b47",
+    "created_at": "2026-09-30T09:05:12.576267+00:00",
+    "instruction": "KEEP DEV BAREFOOT - NO SOCKS, AND FACE HIS TORSO TOWARDS VIKTOR. \nMAKE VIKTOR WEAR HIS SOCKS NOT THE BOOTS/SHOES. FOLLOW THIS STRICTLY",
+    "parent_asset_id": "bb0db6fb-fc8f-52ce-a56f-42f84dbd1475",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "ac1b2db7-0953-5968-956c-58f76e29db85",
+    "created_at": "2026-09-30T09:07:21.955377+00:00",
+    "instruction": "make dev stand a bit backwards - closer to the wall- facing viktor with his whole body. follow this strictly.",
+    "parent_asset_id": "facd7d0f-7f58-5993-92eb-a8f44c3a3b47",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "c7554f18-99b9-5f1b-8757-59bf3370b73d",
+    "created_at": "2026-09-30T09:09:32.815150+00:00",
+    "instruction": "KEEP THIS, JUST ADD VIKTOR'S BOOTS BACK ON THE VERANDA FLOOR.",
+    "parent_asset_id": "ac1b2db7-0953-5968-956c-58f76e29db85",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "8d5f8b7d-df0a-5c42-abf3-be2089976e90",
+    "created_at": "2026-09-30T09:12:31.342899+00:00",
+    "instruction": "REMOVE THE EXTRA VIKTOR (GRAY JACKET PERSON STANDING NEAR THE DOOR) \nKEEP THE VIKTOR ( RIGHT MOST GRAY JACKET PERSON)\n\nFOLLOW THIS STRICTLY.",
+    "parent_asset_id": "c7554f18-99b9-5f1b-8757-59bf3370b73d",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "a729eda1-8883-5fec-94a4-f5bb2ca7187b",
+    "created_at": "2026-09-30T13:39:42.361641+00:00",
+    "instruction": "make the 2 people at the table touch their fingers accidentally. thats it.",
+    "parent_asset_id": "9d3f7812-d982-56a2-aea4-8449115bbfb7",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "a021c180-4eee-5b00-ad0e-01547c4637b7",
+    "created_at": "2026-09-30T13:43:43.848945+00:00",
+    "instruction": "make the person on the right who has placed the fingers on the paper touch (using A finger) the hand of the person who on the left who also has her hand on the paper on the table. FOLLOW THIS STRICTLY.",
+    "parent_asset_id": "a729eda1-8883-5fec-94a4-f5bb2ca7187b",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "2cb2fa40-2274-5e41-89d0-ddaed1e30527",
+    "created_at": "2026-09-30T13:51:49.699020+00:00",
+    "instruction": "MAKE VIKTOR's FINGER TOUCH MARA'S PALM. FOLLOW THIS STRICTLY",
+    "parent_asset_id": "a021c180-4eee-5b00-ad0e-01547c4637b7",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "d896b2cd-7528-5165-8ab0-63f0f0eb04b5",
+    "created_at": "2026-09-30T13:54:09.971287+00:00",
+    "instruction": "The mandatory surgical correction requiring Viktor's finger to touch Mara's hand/palm was not executed. Verification failed due to lack of physical touch between Viktor's finger and Mara's hand on the delivery document, directly violating the required surgical visual correction.",
+    "parent_asset_id": "2cb2fa40-2274-5e41-89d0-ddaed1e30527",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "733aabff-e30c-5e8f-9386-dd670428feac",
+    "created_at": "2026-09-30T13:58:06.279927+00:00",
+    "instruction": "FOLLOW THIS . IT IS IMPORTANT: MAKE VICTOR'S (MALE, RIGHT) FINGER SLIGHTLY TOUCH CLEARLY THE HAND OF MARA ON THE PAPER (FEMALE, LEFT)",
+    "parent_asset_id": "d896b2cd-7528-5165-8ab0-63f0f0eb04b5",
+    "style_reference_asset_id": null
+  },
+  {
+    "asset_id": "ef8982de-95fc-55f9-a356-5f060665a239",
+    "created_at": "2026-09-30T14:45:19.906123+00:00",
+    "instruction": "Preserve the farm-office set, composition, poses, lighting and every unaffected character. Change only Mara and Dev. Restore Mara’s exact approved appearance: charcoal-grey saree, matte-black high-neck blouse, and dark charcoal odhna resting over her head at the hairline. Restore Dev’s exact approved costume colours, grey-white moustache, short grizzled beard and facial identity from his character sheet. Do not change any other person or production element.",
+    "parent_asset_id": "42f14717-689f-5c2c-a117-2d56ce435d81",
+    "style_reference_asset_id": null
+  }
+]

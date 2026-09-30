@@ -102,6 +102,33 @@ class StateTransition(StrictModel):
     after: StateSnapshot
 
 
+class ContinuityEvent(StrictModel):
+    id: str
+    scene_id: str
+    character_id: str
+    kind: Literal[
+        "no_change", "first_observed_prop", "acquire_prop", "release_prop",
+        "transfer_prop", "derive_prop", "learn_fact", "forget_fact",
+        "costume_change", "injury", "recovery", "emotion_change", "relationship_change",
+    ]
+    timing: Literal["before_scene", "during_scene", "first_observed"] = "during_scene"
+    prop_id: str | None = None
+    related_prop_id: str | None = None
+    counterparty_character_id: str | None = None
+    fact: str | None = None
+    value: str | None = None
+    relationship_character_id: str | None = None
+    evidence_block_ids: list[str] = Field(default_factory=list)
+    description: str
+    confidence: Literal["high", "medium", "low"] = "medium"
+
+
+class ContinuityEventExtraction(StrictModel):
+    events: list[ContinuityEvent] = Field(default_factory=list)
+    new_production_elements: list[ProductionElement] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+
+
 class StoryContract(StrictModel):
     central_dramatic_purpose: str
     relationship_invariants: list[str] = Field(default_factory=list)
@@ -118,6 +145,7 @@ class SourceScreenplay(StrictModel):
     scenes: list[SceneRecord]
     characters: list[CharacterRecord]
     production_elements: list[ProductionElement]
+    continuity_events: list[ContinuityEvent] = Field(default_factory=list)
     state_transitions: list[StateTransition] = Field(default_factory=list)
     story_contract: StoryContract
     extraction_warnings: list[str] = Field(default_factory=list)
@@ -129,19 +157,20 @@ class CulturalClaim(StrictModel):
     scope: str
     time_period: str
     source_url: str
+    origin: Literal["grounded_research", "reviewed_profile_evidence", "mock"]
     confidence: Literal["high", "medium", "low"]
     layers: list[str]
     uncertainty: str | None = None
     prohibited_extrapolations: list[str] = Field(default_factory=list)
 
 
-class DialectFeature(StrictModel):
+class LanguageFeature(StrictModel):
     id: str
     category: Literal[
         "grammar", "pronoun", "honorific", "kinship", "particle", "idiom",
         "lexicon", "code_switching", "rhythm",
     ]
-    devanagari_form: str
+    written_form: str
     transliteration: str | None = None
     meaning_or_function: str
     usage_context: str
@@ -151,23 +180,36 @@ class DialectFeature(StrictModel):
     prohibited_uses: list[str] = Field(default_factory=list)
 
 
-class DialectGuide(StrictModel):
+class LanguageGuide(StrictModel):
     target_variety: str
     writing_script: str
-    features: list[DialectFeature] = Field(default_factory=list)
+    features: list[LanguageFeature] = Field(default_factory=list)
     register_rules: list[str] = Field(default_factory=list)
     code_switching_rules: list[str] = Field(default_factory=list)
     negative_constraints: list[str] = Field(default_factory=list)
 
 
+class CulturalConstraint(StrictModel):
+    id: str
+    text: str
+    layers: list[str]
+    kind: Literal["language_boundary", "visual_boundary", "research_boundary", "identity_boundary"]
+    origin: Literal["grounded_research", "reviewed_profile_evidence", "profile_policy"]
+    source_claim_ids: list[str] = Field(default_factory=list)
+
+
 class CulturalBrief(StrictModel):
+    culture_id: str
+    profile_version: str
+    profile_hash: str
     culture: str
     locality: str
     setting: str
     period: str
+    output_script: str
     claims: list[CulturalClaim]
-    dialect_guide: DialectGuide | None = None
-    negative_constraints: list[str]
+    language_guide: LanguageGuide | None = None
+    constraints: list[CulturalConstraint]
     open_questions: list[str]
     research_summary: str
 
@@ -227,18 +269,18 @@ class AdaptedScreenplay(StrictModel):
     preservation_summary: str
 
 
-class SceneDialectAudit(StrictModel):
+class SceneLanguageAudit(StrictModel):
     scene_id: str
     dialogue_block_ids: list[str] = Field(default_factory=list)
-    supported_mewari_block_ids: list[str] = Field(default_factory=list)
-    generic_hindi_block_ids: list[str] = Field(default_factory=list)
-    unapproved_or_mixed_block_ids: list[str] = Field(default_factory=list)
+    supported_target_variety_block_ids: list[str] = Field(default_factory=list)
+    unsupported_fallback_language_block_ids: list[str] = Field(default_factory=list)
+    mixed_or_unapproved_variety_block_ids: list[str] = Field(default_factory=list)
     notes: list[str] = Field(default_factory=list)
 
 
-class DialectAudit(StrictModel):
+class LanguageAudit(StrictModel):
     target_variety: str
-    scenes: list[SceneDialectAudit]
+    scenes: list[SceneLanguageAudit]
     passed: bool
     summary: str
 
@@ -253,6 +295,10 @@ class ContinuityIssue(StrictModel):
     affected_scene_ids: list[str]
     message: str
     suggested_resolution: str | None = None
+    added_items: list[str] = Field(default_factory=list)
+    removed_items: list[str] = Field(default_factory=list)
+    evidence_block_ids: list[str] = Field(default_factory=list)
+    probable_cause: str | None = None
 
 
 class AppearanceSpec(StrictModel):
@@ -264,6 +310,10 @@ class AppearanceSpec(StrictModel):
     costume_description: str
     grooming_description: str
     prompt: str
+    cultural_claim_ids: list[str] = Field(default_factory=list)
+    cultural_constraint_ids: list[str] = Field(default_factory=list)
+    profile_hash: str = ""
+    brief_revision_id: str = ""
 
 
 class SceneVisualSpec(StrictModel):
@@ -278,6 +328,10 @@ class SceneVisualSpec(StrictModel):
     prop_ids: list[str]
     prompt: str
     negative_prompt: str
+    cultural_claim_ids: list[str] = Field(default_factory=list)
+    cultural_constraint_ids: list[str] = Field(default_factory=list)
+    profile_hash: str = ""
+    brief_revision_id: str = ""
 
 
 class SetVisualSpec(StrictModel):
@@ -285,6 +339,8 @@ class SetVisualSpec(StrictModel):
     location_id: str | None = None
     name: str
     scene_ids: list[str]
+    profile_hash: str = ""
+    brief_revision_id: str = ""
 
 
 class VisualManifest(StrictModel):
@@ -359,11 +415,11 @@ class CorrectionPatch(StrictModel):
 class ProjectCreate(StrictModel):
     title: str = "Untitled screenplay"
     source_text: str = Field(min_length=100, max_length=40_000)
-    culture: str = "Maidani Mewari"
+    culture_id: str
     locality: str
-    setting: Literal["rural", "urban"]
-    period: str = "Contemporary 2020-2026"
-    output_script: Literal["Devanagari"] = "Devanagari"
+    setting: str
+    period: str
+    output_script: str
 
 
 class ApprovalRequest(StrictModel):
@@ -427,7 +483,11 @@ class AssetStatus(StrEnum):
 class ProjectView(StrictModel):
     id: str
     title: str
-    culture: str
+    culture_id: str
+    culture_display_name: str
+    profile_version: str
+    profile_hash: str
+    approved_brief_revision_id: str | None = None
     locality: str
     setting: str
     period: str

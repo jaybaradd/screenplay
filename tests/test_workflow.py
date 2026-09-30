@@ -12,7 +12,8 @@ import backend.workflow as workflow_module
 from backend.config import Settings
 from backend.schemas import (
     AdaptedBlock, AdaptedScene, AssetCorrectionRequest, AssetStatus, BlockType, ContentBlock,
-    CorrectionRequest, ProjectCreate, RecordPatch, SceneRecord, SceneVisualApprovalRequest,
+    ContinuityEvent, ContinuityEventExtraction, CorrectionRequest, ProjectCreate, RecordPatch,
+    SceneRecord, SceneVisualApprovalRequest,
     VisualVerification,
 )
 from backend.services import ExportService, ProjectService
@@ -84,7 +85,8 @@ def test_lossless_scene_mapping_rejects_omitted_blocks():
 def test_complete_durable_mock_workflow_and_surgical_edit(tmp_path: Path):
     settings, repository, workflow = configured_workflow(tmp_path)
     project = repository.create_project(ProjectCreate(
-        title="The Letter", source_text=sample_text(), locality="Rajsamand plains", setting="rural",
+        title="The Letter", source_text=sample_text(), culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural", period="contemporary_2020_2026", output_script="devanagari",
     ))
     project_id = project["id"]
 
@@ -154,10 +156,92 @@ def test_complete_durable_mock_workflow_and_surgical_edit(tmp_path: Path):
     assert export.exists()
 
 
+def test_scoped_continuity_repair_preserves_extracted_story_records(tmp_path: Path):
+    _, repository, workflow = configured_workflow(tmp_path)
+    project = repository.create_project(ProjectCreate(
+        title="Continuity repair", source_text=sample_text(), culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural",
+        period="contemporary_2020_2026", output_script="devanagari",
+    ))
+    workflow.start(project["id"])
+    before = repository.latest_revision(project["id"], "extraction")
+    service = ProjectService(repository, workflow.ai)
+    repaired = service.repair_continuity(project["id"])
+    assert repaired["version"] == before["version"] + 1
+    for field in ("scenes", "characters", "production_elements", "story_contract", "original_text"):
+        assert repaired["payload"][field] == before["payload"][field]
+    assert repaired["payload"]["continuity_events"]
+    assert len(repaired["payload"]["state_transitions"]) == sum(
+        len(scene["character_ids"]) for scene in repaired["payload"]["scenes"]
+    )
+    issues = repository.latest_revision(project["id"], "continuity_issues")["payload"]
+    assert not [item for item in issues if item["severity"] == "blocking"]
+
+
+def test_invalid_continuity_edit_is_rejected_before_revision_is_saved(tmp_path: Path):
+    _, repository, workflow = configured_workflow(tmp_path)
+    project = repository.create_project(ProjectCreate(
+        title="Invalid continuity edit", source_text=sample_text(), culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural",
+        period="contemporary_2020_2026", output_script="devanagari",
+    ))
+    workflow.start(project["id"])
+    current = repository.latest_revision(project["id"], "extraction")
+    scene = current["payload"]["scenes"][0]
+    service = ProjectService(repository, workflow.ai)
+    with pytest.raises(ValueError, match="Invalid continuity events"):
+        service.patch_record(project["id"], RecordPatch(
+            document_kind="extraction", field_path="/continuity_events", expected_hash=current["sha256"],
+            value=[{
+                "id": "invalid-event", "scene_id": scene["id"], "character_id": "unknown-character",
+                "kind": "acquire_prop", "timing": "during_scene", "prop_id": "unknown-prop",
+                "related_prop_id": None, "counterparty_character_id": None, "fact": None,
+                "value": None, "relationship_character_id": None,
+                "evidence_block_ids": [scene["blocks"][0]["id"]],
+                "description": "Invalid references", "confidence": "low",
+            }],
+        ))
+    assert repository.latest_revision(project["id"], "extraction")["id"] == current["id"]
+
+
+def test_continuity_repair_retries_semantically_invalid_ids(tmp_path: Path, monkeypatch):
+    _, repository, workflow = configured_workflow(tmp_path)
+    project = repository.create_project(ProjectCreate(
+        title="Semantic repair retry", source_text=sample_text(), culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural",
+        period="contemporary_2020_2026", output_script="devanagari",
+    ))
+    workflow.start(project["id"])
+    source = repository.latest_revision(project["id"], "extraction")["payload"]
+    calls = {"count": 0}
+
+    def structured(*_args, **_kwargs):
+        calls["count"] += 1
+        if calls["count"] == 1:
+            return ContinuityEventExtraction(events=[ContinuityEvent(
+                id="invalid", scene_id=source["scenes"][0]["id"], character_id="unknown-character",
+                kind="no_change", description="Invalid reference",
+            )])
+        return ContinuityEventExtraction(events=[
+            ContinuityEvent(
+                id=f"valid-{scene['id']}-{character_id}", scene_id=scene["id"],
+                character_id=character_id, kind="no_change", description="Reviewed no durable change.",
+            )
+            for scene in source["scenes"] for character_id in scene["character_ids"]
+        ])
+
+    workflow.ai.provider = SimpleNamespace(name="test-live-provider")
+    monkeypatch.setattr(workflow.ai, "cached_structured", structured)
+    repaired = ProjectService(repository, workflow.ai).repair_continuity(project["id"])
+    assert calls["count"] == 2
+    assert repaired["payload"]["continuity_events"]
+
+
 def test_checkpoint_resume_after_workflow_recreation(tmp_path: Path):
     _, repository, workflow = configured_workflow(tmp_path)
     project = repository.create_project(ProjectCreate(
-        title="Restart", source_text=sample_text(), locality="Rajsamand plains", setting="urban",
+        title="Restart", source_text=sample_text(), culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="urban", period="contemporary_2020_2026", output_script="devanagari",
     ))
     workflow.start(project["id"])
     assert repository.get_project(project["id"])["stage"] == "extraction_review"
@@ -172,7 +256,8 @@ def test_checkpoint_resume_after_workflow_recreation(tmp_path: Path):
 def test_extraction_edit_recalculates_continuity(tmp_path: Path):
     _, repository, workflow = configured_workflow(tmp_path)
     project = repository.create_project(ProjectCreate(
-        title="Continuity refresh", source_text=sample_text(), locality="Rajsamand plains", setting="rural",
+        title="Continuity refresh", source_text=sample_text(), culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural", period="contemporary_2020_2026", output_script="devanagari",
     ))
     workflow.start(project["id"])
     extraction = repository.latest_revision(project["id"], "extraction")
@@ -188,7 +273,8 @@ def test_extraction_edit_recalculates_continuity(tmp_path: Path):
 def test_asset_feedback_creates_one_corrected_version_without_regenerating_others(tmp_path: Path):
     _, repository, workflow = configured_workflow(tmp_path)
     project = repository.create_project(ProjectCreate(
-        title="Visual correction", source_text=sample_text(), locality="Rajsamand plains", setting="rural",
+        title="Visual correction", source_text=sample_text(), culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural", period="contemporary_2020_2026", output_script="devanagari",
     ))
     project_id = project["id"]
     workflow.start(project_id)
@@ -223,7 +309,8 @@ def test_model_cache_is_project_scoped(tmp_path: Path):
     _, repository, workflow = configured_workflow(tmp_path)
     projects = [repository.create_project(ProjectCreate(
         title=f"Project {index}", source_text="A" * 120,
-        locality="Rajsamand plains", setting="rural",
+        culture_id="maidani_mewari", locality="Rajsamand plains", setting="rural",
+        period="contemporary_2020_2026", output_script="devanagari",
     )) for index in range(2)]
     for project in projects:
         workflow.ai.cached_research(project["id"], "same-operation", "identical prompt")
@@ -251,7 +338,8 @@ def test_exact_sub_locations_get_stable_distinct_set_ids():
 def test_scene_three_compilation_uses_same_set_and_prior_scene_references(tmp_path: Path):
     _, repository, workflow = configured_workflow(tmp_path)
     project = repository.create_project(ProjectCreate(
-        title="Set continuity", source_text=sample_text(), locality="Rajsamand plains", setting="rural",
+        title="Set continuity", source_text=sample_text(), culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural", period="contemporary_2020_2026", output_script="devanagari",
     ))
     project_id = project["id"]
     workflow.start(project_id)
@@ -300,7 +388,8 @@ def test_scene_three_compilation_uses_same_set_and_prior_scene_references(tmp_pa
 def test_human_can_override_false_negative_visual_verification(tmp_path: Path):
     repository = Repository(tmp_path / "app.sqlite")
     project = repository.create_project(ProjectCreate(
-        title="Override", source_text="A" * 120, locality="Rajsamand plains", setting="rural",
+        title="Override", source_text="A" * 120, culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural", period="contemporary_2020_2026", output_script="devanagari",
     ))
     image = tmp_path / "acceptable.png"
     image.write_bytes(b"acceptable-image-fixture")
@@ -330,7 +419,8 @@ def test_human_can_override_false_negative_visual_verification(tmp_path: Path):
 def test_direct_scene_prompt_edit_creates_only_one_pending_version(tmp_path: Path):
     repository = Repository(tmp_path / "app.sqlite")
     project = repository.create_project(ProjectCreate(
-        title="Prompt edit", source_text="A" * 120, locality="Rajsamand plains", setting="rural",
+        title="Prompt edit", source_text="A" * 120, culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural", period="contemporary_2020_2026", output_script="devanagari",
     ))
     repository.set_stage(project["id"], "scene_images_review")
     first = repository.upsert_asset(
@@ -355,7 +445,8 @@ def test_direct_scene_prompt_edit_creates_only_one_pending_version(tmp_path: Pat
 def test_retained_scene_version_can_be_restored_without_generation(tmp_path: Path):
     repository = Repository(tmp_path / "app.sqlite")
     project = repository.create_project(ProjectCreate(
-        title="Restore", source_text="A" * 120, locality="Rajsamand plains", setting="rural",
+        title="Restore", source_text="A" * 120, culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural", period="contemporary_2020_2026", output_script="devanagari",
     ))
     repository.set_stage(project["id"], "scene_images_review")
     image = tmp_path / "acceptable.png"

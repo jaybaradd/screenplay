@@ -42,6 +42,8 @@ class Client:
         return response.content
 
     def health(self): return self.request("GET", "/health")
+    def cultures(self): return self.request("GET", "/v1/cultures")
+    def culture(self, culture_id: str): return self.request("GET", f"/v1/cultures/{culture_id}")
     def projects(self): return self.request("GET", "/v1/projects")
     def project(self, project_id: str): return self.request("GET", f"/v1/projects/{project_id}")
     def create(self, payload: dict[str, Any]): return self.request("POST", "/v1/projects", json_data=payload, idempotent=True)
@@ -52,6 +54,8 @@ class Client:
         return self.request("PATCH", f"/v1/projects/{project_id}/records/{document_kind}/root", json_data={"document_kind": document_kind, "field_path": field_path, "value": value, "expected_hash": expected_hash}, idempotent=True)
     def merge(self, project_id: str, record_kind: str, primary_id: str, duplicate_ids: list[str]):
         return self.request("POST", f"/v1/projects/{project_id}/merges", json_data={"record_kind": record_kind, "primary_id": primary_id, "duplicate_ids": duplicate_ids}, idempotent=True)
+    def repair_continuity(self, project_id: str):
+        return self.request("POST", f"/v1/projects/{project_id}/continuity/repair", idempotent=True)
     def correct(self, project_id: str, block_id: str, instruction: str, expected_hash: str):
         return self.request("POST", f"/v1/projects/{project_id}/corrections", json_data={"target_block_id": block_id, "instruction": instruction, "expected_hash": expected_hash}, idempotent=True)
     def regenerate_visuals(self, project_id: str):

@@ -4,15 +4,15 @@
     "aliases": [],
     "dialect_register": null,
     "emotional_state": "Unspecified",
-    "id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+    "id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
     "name": "Amar",
     "personality": [],
     "relationships": [],
     "role": "Extracted speaker",
     "scene_entrances": [
-      "bdee878d-e691-557c-a505-2a9e15899e99",
-      "69f34aa5-80fe-54a9-8fb9-d79aa9556091",
-      "398cefff-0716-501b-8bff-28f8e8fc64f6"
+      "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+      "1d26c039-1ec4-5a61-a3a9-18669b853bc8",
+      "d871c423-5667-50a5-a638-4dfb9a5baee1"
     ],
     "scene_exits": []
   },
@@ -21,14 +21,14 @@
     "aliases": [],
     "dialect_register": null,
     "emotional_state": "Unspecified",
-    "id": "f6518184-95e8-5d30-a144-2fd7817437b7",
+    "id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
     "name": "Meera",
     "personality": [],
     "relationships": [],
     "role": "Extracted speaker",
     "scene_entrances": [
-      "bdee878d-e691-557c-a505-2a9e15899e99",
-      "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+      "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+      "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
     ],
     "scene_exits": []
   },
@@ -37,13 +37,13 @@
     "aliases": [],
     "dialect_register": null,
     "emotional_state": "Unspecified",
-    "id": "4f3641a4-f006-5176-b03d-14c3abee98b7",
+    "id": "dd8cfe1f-067f-5379-b039-043f30e33160",
     "name": "Shopkeeper",
     "personality": [],
     "relationships": [],
     "role": "Extracted speaker",
     "scene_entrances": [
-      "398cefff-0716-501b-8bff-28f8e8fc64f6"
+      "d871c423-5667-50a5-a638-4dfb9a5baee1"
     ],
     "scene_exits": []
   }

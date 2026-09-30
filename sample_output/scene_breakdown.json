@@ -5,15 +5,15 @@
       "aliases": [],
       "dialect_register": null,
       "emotional_state": "Unspecified",
-      "id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+      "id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
       "name": "Amar",
       "personality": [],
       "relationships": [],
       "role": "Extracted speaker",
       "scene_entrances": [
-        "bdee878d-e691-557c-a505-2a9e15899e99",
-        "69f34aa5-80fe-54a9-8fb9-d79aa9556091",
-        "398cefff-0716-501b-8bff-28f8e8fc64f6"
+        "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+        "1d26c039-1ec4-5a61-a3a9-18669b853bc8",
+        "d871c423-5667-50a5-a638-4dfb9a5baee1"
       ],
       "scene_exits": []
     },
@@ -22,14 +22,14 @@
       "aliases": [],
       "dialect_register": null,
       "emotional_state": "Unspecified",
-      "id": "f6518184-95e8-5d30-a144-2fd7817437b7",
+      "id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
       "name": "Meera",
       "personality": [],
       "relationships": [],
       "role": "Extracted speaker",
       "scene_entrances": [
-        "bdee878d-e691-557c-a505-2a9e15899e99",
-        "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+        "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+        "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
       ],
       "scene_exits": []
     },
@@ -38,54 +38,165 @@
       "aliases": [],
       "dialect_register": null,
       "emotional_state": "Unspecified",
-      "id": "4f3641a4-f006-5176-b03d-14c3abee98b7",
+      "id": "dd8cfe1f-067f-5379-b039-043f30e33160",
       "name": "Shopkeeper",
       "personality": [],
       "relationships": [],
       "role": "Extracted speaker",
       "scene_entrances": [
-        "398cefff-0716-501b-8bff-28f8e8fc64f6"
+        "d871c423-5667-50a5-a638-4dfb9a5baee1"
       ],
       "scene_exits": []
     }
   ],
+  "continuity_events": [
+    {
+      "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+      "confidence": "low",
+      "counterparty_character_id": null,
+      "description": "Mock mode records reviewed coverage without asserting a state change.",
+      "evidence_block_ids": [
+        "e6669b46-4324-5740-99ea-8a42a48bf5f1"
+      ],
+      "fact": null,
+      "id": "8abcf108-ee9c-5adc-a00c-d630286775c7",
+      "kind": "no_change",
+      "prop_id": null,
+      "related_prop_id": null,
+      "relationship_character_id": null,
+      "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+      "timing": "during_scene",
+      "value": null
+    },
+    {
+      "character_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
+      "confidence": "low",
+      "counterparty_character_id": null,
+      "description": "Mock mode records reviewed coverage without asserting a state change.",
+      "evidence_block_ids": [
+        "e6669b46-4324-5740-99ea-8a42a48bf5f1"
+      ],
+      "fact": null,
+      "id": "a3bdd9d0-18d4-5b63-be8d-f1f675158bca",
+      "kind": "no_change",
+      "prop_id": null,
+      "related_prop_id": null,
+      "relationship_character_id": null,
+      "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+      "timing": "during_scene",
+      "value": null
+    },
+    {
+      "character_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
+      "confidence": "low",
+      "counterparty_character_id": null,
+      "description": "Mock mode records reviewed coverage without asserting a state change.",
+      "evidence_block_ids": [
+        "a037f90b-8441-5b19-a503-2ed734f94267"
+      ],
+      "fact": null,
+      "id": "098ce4fc-a615-5e73-8e15-338c72989b06",
+      "kind": "no_change",
+      "prop_id": null,
+      "related_prop_id": null,
+      "relationship_character_id": null,
+      "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8",
+      "timing": "during_scene",
+      "value": null
+    },
+    {
+      "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+      "confidence": "low",
+      "counterparty_character_id": null,
+      "description": "Mock mode records reviewed coverage without asserting a state change.",
+      "evidence_block_ids": [
+        "a037f90b-8441-5b19-a503-2ed734f94267"
+      ],
+      "fact": null,
+      "id": "a71a1cc9-0cce-51b4-8e52-b24198a79fee",
+      "kind": "no_change",
+      "prop_id": null,
+      "related_prop_id": null,
+      "relationship_character_id": null,
+      "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8",
+      "timing": "during_scene",
+      "value": null
+    },
+    {
+      "character_id": "dd8cfe1f-067f-5379-b039-043f30e33160",
+      "confidence": "low",
+      "counterparty_character_id": null,
+      "description": "Mock mode records reviewed coverage without asserting a state change.",
+      "evidence_block_ids": [
+        "a3fe0c94-76c6-58bf-959a-e185452ecaa6"
+      ],
+      "fact": null,
+      "id": "1ceff295-8bc1-5cc8-8b48-8f29b6a94a05",
+      "kind": "no_change",
+      "prop_id": null,
+      "related_prop_id": null,
+      "relationship_character_id": null,
+      "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1",
+      "timing": "during_scene",
+      "value": null
+    },
+    {
+      "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+      "confidence": "low",
+      "counterparty_character_id": null,
+      "description": "Mock mode records reviewed coverage without asserting a state change.",
+      "evidence_block_ids": [
+        "a3fe0c94-76c6-58bf-959a-e185452ecaa6"
+      ],
+      "fact": null,
+      "id": "fc99b33f-63bd-547a-9266-95c3c05ddb1a",
+      "kind": "no_change",
+      "prop_id": null,
+      "related_prop_id": null,
+      "relationship_character_id": null,
+      "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1",
+      "timing": "during_scene",
+      "value": null
+    }
+  ],
   "detected_language": "Undetermined (mock mode)",
   "extraction_warnings": [
-    "Mock extraction is deterministic and must be reviewed before approval."
+    "Mock extraction is deterministic and must be reviewed before approval.",
+    "Continuity repair: Mock mode cannot extract evidence-backed continuity changes."
   ],
   "original_text": "INT. FAMILY HOUSE - MORNING\n\nAMAR\nI promised I would deliver the letter before noon.\n\nAmar folds the letter and puts it inside his cloth bag. His younger sister Meera watches him from the doorway.\n\nMEERA\nYou have been saying that since sunrise.\n\nEXT. MARKET ROAD - AFTERNOON\n\nAmar walks through the crowded road with the cloth bag over his shoulder. Meera catches up with him.\n\nMEERA\nThe bus has already left. Tell me what is really in that letter.\n\nAMAR\nIt is an apology. Father wrote it, but he could not bring himself to send it.\n\nINT. SMALL SHOP - EVENING\n\nSHOPKEEPER\nYou came a long way for a piece of paper.\n\nAmar removes the letter from his cloth bag and places it on the counter.\n\nAMAR\nThe paper is small. What it needs to repair is not.\n\n",
   "production_elements": [
     {
       "aliases": [],
       "description": "",
-      "id": "ae6ec863-9d48-5fd4-9e19-05c04b36001f",
+      "id": "f8dd3f09-db6d-5814-8ad5-5a27ae3e7d91",
       "kind": "location",
       "name": "Family House",
       "owner_character_id": null,
       "scene_ids": [
-        "bdee878d-e691-557c-a505-2a9e15899e99"
+        "9128292f-2a4d-555f-8f87-68f85ad8cf93"
       ]
     },
     {
       "aliases": [],
       "description": "",
-      "id": "6ecfc561-5dd7-5f53-922e-d739812562de",
+      "id": "b964db6b-50f4-50dc-a6a5-559789f4fc14",
       "kind": "location",
       "name": "Market Road",
       "owner_character_id": null,
       "scene_ids": [
-        "69f34aa5-80fe-54a9-8fb9-d79aa9556091"
+        "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
       ]
     },
     {
       "aliases": [],
       "description": "",
-      "id": "ec0e393f-1bf5-56c7-92d3-b0cc1b5d9195",
+      "id": "6cac3d58-4900-5d13-b765-531bd3636c0f",
       "kind": "location",
       "name": "Small Shop",
       "owner_character_id": null,
       "scene_ids": [
-        "398cefff-0716-501b-8bff-28f8e8fc64f6"
+        "d871c423-5667-50a5-a638-4dfb9a5baee1"
       ]
     }
   ],
@@ -93,16 +204,16 @@
     {
       "blocks": [
         {
-          "id": "d87466ea-1cd6-5b9f-bdcf-623fe6715e5b",
+          "id": "e6669b46-4324-5740-99ea-8a42a48bf5f1",
           "source_end": 50,
           "source_start": 0,
-          "speaker_id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+          "speaker_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
           "speaker_label": "Amar",
           "text": "I promised I would deliver the letter before noon.",
           "type": "dialogue"
         },
         {
-          "id": "e0028dcc-5f1e-541b-97f4-670ee89f064a",
+          "id": "41c8bbd7-fd32-5aad-abda-e0500cac5415",
           "source_end": 166,
           "source_start": 56,
           "speaker_id": null,
@@ -111,40 +222,40 @@
           "type": "action"
         },
         {
-          "id": "b6a91da4-8a54-5452-8cfb-88ff2360c24c",
+          "id": "8b23e6bc-4fba-5948-96f6-afd1202c0457",
           "source_end": 207,
           "source_start": 167,
-          "speaker_id": "f6518184-95e8-5d30-a144-2fd7817437b7",
+          "speaker_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
           "speaker_label": "Meera",
           "text": "You have been saying that since sunrise.",
           "type": "dialogue"
         }
       ],
       "character_ids": [
-        "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
-        "f6518184-95e8-5d30-a144-2fd7817437b7"
+        "f0e55449-8247-54d1-8245-9e8fb26fefac",
+        "a43677b0-a276-5c4e-96e9-b74b15f8e69b"
       ],
-      "day_or_date": null,
+      "day_or_date": "Not stated in source",
       "dramatic_purpose": "Preserve the source scene's causal and emotional function.",
       "heading": "INT. FAMILY HOUSE - MORNING",
-      "id": "bdee878d-e691-557c-a505-2a9e15899e99",
+      "id": "9128292f-2a4d-555f-8f87-68f85ad8cf93",
       "int_ext": "INT",
       "location": "Family House",
-      "location_id": "ae6ec863-9d48-5fd4-9e19-05c04b36001f",
-      "mood": null,
+      "location_id": "f8dd3f09-db6d-5814-8ad5-5a27ae3e7d91",
+      "mood": "Requires human review in mock mode",
       "number": 1,
       "production_element_ids": [
-        "ae6ec863-9d48-5fd4-9e19-05c04b36001f"
+        "f8dd3f09-db6d-5814-8ad5-5a27ae3e7d91"
       ],
-      "sub_location": null,
+      "sub_location": "Not stated in source",
       "summary": "I promised I would deliver the letter before noon. Amar folds the letter and puts it inside his cloth bag. His younger sister Meera watches him from the doorway.",
       "time": "MORNING",
-      "weather": null
+      "weather": "Not stated in source"
     },
     {
       "blocks": [
         {
-          "id": "42009394-681f-5922-b9c1-e206e79a59d6",
+          "id": "a037f90b-8441-5b19-a503-2ed734f94267",
           "source_end": 346,
           "source_start": 246,
           "speaker_id": null,
@@ -153,58 +264,58 @@
           "type": "action"
         },
         {
-          "id": "09755153-e923-50bc-a808-07c75e25b486",
+          "id": "dc0ebee8-4860-504e-b123-08070c23f3f1",
           "source_end": 411,
           "source_start": 347,
-          "speaker_id": "f6518184-95e8-5d30-a144-2fd7817437b7",
+          "speaker_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
           "speaker_label": "Meera",
           "text": "The bus has already left. Tell me what is really in that letter.",
           "type": "dialogue"
         },
         {
-          "id": "744d9803-b0d8-5822-b713-01089efa2363",
+          "id": "9a65fd32-b289-58f6-bac7-dbaa886e1a46",
           "source_end": 495,
           "source_start": 418,
-          "speaker_id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+          "speaker_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
           "speaker_label": "Amar",
           "text": "It is an apology. Father wrote it, but he could not bring himself to send it.",
           "type": "dialogue"
         }
       ],
       "character_ids": [
-        "f6518184-95e8-5d30-a144-2fd7817437b7",
-        "183ed81e-5d12-53c2-a9c0-7977d7b2043d"
+        "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
+        "f0e55449-8247-54d1-8245-9e8fb26fefac"
       ],
-      "day_or_date": null,
+      "day_or_date": "Not stated in source",
       "dramatic_purpose": "Preserve the source scene's causal and emotional function.",
       "heading": "EXT. MARKET ROAD - AFTERNOON",
-      "id": "69f34aa5-80fe-54a9-8fb9-d79aa9556091",
+      "id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8",
       "int_ext": "EXT",
       "location": "Market Road",
-      "location_id": "6ecfc561-5dd7-5f53-922e-d739812562de",
-      "mood": null,
+      "location_id": "b964db6b-50f4-50dc-a6a5-559789f4fc14",
+      "mood": "Requires human review in mock mode",
       "number": 2,
       "production_element_ids": [
-        "6ecfc561-5dd7-5f53-922e-d739812562de"
+        "b964db6b-50f4-50dc-a6a5-559789f4fc14"
       ],
-      "sub_location": null,
+      "sub_location": "Not stated in source",
       "summary": "Amar walks through the crowded road with the cloth bag over his shoulder. Meera catches up with him. The bus has already left. Tell me what is really in that letter.",
       "time": "AFTERNOON",
-      "weather": null
+      "weather": "Not stated in source"
     },
     {
       "blocks": [
         {
-          "id": "5e6f17bb-4494-5c75-89ae-c2a7c1a26196",
+          "id": "a3fe0c94-76c6-58bf-959a-e185452ecaa6",
           "source_end": 575,
           "source_start": 534,
-          "speaker_id": "4f3641a4-f006-5176-b03d-14c3abee98b7",
+          "speaker_id": "dd8cfe1f-067f-5379-b039-043f30e33160",
           "speaker_label": "Shopkeeper",
           "text": "You came a long way for a piece of paper.",
           "type": "dialogue"
         },
         {
-          "id": "5d073ac2-5ba1-52f2-9888-d1d1ed31f9cc",
+          "id": "a213a733-1a42-59f0-8e52-027f8c32f9a6",
           "source_end": 659,
           "source_start": 587,
           "speaker_id": null,
@@ -213,38 +324,201 @@
           "type": "action"
         },
         {
-          "id": "5b517c31-cb0c-50c0-a7ea-e6fec66fa171",
+          "id": "020725cc-2b24-5b0c-b25f-22ccb15b4961",
           "source_end": 711,
           "source_start": 660,
-          "speaker_id": "183ed81e-5d12-53c2-a9c0-7977d7b2043d",
+          "speaker_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
           "speaker_label": "Amar",
           "text": "The paper is small. What it needs to repair is not.",
           "type": "dialogue"
         }
       ],
       "character_ids": [
-        "4f3641a4-f006-5176-b03d-14c3abee98b7",
-        "183ed81e-5d12-53c2-a9c0-7977d7b2043d"
+        "dd8cfe1f-067f-5379-b039-043f30e33160",
+        "f0e55449-8247-54d1-8245-9e8fb26fefac"
       ],
-      "day_or_date": null,
+      "day_or_date": "Not stated in source",
       "dramatic_purpose": "Preserve the source scene's causal and emotional function.",
       "heading": "INT. SMALL SHOP - EVENING",
-      "id": "398cefff-0716-501b-8bff-28f8e8fc64f6",
+      "id": "d871c423-5667-50a5-a638-4dfb9a5baee1",
       "int_ext": "INT",
       "location": "Small Shop",
-      "location_id": "ec0e393f-1bf5-56c7-92d3-b0cc1b5d9195",
-      "mood": null,
+      "location_id": "6cac3d58-4900-5d13-b765-531bd3636c0f",
+      "mood": "Requires human review in mock mode",
       "number": 3,
       "production_element_ids": [
-        "ec0e393f-1bf5-56c7-92d3-b0cc1b5d9195"
+        "6cac3d58-4900-5d13-b765-531bd3636c0f"
       ],
-      "sub_location": null,
+      "sub_location": "Not stated in source",
       "summary": "You came a long way for a piece of paper. Amar removes the letter from his cloth bag and places it on the counter.",
       "time": "EVENING",
-      "weather": null
+      "weather": "Not stated in source"
     }
   ],
-  "state_transitions": [],
+  "state_transitions": [
+    {
+      "after": {
+        "carries": [],
+        "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93"
+      },
+      "before": {
+        "carries": [],
+        "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93"
+      },
+      "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+      "events": [
+        "Mock mode records reviewed coverage without asserting a state change."
+      ],
+      "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93"
+    },
+    {
+      "after": {
+        "carries": [],
+        "character_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93"
+      },
+      "before": {
+        "carries": [],
+        "character_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93"
+      },
+      "character_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
+      "events": [
+        "Mock mode records reviewed coverage without asserting a state change."
+      ],
+      "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93"
+    },
+    {
+      "after": {
+        "carries": [],
+        "character_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
+      },
+      "before": {
+        "carries": [],
+        "character_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
+      },
+      "character_id": "a43677b0-a276-5c4e-96e9-b74b15f8e69b",
+      "events": [
+        "Mock mode records reviewed coverage without asserting a state change."
+      ],
+      "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
+    },
+    {
+      "after": {
+        "carries": [],
+        "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
+      },
+      "before": {
+        "carries": [],
+        "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
+      },
+      "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+      "events": [
+        "Mock mode records reviewed coverage without asserting a state change."
+      ],
+      "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
+    },
+    {
+      "after": {
+        "carries": [],
+        "character_id": "dd8cfe1f-067f-5379-b039-043f30e33160",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1"
+      },
+      "before": {
+        "carries": [],
+        "character_id": "dd8cfe1f-067f-5379-b039-043f30e33160",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1"
+      },
+      "character_id": "dd8cfe1f-067f-5379-b039-043f30e33160",
+      "events": [
+        "Mock mode records reviewed coverage without asserting a state change."
+      ],
+      "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1"
+    },
+    {
+      "after": {
+        "carries": [],
+        "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1"
+      },
+      "before": {
+        "carries": [],
+        "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+        "costume_id": null,
+        "emotion": null,
+        "injuries": [],
+        "knows": [],
+        "relationship_state": {},
+        "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1"
+      },
+      "character_id": "f0e55449-8247-54d1-8245-9e8fb26fefac",
+      "events": [
+        "Mock mode records reviewed coverage without asserting a state change."
+      ],
+      "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1"
+    }
+  ],
   "story_contract": {
     "central_dramatic_purpose": "Preserve the source conflict and its resolution.",
     "emotional_arc": [
@@ -260,9 +534,9 @@
       "Do not change established relationships without explicit approval."
     ],
     "scene_purposes": {
-      "398cefff-0716-501b-8bff-28f8e8fc64f6": "Preserve the source scene's causal and emotional function.",
-      "69f34aa5-80fe-54a9-8fb9-d79aa9556091": "Preserve the source scene's causal and emotional function.",
-      "bdee878d-e691-557c-a505-2a9e15899e99": "Preserve the source scene's causal and emotional function."
+      "1d26c039-1ec4-5a61-a3a9-18669b853bc8": "Preserve the source scene's causal and emotional function.",
+      "9128292f-2a4d-555f-8f87-68f85ad8cf93": "Preserve the source scene's causal and emotional function.",
+      "d871c423-5667-50a5-a638-4dfb9a5baee1": "Preserve the source scene's causal and emotional function."
     }
   },
   "title": "The Letter — Engineering Sample"

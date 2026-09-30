@@ -19,20 +19,20 @@ st.subheader("Frozen cultural brief")
 st.caption(f"{brief['payload']['culture']} · {brief['payload']['locality']} · {brief['payload']['setting']} · {brief['payload']['period']}")
 st.write(brief["payload"]["research_summary"])
 st.dataframe(brief["payload"]["claims"], width='stretch')
-guide = brief["payload"].get("dialect_guide")
+guide = brief["payload"].get("language_guide")
 if guide:
     st.subheader("Approved language guide")
     st.caption(f"{guide['target_variety']} · {guide['writing_script']}")
     if guide.get("features"):
         st.dataframe(guide["features"], width="stretch")
     else:
-        st.error("No source-backed dialect features were found. Do not approve a Mewari adaptation yet.")
+        st.error(f"No source-backed features were found for {guide['target_variety']}; do not approve the adaptation yet.")
     for rule in guide.get("code_switching_rules", []):
         st.info("Code-switching: " + rule)
 else:
-    st.error("The cultural brief has no Maidani Mewari dialect guide.")
-for constraint in brief["payload"]["negative_constraints"]:
-    st.warning(constraint)
+    st.error(f"The cultural brief has no {project['culture_display_name']} language guide.")
+for constraint in brief["payload"]["constraints"]:
+    st.warning(constraint["text"])
 
 verification = project["revisions"].get("plan_verification", {}).get("payload", [])
 if verification:

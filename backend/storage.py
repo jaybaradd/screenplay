@@ -9,6 +9,8 @@ from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Iterator
 
+from backend.cultures.models import CultureProfileSnapshot, TargetSelection
+from backend.cultures.registry import culture_registry
 from backend.schemas import AssetStatus, ProjectCreate, utc_now
 
 
@@ -22,6 +24,8 @@ def content_hash(value: Any) -> str:
 
 
 class Repository:
+    SCHEMA_VERSION = "2"
+
     def __init__(self, path: Path):
         self.path = path
         self.path.parent.mkdir(parents=True, exist_ok=True)
@@ -44,12 +48,40 @@ class Repository:
             connection.close()
 
     def setup(self) -> None:
+        with self.connect() as connection:
+            existing = connection.execute(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name='projects'"
+            ).fetchone()
+            version_table = connection.execute(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name='schema_metadata'"
+            ).fetchone()
+            if existing and not version_table:
+                raise RuntimeError(
+                    "This database predates culture profiles. Archive the current DATA_DIR and start with an empty "
+                    "directory; existing projects are intentionally not migrated."
+                )
+            if version_table:
+                row = connection.execute(
+                    "SELECT value FROM schema_metadata WHERE key='schema_version'"
+                ).fetchone()
+                if not row or row[0] != self.SCHEMA_VERSION:
+                    raise RuntimeError(
+                        f"Unsupported application database schema {row[0] if row else 'unknown'}; "
+                        f"expected {self.SCHEMA_VERSION}. Start with an empty DATA_DIR."
+                    )
         schema = """
+        CREATE TABLE IF NOT EXISTS schema_metadata (
+            key TEXT PRIMARY KEY,
+            value TEXT NOT NULL
+        );
         CREATE TABLE IF NOT EXISTS projects (
             id TEXT PRIMARY KEY,
             title TEXT NOT NULL,
             source_text TEXT NOT NULL,
-            culture TEXT NOT NULL,
+            culture_id TEXT NOT NULL,
+            culture_display_name TEXT NOT NULL,
+            profile_version TEXT NOT NULL,
+            profile_hash TEXT NOT NULL,
             locality TEXT NOT NULL,
             setting TEXT NOT NULL,
             period TEXT NOT NULL,
@@ -106,6 +138,9 @@ class Repository:
             prompt_hash TEXT NOT NULL,
             input_hash TEXT NOT NULL,
             cache_key TEXT NOT NULL UNIQUE,
+            culture_id TEXT,
+            profile_hash TEXT,
+            brief_revision_id TEXT,
             output_json TEXT,
             status TEXT NOT NULL,
             latency_ms INTEGER,
@@ -124,27 +159,53 @@ class Repository:
         """
         with self.connect() as connection:
             connection.executescript(schema)
+            connection.execute(
+                "INSERT OR REPLACE INTO schema_metadata (key,value) VALUES ('schema_version',?)",
+                (self.SCHEMA_VERSION,),
+            )
 
-    def create_project(self, request: ProjectCreate) -> dict[str, Any]:
+    def create_project(
+        self, request: ProjectCreate, snapshot: CultureProfileSnapshot | None = None,
+    ) -> dict[str, Any]:
+        selection = TargetSelection(
+            culture_id=request.culture_id, locality=request.locality, setting=request.setting,
+            period=request.period, output_script=request.output_script,
+        )
+        snapshot = snapshot or culture_registry.validate_selection(selection)
+        profile = snapshot.profile
+        if not selection.locality.strip():
+            raise ValueError("Exact locality is required")
+        if profile.culture_id != selection.culture_id:
+            raise ValueError("Culture profile snapshot does not match the requested culture")
+        if selection.setting not in profile.supported_settings:
+            raise ValueError(f"Unsupported setting for {profile.display_name}: {selection.setting}")
+        if selection.period not in {item.id for item in profile.supported_periods}:
+            raise ValueError(f"Unsupported period for {profile.display_name}: {selection.period}")
+        if selection.output_script not in {item.id for item in profile.supported_scripts}:
+            raise ValueError(f"Unsupported output script for {profile.display_name}: {selection.output_script}")
         project_id = str(uuid.uuid4())
         now = utc_now()
         with self.connect() as connection:
             connection.execute(
                 """INSERT INTO projects
-                (id,title,source_text,culture,locality,setting,period,output_script,thread_id,stage,status,created_at,updated_at)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (id,title,source_text,culture_id,culture_display_name,profile_version,profile_hash,
+                 locality,setting,period,output_script,thread_id,stage,status,created_at,updated_at)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (
-                    project_id, request.title, request.source_text, request.culture,
+                    project_id, request.title, request.source_text, request.culture_id,
+                    snapshot.profile.display_name, snapshot.profile.version, snapshot.profile_hash,
                     request.locality, request.setting, request.period, request.output_script,
                     project_id, "created", "active", now, now,
                 ),
             )
+        self.create_revision(project_id, "culture_profile_snapshot", snapshot)
         return self.get_project(project_id)
 
     def list_projects(self) -> list[dict[str, Any]]:
         with self.connect() as connection:
             rows = connection.execute(
-                "SELECT id,title,culture,locality,setting,stage,status,created_at,updated_at FROM projects ORDER BY updated_at DESC"
+                "SELECT id,title,culture_id,culture_display_name,profile_version,profile_hash,locality,setting,stage,status,created_at,updated_at "
+                "FROM projects ORDER BY updated_at DESC"
             ).fetchall()
         return [dict(row) for row in rows]
 
@@ -250,6 +311,19 @@ class Repository:
                 VALUES (?,?,?,?,?,?,?,?,?,?)""",
                 (asset_id, project_id, kind, canonical_id, scene_id, prompt, dependency_hash, AssetStatus.pending, now, now),
             )
+            # The deterministic ID may already belong to a retained version that a
+            # later prompt superseded. Compiling the exact same dependency again is
+            # an explicit request to make that version active; INSERT OR IGNORE
+            # alone would otherwise return an invisible, invalidated asset.
+            connection.execute(
+                """UPDATE assets
+                SET status=?, prompt=?, scene_id=COALESCE(?,scene_id), error=NULL, updated_at=?
+                WHERE id=? AND status=?""",
+                (
+                    AssetStatus.pending, prompt, scene_id, now, asset_id,
+                    AssetStatus.invalidated,
+                ),
+            )
         return self.get_asset(asset_id)
 
     def get_asset(self, asset_id: str) -> dict[str, Any]:
@@ -319,7 +393,8 @@ class Repository:
         values["output_json"] = canonical_json(values.pop("output")) if "output" in values else None
         columns = [
             "id", "project_id", "operation", "provider", "model", "prompt_hash", "input_hash",
-            "cache_key", "output_json", "status", "latency_ms", "input_tokens", "output_tokens", "error", "created_at",
+            "cache_key", "culture_id", "profile_hash", "brief_revision_id", "output_json", "status", "latency_ms",
+            "input_tokens", "output_tokens", "error", "created_at",
         ]
         with self.connect() as connection:
             connection.execute(
@@ -331,7 +406,8 @@ class Repository:
     def list_model_runs(self, project_id: str) -> list[dict[str, Any]]:
         with self.connect() as connection:
             rows = connection.execute(
-                "SELECT id,operation,provider,model,prompt_hash,input_hash,status,latency_ms,input_tokens,output_tokens,error,created_at FROM model_runs WHERE project_id=? ORDER BY created_at",
+                "SELECT id,operation,provider,model,prompt_hash,input_hash,culture_id,profile_hash,brief_revision_id,"
+                "status,latency_ms,input_tokens,output_tokens,error,created_at FROM model_runs WHERE project_id=? ORDER BY created_at",
                 (project_id,),
             ).fetchall()
         return [dict(row) for row in rows]

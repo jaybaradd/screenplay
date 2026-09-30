@@ -3,8 +3,8 @@ requires = ["setuptools>=70"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mewari-screenplay-studio"
-version = "0.1.0"
+name = "cultural-screenplay-studio"
+version = "0.2.0"
 description = "Durable human-in-the-loop cultural screenplay adaptation MVP"
 requires-python = ">=3.11"
 dependencies = [
@@ -27,6 +27,9 @@ observability = ["langfuse>=3.0,<4"]
 
 [tool.setuptools.packages.find]
 include = ["backend*", "frontend*"]
+
+[tool.setuptools.package-data]
+"backend.cultures" = ["profiles/*/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

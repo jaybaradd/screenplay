@@ -1,0 +1,71 @@
+{
+  "culture_id": "maidani_mewari",
+  "version": "1.0.0",
+  "display_name": "Maidani Mewari",
+  "production_enabled": true,
+  "language_name": "Mewari",
+  "target_variety": "Maidani Mewari",
+  "geographic_scope": "The plains of the Mewar region; the user must supply an exact locality and the research must remain scoped to it.",
+  "limitations": [
+    "Locality-specific language and visual evidence may be sparse; broader Mewari evidence must remain labelled as such.",
+    "User approval is the review gate when a native-language reviewer is unavailable.",
+    "Every project still requires grounded research; the profile alone is not permission to invent cultural facts."
+  ],
+  "supported_scripts": [
+    {
+      "id": "devanagari",
+      "display_name": "Devanagari",
+      "font_path": "assets/fonts/NotoSansDevanagari.ttf",
+      "html_lang": "mwr-Deva"
+    }
+  ],
+  "supported_settings": ["rural", "urban"],
+  "supported_periods": [
+    {"id": "contemporary_2020_2026", "display_name": "Contemporary (2020–2026)"}
+  ],
+  "commonly_confused_languages": ["Marwari", "generic Rajasthani", "standard Hindi"],
+  "commonly_confused_visual_traditions": ["generic Rajasthan tourism imagery", "Thar desert imagery", "royal wedding styling"],
+  "required_research_dimensions": ["verbal", "non_verbal", "characters", "visual_world", "story_world", "cultural_precision"],
+  "research_guidance": [
+    "Treat broader Mewari evidence as a limitation when it is not specific to the selected locality.",
+    "Do not infer caste, religion, class, occupation or values from regional identity.",
+    "Separate contemporary practice from inherited or ceremonial practice."
+  ],
+  "source_policy": {
+    "preferred": ["institutional", "academic", "linguistic", "museum", "government", "locality-specific", "locally authored language material"],
+    "discouraged": ["tourism marketing", "unsourced listicles", "generic Rajasthan aggregators"],
+    "locality_specificity_rule": "Record when a source covers broader Mewari or Rajasthan rather than the exact selected locality."
+  },
+  "language_policy": {
+    "minimum_supported_features": 6,
+    "require_source_per_feature": true,
+    "fallback_language": "standard Hindi",
+    "fallback_requires_register_rule": true,
+    "required_feature_categories": ["grammar", "pronoun", "honorific", "particle", "rhythm"]
+  },
+  "visual_policy": {
+    "require_locality_evidence": true,
+    "require_period_evidence": true,
+    "prohibit_unapproved_festival_styling": true
+  },
+  "constraints": [
+    {
+      "id": "mm-language-boundary",
+      "text": "Do not substitute Marwari, generic Rajasthani or standard Hindi for Maidani Mewari; do not invent regional-sounding forms.",
+      "layers": ["verbal", "cultural_precision"],
+      "kind": "language_boundary"
+    },
+    {
+      "id": "mm-visual-cliche-boundary",
+      "text": "Do not default to palaces, camels, sand dunes, weddings or tourist-folk imagery unless the screenplay and approved evidence require them.",
+      "layers": ["visual_world", "story_world", "cultural_precision"],
+      "kind": "visual_boundary"
+    },
+    {
+      "id": "mm-identity-boundary",
+      "text": "Do not infer caste, religion, wealth, occupation, values or universal personality traits from regional identity.",
+      "layers": ["characters", "non_verbal", "story_world", "cultural_precision"],
+      "kind": "identity_boundary"
+    }
+  ]
+}

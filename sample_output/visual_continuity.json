@@ -1,0 +1,102 @@
+{
+  "scenes": [
+    {
+      "appearance_ids": [
+        "a3105e13-1a91-507f-8a8c-ffd7473f8209",
+        "b11414ee-adc5-59a2-88b8-90ca693e0829"
+      ],
+      "approved_at": "2026-09-30T20:47:28.495826+00:00",
+      "asset_id": "d22c0bee-19e3-5b48-9ffb-e9462972a8d9",
+      "character_state_notes": [],
+      "costume_ids": [
+        "de192ba1-9543-5db8-8d38-d6143e813157",
+        "3f1456bc-2fc5-5073-986f-d4f4e8548387"
+      ],
+      "prop_ids": [],
+      "prop_state_notes": [],
+      "scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93",
+      "scene_number": 1,
+      "set_id": "6b14bc4f-8970-5b99-936b-300cfa5f4462"
+    },
+    {
+      "appearance_ids": [
+        "b11414ee-adc5-59a2-88b8-90ca693e0829",
+        "a3105e13-1a91-507f-8a8c-ffd7473f8209"
+      ],
+      "approved_at": "2026-09-30T20:47:28.670749+00:00",
+      "asset_id": "9f2bb9cf-ae3d-5467-8f90-583db52407f4",
+      "character_state_notes": [],
+      "costume_ids": [
+        "3f1456bc-2fc5-5073-986f-d4f4e8548387",
+        "de192ba1-9543-5db8-8d38-d6143e813157"
+      ],
+      "prop_ids": [],
+      "prop_state_notes": [],
+      "scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8",
+      "scene_number": 2,
+      "set_id": "ab9b10b0-5d18-52b6-8758-0fc3b4205121"
+    },
+    {
+      "appearance_ids": [
+        "469d85df-3bf9-5de1-a252-31707f9bd83b",
+        "a3105e13-1a91-507f-8a8c-ffd7473f8209"
+      ],
+      "approved_at": "2026-09-30T20:47:28.846494+00:00",
+      "asset_id": "9855f05a-7098-58bc-84f7-05360830bbc7",
+      "character_state_notes": [],
+      "costume_ids": [
+        "e78c8868-977d-512b-bc48-e76259b2c4c3",
+        "de192ba1-9543-5db8-8d38-d6143e813157"
+      ],
+      "prop_ids": [],
+      "prop_state_notes": [],
+      "scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1",
+      "scene_number": 3,
+      "set_id": "9f13451c-4f3d-54b8-9d30-a64c013b3edc"
+    }
+  ],
+  "sets": [
+    {
+      "adjacency_notes": [],
+      "approved_at": "2026-09-30T20:47:28.495758+00:00",
+      "fixed_elements": [],
+      "geometry_notes": "Mock sample geometry; replace through live visual review.",
+      "location_id": "f8dd3f09-db6d-5814-8ad5-5a27ae3e7d91",
+      "materials": [],
+      "mutable_elements": [],
+      "name": "Not stated in source",
+      "palette": [],
+      "reference_asset_id": "d22c0bee-19e3-5b48-9ffb-e9462972a8d9",
+      "set_id": "6b14bc4f-8970-5b99-936b-300cfa5f4462",
+      "source_scene_id": "9128292f-2a4d-555f-8f87-68f85ad8cf93"
+    },
+    {
+      "adjacency_notes": [],
+      "approved_at": "2026-09-30T20:47:28.670689+00:00",
+      "fixed_elements": [],
+      "geometry_notes": "Mock sample geometry; replace through live visual review.",
+      "location_id": "b964db6b-50f4-50dc-a6a5-559789f4fc14",
+      "materials": [],
+      "mutable_elements": [],
+      "name": "Not stated in source",
+      "palette": [],
+      "reference_asset_id": "9f2bb9cf-ae3d-5467-8f90-583db52407f4",
+      "set_id": "ab9b10b0-5d18-52b6-8758-0fc3b4205121",
+      "source_scene_id": "1d26c039-1ec4-5a61-a3a9-18669b853bc8"
+    },
+    {
+      "adjacency_notes": [],
+      "approved_at": "2026-09-30T20:47:28.846443+00:00",
+      "fixed_elements": [],
+      "geometry_notes": "Mock sample geometry; replace through live visual review.",
+      "location_id": "6cac3d58-4900-5d13-b765-531bd3636c0f",
+      "materials": [],
+      "mutable_elements": [],
+      "name": "Not stated in source",
+      "palette": [],
+      "reference_asset_id": "9855f05a-7098-58bc-84f7-05360830bbc7",
+      "set_id": "9f13451c-4f3d-54b8-9d30-a64c013b3edc",
+      "source_scene_id": "d871c423-5667-50a5-a638-4dfb9a5baee1"
+    }
+  ]
+}
