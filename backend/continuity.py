@@ -28,6 +28,30 @@ def check_continuity(screenplay: SourceScreenplay) -> list[ContinuityIssue]:
     character_ids = {character.id for character in screenplay.characters}
     element_ids = {element.id for element in screenplay.production_elements}
     for scene in screenplay.scenes:
+        required_metadata = {
+            "int_ext": scene.int_ext,
+            "location": scene.location,
+            "sub_location": scene.sub_location,
+            "time": scene.time,
+            "day_or_date": scene.day_or_date,
+            "weather": scene.weather,
+            "mood": scene.mood,
+            "summary": scene.summary,
+            "dramatic_purpose": scene.dramatic_purpose,
+        }
+        missing_metadata = [
+            field for field, value in required_metadata.items()
+            if value is None or not str(value).strip()
+        ]
+        if missing_metadata:
+            issues.append(ContinuityIssue(
+                id=issue_id("missing_scene_metadata", scene.id, [scene.id]), severity="blocking",
+                code="missing_scene_metadata", entity_id=scene.id, affected_scene_ids=[scene.id],
+                expected="Every required scene field has a value or an explicit 'Not stated in source' marker.",
+                actual=f"Missing fields: {', '.join(missing_metadata)}",
+                message=f"Scene {scene.number} has incomplete extraction metadata: {', '.join(missing_metadata)}.",
+                suggested_resolution="Extract an evidence-based value or enter 'Not stated in source'; do not invent facts.",
+            ))
         for character_id in scene.character_ids:
             if character_id not in character_ids:
                 issues.append(ContinuityIssue(
@@ -90,4 +114,3 @@ def check_continuity(screenplay: SourceScreenplay) -> list[ContinuityIssue]:
 
 def blocking_issues(issues: list[ContinuityIssue]) -> list[ContinuityIssue]:
     return [issue for issue in issues if issue.severity == "blocking"]
-

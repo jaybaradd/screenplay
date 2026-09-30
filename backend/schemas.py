@@ -135,12 +135,38 @@ class CulturalClaim(StrictModel):
     prohibited_extrapolations: list[str] = Field(default_factory=list)
 
 
+class DialectFeature(StrictModel):
+    id: str
+    category: Literal[
+        "grammar", "pronoun", "honorific", "kinship", "particle", "idiom",
+        "lexicon", "code_switching", "rhythm",
+    ]
+    devanagari_form: str
+    transliteration: str | None = None
+    meaning_or_function: str
+    usage_context: str
+    speaker_constraints: list[str] = Field(default_factory=list)
+    source_url: str
+    confidence: Literal["high", "medium", "low"]
+    prohibited_uses: list[str] = Field(default_factory=list)
+
+
+class DialectGuide(StrictModel):
+    target_variety: str
+    writing_script: str
+    features: list[DialectFeature] = Field(default_factory=list)
+    register_rules: list[str] = Field(default_factory=list)
+    code_switching_rules: list[str] = Field(default_factory=list)
+    negative_constraints: list[str] = Field(default_factory=list)
+
+
 class CulturalBrief(StrictModel):
     culture: str
     locality: str
     setting: str
     period: str
     claims: list[CulturalClaim]
+    dialect_guide: DialectGuide | None = None
     negative_constraints: list[str]
     open_questions: list[str]
     research_summary: str
@@ -199,6 +225,22 @@ class AdaptedScreenplay(StrictModel):
     output_script: str
     scenes: list[AdaptedScene]
     preservation_summary: str
+
+
+class SceneDialectAudit(StrictModel):
+    scene_id: str
+    dialogue_block_ids: list[str] = Field(default_factory=list)
+    supported_mewari_block_ids: list[str] = Field(default_factory=list)
+    generic_hindi_block_ids: list[str] = Field(default_factory=list)
+    unapproved_or_mixed_block_ids: list[str] = Field(default_factory=list)
+    notes: list[str] = Field(default_factory=list)
+
+
+class DialectAudit(StrictModel):
+    target_variety: str
+    scenes: list[SceneDialectAudit]
+    passed: bool
+    summary: str
 
 
 class ContinuityIssue(StrictModel):

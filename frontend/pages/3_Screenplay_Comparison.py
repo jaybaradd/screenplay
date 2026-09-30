@@ -52,7 +52,18 @@ run_action(
 verification = project["revisions"].get("adaptation_verification", {}).get("payload", [])
 for issue in verification:
     st.error(issue["message"])
+dialect_audit = project["revisions"].get("dialect_audit", {}).get("payload")
+if dialect_audit:
+    with st.expander("Maidani Mewari dialogue audit", expanded=not dialect_audit.get("passed", False)):
+        (st.success if dialect_audit.get("passed") else st.error)(dialect_audit.get("summary", "Dialect audit completed."))
+        for scene_audit in dialect_audit.get("scenes", []):
+            st.write(
+                f"Scene {scene_audit['scene_id'][:8]} · "
+                f"supported {len(scene_audit['supported_mewari_block_ids'])}/"
+                f"{len(scene_audit['dialogue_block_ids'])} dialogue blocks"
+            )
+            if scene_audit.get("notes"):
+                st.caption(" · ".join(scene_audit["notes"]))
 if project["stage"] == "screenplay_review":
     override = st.text_input("Override reason (only for unresolved blocking verification issues)")
     run_action("Approve screenplay and build visual specs", lambda: client.approve(project["id"], "screenplay", adapted_revision["id"], override or None), success="Screenplay approved; visual manifest created.", key="approve-screenplay")
-

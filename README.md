@@ -18,9 +18,10 @@ input → extraction → canonicalization → continuity → approval
 - LangGraph workflow with SQLite checkpoints and human interrupts.
 - Versioned structured documents and approvals in a separate SQLite database.
 - Canonical scenes, characters, production elements and state records.
-- Deterministic continuity checks for missing scenes, unknown IDs, prop transfers, costumes, knowledge and injuries.
-- A source-cited Gemini cultural-research path followed by schema normalization.
+- Deterministic continuity checks for missing scenes/metadata, unknown IDs, prop transfers, costumes, knowledge and injuries.
+- A source-cited Gemini cultural-research path followed by schema normalization and an explicit Maidani Mewari dialect guide.
 - Six independent adaptation layers: verbal, non-verbal, characters, visual world, story world and cultural precision.
+- Lossless one-to-one source-block mapping with automatic scene repair and a post-adaptation dialect audit.
 - Side-by-side screenplay review and hash-guarded surgical block corrections.
 - One character/costume sheet per appearance and one keyframe per scene.
 - Single-asset generation/retry and reference-image reuse for keyframes.
@@ -71,7 +72,7 @@ Then open `http://localhost:8501`.
 make test
 ```
 
-The tests cover continuity failures, immutable revisions, idempotency, every LangGraph approval gate, process restart/resume, surgical-edit isolation, per-asset retry and export generation.
+The tests cover continuity and extraction-metadata failures, lossless block mapping, immutable revisions, idempotency, every LangGraph approval gate, process restart/resume, surgical-edit isolation, per-asset retry and export generation.
 
 Generate the deterministic, credential-free submission sample with:
 
@@ -106,7 +107,9 @@ See `ARCHITECTURE.md` for the failure/replay model and cultural-safety boundary,
 - All structured calls use Pydantic response schemas.
 - Search grounding runs only while producing the cultural brief.
 - Once approved, the brief is frozen and later stages cannot browse.
-- Unsupported dialect detail must be omitted or marked uncertain.
+- Dialogue targets Maidani Mewari in Devanagari; standard Hindi is allowed only through an approved code-switching rule, and Marwari is not treated as a substitute.
+- Unsupported dialect detail must be omitted or marked uncertain; insufficient language evidence blocks plan approval unless explicitly overridden.
+- Every source block must survive adaptation exactly once and in order. Incomplete scene output is repaired twice, then fails recoverably.
 - Story purpose, relationships, causal logic and emotional arc outrank decorative changes.
 
 ## Known limitations

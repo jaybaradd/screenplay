@@ -16,7 +16,7 @@ from backend.observability import observer
 from backend.prompts import PROMPT_VERSION
 from backend.schemas import (
     AdaptedBlock, AdaptedScene, AdaptedScreenplay, BlockType, CharacterRecord,
-    ContentBlock, CulturalBrief, CulturalClaim, LayerDecision, LayerPlan,
+    ContentBlock, CulturalBrief, CulturalClaim, DialectGuide, LayerDecision, LayerPlan,
     ProductionElement, SceneRecord, SourceScreenplay, StoryContract,
     VisualVerification,
 )
@@ -279,7 +279,9 @@ class MockProvider(Provider):
                     line_index += 1
             scenes.append(SceneRecord(
                 id=scene_id, number=index + 1, heading=heading, int_ext=int_ext,
-                location_id=location_id, location=location.title(), time=time_label or None,
+                location_id=location_id, location=location.title(), sub_location="Not stated in source",
+                time=time_label or "Not stated in source", day_or_date="Not stated in source",
+                weather="Not stated in source", mood="Requires human review in mock mode",
                 summary=" ".join(block.text for block in blocks[:2])[:240] or "Scene extracted from source.",
                 dramatic_purpose="Preserve the source scene's causal and emotional function.",
                 blocks=blocks, character_ids=list(dict.fromkeys(scene_characters)),
@@ -330,6 +332,11 @@ class MockProvider(Provider):
                 uncertainty="Configure live Gemini grounding before presenting cultural output.",
                 prohibited_extrapolations=["Do not treat mock content as cultural evidence."],
             )],
+            dialect_guide=DialectGuide(
+                target_variety="Maidani Mewari", writing_script="Devanagari", features=[],
+                register_rules=[], code_switching_rules=[],
+                negative_constraints=["Mock mode cannot supply culturally verified dialogue."],
+            ),
             negative_constraints=[
                 "Do not default to palaces, camels, sand dunes, weddings or tourist folk imagery.",
                 "Do not invent Mewari dialogue or infer caste, religion or class.",

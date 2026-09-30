@@ -53,7 +53,10 @@ def guard(action):
 
 @app.get("/health")
 def health() -> dict[str, Any]:
-    return {"status": "ok", "ai_mode": settings.ai_mode, "provider": workflow.ai.provider.name}
+    return {
+        "status": "ok", "ai_mode": settings.ai_mode, "provider": workflow.ai.provider.name,
+        "text_model": workflow.ai.provider.text_model, "image_model": workflow.ai.provider.image_model,
+    }
 
 
 @app.get("/v1/projects")
@@ -152,6 +155,11 @@ def approve(project_id: str, gate: str, request: ApprovalRequest, idempotency_ke
             blocking = [item for item in (verification["payload"] if verification else []) if item.get("severity") == "blocking"]
             if blocking and not request.override_reason:
                 raise ValueError("Resolve blocking adaptation issues or record an override reason")
+        if gate == "plan":
+            verification = repository.latest_revision(project_id, "plan_verification")
+            blocking = [item for item in (verification["payload"] if verification else []) if item.get("severity") == "blocking"]
+            if blocking and not request.override_reason:
+                raise ValueError("Resolve blocking cultural/verbal-plan issues or record an override reason")
         if gate == "character_images":
             sheets = [asset for asset in repository.list_assets(project_id) if asset["kind"] == "character_sheet"]
             if not sheets or any(asset["status"] != AssetStatus.approved for asset in sheets):

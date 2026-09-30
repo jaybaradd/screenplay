@@ -4,7 +4,7 @@ import json
 from typing import Any
 
 
-PROMPT_VERSION = "2026-09-29.v1"
+PROMPT_VERSION = "2026-09-30.v2"
 
 PRESERVATION_RULES = """
 PRESERVE THE STORY:
@@ -19,6 +19,16 @@ Preserve scene order and every material action/dialogue beat. Use stable IDs alr
 Do not culturally adapt anything. Do not resolve ambiguous aliases silently: preserve aliases and add a warning.
 Capture production elements and before/event/after continuity state only when supported by text.
 Create a StoryContract describing dramatic purpose, relationships, plot invariants and emotional arc.
+
+SCENE METADATA COMPLETENESS CONTRACT:
+- Evaluate every SceneRecord field for every scene; do not leave metadata null merely because it is outside the slug line.
+- Split a compound place such as "FARMHOUSE DINING ROOM" into location="FARMHOUSE" and sub_location="DINING ROOM".
+- Infer mood conservatively from observable action, dialogue and atmosphere and phrase it as a production-useful description.
+- Capture weather from action as well as headings. Carry persistent weather forward only while the text supports it.
+- For sub_location, day_or_date, weather or time that truly is not supplied, write "Not stated in source" instead of null.
+- Summaries and dramatic purposes must be scene-specific, not generic boilerplate.
+- Populate character roles, relationships, emotional state, entrances and exits when the source supports them. Do not invent them.
+- Preserve every source action, dialogue and transition as exactly one ordered ContentBlock. Never summarize, combine or omit beats.
 """
 
 CULTURAL_RESEARCH_PROMPT = """Research a narrowly scoped contemporary cultural adaptation brief for:
@@ -29,6 +39,12 @@ unsourced listicles and generic Rajasthan material. Separately investigate verba
 visual world, story world, and cultural precision. Never treat a tendency as a universal personality trait. Record uncertainty,
 time scope, locality scope, and traditions that must not be mixed. Do not invent dialect phrases. Return a concise research
 narrative with citations; it will be normalized in a second call.
+
+LANGUAGE RESEARCH IS A REQUIRED SEPARATE SECTION. Find source-backed features of the exact target variety, including usable
+Devanagari forms, meaning/function, grammar, pronouns, address and kinship terms, particles, idioms, rhythm/register and realistic
+Hindi code-switching. Give a source URL for every form. Prefer dictionaries, grammars, linguistic surveys, language archives,
+academic work and locally authored language material. Do not substitute Marwari, generic Rajasthani or standard Hindi for
+Maidani Mewari. If a source covers broader Mewari rather than the exact locality, label that limitation explicitly.
 """
 
 CULTURAL_NORMALIZE_PROMPT = """Convert the grounded research below into the requested CulturalBrief schema.
@@ -36,12 +52,18 @@ Use only claims and URLs present in the supplied research. Omit unsupported deta
 scope, period, confidence, applicable layers, uncertainty, and prohibited extrapolations. Explicitly block generic palace,
 camel, sand-dune, wedding, tourist-folk and unrelated Rajasthani styling unless demanded by the screenplay.
 
+Build dialect_guide only from source-backed language material in the research. Its target_variety must be "Maidani Mewari"
+and writing_script must be "Devanagari". Every DialectFeature needs an exact Devanagari form, function, usage constraint,
+confidence and direct source URL. Use only these layer names in claims: verbal, non_verbal, characters, visual_world,
+story_world, cultural_precision. Never relabel Marwari or standard Hindi material as Mewari. If evidence is insufficient,
+leave features sparse and record the gap in open_questions rather than inventing examples.
+
 GROUNDED RESEARCH:
 {research}
 """
 
 LAYER_REQUIREMENTS = {
-    "verbal": "Dialect/register, idioms, kinship, honorifics, humour, rhythm, politeness, formality and code-switching. Tie each proposal to speaker, relationship and scene. Do not invent dialect forms.",
+    "verbal": "Use the approved dialect_guide to design actual Maidani Mewari dialogue in Devanagari: grammar, pronouns, particles, idioms, kinship, honorifics, humour, rhythm, politeness, formality and code-switching. Cover every speaking character and scene. Cite DialectFeature IDs/forms in proposed changes. Standard Hindi is not the target language, and Marwari is not a substitute. Do not invent dialect forms.",
     "non_verbal": "Gesture, posture, gaze, touch, silence, greeting, seating, eating and personal space. Condition every proposal on character, relationship and immediate situation.",
     "characters": "Age, class, work, family role, personality, confidence, restraint, affection, anger, relationships and emotional arc. Preserve the source character; prohibit identity assumptions.",
     "visual_world": "Architecture, interiors, wardrobe, fabric, colour, jewellery, grooming, props, food, transport and landscape. Link every visible proposal to locality, period and canonical IDs.",
@@ -89,10 +111,20 @@ def adaptation_prompt(scene: dict[str, Any], source: dict[str, Any], brief: dict
     return f"""Adapt exactly one screenplay scene into Devanagari for Maidani Mewari cultural context.
 {PRESERVATION_RULES}
 
-Use only approved plan decisions and cultural claims relevant to this scene. If exact dialect wording is uncertain, prefer
-natural restrained Hindi/Devanagari and mark low confidence rather than fabricate. Adapt spoken and non-verbal behaviour,
-character context, visible production world and atmosphere without turning the scene into cultural exhibition.
-Map every adapted block to source block IDs and explain each important change.
+LANGUAGE CONTRACT:
+- Dialogue target: Maidani Mewari written in Devanagari. Devanagari is a script, not evidence of Mewari.
+- Standard Hindi may appear only when the approved character/register or code-switching rules justify it. It is not a fallback.
+- Never substitute Marwari, generic Rajasthani or invented "Rajasthani-sounding" forms.
+- Use the approved dialect_guide and verbal-plan decisions. Mark uncertainty in explanations and confidence.
+- Screen directions and headings may use clear Hindi in Devanagari, while dialogue must follow the target variety.
+
+LOSSLESS BLOCK CONTRACT:
+- Return exactly {len(scene.get('blocks', []))} blocks, one output block for each source block, in identical order.
+- Copy each source block id as both the adapted block id and the sole item in source_block_ids.
+- Preserve block type and speaker_id. Do not merge, split, add, summarize or omit blocks.
+
+Use only approved plan decisions and cultural claims relevant to this scene. Adapt spoken and non-verbal behaviour, character
+context, visible production world and atmosphere without turning the scene into cultural exhibition. Explain each important change.
 
 SCENE:
 {json.dumps(scene, ensure_ascii=False)}
@@ -105,6 +137,40 @@ CULTURAL BRIEF:
 
 APPROVED PLAN:
 {json.dumps(plan, ensure_ascii=False)}
+"""
+
+
+def adaptation_repair_prompt(
+    scene: dict[str, Any], source: dict[str, Any], brief: dict[str, Any], plan: dict[str, Any],
+    invalid_output: dict[str, Any], errors: list[str],
+) -> str:
+    return f"""Repair a structurally incomplete screenplay adaptation. Return the COMPLETE AdaptedScene, not a patch.
+The previous output failed these deterministic checks:
+{json.dumps(errors, ensure_ascii=False)}
+
+Follow every LANGUAGE CONTRACT and LOSSLESS BLOCK CONTRACT below. Account for every source block exactly once.
+
+{adaptation_prompt(scene, source, brief, plan)}
+
+INVALID PREVIOUS OUTPUT (use only to understand the failure; do not copy its omissions):
+{json.dumps(invalid_output, ensure_ascii=False)}
+"""
+
+
+def dialect_audit_prompt(adapted: dict[str, Any], brief: dict[str, Any]) -> str:
+    return f"""Audit dialogue language only. Determine whether each dialogue block is genuinely consistent with the approved
+Maidani Mewari dialect guide in Devanagari, rather than standard Hindi merely written in Devanagari.
+
+Use exact block IDs. Put unsupported standard-Hindi dialogue in generic_hindi_block_ids. Put apparent Marwari, generic
+Rajasthani, invented, or guide-inconsistent forms in unapproved_or_mixed_block_ids. Do not penalize screenplay directions,
+headings, character names, or explicitly approved situational Hindi code-switching. A scene passes only when its dialogue is
+supported or its code-switching is justified. Be conservative and evidence-bound.
+
+APPROVED CULTURAL BRIEF AND DIALECT GUIDE:
+{json.dumps(brief, ensure_ascii=False)}
+
+ADAPTED SCREENPLAY:
+{json.dumps(adapted, ensure_ascii=False)}
 """
 
 

@@ -37,6 +37,17 @@ def test_scene_order_must_be_contiguous():
     assert any(issue.code == "scene_order" for issue in check_continuity(source))
 
 
+def test_missing_scene_metadata_is_blocking():
+    project_id = "12345678-1234-5678-1234-567812345678"
+    source = MockProvider().extract(project_id, "Test", "INT. ROOM - DAY\nRain hits the window.")
+    source.scenes[0].weather = None
+    source.scenes[0].mood = None
+    issue = next(item for item in check_continuity(source) if item.code == "missing_scene_metadata")
+    assert issue.severity == "blocking"
+    assert "weather" in (issue.actual or "")
+    assert "mood" in (issue.actual or "")
+
+
 def test_detects_unknown_ids_and_unexplained_injury_recovery():
     project_id = "12345678-1234-5678-1234-567812345678"
     source = MockProvider().extract(project_id, "Test", "INT. A - DAY\nAMAR\nWait.\nEXT. B - DAY\nAMAR\nGo.")

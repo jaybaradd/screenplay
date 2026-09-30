@@ -7,7 +7,7 @@ import backend.providers as providers_module
 import backend.services as services_module
 import backend.workflow as workflow_module
 from backend.config import Settings
-from backend.schemas import CorrectionRequest, ProjectCreate, RecordPatch
+from backend.schemas import AdaptedBlock, AdaptedScene, BlockType, ContentBlock, CorrectionRequest, ProjectCreate, RecordPatch, SceneRecord
 from backend.services import ExportService, ProjectService
 from backend.storage import Repository, content_hash
 from backend.workflow import Workflow
@@ -25,6 +25,28 @@ def configured_workflow(tmp_path: Path):
 
 def sample_text() -> str:
     return (Path(__file__).parent / "fixtures" / "sample_screenplay.txt").read_text(encoding="utf-8")
+
+
+def test_lossless_scene_mapping_rejects_omitted_blocks():
+    source = SceneRecord(
+        id="scene-1", number=1, heading="INT. ROOM - DAY", location="ROOM",
+        summary="A test scene.", dramatic_purpose="Test mapping.",
+        blocks=[
+            ContentBlock(id="block-1", type=BlockType.action, text="He enters."),
+            ContentBlock(id="block-2", type=BlockType.dialogue, text="Wait.", speaker_id="character-1"),
+        ],
+    )
+    incomplete = AdaptedScene(
+        id="scene-1", source_scene_id="scene-1", heading="अंदर", summary="परीक्षण",
+        blocks=[AdaptedBlock(
+            id="block-1", source_block_ids=["block-1"], type=BlockType.action,
+            adapted_text="वह अंदर आवे है।", adaptation_layer_ids=[], cultural_claim_ids=[],
+            explanation="Adapted action.", confidence="high", changed_dimensions=[],
+        )],
+    )
+    errors = Workflow._scene_mapping_errors(source, incomplete)
+    assert any("expected 2 blocks, got 1" in error for error in errors)
+    assert any("missing source block" in error for error in errors)
 
 
 def test_complete_durable_mock_workflow_and_surgical_edit(tmp_path: Path):

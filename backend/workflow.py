@@ -15,12 +15,12 @@ from backend.continuity import check_continuity
 from backend.observability import observer
 from backend.prompts import (
     CULTURAL_NORMALIZE_PROMPT, CULTURAL_RESEARCH_PROMPT, EXTRACTION_PROMPT,
-    adaptation_prompt, layer_prompt, synthesis_prompt,
+    adaptation_prompt, adaptation_repair_prompt, dialect_audit_prompt, layer_prompt, synthesis_prompt,
 )
 from backend.providers import AIService, MockProvider, stable_id
 from backend.schemas import (
     AdaptationPlan, AdaptedScene, AdaptedScreenplay, AppearanceSpec, CulturalBrief,
-    LayerPlan, SceneVisualSpec, SourceScreenplay, VisualManifest,
+    DialectAudit, LayerPlan, SceneRecord, SceneVisualSpec, SourceScreenplay, VisualManifest,
 )
 from backend.storage import Repository, content_hash
 
@@ -221,9 +221,20 @@ class Workflow:
                 if {layer.layer for layer in plan.layers} != set(LAYER_NAMES):
                     raise ValueError("Plan synthesis did not preserve all six required layers")
             plan_revision = self.repository.create_revision(project_id, "adaptation_plan", plan)
+        source = SourceScreenplay.model_validate(self.repository.get_revision(state["extraction_revision"])["payload"])
+        brief = CulturalBrief.model_validate(self.repository.get_revision(state["cultural_revision"])["payload"])
+        plan = AdaptationPlan.model_validate(plan_revision["payload"])
+        plan_issues = self._plan_quality_issues(source, brief, plan)
+        previous_verification = self.repository.latest_revision(project_id, "plan_verification")
+        verification_revision = self.repository.create_revision(
+            project_id, "plan_verification", plan_issues,
+            previous_verification["id"] if previous_verification else None,
+        )
         payload = {
             "gate": "plan", "message": "Review cultural brief, six adaptation layers and canonical records.",
             "plan_revision": plan_revision["id"], "cultural_revision": state["cultural_revision"],
+            "verification_revision": verification_revision["id"],
+            "blocking_issues": sum(issue["severity"] == "blocking" for issue in plan_issues),
         }
         self.repository.set_stage(project_id, "plan_review", interrupt=payload)
         return {"plan_revision": plan_revision["id"], "stage": "plan_review"}
@@ -280,11 +291,28 @@ class Workflow:
                         and scene_order.get(transition.scene_id, 10**9) <= scene_order[scene.id]
                     ],
                 }
+                scene_payload = scene.model_dump(mode="json")
+                prompt = adaptation_prompt(scene_payload, source_context, brief_payload, plan_payload)
                 result = self.ai.cached_structured(
-                    project_id, f"adapt-scene-{scene.number}",
-                    adaptation_prompt(scene.model_dump(mode="json"), source_context, brief_payload, plan_payload),
-                    AdaptedScene,
+                    project_id, f"adapt-scene-{scene.number}-attempt-1", prompt, AdaptedScene,
                 )
+                errors = self._scene_mapping_errors(scene, result)
+                for attempt in range(2, 4):
+                    if not errors:
+                        break
+                    prompt = adaptation_repair_prompt(
+                        scene_payload, source_context, brief_payload, plan_payload,
+                        result.model_dump(mode="json"), errors,
+                    )
+                    result = self.ai.cached_structured(
+                        project_id, f"adapt-scene-{scene.number}-attempt-{attempt}", prompt, AdaptedScene,
+                    )
+                    errors = self._scene_mapping_errors(scene, result)
+                if errors:
+                    raise ValueError(
+                        f"Scene {scene.number} adaptation failed lossless mapping after 3 attempts: "
+                        + "; ".join(errors)
+                    )
                 scenes.append(result)
             adapted = AdaptedScreenplay(
                 title=source.title, output_script=project["output_script"], scenes=scenes,
@@ -301,10 +329,86 @@ class Workflow:
         if [scene.id for scene in source.scenes] != [scene.source_scene_id for scene in adapted.scenes]:
             issues.append({"severity": "blocking", "code": "adapted_scene_mismatch", "message": "Adapted scenes do not map one-to-one in source order."})
         source_blocks = {block.id for scene in source.scenes for block in scene.blocks}
-        mapped_blocks = {source_id for scene in adapted.scenes for block in scene.blocks for source_id in block.source_block_ids}
+        mapped_sequence = [
+            source_id for scene in adapted.scenes for block in scene.blocks for source_id in block.source_block_ids
+        ]
+        mapped_blocks = set(mapped_sequence)
         missing = sorted(source_blocks - mapped_blocks)
         if missing:
             issues.append({"severity": "blocking", "code": "missing_source_blocks", "message": f"Unmapped source blocks: {missing}"})
+        unknown = sorted(mapped_blocks - source_blocks)
+        if unknown:
+            issues.append({"severity": "blocking", "code": "unknown_source_blocks", "message": f"Unknown source block mappings: {unknown}"})
+        duplicates = sorted({block_id for block_id in mapped_sequence if mapped_sequence.count(block_id) > 1})
+        if duplicates:
+            issues.append({"severity": "blocking", "code": "duplicate_source_blocks", "message": f"Source blocks mapped more than once: {duplicates}"})
+        if not isinstance(self.ai.provider, MockProvider):
+            brief = CulturalBrief.model_validate(self.repository.get_revision(state["cultural_revision"])["payload"])
+            audit = self.ai.cached_structured(
+                project_id, "audit-adapted-dialect",
+                dialect_audit_prompt(adapted.model_dump(mode="json"), brief.model_dump(mode="json")),
+                DialectAudit,
+            )
+            previous_audit = self.repository.latest_revision(project_id, "dialect_audit")
+            self.repository.create_revision(
+                project_id, "dialect_audit", audit,
+                previous_audit["id"] if previous_audit else None,
+            )
+            audit_by_scene = {item.scene_id: item for item in audit.scenes}
+            for scene in adapted.scenes:
+                expected_dialogue_ids = {
+                    block.id for block in scene.blocks if block.type.value == "dialogue"
+                }
+                scene_audit = audit_by_scene.get(scene.source_scene_id)
+                if not scene_audit:
+                    if expected_dialogue_ids:
+                        issues.append({
+                            "severity": "blocking", "code": "dialect_audit_incomplete",
+                            "message": f"Dialect audit omitted speaking scene {scene.source_scene_id}.",
+                        })
+                    continue
+                declared = set(scene_audit.dialogue_block_ids)
+                classified_sequence = [
+                    *scene_audit.supported_mewari_block_ids,
+                    *scene_audit.generic_hindi_block_ids,
+                    *scene_audit.unapproved_or_mixed_block_ids,
+                ]
+                classified = set(classified_sequence)
+                missing_audit_blocks = sorted(expected_dialogue_ids - classified)
+                unknown_audit_blocks = sorted((declared | classified) - expected_dialogue_ids)
+                duplicate_classifications = sorted({
+                    block_id for block_id in classified_sequence if classified_sequence.count(block_id) > 1
+                })
+                if declared != expected_dialogue_ids or missing_audit_blocks or unknown_audit_blocks or duplicate_classifications:
+                    issues.append({
+                        "severity": "blocking", "code": "dialect_audit_incomplete",
+                        "message": (
+                            f"Dialect audit for scene {scene.source_scene_id} is incomplete or inconsistent. "
+                            f"Missing={missing_audit_blocks}; unknown={unknown_audit_blocks}; "
+                            f"multiply classified={duplicate_classifications}."
+                        ),
+                    })
+            for scene_audit in audit.scenes:
+                if scene_audit.generic_hindi_block_ids:
+                    issues.append({
+                        "severity": "blocking", "code": "generic_hindi_dialogue",
+                        "message": (
+                            f"Scene {scene_audit.scene_id} contains dialogue assessed as standard Hindi rather than "
+                            f"Maidani Mewari: {scene_audit.generic_hindi_block_ids}"
+                        ),
+                    })
+                if scene_audit.unapproved_or_mixed_block_ids:
+                    issues.append({
+                        "severity": "blocking", "code": "unapproved_dialect_mixing",
+                        "message": (
+                            f"Scene {scene_audit.scene_id} contains unsupported, mixed or potentially Marwari forms: "
+                            f"{scene_audit.unapproved_or_mixed_block_ids}"
+                        ),
+                    })
+            if not audit.passed and not any(
+                issue["code"] in {"generic_hindi_dialogue", "unapproved_dialect_mixing"} for issue in issues
+            ):
+                issues.append({"severity": "blocking", "code": "dialect_audit_failed", "message": audit.summary})
         coverage = (len(mapped_blocks & source_blocks) / len(source_blocks)) if source_blocks else 1.0
         observer.score("story_anchor_coverage", coverage, project_id=project_id)
         revision = self.repository.create_revision(project_id, "adaptation_verification", issues)
@@ -315,6 +419,89 @@ class Workflow:
         }
         self.repository.set_stage(project_id, "screenplay_review", interrupt=payload)
         return {"stage": "screenplay_review"}
+
+    @staticmethod
+    def _scene_mapping_errors(source_scene: SceneRecord, adapted_scene: AdaptedScene) -> list[str]:
+        errors: list[str] = []
+        if adapted_scene.id != source_scene.id:
+            errors.append(f"scene id must be {source_scene.id}, got {adapted_scene.id}")
+        if adapted_scene.source_scene_id != source_scene.id:
+            errors.append(f"source_scene_id must be {source_scene.id}, got {adapted_scene.source_scene_id}")
+        if len(adapted_scene.blocks) != len(source_scene.blocks):
+            errors.append(f"expected {len(source_scene.blocks)} blocks, got {len(adapted_scene.blocks)}")
+        for index, source_block in enumerate(source_scene.blocks):
+            if index >= len(adapted_scene.blocks):
+                errors.append(f"missing source block at position {index + 1}: {source_block.id}")
+                continue
+            block = adapted_scene.blocks[index]
+            if block.id != source_block.id:
+                errors.append(f"block {index + 1} id must be {source_block.id}, got {block.id}")
+            if block.source_block_ids != [source_block.id]:
+                errors.append(
+                    f"block {index + 1} source_block_ids must be [{source_block.id}], got {block.source_block_ids}"
+                )
+            if block.type != source_block.type:
+                errors.append(f"block {source_block.id} changed type from {source_block.type} to {block.type}")
+            if block.speaker_id != source_block.speaker_id:
+                errors.append(f"block {source_block.id} changed speaker_id")
+        return errors
+
+    @staticmethod
+    def _plan_quality_issues(
+        source: SourceScreenplay, brief: CulturalBrief, plan: AdaptationPlan,
+    ) -> list[dict[str, Any]]:
+        issues: list[dict[str, Any]] = []
+        guide = brief.dialect_guide
+        if not guide or guide.target_variety.strip().lower() != "maidani mewari":
+            issues.append({
+                "severity": "blocking", "code": "missing_target_dialect_guide",
+                "message": "The cultural brief does not contain a Maidani Mewari dialect guide.",
+            })
+            return issues
+        if "devanagari" not in guide.writing_script.strip().lower():
+            issues.append({
+                "severity": "blocking", "code": "wrong_dialect_script",
+                "message": f"Dialect guide script must be Devanagari, got {guide.writing_script}.",
+            })
+        usable_features = [feature for feature in guide.features if feature.confidence in {"high", "medium"}]
+        if len(usable_features) < 6:
+            issues.append({
+                "severity": "blocking", "code": "insufficient_dialect_evidence",
+                "message": (
+                    "Fewer than six medium/high-confidence, source-backed Maidani Mewari language features are available; "
+                    "a native-feeling adaptation cannot be grounded safely."
+                ),
+            })
+        verbal = next((layer for layer in plan.layers if layer.layer == "verbal"), None)
+        if not verbal or not verbal.decisions:
+            issues.append({
+                "severity": "blocking", "code": "missing_verbal_plan",
+                "message": "The adaptation plan has no usable verbal-layer decisions.",
+            })
+            return issues
+        speaking_scenes = {
+            scene.id for scene in source.scenes if any(block.type.value == "dialogue" for block in scene.blocks)
+        }
+        covered_scenes = {
+            scene_id for decision in verbal.decisions for scene_id in decision.affected_scene_ids
+        }
+        if speaking_scenes - covered_scenes:
+            issues.append({
+                "severity": "blocking", "code": "verbal_plan_scene_gap",
+                "message": f"The verbal plan does not cover speaking scenes: {sorted(speaking_scenes - covered_scenes)}",
+            })
+        plan_text = " ".join(
+            change for decision in verbal.decisions for change in decision.proposed_changes
+        ).lower()
+        feature_markers = [feature.id.lower() for feature in guide.features] + [
+            feature.devanagari_form.lower() for feature in guide.features
+        ]
+        if guide.features and not any(marker and marker in plan_text for marker in feature_markers):
+            issues.append({
+                "severity": "blocking", "code": "verbal_plan_not_grounded",
+                "message": "The verbal plan does not cite or use any approved DialectFeature ID or Devanagari form.",
+            })
+        return issues
 
     def review_screenplay(self, state: GraphState) -> GraphState:
         decision = interrupt({"gate": "screenplay", "project_id": state["project_id"]})
