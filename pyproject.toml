@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cultural-screenplay-studio"
-version = "0.2.0"
+version = "0.3.0"
 description = "Durable human-in-the-loop cultural screenplay adaptation MVP"
 requires-python = ">=3.11"
 dependencies = [
@@ -23,13 +23,14 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.3,<10", "pytest-cov>=6,<8"]
-observability = ["langfuse>=3.0,<4"]
+observability = ["langfuse>=4.0,<5"]
 
 [tool.setuptools.packages.find]
 include = ["backend*", "frontend*"]
 
 [tool.setuptools.package-data]
 "backend.cultures" = ["profiles/*/*.json"]
+"backend" = ["pricing_catalog.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

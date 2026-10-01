@@ -56,7 +56,7 @@ Python 3.11+ is required.
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python3 -m pip install -e '.[dev,observability]'
+python3 -m pip install --upgrade -e '.[dev,observability]'
 cp .env.example .env
 ```
 
@@ -67,7 +67,7 @@ AI_MODE=live
 GEMINI_API_KEY=your-key
 ```
 
-Langfuse is an optional dependency so the core workflow remains installable in restricted environments. Install the `observability` extra and add `LANGFUSE_PUBLIC_KEY` plus `LANGFUSE_SECRET_KEY` to enable traces. Full screenplay content is not captured unless `LANGFUSE_CAPTURE_CONTENT=true`.
+Langfuse is optional, so the workflow remains usable when it is unavailable. Install the `observability` extra and add `LANGFUSE_PUBLIC_KEY` plus `LANGFUSE_SECRET_KEY` to enable traces. The default `LANGFUSE_CONTENT_MODE=preview` sends readable, redacted 8,000-character prompt/output previews while omitting image bytes; exact inputs and outputs remain local in SQLite. Set `metadata` for hashes and operational metadata only, or `full` only in a trusted development project.
 
 ## Run
 
@@ -154,4 +154,19 @@ See `ARCHITECTURE.md` for the failure/replay model and cultural-safety boundary,
 
 ## AI usage and privacy
 
-Every model operation records model name, prompt/input hashes, latency, retry status and errors in `app.sqlite`. The export includes `ai_usage_log.json`. Secrets are read from environment variables and are never exported.
+Every provider attempt records its exact model, stable operation name, target metadata, prompt/input hashes, latency, retries, token usage, model response identity and estimated public-list-price cost in `app.sqlite`. The export includes these logical runs and their attempt history in `ai_usage_log.json`. Historical calls made before schema version 3 correctly show missing usage rather than zero. Secrets are read from environment variables and are never exported.
+
+### Reading Langfuse
+
+Each user action is one stable trace such as `workflow.advance`, `workflow.approve`, `asset.generate` or `asset.retry`; the project ID is its session. Graph nodes and model calls are children. Generation names such as `adapt-scene`, `generate-image` and `verify-visual` never contain UUIDs, so they are directly filterable. UUIDs, scene numbers, asset kinds and plan layers remain searchable metadata.
+
+Useful Langfuse views are:
+
+- generations grouped by `model` for cost and token totals;
+- generations grouped by `name` for operation cost and p50/p95 latency;
+- traces filtered by `sessionId = project_id` for one project's complete history;
+- `verify-visual` filtered by `metadata.asset_kind` or `metadata.scene_number`;
+- failed observations grouped by `metadata.error_type`;
+- cache behaviour using `cache.lookup` spans and root `cache_hits` totals.
+
+Costs are USD estimates from the versioned official Gemini public-pricing catalogue. They are labelled `public_list_price_estimate`; Gemini does not return the account's actual invoice charge. Search-grounding cost does not apply the account-wide monthly free allowance because remaining allowance is not available per response.

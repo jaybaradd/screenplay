@@ -3,6 +3,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from backend.providers import GeminiProvider, gemini_json_schema
+from backend.telemetry import ProviderAttemptError
 from backend.schemas import ContinuityEventExtraction, CulturalBrief, CulturalClaim, SourceScreenplay
 
 
@@ -20,25 +21,22 @@ def brief() -> CulturalBrief:
     )
 
 
-def test_gemini_structured_retries_twice_then_recovers(monkeypatch):
+def test_gemini_structured_returns_provider_envelope():
     calls = {"count": 0}
 
     def generate_content(**_):
         calls["count"] += 1
-        if calls["count"] < 3:
-            raise ValueError("malformed response")
         return SimpleNamespace(parsed=brief(), text="")
 
     provider = GeminiProvider.__new__(GeminiProvider)
     provider.text_model = "test-model"
     provider.client = SimpleNamespace(models=SimpleNamespace(generate_content=generate_content))
-    monkeypatch.setattr("backend.providers.time.sleep", lambda _: None)
     result = provider.structured("prompt", CulturalBrief)
-    assert result.culture == "Maidani Mewari"
-    assert calls["count"] == 3
+    assert result.value.culture == "Maidani Mewari"
+    assert calls["count"] == 1
 
 
-def test_gemini_structured_surfaces_recoverable_error_after_three_failures(monkeypatch):
+def test_gemini_structured_surfaces_single_attempt_error():
     calls = {"count": 0}
 
     def generate_content(**_):
@@ -48,14 +46,14 @@ def test_gemini_structured_surfaces_recoverable_error_after_three_failures(monke
     provider = GeminiProvider.__new__(GeminiProvider)
     provider.text_model = "test-model"
     provider.client = SimpleNamespace(models=SimpleNamespace(generate_content=generate_content))
-    monkeypatch.setattr("backend.providers.time.sleep", lambda _: None)
     try:
         provider.structured("prompt", CulturalBrief)
-    except RuntimeError as error:
-        assert "after 3 attempts" in str(error)
+    except ProviderAttemptError as error:
+        assert "malformed response" in str(error)
+        assert error.telemetry.provider_latency_ms is not None
     else:
-        raise AssertionError("Expected a recoverable structured-output error")
-    assert calls["count"] == 3
+        raise AssertionError("Expected a single-attempt provider error")
+    assert calls["count"] == 1
 
 
 def test_gemini_schema_uses_json_schema_path_without_unsupported_defaults():

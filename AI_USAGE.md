@@ -13,7 +13,11 @@ This repository was developed with AI coding assistance. The application itself 
 7. constrained correction patches;
 8. character/costume and scene image generation.
 
-Every runtime call records the provider, model, operation, prompt and input hashes, status, latency and any error in `model_runs`. The exported `ai_usage_log.json` is produced from those local records even when Langfuse is unavailable. Full screenplay input/output is omitted from Langfuse by default.
+Every logical operation records the provider, exact model, stable operation and target metadata, complete local input/output, readable previews, hashes, status, aggregate latency, token usage, estimated cost and Langfuse identifiers in `model_runs`. Every actual provider request—including a malformed response that is retried—is retained in `model_call_attempts`. The exported `ai_usage_log.json` combines both levels even when Langfuse is unavailable.
+
+Langfuse uses one stable trace per human command, one span per graph node/logical AI operation, and one generation per real Gemini request. IDs are metadata rather than trace names. Preview capture preserves readable prompt/output context while redacting credential-shaped fields, query-string credentials and all image bytes.
+
+Gemini usage metadata is normalized into input, output, reasoning, tool-use, cached, total and image-output units. Cost is an explicitly labelled public-list-price estimate based on the versioned local catalogue; it is not represented as the user's actual Google invoice.
 
 ## Demonstration mode
 

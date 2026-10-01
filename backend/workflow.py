@@ -98,7 +98,18 @@ class Workflow:
     @staticmethod
     def _traced(name: str, node):
         def wrapped(state: GraphState):
-            with observer.span(f"graph-node:{name}", project_id=state["project_id"], metadata={"node": name}):
+            if name.startswith("plan_"):
+                span_name = "graph.plan_layer"
+            elif name in {"prepare_character_assets", "prepare_scene_assets"}:
+                span_name = "graph.prepare_assets"
+            else:
+                span_name = f"graph.{name}"
+            metadata = {"node": name}
+            if name.startswith("plan_"):
+                metadata["layer"] = name.removeprefix("plan_")
+            if name.startswith("prepare_"):
+                metadata["asset_kind"] = name.removeprefix("prepare_").removesuffix("_assets")
+            with observer.span(span_name, project_id=state["project_id"], metadata=metadata):
                 return node(state)
         return wrapped
 
@@ -160,18 +171,18 @@ class Workflow:
         return brief
 
     def start(self, project_id: str) -> dict[str, Any]:
-        with observer.span("workflow-start", project_id=project_id):
+        with observer.span("workflow.start", project_id=project_id):
             return self.graph.invoke(
                 {"project_id": project_id, "layer_revision_ids": [], "stage": "created"},
                 self.config(project_id),
             )
 
     def resume(self, project_id: str, payload: dict[str, Any]) -> dict[str, Any]:
-        with observer.span("workflow-resume", project_id=project_id, metadata={"action": payload.get("action")}):
+        with observer.span("workflow.resume", project_id=project_id, metadata={"action": payload.get("action")}):
             return self.graph.invoke(Command(resume=payload), self.config(project_id))
 
     def retry_failed(self, project_id: str) -> dict[str, Any]:
-        with observer.span("workflow-retry", project_id=project_id):
+        with observer.span("workflow.retry", project_id=project_id):
             return self.graph.invoke(None, self.config(project_id))
 
     def validate(self, state: GraphState) -> GraphState:
@@ -203,6 +214,10 @@ class Workflow:
         issues = check_continuity(source)
         observer.score("extraction_completeness", 1.0 if source.scenes else 0.0, project_id=project_id)
         observer.score("continuity_violations", float(len(issues)), project_id=project_id)
+        observer.score(
+            "continuity_blocking_count", float(sum(item.severity == "blocking" for item in issues)),
+            project_id=project_id,
+        )
         revision = self.repository.create_revision(project_id, "continuity_issues", [item.model_dump(mode="json") for item in issues])
         payload = {
             "gate": "extraction", "message": "Review extraction, canonical records and story contract.",
@@ -484,8 +499,16 @@ class Workflow:
                 issue["code"] in {"unsupported_fallback_dialogue", "unapproved_variety_mixing"} for issue in issues
             ):
                 issues.append({"severity": "blocking", "code": "language_audit_failed", "message": audit.summary})
+            audited_dialogue = sum(len(item.dialogue_block_ids) for item in audit.scenes)
+            supported_dialogue = sum(len(item.supported_target_variety_block_ids) for item in audit.scenes)
+            observer.score(
+                "language_audit_pass_ratio",
+                (supported_dialogue / audited_dialogue) if audited_dialogue else 1.0,
+                project_id=project_id,
+            )
         coverage = (len(mapped_blocks & source_blocks) / len(source_blocks)) if source_blocks else 1.0
         observer.score("story_anchor_coverage", coverage, project_id=project_id)
+        observer.score("source_block_mapping_coverage", coverage, project_id=project_id)
         revision = self.repository.create_revision(project_id, "adaptation_verification", issues)
         payload = {
             "gate": "screenplay", "message": "Compare source and adapted screenplay; approve or make surgical corrections.",

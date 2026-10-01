@@ -1,11 +1,11 @@
 [theme]
 base = "light"
-primaryColor = "#7F3F2F"
-backgroundColor = "#FBF7EF"
-secondaryBackgroundColor = "#F0E6D7"
-textColor = "#3D2B22"
-linkColor = "#7A3528"
-borderColor = "#D8C9B8"
+primaryColor = "#B10F1B"
+backgroundColor = "#F7F7F7"
+secondaryBackgroundColor = "#ECECEC"
+textColor = "#171717"
+linkColor = "#9C0D17"
+borderColor = "#CFCFCF"
 showWidgetBorder = true
 
 [server]

@@ -24,7 +24,7 @@ def content_hash(value: Any) -> str:
 
 
 class Repository:
-    SCHEMA_VERSION = "2"
+    SCHEMA_VERSION = "3"
 
     def __init__(self, path: Path):
         self.path = path
@@ -48,6 +48,7 @@ class Repository:
             connection.close()
 
     def setup(self) -> None:
+        migrate_from_v2 = False
         with self.connect() as connection:
             existing = connection.execute(
                 "SELECT name FROM sqlite_master WHERE type='table' AND name='projects'"
@@ -64,10 +65,11 @@ class Repository:
                 row = connection.execute(
                     "SELECT value FROM schema_metadata WHERE key='schema_version'"
                 ).fetchone()
-                if not row or row[0] != self.SCHEMA_VERSION:
+                migrate_from_v2 = bool(row and row[0] == "2")
+                if not row or (row[0] != self.SCHEMA_VERSION and not migrate_from_v2):
                     raise RuntimeError(
                         f"Unsupported application database schema {row[0] if row else 'unknown'}; "
-                        f"expected {self.SCHEMA_VERSION}. Start with an empty DATA_DIR."
+                        f"expected {self.SCHEMA_VERSION}."
                     )
         schema = """
         CREATE TABLE IF NOT EXISTS schema_metadata (
@@ -146,8 +148,54 @@ class Repository:
             latency_ms INTEGER,
             input_tokens INTEGER,
             output_tokens INTEGER,
+            total_tokens INTEGER,
+            operation_metadata_json TEXT,
+            input_json TEXT,
+            input_preview_json TEXT,
+            output_preview_json TEXT,
+            usage_json TEXT,
+            cost_json TEXT,
+            estimated_cost_usd REAL,
+            pricing_catalog_version TEXT,
+            cost_basis TEXT,
+            cost_calculation_basis TEXT,
+            model_version TEXT,
+            response_id TEXT,
+            finish_reason TEXT,
+            attempt_count INTEGER NOT NULL DEFAULT 0,
+            cache_hit_count INTEGER NOT NULL DEFAULT 0,
+            langfuse_trace_id TEXT,
+            langfuse_observation_id TEXT,
             error TEXT,
             created_at TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS model_call_attempts (
+            id TEXT PRIMARY KEY,
+            model_run_id TEXT NOT NULL,
+            project_id TEXT NOT NULL,
+            invocation_id TEXT,
+            operation TEXT NOT NULL,
+            attempt INTEGER NOT NULL,
+            provider TEXT NOT NULL,
+            model TEXT NOT NULL,
+            status TEXT NOT NULL,
+            started_at TEXT NOT NULL,
+            completed_at TEXT NOT NULL,
+            latency_ms INTEGER,
+            provider_latency_ms INTEGER,
+            parse_latency_ms INTEGER,
+            io_latency_ms INTEGER,
+            usage_json TEXT,
+            cost_json TEXT,
+            estimated_cost_usd REAL,
+            model_version TEXT,
+            response_id TEXT,
+            finish_reason TEXT,
+            error_type TEXT,
+            error TEXT,
+            langfuse_trace_id TEXT,
+            langfuse_observation_id TEXT,
+            UNIQUE(model_run_id, attempt)
         );
         CREATE TABLE IF NOT EXISTS idempotency (
             scope TEXT NOT NULL,
@@ -159,10 +207,39 @@ class Repository:
         """
         with self.connect() as connection:
             connection.executescript(schema)
+            if migrate_from_v2:
+                self._migrate_model_runs_v2_to_v3(connection)
             connection.execute(
                 "INSERT OR REPLACE INTO schema_metadata (key,value) VALUES ('schema_version',?)",
                 (self.SCHEMA_VERSION,),
             )
+
+    @staticmethod
+    def _migrate_model_runs_v2_to_v3(connection: sqlite3.Connection) -> None:
+        existing = {row[1] for row in connection.execute("PRAGMA table_info(model_runs)").fetchall()}
+        additions = {
+            "total_tokens": "INTEGER",
+            "operation_metadata_json": "TEXT",
+            "input_json": "TEXT",
+            "input_preview_json": "TEXT",
+            "output_preview_json": "TEXT",
+            "usage_json": "TEXT",
+            "cost_json": "TEXT",
+            "estimated_cost_usd": "REAL",
+            "pricing_catalog_version": "TEXT",
+            "cost_basis": "TEXT",
+            "cost_calculation_basis": "TEXT",
+            "model_version": "TEXT",
+            "response_id": "TEXT",
+            "finish_reason": "TEXT",
+            "attempt_count": "INTEGER NOT NULL DEFAULT 0",
+            "cache_hit_count": "INTEGER NOT NULL DEFAULT 0",
+            "langfuse_trace_id": "TEXT",
+            "langfuse_observation_id": "TEXT",
+        }
+        for name, declaration in additions.items():
+            if name not in existing:
+                connection.execute(f"ALTER TABLE model_runs ADD COLUMN {name} {declaration}")
 
     def create_project(
         self, request: ProjectCreate, snapshot: CultureProfileSnapshot | None = None,
@@ -387,30 +464,104 @@ class Repository:
         result["output"] = json.loads(result.pop("output_json"))
         return result
 
+    def get_model_run(self, cache_key: str) -> dict[str, Any] | None:
+        with self.connect() as connection:
+            row = connection.execute("SELECT * FROM model_runs WHERE cache_key=?", (cache_key,)).fetchone()
+        return dict(row) if row else None
+
+    def record_model_cache_hit(self, cache_key: str) -> None:
+        with self.connect() as connection:
+            connection.execute(
+                "UPDATE model_runs SET cache_hit_count=COALESCE(cache_hit_count,0)+1 WHERE cache_key=?",
+                (cache_key,),
+            )
+
     def save_model_run(self, **values: Any) -> dict[str, Any]:
-        values.setdefault("id", str(uuid.uuid4()))
+        existing = self.get_model_run(values["cache_key"])
+        values.setdefault("id", existing["id"] if existing else str(uuid.uuid4()))
         values.setdefault("created_at", utc_now())
         values["output_json"] = canonical_json(values.pop("output")) if "output" in values else None
+        for source, target in (
+            ("operation_metadata", "operation_metadata_json"), ("input", "input_json"),
+            ("input_preview", "input_preview_json"), ("output_preview", "output_preview_json"),
+            ("usage", "usage_json"), ("cost", "cost_json"),
+        ):
+            if source in values:
+                values[target] = canonical_json(values.pop(source))
         columns = [
             "id", "project_id", "operation", "provider", "model", "prompt_hash", "input_hash",
             "cache_key", "culture_id", "profile_hash", "brief_revision_id", "output_json", "status", "latency_ms",
-            "input_tokens", "output_tokens", "error", "created_at",
+            "input_tokens", "output_tokens", "total_tokens", "operation_metadata_json", "input_json",
+            "input_preview_json", "output_preview_json", "usage_json", "cost_json", "estimated_cost_usd",
+            "pricing_catalog_version", "cost_basis", "cost_calculation_basis", "model_version", "response_id",
+            "finish_reason", "attempt_count", "cache_hit_count", "langfuse_trace_id", "langfuse_observation_id",
+            "error", "created_at",
+        ]
+        with self.connect() as connection:
+            if existing:
+                assignments = ",".join(f"{column}=?" for column in columns if column not in {"id", "created_at"})
+                connection.execute(
+                    f"UPDATE model_runs SET {assignments} WHERE id=?",
+                    [values.get(column) for column in columns if column not in {"id", "created_at"}] + [values["id"]],
+                )
+            else:
+                connection.execute(
+                    f"INSERT INTO model_runs ({','.join(columns)}) VALUES ({','.join('?' for _ in columns)})",
+                    [values.get(column) for column in columns],
+                )
+        return values
+
+    def save_model_attempt(self, **values: Any) -> dict[str, Any]:
+        values.setdefault("id", str(uuid.uuid4()))
+        for source, target in (("usage", "usage_json"), ("cost", "cost_json")):
+            if source in values:
+                values[target] = canonical_json(values.pop(source))
+        columns = [
+            "id", "model_run_id", "project_id", "invocation_id", "operation", "attempt", "provider", "model",
+            "status", "started_at", "completed_at", "latency_ms", "provider_latency_ms", "parse_latency_ms",
+            "io_latency_ms", "usage_json", "cost_json", "estimated_cost_usd", "model_version", "response_id", "finish_reason",
+            "error_type", "error", "langfuse_trace_id", "langfuse_observation_id",
         ]
         with self.connect() as connection:
             connection.execute(
-                f"INSERT OR REPLACE INTO model_runs ({','.join(columns)}) VALUES ({','.join('?' for _ in columns)})",
+                f"INSERT OR REPLACE INTO model_call_attempts ({','.join(columns)}) VALUES ({','.join('?' for _ in columns)})",
                 [values.get(column) for column in columns],
             )
         return values
+
+    def list_model_attempts(self, project_id: str) -> list[dict[str, Any]]:
+        with self.connect() as connection:
+            rows = connection.execute(
+                "SELECT * FROM model_call_attempts WHERE project_id=? ORDER BY started_at,attempt", (project_id,),
+            ).fetchall()
+        results = []
+        for row in rows:
+            item = dict(row)
+            for key in ("usage_json", "cost_json"):
+                item[key.removesuffix("_json")] = json.loads(item.pop(key)) if item.get(key) else None
+            results.append(item)
+        return results
 
     def list_model_runs(self, project_id: str) -> list[dict[str, Any]]:
         with self.connect() as connection:
             rows = connection.execute(
                 "SELECT id,operation,provider,model,prompt_hash,input_hash,culture_id,profile_hash,brief_revision_id,"
-                "status,latency_ms,input_tokens,output_tokens,error,created_at FROM model_runs WHERE project_id=? ORDER BY created_at",
+                "status,latency_ms,input_tokens,output_tokens,total_tokens,estimated_cost_usd,pricing_catalog_version,"
+                "cost_basis,cost_calculation_basis,model_version,response_id,finish_reason,attempt_count,cache_hit_count,"
+                "operation_metadata_json,input_preview_json,output_preview_json,usage_json,cost_json,"
+                "langfuse_trace_id,langfuse_observation_id,error,created_at FROM model_runs WHERE project_id=? ORDER BY created_at",
                 (project_id,),
             ).fetchall()
-        return [dict(row) for row in rows]
+        results = []
+        for row in rows:
+            item = dict(row)
+            for key in ("operation_metadata_json", "input_preview_json", "output_preview_json", "usage_json", "cost_json"):
+                item[key.removesuffix("_json")] = json.loads(item.pop(key)) if item.get(key) else None
+            item["attempts"] = [
+                attempt for attempt in self.list_model_attempts(project_id) if attempt["model_run_id"] == item["id"]
+            ]
+            results.append(item)
+        return results
 
     def get_idempotent(self, scope: str, key: str | None) -> Any | None:
         if not key:

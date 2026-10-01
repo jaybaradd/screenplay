@@ -1,0 +1,47 @@
+{
+  "catalog_version": "gemini-2026-10-01",
+  "currency": "USD",
+  "retrieved_at": "2026-10-01",
+  "source_url": "https://ai.google.dev/gemini-api/docs/pricing",
+  "models": {
+    "gemini-3.8-flash": [
+      {
+        "effective_from": "2026-01-01",
+        "effective_to": "2026-12-31",
+        "input_per_million": 0.75,
+        "output_per_million": 3.75,
+        "thinking_per_million": 3.75,
+        "cache_read_per_million": 0.075
+      },
+      {
+        "effective_from": "2027-01-01",
+        "effective_to": null,
+        "input_per_million": 1.5,
+        "output_per_million": 7.5,
+        "thinking_per_million": 7.5,
+        "cache_read_per_million": 0.15
+      }
+    ],
+    "gemini-3.1-flash-image": [
+      {
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "input_per_million": 0.5,
+        "output_per_million": 3.0,
+        "thinking_per_million": 3.0,
+        "image_output_per_million": 60.0,
+        "image_token_fallbacks": {
+          "512": 747,
+          "1024": 1120,
+          "2048": 1680,
+          "4096": 2520
+        }
+      }
+    ]
+  },
+  "grounding": {
+    "google_search_per_query": 0.014,
+    "monthly_free_queries": 5000,
+    "free_allowance_applied": false
+  }
+}

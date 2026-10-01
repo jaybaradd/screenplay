@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
 
@@ -10,6 +11,7 @@ from fastapi.responses import FileResponse
 from backend.config import settings
 from backend.cultures.models import TargetSelection
 from backend.cultures.registry import culture_registry
+from backend.observability import observer
 from backend.schemas import (
     ApprovalRequest, AssetCorrectionRequest, AssetPromptRevisionRequest, AssetStatus, CorrectionRequest,
     MergeRequest, ProjectCreate, RecordPatch, SceneVisualApprovalRequest,
@@ -25,7 +27,14 @@ workflow = Workflow(repository)
 project_service = ProjectService(repository, workflow.ai)
 export_service = ExportService(repository)
 
-app = FastAPI(title="Cultural Screenplay Adaptation Studio", version="0.2.0")
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    yield
+    observer.flush()
+
+
+app = FastAPI(title="Cultural Screenplay Adaptation Studio", version="0.3.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:8501", "http://127.0.0.1:8501"],
@@ -59,9 +68,53 @@ def view(project_id: str) -> dict[str, Any]:
     return project
 
 
-def guard(action):
+def _project_observability(project_id: str | None) -> tuple[dict[str, Any], list[str]]:
+    if not project_id:
+        return {}, [f"environment:{settings.langfuse_environment}"]
     try:
-        return action()
+        project = repository.get_project(project_id)
+    except KeyError:
+        return {"project_id": project_id}, [f"environment:{settings.langfuse_environment}"]
+    metadata = {
+        "project_id": project_id, "project_title": project["title"], "stage_before": project["stage"],
+        "culture_id": project["culture_id"], "culture_display_name": project["culture_display_name"],
+        "profile_hash": project["profile_hash"],
+    }
+    tags = [
+        f"environment:{settings.langfuse_environment}", f"culture:{project['culture_id']}",
+        f"provider:{workflow.ai.provider.name}",
+    ]
+    return metadata, tags
+
+
+def _asset_project(asset_id: str) -> str | None:
+    try:
+        return repository.get_asset(asset_id)["project_id"]
+    except KeyError:
+        return None
+
+
+def guard(
+    action, *, command_name: str | None = None, project_id: str | None = None,
+    input_data: Any = None, metadata: dict[str, Any] | None = None,
+):
+    try:
+        if not command_name:
+            return action()
+        project_metadata, tags = _project_observability(project_id)
+        with observer.command(
+            command_name, project_id=project_id, input_data=input_data,
+            metadata={**project_metadata, **(metadata or {})}, tags=tags,
+        ):
+            result = action()
+            stage_after = None
+            if project_id:
+                try:
+                    stage_after = repository.get_project(project_id)["stage"]
+                except KeyError:
+                    pass
+            observer.set_command_result(result="success", stage_after=stage_after)
+            return result
     except KeyError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
     except ValueError as error:
@@ -75,6 +128,7 @@ def health() -> dict[str, Any]:
     return {
         "status": "ok", "ai_mode": settings.ai_mode, "provider": workflow.ai.provider.name,
         "text_model": workflow.ai.provider.text_model, "image_model": workflow.ai.provider.image_model,
+        "observability": observer.health(),
     }
 
 
@@ -113,7 +167,10 @@ def create_project(request: ProjectCreate, idempotency_key: str | None = Header(
         project = repository.create_project(request, snapshot)
         repository.save_idempotent(scope, idempotency_key, {"id": project["id"]})
         return view(project["id"])
-    return guard(action)
+    return guard(
+        action, command_name="project.create", input_data=request.model_dump(mode="json"),
+        metadata={"culture_id": request.culture_id},
+    )
 
 
 @app.get("/v1/projects/{project_id}")
@@ -142,7 +199,7 @@ def advance(project_id: str, idempotency_key: str | None = Header(default=None))
             raise ValueError(f"Project is at {project['stage']}; use the matching approval action")
         repository.save_idempotent(scope, idempotency_key, {"advanced": True})
         return view(project_id)
-    return guard(action)
+    return guard(action, command_name="workflow.advance", project_id=project_id)
 
 
 @app.patch("/v1/projects/{project_id}/records/{record_kind}/{record_id}")
@@ -155,7 +212,10 @@ def patch_record(project_id: str, record_kind: str, record_id: str, request: Rec
         result = project_service.patch_record(project_id, request)
         repository.save_idempotent(scope, idempotency_key, {"revision_id": result["id"]})
         return result
-    return guard(action)
+    return guard(
+        action, command_name="record.patch", project_id=project_id,
+        input_data={"record_kind": record_kind, "record_id": record_id, "patch": request.model_dump(mode="json")},
+    )
 
 
 @app.post("/v1/projects/{project_id}/merges")
@@ -168,7 +228,10 @@ def merge_records(project_id: str, request: MergeRequest, idempotency_key: str |
         result = project_service.merge_records(project_id, request)
         repository.save_idempotent(scope, idempotency_key, {"revision_id": result["id"]})
         return result
-    return guard(action)
+    return guard(
+        action, command_name="record.merge", project_id=project_id,
+        input_data=request.model_dump(mode="json"),
+    )
 
 
 @app.post("/v1/projects/{project_id}/continuity/repair")
@@ -183,7 +246,7 @@ def repair_continuity(project_id: str, idempotency_key: str | None = Header(defa
         repository.save_idempotent(scope, idempotency_key, {"revision_id": revision["id"]})
         return revision
 
-    return guard(action)
+    return guard(action, command_name="continuity.repair", project_id=project_id)
 
 
 @app.post("/v1/projects/{project_id}/approve/{gate}")
@@ -233,10 +296,17 @@ def approve(project_id: str, gate: str, request: ApprovalRequest, idempotency_ke
                 raise ValueError("A visual manifest revision is required")
             workflow.validate_visual_manifest_revision(project_id, revision_id)
         repository.approve(project_id, gate, revision_id, request.override_reason)
+        observer.score(
+            "human_approval", 1.0, project_id=project_id,
+            comment=f"gate={gate}; override={bool(request.override_reason)}",
+        )
         workflow.resume(project_id, {"action": "approve", "revision_id": revision_id, "override_reason": request.override_reason})
         repository.save_idempotent(scope, idempotency_key, {"approved": True})
         return view(project_id)
-    return guard(action)
+    return guard(
+        action, command_name="workflow.approve", project_id=project_id,
+        input_data=request.model_dump(mode="json"), metadata={"gate": gate},
+    )
 
 
 @app.post("/v1/projects/{project_id}/corrections")
@@ -252,7 +322,10 @@ def correct(project_id: str, request: CorrectionRequest, idempotency_key: str | 
         result = project_service.correct_block(project_id, request)
         repository.save_idempotent(scope, idempotency_key, {"revision_id": result["id"]})
         return result
-    return guard(action)
+    return guard(
+        action, command_name="screenplay.correct", project_id=project_id,
+        input_data=request.model_dump(mode="json"), metadata={"target_block_id": request.target_block_id},
+    )
 
 
 @app.post("/v1/projects/{project_id}/visuals/specs")
@@ -272,7 +345,7 @@ def regenerate_visual_specs(project_id: str, idempotency_key: str | None = Heade
         repository.save_idempotent(scope, idempotency_key, {"revision_id": revision["id"]})
         return revision
 
-    return guard(action)
+    return guard(action, command_name="visual.manifest.regenerate", project_id=project_id)
 
 
 @app.post("/v1/projects/{project_id}/visuals/continuity/start")
@@ -287,7 +360,7 @@ def start_visual_continuity(project_id: str, idempotency_key: str | None = Heade
         repository.save_idempotent(scope, idempotency_key, {"started": True})
         return view(project_id)
 
-    return guard(action)
+    return guard(action, command_name="visual.continuity.start", project_id=project_id)
 
 
 @app.post("/v1/projects/{project_id}/visuals/scenes/{scene_id}/compile")
@@ -302,7 +375,10 @@ def compile_scene(project_id: str, scene_id: str, idempotency_key: str | None = 
         repository.save_idempotent(scope, idempotency_key, {"asset_id": result["id"]})
         return result
 
-    return guard(action)
+    return guard(
+        action, command_name="visual.scene.compile", project_id=project_id,
+        metadata={"scene_id": scene_id},
+    )
 
 
 @app.post("/v1/assets/{asset_id}/generate")
@@ -315,7 +391,10 @@ def generate_asset(asset_id: str, idempotency_key: str | None = Header(default=N
         result = project_service.generate_asset(asset_id)
         repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id, "attempt": result["attempt"]})
         return result
-    return guard(action)
+    return guard(
+        action, command_name="asset.generate", project_id=_asset_project(asset_id),
+        metadata={"asset_id": asset_id},
+    )
 
 
 @app.post("/v1/assets/{asset_id}/retry")
@@ -329,7 +408,10 @@ def retry_asset(asset_id: str, idempotency_key: str | None = Header(default=None
         result = project_service.generate_asset(asset_id)
         repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id, "attempt": result["attempt"]})
         return result
-    return guard(action)
+    return guard(
+        action, command_name="asset.retry", project_id=_asset_project(asset_id),
+        metadata={"asset_id": asset_id},
+    )
 
 
 @app.post("/v1/assets/{asset_id}/correct")
@@ -346,7 +428,10 @@ def correct_asset(
         repository.save_idempotent(scope, idempotency_key, {"asset_id": result["id"]})
         return result
 
-    return guard(action)
+    return guard(
+        action, command_name="asset.correct", project_id=_asset_project(asset_id),
+        input_data=request.model_dump(mode="json"), metadata={"asset_id": asset_id},
+    )
 
 
 @app.post("/v1/assets/{asset_id}/revise-prompt")
@@ -366,7 +451,10 @@ def revise_asset_prompt(
         repository.save_idempotent(scope, idempotency_key, {"asset_id": result["id"]})
         return result
 
-    return guard(action)
+    return guard(
+        action, command_name="visual.prompt.revise", project_id=_asset_project(asset_id),
+        input_data=request.model_dump(mode="json"), metadata={"asset_id": asset_id},
+    )
 
 
 @app.post("/v1/assets/{asset_id}/restore")
@@ -381,7 +469,10 @@ def restore_asset_version(asset_id: str, idempotency_key: str | None = Header(de
         repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id})
         return result
 
-    return guard(action)
+    return guard(
+        action, command_name="asset.restore", project_id=_asset_project(asset_id),
+        metadata={"asset_id": asset_id},
+    )
 
 
 @app.post("/v1/assets/{asset_id}/approve")
@@ -393,9 +484,13 @@ def approve_asset(asset_id: str, idempotency_key: str | None = Header(default=No
 
     def action():
         result = project_service.approve_asset(asset_id)
+        observer.score("human_asset_approval", 1.0, project_id=result["project_id"])
         repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id})
         return result
-    return guard(action)
+    return guard(
+        action, command_name="asset.approve", project_id=_asset_project(asset_id),
+        metadata={"asset_id": asset_id},
+    )
 
 
 @app.post("/v1/assets/{asset_id}/approve-scene")
@@ -410,10 +505,18 @@ def approve_scene_asset(
 
     def action():
         result = project_service.approve_scene_asset(asset_id, request)
+        observer.score(
+            "human_asset_approval", 1.0, project_id=result["project_id"],
+            comment=f"verification_override={request.override_verification}",
+        )
         repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id})
         return result
 
-    return guard(action)
+    return guard(
+        action, command_name=("visual.verification.override" if request.override_verification else "asset.approve"),
+        project_id=_asset_project(asset_id),
+        input_data=request.model_dump(mode="json"), metadata={"asset_id": asset_id, "asset_kind": "scene_keyframe"},
+    )
 
 
 @app.get("/v1/assets/{asset_id}/content")
@@ -431,4 +534,4 @@ def export_project(project_id: str):
     def action():
         path = export_service.build(project_id)
         return FileResponse(path, media_type="application/zip", filename="project-export.zip")
-    return guard(action)
+    return guard(action, command_name="export.build", project_id=project_id)

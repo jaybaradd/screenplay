@@ -14,6 +14,7 @@ from backend.config import settings
 from backend.cultures.context import compiler_for_project
 from backend.cultures.models import CultureProfileSnapshot, ScriptSpec
 from backend.continuity import check_continuity
+from backend.observability import observer
 from backend.prompts import continuity_repair_prompt, correction_prompt, VISUAL_STYLE_LOCK
 from backend.providers import AIService, MockProvider, stable_id
 from backend.schemas import (
@@ -311,6 +312,7 @@ class ProjectService:
         }
         if before_hashes != after_hashes:
             raise RuntimeError("Surgical edit isolation failed: an unrelated block changed")
+        observer.score("surgical_edit_isolation", 1.0, project_id=project_id)
         revision = self.repository.create_revision(project_id, "adapted_screenplay", screenplay, current["id"])
         ledger = self.repository.latest_revision(project_id, "change_ledger")
         entries = list(ledger["payload"]) if ledger else []
@@ -749,6 +751,10 @@ class ProjectService:
             records.append(verification.model_dump(mode="json"))
             self.repository.create_revision(
                 asset["project_id"], "visual_verification", records, history["id"] if history else None,
+            )
+            observer.score(
+                "visual_verification_pass", 1.0 if verification.passed else 0.0,
+                project_id=asset["project_id"], comment=verification.summary,
             )
             if not verification.passed or any(issue.severity == "blocking" for issue in verification.issues):
                 return self.repository.update_asset(

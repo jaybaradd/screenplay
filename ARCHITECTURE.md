@@ -18,7 +18,9 @@ LangGraph ───────────── checkpoints.sqlite
     ▼
 AI provider adapter ─── Gemini or deterministic mock
     │
-    └────────────────── optional Langfuse observations
+    └────────────────── optional Langfuse command traces
+                           graph/AI spans, provider generations,
+                           tokens, latency and estimated cost
 ```
 
 The frontend imports no backend repository or model code. All mutation passes through FastAPI. The graph holds revision identifiers and hashes; the full documents live as immutable revisions in `app.sqlite`, while images live on disk behind asset records.
@@ -48,6 +50,8 @@ Each bracketed step is a LangGraph `interrupt()`. Resumption uses the same proje
 - Edits create child revisions; approved history is never overwritten.
 - Surgical corrections require a target hash and prove all non-target block hashes are unchanged.
 - Visual dependencies are invalidated only when a correction changes an action/production dependency.
+- Provider retries are observable and durable individually. A cache hit creates a lookup span but no fake generation or cost.
+- Langfuse failure is non-fatal; the local `model_runs` and `model_call_attempts` audit log remains authoritative.
 
 ## Continuity ledger
 
