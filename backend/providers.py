@@ -538,6 +538,7 @@ class MockProvider(Provider):
                 affected_scene_ids=[], affected_character_ids=[],
                 preserved_invariants=["Scene order", "Relationships", "Emotional arc"],
                 cultural_claim_ids=["mock-claim"], uncertainty=["Live grounding unavailable"],
+                language_feature_ids=[],
                 risks=["Mock output is not culturally validated"], do_not_change=["Core story logic"],
                 negative_constraints=["Do not invent culture-specific detail"],
             )],

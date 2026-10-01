@@ -41,6 +41,10 @@ class CultureRegistry:
                     raise RuntimeError(
                         f"Culture profile {profile.culture_id} references a missing or unsafe font: {script.font_path}"
                     )
+                if profile.production_enabled and script.validation is None:
+                    raise RuntimeError(
+                        f"Production culture profile {profile.culture_id} has no validation policy for script {script.id}"
+                    )
             payload = {
                 "profile": profile.model_dump(mode="json"),
                 "reviewed_evidence": evidence.model_dump(mode="json"),

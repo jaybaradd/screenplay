@@ -1,6 +1,6 @@
 {
   "culture_id": "maidani_mewari",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "display_name": "Maidani Mewari",
   "production_enabled": true,
   "language_name": "Mewari",
@@ -16,7 +16,13 @@
       "id": "devanagari",
       "display_name": "Devanagari",
       "font_path": "assets/fonts/NotoSansDevanagari.ttf",
-      "html_lang": "mwr-Deva"
+      "html_lang": "mwr-Deva",
+      "validation": {
+        "unicode_ranges": [{"start": "0900", "end": "097F"}],
+        "minimum_target_letter_ratio": 0.8,
+        "minimum_letters_to_check": 10,
+        "enforced_block_types": ["action", "dialogue", "transition"]
+      }
     }
   ],
   "supported_settings": ["rural", "urban"],

@@ -17,11 +17,39 @@ class CultureModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
+class UnicodeRange(CultureModel):
+    start: str = Field(pattern=r"^[0-9A-Fa-f]{4,6}$")
+    end: str = Field(pattern=r"^[0-9A-Fa-f]{4,6}$")
+
+    @model_validator(mode="after")
+    def validate_order(self) -> "UnicodeRange":
+        if int(self.start, 16) > int(self.end, 16):
+            raise ValueError("Unicode range start must not exceed its end")
+        return self
+
+
+class ScriptValidationPolicy(CultureModel):
+    unicode_ranges: list[UnicodeRange] = Field(min_length=1)
+    minimum_target_letter_ratio: float = Field(gt=0, le=1)
+    minimum_letters_to_check: int = Field(ge=1)
+    enforced_block_types: list[Literal["action", "dialogue", "transition"]] = Field(min_length=1)
+
+    @field_validator("enforced_block_types")
+    @classmethod
+    def validate_unique_block_types(cls, value: list[str]) -> list[str]:
+        if len(value) != len(set(value)):
+            raise ValueError("Duplicate enforced block types are not allowed")
+        return value
+
+
 class ScriptSpec(CultureModel):
     id: str = Field(min_length=1, pattern=PROFILE_ID_PATTERN)
     display_name: str = Field(min_length=1)
     font_path: str = Field(min_length=1)
     html_lang: str = Field(min_length=1)
+    # Optional only so immutable snapshots created before script validation remain readable.
+    # Installed production profiles are required to provide it by the registry.
+    validation: ScriptValidationPolicy | None = None
 
 
 class PeriodSpec(CultureModel):

@@ -6,7 +6,7 @@ from typing import Any
 from backend.cultures.models import CultureRuntimeContext
 
 
-PROMPT_VERSION = "2026-10-01.culture-profiles-v2-continuity-events"
+PROMPT_VERSION = "2026-10-01.surgical-corrections-script-contract-v1"
 
 VISUAL_STYLE_LOCK = (
     "Photorealistic live-action Indian film production reference, real human skin texture and anatomy, "
@@ -145,6 +145,8 @@ YOUR ONLY LAYER:
 
 Return one LayerPlan for layer={layer}. Every decision must include source observations, proposed changes, affected stable IDs,
 preserved invariants, supporting CulturalBrief claim IDs, uncertainty, risks, do-not-change instructions and negative constraints.
+For layer=verbal, every decision must also populate language_feature_ids with applicable IDs copied exactly from the approved
+LanguageGuide. For every other layer, return an empty language_feature_ids list. Never invent a feature ID.
 
 SOURCE RECORDS:
 {json.dumps(source, ensure_ascii=False)}
@@ -188,7 +190,11 @@ LANGUAGE CONTRACT:
 - Fallback language ({fallback}) may appear only when an approved register or code-switching rule justifies it.
 - Never substitute these confusable varieties: {confusable}.
 - Use only the approved language guide and verbal-plan decisions. Mark uncertainty in explanations and confidence.
-- Screen directions may use a clear production register appropriate to the selected script; dialogue must follow the target variety.
+- Write every screenplay block in {context.output_script_name}: dialogue, action and transitions. Do not leave full sentences
+  or alternate scenes in another writing script. Proper names and approved technical terms are not permission to retain
+  surrounding prose in another script.
+- Screen directions may use a clear production register, but must still use {context.output_script_name}; dialogue must
+  additionally follow the target variety.
 
 LOSSLESS BLOCK CONTRACT:
 - Return exactly {len(scene.get('blocks', []))} blocks, one output block for each source block, in identical order.
@@ -306,8 +312,9 @@ APPROVED RELEVANT PLAN:
 def correction_prompt(
     target: dict[str, Any], instruction: str, context: dict[str, Any], culture: CultureRuntimeContext,
 ) -> str:
-    return f"""Return one surgical CorrectionPatch for the selected target only.
-Do not rewrite any other block. Keep target_id and precondition_hash exactly as provided.
+    return f"""Return only the replacement text and explanation for one selected screenplay block.
+Do not return or choose target IDs, hashes, field names, operations or dependency IDs. The application controls those values.
+Do not rewrite any neighbouring block.
 {PRESERVATION_RULES}
 
 TARGET CULTURAL CONTEXT:
@@ -318,6 +325,12 @@ TARGET:
 
 USER INSTRUCTION:
 {instruction}
+
+OUTPUT CONTRACT:
+- replacement_text must satisfy the instruction while preserving the target block's dramatic function.
+- replacement_text must use {culture.output_script_name} for all prose.
+- If the target is dialogue, it must follow {culture.target_variety} and the approved language guide.
+- explanation must briefly describe only the selected block's change.
 
 NEIGHBOUR CONTEXT AND CONSTRAINTS:
 {json.dumps(context, ensure_ascii=False)}

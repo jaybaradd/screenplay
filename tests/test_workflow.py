@@ -12,7 +12,7 @@ import backend.workflow as workflow_module
 from backend.config import Settings
 from backend.schemas import (
     AdaptedBlock, AdaptedScene, AssetCorrectionRequest, AssetStatus, BlockType, ContentBlock,
-    ContinuityEvent, ContinuityEventExtraction, CorrectionRequest, ProjectCreate, RecordPatch,
+    ContinuityEvent, ContinuityEventExtraction, CorrectionContent, CorrectionRequest, ProjectCreate, RecordPatch,
     SceneRecord, SceneVisualApprovalRequest,
     VisualVerification,
 )
@@ -108,11 +108,12 @@ def test_complete_durable_mock_workflow_and_surgical_edit(tmp_path: Path):
     target = blocks[0]
     untouched_before = {block["id"]: content_hash(block) for block in blocks[1:]}
     project_service = ProjectService(repository, workflow.ai)
+    corrected_text = "सटीक सुधारा हुआ परीक्षण पाठ।"
     corrected = project_service.correct_block(project_id, CorrectionRequest(
-        target_block_id=target["id"], instruction="Exact corrected mock text.", expected_hash=content_hash(target),
+        target_block_id=target["id"], instruction=corrected_text, expected_hash=content_hash(target),
     ))
     corrected_blocks = [block for scene in corrected["payload"]["scenes"] for block in scene["blocks"]]
-    assert corrected_blocks[0]["adapted_text"] == "Exact corrected mock text."
+    assert corrected_blocks[0]["adapted_text"] == corrected_text
     assert {block["id"]: content_hash(block) for block in corrected_blocks[1:]} == untouched_before
 
     workflow.resume(project_id, {"action": "approve", "revision_id": corrected["id"]})
@@ -154,6 +155,54 @@ def test_complete_durable_mock_workflow_and_surgical_edit(tmp_path: Path):
 
     export = ExportService(repository).build(project_id)
     assert export.exists()
+
+
+def test_live_correction_model_cannot_supply_target_or_hash(tmp_path: Path, monkeypatch):
+    _, repository, workflow = configured_workflow(tmp_path)
+    project = repository.create_project(ProjectCreate(
+        title="Controlled correction", source_text=sample_text(), culture_id="maidani_mewari",
+        locality="Rajsamand plains", setting="rural",
+        period="contemporary_2020_2026", output_script="devanagari",
+    ))
+    workflow.start(project["id"])
+    extraction = repository.latest_revision(project["id"], "extraction")
+    workflow.resume(project["id"], {"action": "approve", "revision_id": extraction["id"]})
+    plan = repository.latest_revision(project["id"], "adaptation_plan")
+    workflow.resume(project["id"], {"action": "approve", "revision_id": plan["id"]})
+    adapted = repository.latest_revision(project["id"], "adapted_screenplay")
+    target = next(
+        block for scene in adapted["payload"]["scenes"] for block in scene["blocks"]
+        if block["type"] == "action"
+    )
+    calls = []
+
+    def structured(_project_id, _operation, _prompt, schema):
+        calls.append(schema)
+        return CorrectionContent(
+            replacement_text="यह संशोधित दृश्य-वर्णन चयनित लेखन प्रणाली में है।",
+            explanation="Only the selected action block was corrected.",
+        )
+
+    workflow.ai.provider = SimpleNamespace(name="test-live-provider")
+    monkeypatch.setattr(workflow.ai, "cached_structured", structured)
+    service = ProjectService(repository, workflow.ai)
+    corrected = service.correct_block(project["id"], CorrectionRequest(
+        target_block_id=target["id"], instruction="Use the selected writing script.",
+        expected_hash=content_hash(target),
+    ))
+    corrected_target = next(
+        block for scene in corrected["payload"]["scenes"] for block in scene["blocks"]
+        if block["id"] == target["id"]
+    )
+    assert corrected_target["adapted_text"].startswith("यह संशोधित")
+    assert calls == [CorrectionContent]
+
+    with pytest.raises(ValueError, match="changed after it was loaded"):
+        service.correct_block(project["id"], CorrectionRequest(
+            target_block_id=target["id"], instruction="A stale retry.",
+            expected_hash=content_hash(target),
+        ))
+    assert calls == [CorrectionContent]
 
 
 def test_scoped_continuity_repair_preserves_extracted_story_records(tmp_path: Path):

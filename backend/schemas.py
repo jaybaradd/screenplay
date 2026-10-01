@@ -222,6 +222,7 @@ class LayerDecision(StrictModel):
     affected_character_ids: list[str]
     preserved_invariants: list[str]
     cultural_claim_ids: list[str]
+    language_feature_ids: list[str] = Field(default_factory=list)
     uncertainty: list[str]
     risks: list[str]
     do_not_change: list[str]
@@ -410,6 +411,11 @@ class CorrectionPatch(StrictModel):
     new_value: Any
     explanation: str
     affected_dependencies: list[str]
+
+
+class CorrectionContent(StrictModel):
+    replacement_text: str = Field(min_length=1)
+    explanation: str = Field(min_length=1)
 
 
 class ProjectCreate(StrictModel):

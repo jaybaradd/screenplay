@@ -12,7 +12,13 @@
       "id": "asteri_script",
       "display_name": "Asteri Script",
       "font_path": "assets/fonts/NotoSansDevanagari.ttf",
-      "html_lang": "zxx"
+      "html_lang": "zxx",
+      "validation": {
+        "unicode_ranges": [{"start": "0041", "end": "007A"}],
+        "minimum_target_letter_ratio": 0.75,
+        "minimum_letters_to_check": 8,
+        "enforced_block_types": ["action", "dialogue", "transition"]
+      }
     }
   ],
   "supported_settings": ["port", "inland"],

@@ -11,6 +11,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import Command, interrupt
 
 from backend.config import settings
+from backend.adaptation_validation import language_audit_issues, validate_output_script
 from backend.cultures.context import CultureContextCompiler
 from backend.cultures.models import CultureProfileSnapshot, TargetSelection
 from backend.continuity import check_continuity
@@ -427,6 +428,10 @@ class Workflow:
         duplicates = sorted({block_id for block_id in mapped_sequence if mapped_sequence.count(block_id) > 1})
         if duplicates:
             issues.append({"severity": "blocking", "code": "duplicate_source_blocks", "message": f"Source blocks mapped more than once: {duplicates}"})
+        snapshot_revision = self.repository.latest_revision(project_id, "culture_profile_snapshot")
+        snapshot = CultureProfileSnapshot.model_validate(snapshot_revision["payload"])
+        script = next(item for item in snapshot.profile.supported_scripts if item.id == adapted.output_script)
+        issues.extend(validate_output_script(adapted, script))
         if not isinstance(self.ai.provider, MockProvider):
             brief_revision = self.repository.get_revision(state["cultural_revision"])
             brief = CulturalBrief.model_validate(brief_revision["payload"])
@@ -443,62 +448,7 @@ class Workflow:
                 project_id, "language_audit", audit,
                 previous_audit["id"] if previous_audit else None,
             )
-            audit_by_scene = {item.scene_id: item for item in audit.scenes}
-            for scene in adapted.scenes:
-                expected_dialogue_ids = {
-                    block.id for block in scene.blocks if block.type.value == "dialogue"
-                }
-                scene_audit = audit_by_scene.get(scene.source_scene_id)
-                if not scene_audit:
-                    if expected_dialogue_ids:
-                        issues.append({
-                            "severity": "blocking", "code": "language_audit_incomplete",
-                            "message": f"Language audit omitted speaking scene {scene.source_scene_id}.",
-                        })
-                    continue
-                declared = set(scene_audit.dialogue_block_ids)
-                classified_sequence = [
-                    *scene_audit.supported_target_variety_block_ids,
-                    *scene_audit.unsupported_fallback_language_block_ids,
-                    *scene_audit.mixed_or_unapproved_variety_block_ids,
-                ]
-                classified = set(classified_sequence)
-                missing_audit_blocks = sorted(expected_dialogue_ids - classified)
-                unknown_audit_blocks = sorted((declared | classified) - expected_dialogue_ids)
-                duplicate_classifications = sorted({
-                    block_id for block_id in classified_sequence if classified_sequence.count(block_id) > 1
-                })
-                if declared != expected_dialogue_ids or missing_audit_blocks or unknown_audit_blocks or duplicate_classifications:
-                    issues.append({
-                        "severity": "blocking", "code": "language_audit_incomplete",
-                        "message": (
-                            f"Language audit for scene {scene.source_scene_id} is incomplete or inconsistent. "
-                            f"Missing={missing_audit_blocks}; unknown={unknown_audit_blocks}; "
-                            f"multiply classified={duplicate_classifications}."
-                        ),
-                    })
-            for scene_audit in audit.scenes:
-                if scene_audit.unsupported_fallback_language_block_ids:
-                    fallback = culture_context.language_policy.fallback_language or "fallback language"
-                    issues.append({
-                        "severity": "blocking", "code": "unsupported_fallback_dialogue",
-                        "message": (
-                            f"Scene {scene_audit.scene_id} contains unsupported {fallback} dialogue rather than "
-                            f"{culture_context.target_variety}: {scene_audit.unsupported_fallback_language_block_ids}"
-                        ),
-                    })
-                if scene_audit.mixed_or_unapproved_variety_block_ids:
-                    issues.append({
-                        "severity": "blocking", "code": "unapproved_variety_mixing",
-                        "message": (
-                            f"Scene {scene_audit.scene_id} contains unsupported, mixed or confusable language forms: "
-                            f"{scene_audit.mixed_or_unapproved_variety_block_ids}"
-                        ),
-                    })
-            if not audit.passed and not any(
-                issue["code"] in {"unsupported_fallback_dialogue", "unapproved_variety_mixing"} for issue in issues
-            ):
-                issues.append({"severity": "blocking", "code": "language_audit_failed", "message": audit.summary})
+            issues.extend(language_audit_issues(adapted, audit, culture_context))
             audited_dialogue = sum(len(item.dialogue_block_ids) for item in audit.scenes)
             supported_dialogue = sum(len(item.supported_target_variety_block_ids) for item in audit.scenes)
             observer.score(
@@ -611,16 +561,26 @@ class Workflow:
                 "severity": "blocking", "code": "verbal_plan_scene_gap",
                 "message": f"The verbal plan does not cover speaking scenes: {sorted(speaking_scenes - covered_scenes)}",
             })
-        plan_text = " ".join(
-            change for decision in verbal.decisions for change in decision.proposed_changes
-        ).lower()
-        feature_markers = [feature.id.lower() for feature in guide.features] + [
-            feature.written_form.lower() for feature in guide.features
-        ]
-        if guide.features and not any(marker and marker in plan_text for marker in feature_markers):
+        feature_ids = {feature.id for feature in guide.features}
+        cited_feature_ids = {
+            feature_id for decision in verbal.decisions for feature_id in decision.language_feature_ids
+        }
+        unknown_feature_ids = sorted(cited_feature_ids - feature_ids)
+        if unknown_feature_ids:
+            issues.append({
+                "severity": "blocking", "code": "verbal_plan_unknown_language_features",
+                "message": f"The verbal plan cites unknown LanguageFeature IDs: {unknown_feature_ids}",
+            })
+        ungrounded_decisions = sorted(
+            decision.id for decision in verbal.decisions if not decision.language_feature_ids
+        )
+        if guide.features and ungrounded_decisions:
             issues.append({
                 "severity": "blocking", "code": "verbal_plan_not_grounded",
-                "message": "The verbal plan does not cite or use an approved LanguageFeature ID or written form.",
+                "message": (
+                    "Verbal-plan decisions must cite approved LanguageFeature IDs. "
+                    f"Missing citations: {ungrounded_decisions}"
+                ),
             })
         claim_ids = {item.id for item in brief.claims}
         constraint_ids = {item.id for item in brief.constraints}

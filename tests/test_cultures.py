@@ -27,6 +27,7 @@ def test_production_registry_exposes_only_enabled_profiles():
     snapshot = culture_registry.snapshot("maidani_mewari")
     assert snapshot.profile.language_policy.minimum_supported_features == 6
     assert snapshot.profile.supported_scripts[0].id == "devanagari"
+    assert snapshot.profile.supported_scripts[0].validation is not None
     assert {item.casefold() for item in snapshot.profile.commonly_confused_languages} >= {
         "marwari", "standard hindi",
     }
@@ -127,6 +128,18 @@ def test_selection_and_font_contracts_are_enforced(tmp_path: Path):
     payload["supported_scripts"][0]["font_path"] = "assets/fonts/missing.ttf"
     profile_path.write_text(json.dumps(payload), encoding="utf-8")
     with pytest.raises(RuntimeError, match="missing or unsafe font"):
+        CultureRegistry(profile_root)
+
+
+def test_production_profile_requires_script_validation_policy(tmp_path: Path):
+    profile_root = tmp_path / "cultures"
+    shutil.copytree(FIXTURE_ROOT, profile_root)
+    profile_path = profile_root / "coastal_asteri" / "profile.json"
+    payload = json.loads(profile_path.read_text(encoding="utf-8"))
+    payload["production_enabled"] = True
+    payload["supported_scripts"][0].pop("validation")
+    profile_path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="no validation policy"):
         CultureRegistry(profile_root)
 
 

@@ -10,18 +10,21 @@ from html import escape
 from pathlib import Path
 from typing import Any
 
+from backend.adaptation_validation import (
+    LANGUAGE_ISSUE_CODES, SCRIPT_ISSUE_CODE, language_audit_issues, validate_output_script,
+)
 from backend.config import settings
 from backend.cultures.context import compiler_for_project
 from backend.cultures.models import CultureProfileSnapshot, ScriptSpec
 from backend.continuity import check_continuity
 from backend.observability import observer
-from backend.prompts import continuity_repair_prompt, correction_prompt, VISUAL_STYLE_LOCK
+from backend.prompts import continuity_repair_prompt, correction_prompt, language_audit_prompt, VISUAL_STYLE_LOCK
 from backend.providers import AIService, MockProvider, stable_id
 from backend.schemas import (
-    AdaptedScreenplay, AssetCorrectionRequest, AssetStatus, CorrectionPatch, CorrectionRequest, MergeRequest,
+    AdaptedScreenplay, AssetCorrectionRequest, AssetStatus, CorrectionContent, CorrectionPatch, CorrectionRequest, MergeRequest,
     ContinuityEvent, ContinuityEventExtraction, ContinuityIssue, RecordPatch, SceneContinuitySnapshot,
     SceneVisualApprovalRequest, SetContinuitySnapshot,
-    SourceScreenplay, VisualContinuityLedger, VisualManifest, utc_now,
+    CulturalBrief, LanguageAudit, SourceScreenplay, VisualContinuityLedger, VisualManifest, utc_now,
 )
 from backend.state_ledger import build_state_ledger
 from backend.storage import Repository, content_hash
@@ -257,6 +260,62 @@ class ProjectService:
             previous["id"] if previous else None,
         )
 
+    def _script_spec(self, project_id: str) -> ScriptSpec:
+        project = self.repository.get_project(project_id)
+        snapshot_revision = self.repository.latest_revision(project_id, "culture_profile_snapshot")
+        if not snapshot_revision:
+            raise ValueError("Project has no immutable culture profile snapshot")
+        snapshot = CultureProfileSnapshot.model_validate(snapshot_revision["payload"])
+        return next(
+            item for item in snapshot.profile.supported_scripts
+            if item.id == project["output_script"]
+        )
+
+    def _audit_corrected_dialogue(
+        self, project_id: str, screenplay: AdaptedScreenplay, target_scene,
+        brief_revision: dict[str, Any], culture_context,
+    ) -> LanguageAudit:
+        brief = CulturalBrief.model_validate(brief_revision["payload"])
+        scoped = screenplay.model_copy(deep=True)
+        scoped.scenes = [target_scene]
+        refreshed = self.ai.cached_structured(
+            project_id, "audit-adapted-language",
+            language_audit_prompt(
+                scoped.model_dump(mode="json"), brief.model_dump(mode="json"), culture_context,
+            ),
+            LanguageAudit,
+        )
+        structural = [
+            issue for issue in language_audit_issues(scoped, refreshed, culture_context)
+            if issue["code"] == "language_audit_incomplete"
+        ]
+        if structural:
+            raise ValueError("Corrected dialogue could not be audited reliably: " + structural[0]["message"])
+
+        previous = self.repository.latest_revision(project_id, "language_audit")
+        by_scene = {
+            item.scene_id: item
+            for item in (LanguageAudit.model_validate(previous["payload"]).scenes if previous else [])
+        }
+        for item in refreshed.scenes:
+            by_scene[item.scene_id] = item
+        speaking_scene_ids = [
+            scene.source_scene_id for scene in screenplay.scenes
+            if any(block.type.value == "dialogue" for block in scene.blocks)
+        ]
+        ordered = [by_scene[scene_id] for scene_id in speaking_scene_ids if scene_id in by_scene]
+        passed = all(
+            not item.unsupported_fallback_language_block_ids
+            and not item.mixed_or_unapproved_variety_block_ids
+            for item in ordered
+        ) and len(ordered) == len(speaking_scene_ids)
+        return LanguageAudit(
+            target_variety=culture_context.target_variety,
+            scenes=ordered,
+            passed=passed,
+            summary="Language audit refreshed after a surgical screenplay correction.",
+        )
+
     def correct_block(self, project_id: str, request: CorrectionRequest) -> dict[str, Any]:
         current = self.repository.latest_revision(project_id, "adapted_screenplay")
         if not current:
@@ -278,34 +337,47 @@ class ProjectService:
         actual_hash = content_hash(target_payload)
         if request.expected_hash != actual_hash:
             raise ValueError("The selected block changed after it was loaded; refresh before correcting")
+        brief = self.repository.latest_revision(project_id, "cultural_brief")
+        culture_context = compiler_for_project(
+            self.repository, project_id, brief,
+        ).for_correction(target.id)
         if isinstance(self.ai.provider, MockProvider):
-            patch = CorrectionPatch(
-                target_kind="adapted_block", target_id=target.id, precondition_hash=actual_hash,
-                operation="replace_text", field="adapted_text", new_value=request.instruction,
+            correction = CorrectionContent(
+                replacement_text=request.instruction,
                 explanation="Mock mode treats the correction instruction as the exact replacement text.",
-                affected_dependencies=[] if target.type == "dialogue" else [target_scene.id],
             )
         else:
             extraction = self.repository.latest_revision(project_id, "extraction")
-            brief = self.repository.latest_revision(project_id, "cultural_brief")
-            culture_context = compiler_for_project(
-                self.repository, project_id, brief,
-            ).for_correction(target.id)
             context = {
                 "neighbours": neighbours,
                 "story_contract": extraction["payload"]["story_contract"] if extraction else {},
             }
-            patch = self.ai.cached_structured(
+            correction = self.ai.cached_structured(
                 project_id, f"correct-block-{target.id}",
-                correction_prompt(target_payload, request.instruction, context, culture_context), CorrectionPatch,
+                correction_prompt(target_payload, request.instruction, context, culture_context), CorrectionContent,
             )
-        if patch.target_id != target.id or patch.precondition_hash != actual_hash or patch.field != "adapted_text":
-            raise ValueError("Correction model attempted to modify an unapproved target")
+        patch = CorrectionPatch(
+            target_kind="adapted_block", target_id=target.id, precondition_hash=actual_hash,
+            operation="replace_text", field="adapted_text", new_value=correction.replacement_text.strip(),
+            explanation=correction.explanation,
+            affected_dependencies=[] if target.type.value == "dialogue" else [target_scene.source_scene_id],
+        )
         before_hashes = {
             block.id: content_hash(block.model_dump(mode="json"))
             for scene in screenplay.scenes for block in scene.blocks if block.id != target.id
         }
         target.adapted_text = str(patch.new_value)
+        script = self._script_spec(project_id)
+        script_issues = validate_output_script(screenplay, script)
+        target_script_issues = [item for item in script_issues if item.get("block_id") == target.id]
+        if target_script_issues:
+            raise ValueError("Correction rejected: " + target_script_issues[0]["message"])
+
+        refreshed_audit = None
+        if target.type.value == "dialogue" and not isinstance(self.ai.provider, MockProvider):
+            refreshed_audit = self._audit_corrected_dialogue(
+                project_id, screenplay, target_scene, brief, culture_context,
+            )
         after_hashes = {
             block.id: content_hash(block.model_dump(mode="json"))
             for scene in screenplay.scenes for block in scene.blocks if block.id != target.id
@@ -314,6 +386,26 @@ class ProjectService:
             raise RuntimeError("Surgical edit isolation failed: an unrelated block changed")
         observer.score("surgical_edit_isolation", 1.0, project_id=project_id)
         revision = self.repository.create_revision(project_id, "adapted_screenplay", screenplay, current["id"])
+        if refreshed_audit is not None:
+            previous_audit = self.repository.latest_revision(project_id, "language_audit")
+            self.repository.create_revision(
+                project_id, "language_audit", refreshed_audit,
+                previous_audit["id"] if previous_audit else None,
+            )
+
+        previous_verification = self.repository.latest_revision(project_id, "adaptation_verification")
+        retained_issues = [
+            item for item in (previous_verification["payload"] if previous_verification else [])
+            if item.get("code") != SCRIPT_ISSUE_CODE
+            and (refreshed_audit is None or item.get("code") not in LANGUAGE_ISSUE_CODES)
+        ]
+        refreshed_issues = [*retained_issues, *script_issues]
+        if refreshed_audit is not None:
+            refreshed_issues.extend(language_audit_issues(screenplay, refreshed_audit, culture_context))
+        self.repository.create_revision(
+            project_id, "adaptation_verification", refreshed_issues,
+            previous_verification["id"] if previous_verification else None,
+        )
         ledger = self.repository.latest_revision(project_id, "change_ledger")
         entries = list(ledger["payload"]) if ledger else []
         entries.append({
