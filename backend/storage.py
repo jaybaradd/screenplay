@@ -22,7 +22,7 @@ def content_hash(value: Any) -> str:
     payload = value if isinstance(value, str) else canonical_json(value)
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
-
+ 
 class Repository:
     SCHEMA_VERSION = "3"
 
@@ -203,6 +203,21 @@ class Repository:
             response_json TEXT NOT NULL,
             created_at TEXT NOT NULL,
             PRIMARY KEY(scope, key)
+        );
+        CREATE TABLE IF NOT EXISTS operation_receipts (
+            scope TEXT NOT NULL,
+            key TEXT NOT NULL,
+            request_hash TEXT NOT NULL,
+            status TEXT NOT NULL CHECK (status IN ('running', 'finished', 'uncertain')),
+            outcome_json TEXT,
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL,
+            PRIMARY KEY (scope, key)
+        );
+        CREATE TABLE IF NOT EXISTS asset_generation_claims (
+            asset_id TEXT PRIMARY KEY NOT NULL REFERENCES assets(id) ON DELETE CASCADE,
+            owner_token TEXT NOT NULL,
+            created_at TEXT NOT NULL
         );
         """
         with self.connect() as connection:
@@ -563,6 +578,72 @@ class Repository:
             results.append(item)
         return results
 
+    def reserve_operation(self, scope: str, key: str, request_hash: str) -> bool:
+        """Return True only for the request that atomically reserves the key."""
+        now = utc_now()
+        with self.connect() as connection:
+            cursor = connection.execute(
+                """
+                INSERT INTO operation_receipts
+                    (scope, key, request_hash, status, created_at, updated_at)
+                VALUES (?, ?, ?, 'running', ?, ?)
+                ON CONFLICT (scope, key) DO NOTHING
+                """,
+                (scope, key, request_hash, now, now),
+            )
+            return cursor.rowcount == 1
+
+    def get_operation(self, scope: str, key: str) -> dict[str, Any] | None:
+        with self.connect() as connection:
+            row = connection.execute(
+                "SELECT * FROM operation_receipts WHERE scope = ? AND key = ?",
+                (scope, key),
+            ).fetchone()
+        if row is None:
+            return None
+
+        receipt = dict(row)
+        encoded_outcome = receipt.pop("outcome_json")
+        receipt["outcome"] = (
+            json.loads(encoded_outcome) if encoded_outcome is not None else None
+        )
+        return receipt
+
+    def finish_operation(
+        self, scope: str, key: str, outcome: dict[str, Any], *, uncertain: bool = False,
+    ) -> None:
+        status = "uncertain" if uncertain else "finished"
+        with self.connect() as connection:
+            cursor = connection.execute(
+                """
+                UPDATE operation_receipts
+                SET status = ?, outcome_json = ?, updated_at = ?
+                WHERE scope = ? AND key = ? AND status = 'running'
+                """,
+                (status, canonical_json(outcome), utc_now(), scope, key),
+            )
+            if cursor.rowcount != 1:
+                raise RuntimeError("Cannot finish an operation without a running receipt")
+
+    def claim_asset_generation(self, asset_id: str, owner_token: str) -> bool:
+        """Return True only for the request that claims this asset."""
+        with self.connect() as connection:
+            cursor = connection.execute(
+                """
+                INSERT INTO asset_generation_claims (asset_id, owner_token, created_at)
+                VALUES (?, ?, ?)
+                ON CONFLICT (asset_id) DO NOTHING
+                """,
+                (asset_id, owner_token, utc_now()),
+            )
+            return cursor.rowcount == 1
+
+    def release_asset_generation(self, asset_id: str, owner_token: str) -> None:
+        with self.connect() as connection:
+            connection.execute(
+                "DELETE FROM asset_generation_claims WHERE asset_id = ? AND owner_token = ?",
+                (asset_id, owner_token),
+            )
     def get_idempotent(self, scope: str, key: str | None) -> Any | None:
         if not key:
             return None

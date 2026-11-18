@@ -3,7 +3,7 @@ from __future__ import annotations
 import streamlit as st
 
 from frontend.client import APIError, client
-from frontend.common import setup_page
+from frontend.common import setup_page, show_action_error
 
 
 setup_page("Cultural Adaptation Studio")
@@ -64,4 +64,4 @@ if submitted:
         st.session_state.project_id = project["id"]
         st.success("Project created. Open Scene Extraction from the sidebar.")
     except APIError as error:
-        st.error(str(error))
+        show_action_error(error)

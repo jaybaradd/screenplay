@@ -17,7 +17,7 @@ from backend.schemas import (
     MergeRequest, ProjectCreate, RecordPatch, SceneVisualApprovalRequest,
 )
 from backend.services import ExportService, ProjectService
-from backend.storage import Repository
+from backend.storage import Repository, content_hash
 from backend.workflow import Workflow
 
 
@@ -115,6 +115,8 @@ def guard(
                     pass
             observer.set_command_result(result="success", stage_after=stage_after)
             return result
+    except HTTPException:
+        raise
     except KeyError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
     except ValueError as error:
@@ -122,6 +124,99 @@ def guard(
     except Exception as error:
         raise HTTPException(status_code=500, detail=f"{type(error).__name__}: {error}") from error
 
+def run_mutation(
+    action, *, scope: str, idempotency_key: str | None,
+    success_status: int = 200, **guard_kwargs: Any,
+) -> Any:
+    if idempotency_key is None:
+        return guard(action, **guard_kwargs)
+
+    key = idempotency_key
+    if not key.strip() or len(key) > 128:
+        raise HTTPException(status_code=400, detail="Invalid Idempotency-Key")
+
+    request_hash = content_hash({"input": guard_kwargs.get("input_data")})
+
+    # Old receipts do not contain a request hash. Keep them from executing
+    # again, but do not claim that the original request body matches.
+    if repository.get_idempotent(scope, key) is not None:
+        raise HTTPException(
+            status_code=409,
+            detail={
+                "code": "legacy_idempotency_key",
+                "message": "This key was already used. Check the project or asset for its result.",
+            },
+        )
+
+    if not repository.reserve_operation(scope, key, request_hash):
+        receipt = repository.get_operation(scope, key)
+        if receipt is None:
+            raise HTTPException(status_code=503, detail="Could not read the operation status")
+        if receipt["request_hash"] != request_hash:
+            raise HTTPException(
+                status_code=409,
+                detail={
+                    "code": "idempotency_key_conflict",
+                    "message": "This key was already used with different input.",
+                },
+            )
+        if receipt["status"] == "running":
+            raise HTTPException(
+                status_code=409,
+                detail={
+                    "code": "operation_pending",
+                    "message": "No outcome has been recorded. Check status before retrying.",
+                },
+            )
+
+        outcome = receipt["outcome"]
+        if "error" in outcome:
+            error = outcome["error"]
+            raise HTTPException(
+                status_code=error["status_code"],
+                detail=error["detail"],
+                headers=error.get("headers"),
+            )
+        return outcome["result"]
+
+    try:
+        result = guard(action, **guard_kwargs)
+    except HTTPException as error:
+        # An error can follow a committed write or a provider call.
+        # Preserve the outcome and leave any recovery to an explicit action.
+        headers = {**(error.headers or {}), "Idempotency-Status": "uncertain"}
+        repository.finish_operation(
+            scope,
+            key,
+            {
+                "error": {
+                    "status_code": error.status_code,
+                    "detail": error.detail,
+                    "headers": headers,
+                },
+            },
+            uncertain=True,
+        )
+        raise HTTPException(
+            status_code=error.status_code, detail=error.detail, headers=headers,
+        ) from error
+
+    repository.finish_operation(
+        scope, key, {"status_code": success_status, "result": result},
+    )
+    return result
+
+
+@app.get("/v1/operations/{key}")
+def operation_status(key: str, scope: str) -> dict[str, Any]:
+    receipt = repository.get_operation(scope, key)
+    if receipt is None:
+        raise HTTPException(status_code=404, detail="No operation has been recorded for this key")
+    return {
+        "status": receipt["status"],
+        "updated_at": receipt["updated_at"],
+        "outcome": receipt["outcome"],
+    }
 
 @app.get("/health")
 def health() -> dict[str, Any]:
@@ -155,9 +250,7 @@ def get_culture(culture_id: str) -> dict[str, Any]:
 @app.post("/v1/projects", status_code=201)
 def create_project(request: ProjectCreate, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = "create-project"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return view(cached["id"])
+
     def action():
         selection = TargetSelection(
             culture_id=request.culture_id, locality=request.locality, setting=request.setting,
@@ -165,10 +258,13 @@ def create_project(request: ProjectCreate, idempotency_key: str | None = Header(
         )
         snapshot = culture_registry.validate_selection(selection)
         project = repository.create_project(request, snapshot)
-        repository.save_idempotent(scope, idempotency_key, {"id": project["id"]})
         return view(project["id"])
-    return guard(
-        action, command_name="project.create", input_data=request.model_dump(mode="json"),
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        success_status=201,
+        command_name="project.create", input_data=request.model_dump(mode="json"),
         metadata={"culture_id": request.culture_id},
     )
 
@@ -181,9 +277,6 @@ def get_project(project_id: str) -> dict[str, Any]:
 @app.post("/v1/projects/{project_id}/advance")
 def advance(project_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"advance:{project_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return view(project_id)
 
     def action():
         project = repository.get_project(project_id)
@@ -197,23 +290,27 @@ def advance(project_id: str, idempotency_key: str | None = Header(default=None))
             workflow.retry_failed(project_id)
         else:
             raise ValueError(f"Project is at {project['stage']}; use the matching approval action")
-        repository.save_idempotent(scope, idempotency_key, {"advanced": True})
         return view(project_id)
-    return guard(action, command_name="workflow.advance", project_id=project_id)
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="workflow.advance", project_id=project_id,
+    )
 
 
 @app.patch("/v1/projects/{project_id}/records/{record_kind}/{record_id}")
 def patch_record(project_id: str, record_kind: str, record_id: str, request: RecordPatch, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"patch:{project_id}:{record_kind}:{record_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_revision(cached["revision_id"])
+
     def action():
         result = project_service.patch_record(project_id, request)
-        repository.save_idempotent(scope, idempotency_key, {"revision_id": result["id"]})
         return result
-    return guard(
-        action, command_name="record.patch", project_id=project_id,
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="record.patch", project_id=project_id,
         input_data={"record_kind": record_kind, "record_id": record_id, "patch": request.model_dump(mode="json")},
     )
 
@@ -221,15 +318,15 @@ def patch_record(project_id: str, record_kind: str, record_id: str, request: Rec
 @app.post("/v1/projects/{project_id}/merges")
 def merge_records(project_id: str, request: MergeRequest, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"merge:{project_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_revision(cached["revision_id"])
+
     def action():
         result = project_service.merge_records(project_id, request)
-        repository.save_idempotent(scope, idempotency_key, {"revision_id": result["id"]})
         return result
-    return guard(
-        action, command_name="record.merge", project_id=project_id,
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="record.merge", project_id=project_id,
         input_data=request.model_dump(mode="json"),
     )
 
@@ -237,24 +334,22 @@ def merge_records(project_id: str, request: MergeRequest, idempotency_key: str |
 @app.post("/v1/projects/{project_id}/continuity/repair")
 def repair_continuity(project_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"repair-continuity:{project_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_revision(cached["revision_id"])
 
     def action():
         revision = project_service.repair_continuity(project_id)
-        repository.save_idempotent(scope, idempotency_key, {"revision_id": revision["id"]})
         return revision
 
-    return guard(action, command_name="continuity.repair", project_id=project_id)
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="continuity.repair", project_id=project_id,
+    )
 
 
 @app.post("/v1/projects/{project_id}/approve/{gate}")
 def approve(project_id: str, gate: str, request: ApprovalRequest, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"approve:{project_id}:{gate}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return view(project_id)
 
     def action():
         project = repository.get_project(project_id)
@@ -301,29 +396,31 @@ def approve(project_id: str, gate: str, request: ApprovalRequest, idempotency_ke
             comment=f"gate={gate}; override={bool(request.override_reason)}",
         )
         workflow.resume(project_id, {"action": "approve", "revision_id": revision_id, "override_reason": request.override_reason})
-        repository.save_idempotent(scope, idempotency_key, {"approved": True})
         return view(project_id)
-    return guard(
-        action, command_name="workflow.approve", project_id=project_id,
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="workflow.approve", project_id=project_id,
         input_data=request.model_dump(mode="json"), metadata={"gate": gate},
     )
 
 
 @app.post("/v1/projects/{project_id}/corrections")
 def correct(project_id: str, request: CorrectionRequest, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
-    scope = f"correct:{project_id}:{request.target_block_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_revision(cached["revision_id"])
+    scope = f"correct:{project_id}"
+
     def action():
         project = repository.get_project(project_id)
         if project["stage"] != "screenplay_review":
             raise ValueError("Surgical corrections are available only during screenplay review")
         result = project_service.correct_block(project_id, request)
-        repository.save_idempotent(scope, idempotency_key, {"revision_id": result["id"]})
         return result
-    return guard(
-        action, command_name="screenplay.correct", project_id=project_id,
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="screenplay.correct", project_id=project_id,
         input_data=request.model_dump(mode="json"), metadata={"target_block_id": request.target_block_id},
     )
 
@@ -336,47 +433,48 @@ def visual_specs(project_id: str) -> dict[str, Any]:
 @app.post("/v1/projects/{project_id}/visuals/regenerate")
 def regenerate_visual_specs(project_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"regenerate-visual-manifest:{project_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_revision(cached["revision_id"])
 
     def action():
         revision = workflow.regenerate_visual_manifest(project_id)
-        repository.save_idempotent(scope, idempotency_key, {"revision_id": revision["id"]})
         return revision
 
-    return guard(action, command_name="visual.manifest.regenerate", project_id=project_id)
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="visual.manifest.regenerate", project_id=project_id,
+    )
 
 
 @app.post("/v1/projects/{project_id}/visuals/continuity/start")
 def start_visual_continuity(project_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"start-visual-continuity:{project_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return view(project_id)
 
     def action():
         project_service.start_visual_continuity(project_id)
-        repository.save_idempotent(scope, idempotency_key, {"started": True})
         return view(project_id)
 
-    return guard(action, command_name="visual.continuity.start", project_id=project_id)
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="visual.continuity.start", project_id=project_id,
+    )
 
 
 @app.post("/v1/projects/{project_id}/visuals/scenes/{scene_id}/compile")
 def compile_scene(project_id: str, scene_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"compile-scene:{project_id}:{scene_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_asset(cached["asset_id"])
 
     def action():
         result = project_service.compile_scene_asset(project_id, scene_id)
-        repository.save_idempotent(scope, idempotency_key, {"asset_id": result["id"]})
         return result
 
-    return guard(
-        action, command_name="visual.scene.compile", project_id=project_id,
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="visual.scene.compile", project_id=project_id,
         metadata={"scene_id": scene_id},
     )
 
@@ -384,15 +482,15 @@ def compile_scene(project_id: str, scene_id: str, idempotency_key: str | None = 
 @app.post("/v1/assets/{asset_id}/generate")
 def generate_asset(asset_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"generate:{asset_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_asset(asset_id)
+
     def action():
         result = project_service.generate_asset(asset_id)
-        repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id, "attempt": result["attempt"]})
         return result
-    return guard(
-        action, command_name="asset.generate", project_id=_asset_project(asset_id),
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="asset.generate", project_id=_asset_project(asset_id),
         metadata={"asset_id": asset_id},
     )
 
@@ -400,16 +498,15 @@ def generate_asset(asset_id: str, idempotency_key: str | None = Header(default=N
 @app.post("/v1/assets/{asset_id}/retry")
 def retry_asset(asset_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"retry:{asset_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_asset(asset_id)
 
     def action():
         result = project_service.generate_asset(asset_id)
-        repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id, "attempt": result["attempt"]})
         return result
-    return guard(
-        action, command_name="asset.retry", project_id=_asset_project(asset_id),
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="asset.retry", project_id=_asset_project(asset_id),
         metadata={"asset_id": asset_id},
     )
 
@@ -419,17 +516,16 @@ def correct_asset(
     asset_id: str, request: AssetCorrectionRequest, idempotency_key: str | None = Header(default=None),
 ) -> dict[str, Any]:
     scope = f"correct-asset:{asset_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_asset(cached["asset_id"])
 
     def action():
         result = project_service.correct_asset(asset_id, request)
-        repository.save_idempotent(scope, idempotency_key, {"asset_id": result["id"]})
         return result
 
-    return guard(
-        action, command_name="asset.correct", project_id=_asset_project(asset_id),
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="asset.correct", project_id=_asset_project(asset_id),
         input_data=request.model_dump(mode="json"), metadata={"asset_id": asset_id},
     )
 
@@ -440,19 +536,18 @@ def revise_asset_prompt(
     idempotency_key: str | None = Header(default=None),
 ) -> dict[str, Any]:
     scope = f"revise-asset-prompt:{asset_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_asset(cached["asset_id"])
 
     def action():
         result = project_service.revise_asset_prompt(
             asset_id, request.prompt, request.expected_dependency_hash,
         )
-        repository.save_idempotent(scope, idempotency_key, {"asset_id": result["id"]})
         return result
 
-    return guard(
-        action, command_name="visual.prompt.revise", project_id=_asset_project(asset_id),
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="visual.prompt.revise", project_id=_asset_project(asset_id),
         input_data=request.model_dump(mode="json"), metadata={"asset_id": asset_id},
     )
 
@@ -460,17 +555,16 @@ def revise_asset_prompt(
 @app.post("/v1/assets/{asset_id}/restore")
 def restore_asset_version(asset_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"restore-asset-version:{asset_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_asset(asset_id)
 
     def action():
         result = project_service.restore_asset_version(asset_id)
-        repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id})
         return result
 
-    return guard(
-        action, command_name="asset.restore", project_id=_asset_project(asset_id),
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="asset.restore", project_id=_asset_project(asset_id),
         metadata={"asset_id": asset_id},
     )
 
@@ -478,17 +572,16 @@ def restore_asset_version(asset_id: str, idempotency_key: str | None = Header(de
 @app.post("/v1/assets/{asset_id}/approve")
 def approve_asset(asset_id: str, idempotency_key: str | None = Header(default=None)) -> dict[str, Any]:
     scope = f"approve-asset:{asset_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_asset(asset_id)
 
     def action():
         result = project_service.approve_asset(asset_id)
         observer.score("human_asset_approval", 1.0, project_id=result["project_id"])
-        repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id})
         return result
-    return guard(
-        action, command_name="asset.approve", project_id=_asset_project(asset_id),
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name="asset.approve", project_id=_asset_project(asset_id),
         metadata={"asset_id": asset_id},
     )
 
@@ -499,9 +592,6 @@ def approve_scene_asset(
     idempotency_key: str | None = Header(default=None),
 ) -> dict[str, Any]:
     scope = f"approve-scene:{asset_id}"
-    cached = repository.get_idempotent(scope, idempotency_key)
-    if cached:
-        return repository.get_asset(asset_id)
 
     def action():
         result = project_service.approve_scene_asset(asset_id, request)
@@ -509,11 +599,13 @@ def approve_scene_asset(
             "human_asset_approval", 1.0, project_id=result["project_id"],
             comment=f"verification_override={request.override_verification}",
         )
-        repository.save_idempotent(scope, idempotency_key, {"asset_id": asset_id})
         return result
 
-    return guard(
-        action, command_name=("visual.verification.override" if request.override_verification else "asset.approve"),
+    return run_mutation(
+        action,
+        scope=scope,
+        idempotency_key=idempotency_key,
+        command_name=("visual.verification.override" if request.override_verification else "asset.approve"),
         project_id=_asset_project(asset_id),
         input_data=request.model_dump(mode="json"), metadata={"asset_id": asset_id, "asset_kind": "scene_keyframe"},
     )

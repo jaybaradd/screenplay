@@ -763,6 +763,22 @@ class ProjectService:
         return restored
 
     def generate_asset(self, asset_id: str) -> dict[str, Any]:
+        # Preserve the not-found response before inserting the foreign-key claim.
+        self.repository.get_asset(asset_id)
+
+        owner_token = str(uuid.uuid4())
+        if not self.repository.claim_asset_generation(asset_id, owner_token):
+            raise ValueError(
+                "Another generation already claimed this asset. "
+                "Check the asset status before retrying."
+            )
+
+        try:
+            return self._generate_claimed_asset(asset_id)
+        finally:
+            self.repository.release_asset_generation(asset_id, owner_token)
+
+    def _generate_claimed_asset(self, asset_id: str) -> dict[str, Any]:
         asset = self.repository.get_asset(asset_id)
         if asset["status"] == AssetStatus.approved:
             return asset

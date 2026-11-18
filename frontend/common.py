@@ -285,6 +285,84 @@ def setup_page(title: str, icon: str = "🎬") -> None:
 
     .stage * { color: #ffffff !important; }
     </style>""", unsafe_allow_html=True)
+    show_pending_operations()
+
+
+def show_pending_operations() -> None:
+    pending = client.pending_operations()
+    notice = st.session_state.pop("operation_notice", None)
+
+    with st.sidebar:
+        if notice:
+            st.info(notice)
+        if not pending:
+            return
+
+        with st.expander("Pending submissions", expanded=True):
+            for slot, operation in list(pending.items()):
+                key = operation["key"]
+                label = operation["scope"].split(":", 1)[0].replace("-", " ").capitalize()
+                st.markdown(f"**{label}**")
+
+                if st.button("Check status", key=f"check-operation-{key}"):
+                    try:
+                        operation["last_status"] = client.operation_status(slot)
+                    except APIError as error:
+                        operation.pop("last_status", None)
+                        st.error(str(error))
+
+                status = operation.get("last_status")
+                if status is None:
+                    continue
+
+                if status["status"] == "finished":
+                    result = status["outcome"]["result"]
+                    del pending[slot]
+                    finish_recovered_operation(operation["scope"], result)
+
+                elif status["status"] == "not_recorded":
+                    st.info("No submission has been recorded yet. You can resend the original request.")
+                    if st.button("Resend original request", key=f"resend-operation-{key}"):
+                        operation.pop("last_status", None)
+                        try:
+                            result = client.resend_operation(slot)
+                        except APIError as error:
+                            st.error(str(error))
+                        else:
+                            finish_recovered_operation(operation["scope"], result)
+
+                elif status["status"] == "uncertain":
+                    error = status["outcome"]["error"]
+                    detail = error["detail"]
+                    message = detail.get("message", detail) if isinstance(detail, dict) else detail
+                    st.warning(f"{message} Check the project or asset before starting another attempt.")
+                    if st.button("I’ve reviewed the outcome", key=f"review-operation-{key}"):
+                        del pending[slot]
+                        st.rerun()
+
+                elif status["status"] == "running":
+                    st.info(
+                        "The backend accepted the request and hasn’t recorded an outcome. "
+                        "It may still be running or may have been interrupted."
+                    )
+
+
+def finish_recovered_operation(scope: str, result: dict) -> None:
+    if scope == "create-project":
+        st.session_state.project_id = result["id"]
+        st.session_state.operation_notice = (
+            f"Project created. You can reopen {result['title']} from Home."
+        )
+    else:
+        st.session_state.operation_notice = "Submission completed. The page is up to date."
+    st.rerun()
+
+
+def show_action_error(error: APIError) -> None:
+    if error.unresolved:
+        st.session_state.operation_notice = str(error)
+        st.rerun()
+    st.error(str(error))
 
 
 def require_project() -> dict:
@@ -310,4 +388,4 @@ def run_action(label: str, action, *, success: str = "Saved", key: str | None = 
             st.success(success)
             st.rerun()
         except APIError as error:
-            st.error(str(error))
+            show_action_error(error)
